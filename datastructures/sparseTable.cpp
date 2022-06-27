@@ -1,27 +1,24 @@
 struct SparseTable {
-  int st[MAX_N][MAX_LOG + 1], log[MAX_N + 1]; // Achtung: 2^MAX_LOG > MAX_N
-  vector<int> *a;
+  vector<vector<int>> st;
+  vector<ll> *a;
 
-  // Funktion muss idempotent sein! Hier Minimum.
-  bool better(int lidx, int ridx) { return a->at(lidx) <= a->at(ridx); }
-
-  void init(vector<int> *vec) {
-    a = vec;
-    for (int i = 0; i < (int)a->size(); i++) st[i][0] = i;
-    for (int j = 1; j <= MAX_LOG; j++) {
-      for (int i = 0; i + (1 << j) <= (int)a->size(); i++) {
-        st[i][j] = better(st[i][j - 1], st[i + (1 << (j - 1))][j - 1])
-            ? st[i][j - 1] : st[i + (1 << (j - 1))][j - 1];
-    }}
-
-    log[1] = 0;
-    for (int i = 2; i <= MAX_N; i++) log[i] = log[i/2] + 1;
+  bool better(int lidx, int ridx) {
+    return a->at(lidx) <= a->at(ridx);
   }
-  
-  // Gibt Index des Ergebnisses in [l,r]. Laufzeit: O(1)
+
+  void init(vector<ll> *vec) {
+    a = vec;
+    st.assign(__lg(sz(*a)) + 1, vector<int>(sz(*a)));
+    for (int i = 0; i < sz(*a); i++) st[0][i] = i;
+    for (int j = 0; (2 << j) <= sz(*a); j++) {
+      for (int i = 0; i + (2 << j) <= sz(*a); i++) {
+        st[j + 1][i] = better(st[j][i] , st[j][i + (1 << j)])
+                            ? st[j][i] : st[j][i + (1 << j)];
+  }}}
+
   int queryIdempotent(int l, int r) {
-    int j = log[r - l + 1];
-    return better(st[l][j], st[r - (1 << j) + 1][j])
-        ? st[l][j] : st[r - (1 << j) + 1][j];
+    int j = __lg(r - l); //31 - __builtin_clz(r - l);
+    return better(st[j][l] , st[j][r - (1 << j)])
+                ? st[j][l] : st[j][r - (1 << j)];
   }
 };

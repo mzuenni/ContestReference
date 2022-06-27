@@ -1,28 +1,29 @@
-// Laufzeit: O(|V|^3)
 struct PushRelabel {
-	ll capacities[MAX_V][MAX_V], flow[MAX_V][MAX_V], excess[MAX_V];
-	int height[MAX_V], list[MAX_V - 2], seen[MAX_V], n;
+	vector<vector<long long>> capacitie, flow;
+	vector<long long> excess;
+	vector<int> height, seen, list;
+	int n;
 
 	PushRelabel(int n) {
 		this->n = n;
-		memset(capacities, 0L, sizeof(capacities));
-		memset(flow, 0L, sizeof(flow));
-		memset(excess, 0L, sizeof(excess));
-		memset(height, 0, sizeof(height));
-		memset(list, 0, sizeof(list)); 
-		memset(seen, 0, sizeof(seen));
+		capacities.assign(n, vector<long long>(n));
+		flow.assign(n, vector<long long>(n));
+		excess.assign(n, 0);
+		height.assign(n, 0);
+		seen.assign(n, 0);
+		list.assign(n - 2, 0);
 	}
 
-	inline void addEdge(int u, int v, ll c) { capacities[u][v] += c; }
+	inline void addEdge(int u, int v, long long c) {capacities[u][v] += c;}
 
 	void push(int u, int v) {
-		ll send = min(excess[u], capacities[u][v] - flow[u][v]);
+		long long send = min(excess[u], capacities[u][v] - flow[u][v]);
 		flow[u][v] += send; flow[v][u] -= send;
 		excess[u] -= send; excess[v] += send;
 	}
 
 	void relabel(int u) {
-		int minHeight = INT_MAX / 2;
+		int minHeight = INT_INF;
 		for (int v = 0; v < n; v++) {
 			if (capacities[u][v] - flow[u][v] > 0) {
 				minHeight = min(minHeight, height[v]);
@@ -47,12 +48,12 @@ struct PushRelabel {
 		list[0] = temp;
 	}
 
-	ll maxFlow(int source, int target) {
+	long long maxFlow(int source, int target) {
 		for (int i = 0, p = 0; i < n; i++)
 			if (i != source && i != target) list[p++] = i;
 
 		height[source] = n;
-		excess[source] = LLONG_MAX / 2;
+		excess[source] = INF;
 		for (int i = 0; i < n; i++) push(source, i);
 
 		int p = 0;
@@ -65,7 +66,7 @@ struct PushRelabel {
 			} else p++;
 		}
 
-		ll maxflow = 0L;
+		long long maxflow = 0;
 		for (int i = 0; i < n; i++) maxflow += flow[source][i];
 		return maxflow;
 	}

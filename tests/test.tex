@@ -1,0 +1,44 @@
+\section{Tests} 
+Dieser Abschnitt enthält lediglich Dinge die während der Practicesession getestet werden sollten!
+
+\subsection{GCC}
+\begin{itemize}
+	\item sind c++14 Feature vorhanden?
+	\item sind c++17 Feature vorhanden?
+	\item kompiliert dieser Code:
+\end{itemize}
+\lstinputlisting{tests/gcc5bug.cpp}
+\begin{itemize}
+	\item funktioniert \code{\_\_int128}?
+	\item funktionieren Pragmas?
+	\item funktionieren \code{constexpr} zur Compilezeit (+Zeitlimit)?
+	\item wie groß ist \code{sizeof(char*)}?
+	\item wie groß ist \code{RAND\_MAX}?
+	\item funktioniert \code{random_device}? (und gib es unerschiedliche Ergebnisse?)
+	\item funktioniert \code{clock()}?
+\end{itemize}
+
+\subsection{Java}
+\begin{itemize}
+	\item startet eclipse?
+	\item funktionieren Java8 feature (lambdas)?
+\end{itemize}
+
+\subsection{Judge}
+\begin{itemize}
+	\item ist der Checker casesensitive?
+	\item wie werden zusätzliches Whitespacecharacter bei sonst korrektem Output behandelt?
+	\item vergleiche ausführungszeit auf dem judge und lokal (z.b. mit Primzahl Sieb)
+\end{itemize}
+\lstinputlisting{tests/whitespace.cpp}
+
+\subsection{Precision}
+\begin{itemize}
+	\item Mode $0$ means no excess precision
+	\item Mode $2$ means excess precision (all operations in $80$\,bit floats)
+\end{itemize}
+\begin{itemize}
+	\item Result $0$ without excess precision (expected floating point error)
+	\item \textasciitilde$8e^{-17}$ with excess precision (real value)
+\end{itemize}
+\lstinputlisting{tests/precision.cpp}

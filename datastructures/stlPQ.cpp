@@ -1,6 +1,7 @@
 #include <ext/pb_ds/priority_queue.hpp>
 template<typename T>
-using priorityQueue = __gnu_pbds::priority_queue<T, less<T>>; // greater<T> für Min-Queue
+// greater<T> für Min-Queue
+using priorityQueue = __gnu_pbds::priority_queue<T, less<T>>;
 
 int main() {
 	priorityQueue<int> pq;

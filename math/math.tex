@@ -1,58 +1,187 @@
 \section{Mathe}
 
-\subsection{ggT, kgV, erweiterter euklidischer Algorithmus}
-\lstinputlisting{math/gcd-lcm.cpp}
-\lstinputlisting{math/extendedEuclid.cpp}
+\begin{algorithm}{Zykel Erkennung}
+	\begin{methods}
+		\method{cycleDetection}{findet Zyklus von $x_0$ und länge in $f$}{b+l}
+	\end{methods}
+	\sourcecode{math/cycleDetection.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Permutationen}
+	\begin{methods}
+		\method{kthperm}{findet $k$-te Permutation \big($k \in [0, n!$)\big)}{n\*\log(n)}
+	\end{methods}
+	\sourcecode{math/kthperm.cpp}
+	\begin{methods}
+		\method{permIndex}{bestimmt index der Permutation \big($\mathit{res} \in [0, n!$)\big)}{n\*\log(n)}
+	\end{methods}
+	\sourcecode{math/permIndex.cpp}
+\end{algorithm}
 
 \paragraph{Lemma von \textsc{Bézout}}
-Sei $(x, y)$ eine Lösung für $ax + by = d$.
+Sei $(x, y)$ eine Lösung der diophantischen Gleichung $ax + by = d$.
 Dann lassen sich wie folgt alle Lösungen berechnen:
 \[
-	\left(x + k\frac{b}{\ggT(a, b)},~y - k\frac{a}{\ggT(a, b)}\right)
+\left(x + k\frac{b}{\ggT(a, b)},~y - k\frac{a}{\ggT(a, b)}\right)
 \]
 
-\paragraph{Multiplikatives Inverses von $x$ in $\mathbb{Z}/n\mathbb{Z}$}
-Sei $0 \leq x < n$. Definiere $d := \ggT(x, n)$.\newline
-\textbf{Falls $d = 1$:}
-\begin{itemize}[nosep]
-	\item Erweiterter euklidischer Algorithmus liefert $\alpha$ und $\beta$ mit
-	$\alpha x + \beta n = 1$.
-	\item Nach Kongruenz gilt $\alpha x + \beta n \equiv \alpha x \equiv 1 \mod n$.
-	\item $x^{-1} :\equiv \alpha \mod n$
-	\end{itemize}
-\textbf{Falls $d \neq 1$:} Es existiert kein $x^{-1}$.
-\lstinputlisting{math/multInv.cpp}
+\paragraph{\textsc{Pell}-Gleichungen}
+Sei $(\overline{x}, \overline{y})$ die Lösung von $x^2 - ny^2 = 1$, die $x>1$ minimiert.
+Sei $(\tilde{x}, \tilde{y})$ die Lösung von $x^2-ny^2 = c$, die $x>1$ minimiert. Dann lassen
+sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
+\begin{align*}
+	x_1&\coloneqq \tilde{x}, & y_1&\coloneqq\tilde{y}\\
+	x_{k+1}&\coloneqq \overline{x}x_k+n\overline{y}y_k, & y_{k+1}&\coloneqq\overline{x}y_k+\overline{y}x_k
+\end{align*}
 
-\subsection{Mod-Exponent über $\mathbb{F}_p$}
-\lstinputlisting{math/modExp.cpp}
-Iterativ:
-\lstinputlisting{math/modPowIterativ.cpp}
+\begin{algorithm}{ggT, kgV, erweiterter euklidischer Algorithmus}
+	\runtime{\log(a) + \log(b)}
+	\sourcecode{math/gcd-lcm.cpp}
+	\sourcecode{math/extendedEuclid.cpp}
+\end{algorithm}
 
-\subsection{Chinesischer Restsatz}
+\subsection{Multiplikatives Inverses von $\boldsymbol{n}$ in $\boldsymbol{\mathbb{Z}/p\mathbb{Z}}$}
+\textbf{Falls $\boldsymbol{p}$ prim:}\quad $x^{-1} \equiv x^{p-2} \bmod p$
+
+\textbf{Falls $\boldsymbol{\ggT(n, p) = 1}$:}
 \begin{itemize}
-	\item Extrem anfällig gegen Overflows. Evtl. häufig 128-Bit Integer verwenden.
-	\item Direkte Formel für zwei Kongruenzen $x \equiv a \mod n$, $x \equiv b \mod m$:
-	\[
-		x \equiv a - y * n * \frac{a - b}{d} \mod \frac{mn}{d}
-		\qquad \text{mit} \qquad
-		d := \ggT(n, m) = yn + zm
-	\]
-	Formel kann auch für nicht teilerfremde Moduli verwendet werden.
-	Sind die Moduli nicht teilerfremd, existiert genau dann eine Lösung,
-	wenn $a\equiv~b \mod \ggT(m, n)$.
-	In diesem Fall sind keine Faktoren
-	auf der linken Seite erlaubt.
+	\item Erweiterter euklidischer Algorithmus liefert $\alpha$ und $\beta$ mit
+	$\alpha n + \beta p = 1$.
+	\item Nach Kongruenz gilt $\alpha n + \beta p \equiv \alpha n \equiv 1 \bmod p$.
+	\item $n^{-1} :\equiv \alpha \bmod p$
+	\end{itemize}
+\textbf{Sonst $\boldsymbol{\ggT(n, p) > 1}$:}\quad Es existiert kein $x^{-1}$.
+\sourcecode{math/multInv.cpp}
+
+\begin{algorithm}{Lineare Kongruenz}
+	\begin{itemize}
+		\item Löst $ax\equiv b\pmod{m}$.
+		\item Weitere Lösungen unterscheiden sich um \raisebox{2pt}{$\frac{m}{g}$}, es gibt
+		also $g$ Lösungen modulo $m$.
+	\end{itemize}
+	\sourcecode{math/linearCongruence.cpp}
+\end{algorithm}
+
+\subsection{Mod-Exponent und Multiplikation über $\boldsymbol{\mathbb{F}_p}$}
+%\vspace{-1.25em}
+%\begin{multicols}{2}
+	\method{mulMod}{berechnet $a \cdot b \bmod n$}{\log(b)}
+	\sourcecode{math/modMulIterativ.cpp}
+%	\vfill\null\columnbreak
+	\method{powMod}{berechnet $a^b \bmod n$}{\log(b)}
+	\sourcecode{math/modPowIterativ.cpp}
+%\end{multicols}
+%\vspace{-2.75em}
+\begin{itemize}
+	\item für $a > 10^9$ \code{__int128} oder \code{modMul} benutzten! 
 \end{itemize}
-\lstinputlisting{math/chineseRemainder.cpp}
 
-\subsection{Primzahltest \& Faktorisierung}
-\lstinputlisting{math/primes.cpp}
+\begin{algorithm}{Matrix-Exponent}
+	\begin{methods}
+		\method{precalc}{berechnet $m^{2^b}$ vor}{\log(b)\*n^3}
+		\method{calc}{berechnet $m^b_{y,x}$}{\log(b)\cdot n^2}
+	\end{methods}
+	\sourcecode{math/matrixPower.cpp}
+\end{algorithm}
 
-\subsection{Primzahlsieb von \textsc{Eratosthenes}}
-\lstinputlisting{math/primeSieve.cpp}
+\begin{algorithm}{Berlekamp-Massey}
+	\begin{methods}
+		\method{BerlekampMassey}{Berechnet ein lineare Recurenz $n$-ter Ordnung}{n^2}
+		\method{}{aus den ersten $2n$ Werte}{}
+	\end{methods}
+	\sourcecode{math/berlekampMassey.cpp}
+\end{algorithm}
 
-\subsection{\textsc{Euler}sche $\varphi$-Funktion}
-\begin{itemize}[nosep]
+\begin{algorithm}{Lineare-Recurenz}
+	Sei $f(n)=c_{n-1}f(n-1)+c_{n-2}f(n-2)+\dots + c_0f(0)$ eine Lineare Recurenz. Dann kann das \mbox{$k$-te} folgenglid in \runtime{n^3\log(k)} brechnet werden.
+	$$\renewcommand\arraystretch{1.5}
+	\setlength\arraycolsep{3pt}
+	\begin{pmatrix} 
+		c_{n-1} & c_{n-2} & \smash{\cdots} & \smash{\cdots} & c_0 \\
+		1 & 0 & \smash{\cdots} & \smash{\cdots} & 0 \\
+		0 & \smash{\ddots} & \smash{\ddots} & & \smash{\vdots} \\
+		0 & \smash{\ddots} & \smash{\ddots} & \smash{\ddots} & \smash{\vdots} \\
+		0 & \smash{\cdots} & 0 & 1 & 0 \\
+	\end{pmatrix}^k
+	\times~~
+	\begin{pmatrix} 
+		f(n-1) \\
+		f(n-2) \\
+		\smash{\vdots} \\
+		\smash{\vdots} \\
+		f(0) \\
+	\end{pmatrix}
+	~~=~~
+	\begin{pmatrix} 
+	f(n-1+k) \\
+	f(n-2+k) \\
+	\smash{\vdots} \\
+	\smash{\vdots} \\
+	f(k) \makebox[0pt][l]{\hspace{15pt}$\vcenter{\hbox{\huge$\leftarrow$}}$}\\
+	\end{pmatrix}
+	$$
+\end{algorithm}
+
+\begin{algorithm}{Chinesischer Restsatz}
+	\begin{itemize}
+		\item Extrem anfällig gegen Overflows. Evtl. häufig 128-Bit Integer verwenden.
+		\item Direkte Formel für zwei Kongruenzen $x \equiv a \bmod n$, $x \equiv b \bmod m$:
+		\[
+			x \equiv a - y \cdot n \cdot \frac{a - b}{d} \bmod \frac{mn}{d}
+			\qquad \text{mit} \qquad
+			d := \ggT(n, m) = yn + zm
+		\]
+		Formel kann auch für nicht teilerfremde Moduli verwendet werden.
+		Sind die Moduli nicht teilerfremd, existiert genau dann eine Lösung,
+		wenn $a\equiv~b \bmod \ggT(m, n)$.
+		In diesem Fall sind keine Faktoren
+		auf der linken Seite erlaubt.
+	\end{itemize}
+	\sourcecode{math/chineseRemainder.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Primzahltest \& Faktorisierung}
+	\begin{itemize}
+		\item für $n > 10^9$ \texttt{BigInteger} benutzten order \texttt{modMul}! 
+	\end{itemize}
+	\method{isPrime}{prüft ob Zahl prim ist}{\log(n)^2}
+	\sourcecode{math/millerRabin.cpp}
+	\method{rho}{findet zufälligen Teiler}{\sqrt[\leftroot{3}\uproot{2}3]{n}}
+	\sourcecode{math/rho.cpp}
+	\method{squfof}{findet zufälligen Teiler}{\sqrt[\leftroot{4}\uproot{2}4]{n}}
+	\sourcecode{math/squfof.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Primzahlsieb von \textsc{Eratosthenes}}
+	\begin{itemize}
+		\item Kann erweitert werden: Für jede Zahl den \{kleinsten, größten\} Primfaktor speichern, Liste von Primzahlen berechnen
+		\item Bis $10^8$ in unter 64MB Speicher (lange Berechnung)
+	\end{itemize}
+	\begin{methods}
+		\method{primeSieve}{berechnet Primzahlen und Anzahl}{n\*\log(\log(n))}
+		\method{isPrime}{prüft ob Zahl prim ist}{1}
+	\end{methods}
+	\sourcecode{math/primeSieve.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Teiler}
+	\begin{methods}
+		\method{countDivisors}{Zählt teiler von $n$}{n^\frac{1}{3}}
+		\method{isPrime}{prüft ob Zahl prim ist}{1}
+	\end{methods}
+	\sourcecode{math/divisors.cpp}
+\end{algorithm}
+
+\subsection{Primzahlzählfunktion $\boldsymbol{\pi}$}
+\begin{methods}
+	\method{init}{berechnet $\pi$ bis $N$}{N\*\log(\log(N))}
+	\method{phi}{zählt zu $p_i$ teilerfremde Zahlen $\leq n$ für alle $i \leq k$}{???}
+	\method{pi}{zählt Primzahlen  $\leq n$ ($n < N^2$)}{n^{2/3}}
+\end{methods}
+\sourcecode{math/piLehmer.cpp}
+
+\subsection{\textsc{Euler}sche $\boldsymbol{\varphi}$-Funktion}
+\begin{itemize}
 	\item Zählt die relativ primen Zahlen $\leq n$.
 
 	\item Multiplikativ:
@@ -61,67 +190,136 @@ Iterativ:
 	\item $p$ prim, $k \in \mathbb{N}$:
 	$~\varphi(p^k) = p^k - p^{k - 1}$
 
-	\item $n = p_1^{a_1} \cdot \ldots \cdot p_k^{a_k}$:
-	$~\varphi(n) = n \cdot \left(1 - \frac{1}{p_1}\right) \cdot \ldots \cdot \left(1 - \frac{1}{p_k}\right)$
-	Evtl. ist es sinnvoll obgien Code zum Faktorisieren zu benutzen und dann diese Formel anzuwenden.
-
 	\item \textbf{\textsc{Euler}'s Theorem:}
-	Seien $a$ und $m$ teilerfremd. Dann:
-	$a^{\varphi(m)} \equiv 1 \mod m$\newline
+		Für $b \geq \varphi(c)$ gilt: $a^b \equiv a^{b \bmod \varphi(c) + \varphi(c)} \pmod{c}$. Darüber hinaus gilt: $\gcd(a, c) = 1 \Leftrightarrow a^b \equiv a^{b \bmod \varphi(c)} \pmod{c}$.
 	Falls $m$ prim ist, liefert das den \textbf{kleinen Satz von \textsc{Fermat}}:
-	$a^{m} \equiv a \mod m$
+	$a^{m} \equiv a \pmod{m}$
 \end{itemize}
-\lstinputlisting{math/phi.cpp}
+\sourcecode{math/phi.cpp}
 
-\subsection{Primitivwurzeln}
-\begin{itemize}[nosep]
-	\item Primitivwurzel modulo $n$ existiert genau dann wenn:
-	\begin{itemize}[nosep]
-		\item $n$ ist $1$, $2$ oder $4$, oder
-		\item $n$ ist Potenz einer ungeraden Primzahl, oder
-		\item $n$ ist das Doppelte einer Potenz einer ungeraden Primzahl.
+\begin{algorithm}{\textsc{Möbius}-Funktion und \textsc{Möbius}-Inversion}
+	\begin{itemize}
+		\item Seien $f,g : \mathbb{N} \to \mathbb{N}$ und  $g(n) := \sum_{d \vert n}f(d)$.
+		Dann ist $f(n) = \sum_{d \vert n}g(d)\mu(\frac{n}{d})$.
+		\item $\sum\limits_{d \vert n}\mu(d) =
+		\begin{cases*}
+		1 & falls $n = 1$\\
+		0 & sonst
+		\end{cases*}$
 	\end{itemize}
+	\textbf{Beispiel Inklusion/Exklusion:}
+	Gegeben sein eine Sequenz $A={a_1,\ldots,a_n}$ von Zahlen, $1 \leq a_i \leq N$. Zähle die Anzahl der \emph{coprime subsequences}.\newline
+	\textbf{Lösung}:
+	Für jedes $x$, sei $cnt[x]$ die Anzahl der Vielfachen von $x$ in $A$.
+	Es gibt $2^{cnt[x]}-1$ nicht leere Subsequences in $A$, die nur Vielfache von $x$ enthalten.
+	Die Anzahl der Subsequences mit $\ggT=1$ ist gegeben durch $\sum_{i = 1}^N \mu(i) \cdot (2^{cnt[i]} - 1)$.
+	\sourcecode{math/mobius.cpp}
+\end{algorithm}
 
-	\item Sei $g$ Primitivwurzel modulo $n$.
-	Dann gilt:\newline
-	Das kleinste $k$, sodass $g^k \equiv 1 \mod n$, ist $k = \varphi(n)$.
-\end{itemize}
-\lstinputlisting{math/primitiveRoot.cpp}
+\begin{algorithm}{Primitivwurzeln}
+	\begin{itemize}
+		\item Primitivwurzel modulo $n$ existiert $\Leftrightarrow$ $n \in \{2,\ 4,\ p^\alpha,\ 2\cdot p^\alpha \mid\ 2 < p \in \mathbb{P},\ \alpha \in \mathbb{N}\}$
+		\item es existiert entweder keine oder $\varphi(\varphi(n))$ inkongruente Primitivwurzeln
+		\item Sei $g$ Primitivwurzel modulo $n$.
+		Dann gilt:\newline
+		Das kleinste $k$, sodass $g^k \equiv 1 \bmod n$, ist $k = \varphi(n)$.
+	\end{itemize}
+	\begin{methods}
+		\method{isPrimitive}{prüft ob $g$ eine Primitivwurzel ist}{\log(\varphi(n))\*\log(n)}
+		\method{findPrimitive}{findet Primitivwurzel (oder -1)}{\abs{ans}\*\log(\varphi(n))\*\log(n)}
+	\end{methods}
+	\sourcecode{math/primitiveRoot.cpp}
+\end{algorithm}
 
-\subsection{Diskreter Logarithmus}
-\lstinputlisting{math/discreteLogarithm.cpp}
+\begin{algorithm}{Diskreter Logarithmus}
+	\begin{methods}
+		\method{solve}{bestimmt Lösung $x$ für $a^x=b \bmod m$}{\sqrt{m}\*\log(m)}
+	\end{methods}
+	\sourcecode{math/discreteLogarithm.cpp}
+\end{algorithm}
+%TODO
+\begin{algorithm}{Diskrete \textrm{\textit{n}}-te Wurzel}
+	\begin{methods}
+		\method{root}{bestimmt Lösung $x$ für $x^a=b \bmod m$ }{\sqrt{m}\*\log(m)}
+	\end{methods}
+	Alle Lösungen haben die Form $g^{c + \frac{i \cdot \phi(n)}{\gcd(a, \phi(n))}}$
+	\sourcecode{math/discreteNthRoot.cpp}
+\end{algorithm}
 
-\subsection{Binomialkoeffizienten}
-\lstinputlisting{math/binomial.cpp}
+\subsection{LGS über $\boldsymbol{\mathbb{F}_p}$}
+\method{gauss}{löst LGS}{n^3}
+\sourcecode{math/lgsFp.cpp}
 
-\subsection{LGS über $\mathbb{F}_p$}
-\lstinputlisting{math/lgsFp.cpp}
+\subsection{LGS über $\boldsymbol{\mathbb{R}}$}
+\sourcecode{math/gauss.cpp}
 
-\subsection{LGS über $\mathbb{R}$}
-\lstinputlisting{math/gauss.cpp}
-
-\subsection{Polynome \& FFT}
+\begin{algorithm}{Polynome, FFT, NTT \& andere Transformationen}
 Multipliziert Polynome $A$ und $B$.
-\begin{itemize}[nosep]
-	\item $\deg(A * B) = \deg(A) + \deg(B)$
-	\item Vektoren \lstinline{a} und \lstinline{b} müssen mindestens Größe
-	$\deg(A * B) + 1$ haben.
-	Größe muss eine Zweierpotenz sein.
-	\item Für ganzzahlige Koeffizienten: \lstinline{(int)round(real(a[i]))}
-\end{itemize}
-\lstinputlisting{math/fft.cpp}
+	\begin{itemize}
+		\item $\deg(A \cdot B) = \deg(A) + \deg(B)$
+		\item Vektoren \lstinline{a} und \lstinline{b} müssen mindestens Größe
+		$\deg(A \cdot B) + 1$ haben.
+		Größe muss eine Zweierpotenz sein.
+		\item Für ganzzahlige Koeffizienten: \lstinline{(int)round(real(a[i]))}
+		\item xor, or und and Transform funktioniert auch mit \code{double} oder modulo einer Primzahl $p$ falls $p \geq 2^{\texttt{bits}}$
+	\end{itemize}
+	%\lstinputlisting{math/fft.cpp}
+	%\lstinputlisting{math/ntt.cpp}
+	%\textcolor{safeOrange}{$\blacksquare$} NTT code, %\textcolor{safeGreen}{$\blacksquare$} FFT code
+	\sourcecode{math/transforms/all.cpp}
+	\columnbreak
+	Für sehr viele transforms kann die Vertauschung vorberechnet werden:
+	\sourcecode{math/transforms/fftPerm.cpp}
+	Multiplikation mit 2 transforms statt 3: (nur benutzten wenn nötig!)
+	\sourcecode{math/transforms/fftMul.cpp}
+\end{algorithm}
 
-\subsection{Numerisch Integrieren, Simpsonregel}
-\lstinputlisting{math/simpson.cpp}
+\begin{algorithm}{Numerisch Integrieren, Simpsonregel}
+	\sourcecode{math/simpson.cpp}
+\end{algorithm}
 
-\subsection{3D-Kugeln}
-\lstinputlisting{math/spheres.cpp}
+\begin{algorithm}{Numerisch Extremstelle bestimmen}
+	\sourcecode{math/goldenSectionSearch.cpp}
+\end{algorithm}
 
-\subsection{Longest Increasing Subsequence}
-\lstinputlisting{math/longestIncreasingSubsequence.cpp}
+\begin{algorithm}{Longest Increasing Subsequence}
+	\begin{itemize}
+		\item \code{lower\_bound} $\Rightarrow$ streng monoton
+		\item \code{upper\_bound} $\Rightarrow$ monoton
+	\end{itemize}
+	\sourcecode{math/longestIncreasingSubsequence.cpp}
+\end{algorithm}
 
-\subsection{Inversionszahl und Mergesort}
-\lstinputlisting{math/inversions.cpp}
+\begin{algorithm}{Inversionszahl}
+	\sourcecode{math/inversions.cpp}
+\end{algorithm}
+
+\begin{algorithm}{\textsc{Legendre}-Symbol}
+	Sei $p \geq 3$ eine Primzahl, $a \in \mathbb{Z}$:
+	\begin{align*}
+		\legendre{a}{p} &=
+		\begin{cases*}
+		\hphantom{-}0 & falls $p~\vert~a$ \\[-1ex]
+		\hphantom{-}1 & falls $\exists x \in \mathbb{Z}\backslash p\mathbb{Z} : a \equiv x^2 \bmod p$ \\[-1ex]
+		-1 & sonst
+		\end{cases*} \\
+		\legendre{-1}{p} = (-1)^{\frac{p - 1}{2}} &=
+		\begin{cases*}
+		\hphantom{-}1 & falls $p \equiv 1 \bmod 4$ \\[-1ex]
+		-1 & falls $p \equiv 3 \bmod 4$
+		\end{cases*} \\
+		\legendre{2}{p} = (-1)^{\frac{p^2 - 1}{8}} &=
+		\begin{cases*}
+		\hphantom{-}1 & falls $p \equiv \pm 1 \bmod 8$ \\[-1ex]
+		-1 & falls $p \equiv \pm 3 \bmod 8$
+		\end{cases*}
+	\end{align*}
+	\begin{align*}
+		\legendre{p}{q} \cdot \legendre{q}{p} = (-1)^{\frac{p - 1}{2} \cdot \frac{q - 1}{2}} &&
+		\legendre{a}{p} \equiv a^{\frac{p-1}{2}}\bmod p
+	\end{align*}
+	\sourcecode{math/legendre.cpp}
+\end{algorithm}
 
 \subsection{Satz von \textsc{Sprague-Grundy}}
 Weise jedem Zustand $X$ wie folgt eine \textsc{Grundy}-Zahl $g\left(X\right)$ zu:
@@ -131,98 +329,22 @@ Weise jedem Zustand $X$ wie folgt eine \textsc{Grundy}-Zahl $g\left(X\right)$ zu
 		\left\{g\left(Y\right) \mid Y \text{ von } X \text{ aus direkt erreichbar}\right\}
 	\right\} 
 \]
-$X$ ist genau dann gewonnen, wenn $g\left(X\right) > 0$ ist.\\\\
+$X$ ist genau dann gewonnen, wenn $g\left(X\right) > 0$ ist.\\
 Wenn man $k$ Spiele in den Zuständen $X_1, \ldots, X_k$ hat, dann ist die \textsc{Grundy}-Zahl des Gesamtzustandes $g\left(X_1\right) \oplus \ldots \oplus g\left(X_k\right)$.
-
-\subsection{\textsc{Legendre}-Symbol}
-Sei $p \geq 3$ eine Primzahl, $a \in \mathbb{Z}$:
-\begin{align*}
-	\legendre{a}{p} &=
-	\begin{cases*}
-		 0 & falls $p~\vert~a$ \\[-1ex]
-		 1 & falls $\exists x \in \mathbb{Z}\backslash p\mathbb{Z} : a \equiv x^2 \mod p$ \\[-1ex]
-		-1 & sonst
-	\end{cases*} \\
-	\legendre{-1}{p} &= (-1)^{\frac{p - 1}{2}} =
-	\begin{cases*}
-		 1 & falls $p \equiv 1 \mod 4$ \\[-1ex]
-		-1 & falls $p \equiv 3 \mod 4$
-	\end{cases*} \\
-	\legendre{2}{p} &= (-1)^{\frac{p^2 - 1}{8}} =
-	\begin{cases*}
-		 1 & falls $p \equiv \pm 1 \mod 8$ \\[-1ex]
-		-1 & falls $p \equiv \pm 3 \mod 8$
-	\end{cases*} \\
-	\legendre{p}{q} \cdot \legendre{q}{p} &=
-	(-1)^{\frac{p - 1}{2} \cdot \frac{q - 1}{2}}
-\end{align*}
-\lstinputlisting{math/legendre.cpp}
-
-\subsection{\textsc{Möbius}-Funktion und \textsc{Möbius}-Inversion}
-\begin{itemize}
-	\item Seien $f,g : \mathbb{N} \to \mathbb{N}$ und  $g(n) := \sum_{d \vert n}f(d)$.
-	Dann ist $f(n) = \sum_{d \vert n}g(d)\mu(\frac{n}{d})$.
-	\item $\sum_{d \vert n}\mu(d) =
-			\begin{cases*}
-				1 & falls $n = 1$\\
-				0 & sonst
-			\end{cases*}$
-\end{itemize}
-\textbf{Beispiel Inklusion/Exklusion:}
-Gegeben sein eine Sequenz $A={a_1,\ldots,a_n}$ von Zahlen, $1 \leq a_i \leq N$. Zähle die Anzahl der \emph{coprime subsequences}.\newline
-\textbf{Lösung}:
-Für jedes $x$, sei $cnt[x]$ die Anzahl der Vielfachen von $x$ in $A$.
-Es gibt $2^{cnt[x]}-1$ nicht leere Subsequences in $A$, die nur Vielfache von $x$ enthalten.
-Die Anzahl der Subsequences mit $\ggT=1$ ist gegeben durch $\sum_{i = 1}^N \mu(i) \cdot (2^{cnt[i]} - 1)$.
-\lstinputlisting{math/mobius.cpp}
 
 \subsection{Kombinatorik}
 
-\begin{flushleft}
-	\begin{tabular}{ll}
-		\toprule
-		\multicolumn{2}{c}{Berühmte Zahlen} \\
-		\midrule 
-		\textsc{Fibonacci}	&
-		$f(0) = 0 \quad
-		f(1) = 1 \quad
-		f(n+2) = f(n+1) + f(n)$ \\
-
-		\textsc{Catalan}	&
-		$C_0 = 1 \qquad
-		C_n = \sum\limits_{k = 0}^{n - 1} C_kC_{n - 1 - k} =
-		\frac{1}{n + 1}\binom{2n}{n} = \frac{2(2n - 1)}{n+1} \cdot C_{n-1}$ \\
-
-		\textsc{Euler} I &
-		$\eulerI{n}{0} = \eulerI{n}{n-1} = 1 \qquad
-		\eulerI{n}{k} = (k+1) \eulerI{n-1}{k} + (n-k) \eulerI{n-1}{k-1} $ \\
-
-		\textsc{Euler} II &
-		$\eulerII{n}{0} = 1 \quad
-		\eulerII{n}{n} = 0 \quad
-		\eulerII{n}{k} = (k+1) \eulerII{n-1}{k} + (2n-k-1) \eulerII{n-1}{k-1}$ \\
-
-		\textsc{Stirling} I &
-		$\stirlingI{0}{0} = 1 \qquad
-		\stirlingI{n}{0} = \stirlingI{0}{n} = 0 \qquad
-		\stirlingI{n}{k} = \stirlingI{n-1}{k-1} + (n-1) \stirlingI{n-1}{k}$ \\
-
-		\textsc{Stirling} II &
-		$\stirlingII{n}{1} = \stirlingII{n}{n} = 1 \qquad
-		\stirlingII{n}{k} = k \stirlingII{n-1}{k} + \stirlingII{n-1}{k-1}$ \\
-
-		\textsc{Bell} &
-		$B_1 = 1 \qquad
-		B_n = \sum\limits_{k = 0}^{n - 1} B_k\binom{n-1}{k}
-		= \sum\limits_{k = 0}^{n}\stirlingII{n}{k}$\\
-
-		\textsc{Partitions} &
-		$f(0,0) = 1 \quad
-		f(n,k) = 0 \text{ für } k > n \text{ oder } n \leq 0 \text{ oder } k \leq 0$ \\
-		& $f(n,k) = f(n-k,k) + f(n-1,k-1)$ \\
-		\bottomrule
-	\end{tabular}
-\end{flushleft}
+\paragraph{Wilsons Theorem}
+A number $n$ is prime if and only if 
+$(n-1)!\equiv -1\bmod{n}$.\\
+($n$ is prime if and only if $(m-1)!\cdot(n-m)!\equiv(-1)^m\bmod{n}$ for all $m$ in $\{1,\dots,n\}$)
+\begin{align*}
+	(n-1)!\equiv\begin{cases}
+		-1\bmod{n},&\mathrm{falls}~n \in \mathbb{P}\\
+		\hphantom{-}2\bmod{n},&\mathrm{falls}~n = 4\\
+		\hphantom{-}0\bmod{n},&\mathrm{sonst}
+	\end{cases}
+\end{align*}
 
 \paragraph{\textsc{Zeckendorfs} Theorem}
 Jede positive natürliche Zahl kann eindeutig als Summe einer oder mehrerer
@@ -231,340 +353,124 @@ aufeinanderfolgenden \textsc{Fibonacci}-Zahlen in der Summe vorkommen.\\
 \emph{Lösung:} Greedy, nimm immer die größte \textsc{Fibonacci}-Zahl, die noch
 hineinpasst.
 
+\paragraph{\textsc{Lucas}-Theorem}
+Ist $p$ prim, $m=\sum_{i=0}^km_ip^i$, $n=\sum_{i=0}^kn_ip^i$ ($p$-adische Darstellung),
+so gilt
+\vspace{-0.75\baselineskip}
+\[
+	\binom{m}{n} \equiv \prod_{i=0}^k\binom{m_i}{n_i} \bmod{p}.
+\]
+
+\subsection{The Twelvefold Way \textnormal{(verteile $n$ Bälle auf $k$ Boxen)}}
+\input{math/tables/twelvefold}
+
 \paragraph{\textsc{Catalan}-Zahlen}
-\begin{itemize}[nosep]
-	\item Die erste und dritte angegebene Formel sind relativ sicher gegen Overflows.
-	\item Die erste Formel kann auch zur Berechnung der \textsc{Catalan}-Zahlen
-	bezüglich eines Moduls genutzt werden.
-	\item Die \textsc{Catalan}-Zahlen geben an: $C_n =$
-	\begin{itemize}[nosep]
+\begin{itemize}
+	\item Die \textsc{Catalan}-Zahl $C_n$ gibt an:
+	\begin{itemize}
 		\item Anzahl der Binärbäume mit $n$ nicht unterscheidbaren Knoten.
 		\item Anzahl der validen Klammerausdrücke mit $n$ Klammerpaaren.
 		\item Anzahl der korrekten Klammerungen von $n+1$ Faktoren.
-		\item Anzahl der Möglichkeiten ein konvexes Polygon mit $n + 2$ Ecken in
-		Dreiecke zu zerlegen.
+		\item Anzahl der Möglichkeiten ein konvexes Polygon mit $n + 2$ Ecken in Dreiecke zu zerlegen.
 		\item Anzahl der monotonen Pfade (zwischen gegenüberliegenden Ecken) in
 		einem $n \times n$-Gitter, die nicht die Diagonale kreuzen.
 	\end{itemize}
+\end{itemize}
+\[C_0 = 1\qquad C_n = \sum\limits_{k = 0}^{n - 1} C_kC_{n - 1 - k} =
+\frac{1}{n + 1}\binom{2n}{n} = \frac{4n - 2}{n+1} \cdot C_{n-1}\]
+\begin{itemize}
+	\item Formel $1$ erlaubt berechnung ohne Division in \runtime{n^2}
+	\item Formel $2$ und $3$ erlauben berechnung in \runtime{n}
 \end{itemize}
 
 \paragraph{\textsc{Euler}-Zahlen 1. Ordnung}
 Die Anzahl der Permutationen von $\{1, \ldots, n\}$ mit genau $k$ Anstiegen.
 Für die $n$-te Zahl gibt es $n$ mögliche Positionen zum Einfügen.
 Dabei wird entweder ein Ansteig in zwei gesplitted oder ein Anstieg um $n$ ergänzt.
+\[\eulerI{n}{0} = \eulerI{n}{n-1} = 1 \quad
+\eulerI{n}{k} = (k+1) \eulerI{n-1}{k} + (n-k) \eulerI{n-1}{k-1}=
+\sum_{i=0}^{k} (-1)^i\binom{n+1}{i}(k+1-i)^n\]
+\begin{itemize}
+	\item Formel $1$ erlaubt berechnung ohne Division in \runtime{n^2}
+	\item Formel $2$ erlaubt berechnung in \runtime{n\log(n)}
+\end{itemize}
 
 \paragraph{\textsc{Euler}-Zahlen 2. Ordnung}
 Die Anzahl der Permutationen von $\{1,1, \ldots, n,n\}$ mit genau $k$ Anstiegen.
+\[\eulerII{n}{0} = 1 \qquad\eulerII{n}{n} = 0 \qquad\eulerII{n}{k} = (k+1) \eulerII{n-1}{k} + (2n-k-1) \eulerII{n-1}{k-1}\]
+\begin{itemize}
+	\item Formel erlaubt berechnung ohne Division in \runtime{n^2}
+\end{itemize}
 
 \paragraph{\textsc{Stirling}-Zahlen 1. Ordnung}
 Die Anzahl der Permutationen von $\{1, \ldots, n\}$ mit genau $k$ Zyklen.
 Es gibt zwei Möglichkeiten für die $n$-te Zahl. Entweder sie bildet einen eigene Zyklus, oder sie kann an jeder Position in jedem Zyklus einsortiert werden.
+\[\stirlingI{0}{0} = 1 \qquad
+\stirlingI{n}{0} = \stirlingI{0}{n} = 0 \qquad
+\stirlingI{n}{k} = \stirlingI{n-1}{k-1} + (n-1) \stirlingI{n-1}{k}\]
+\begin{itemize}
+	\item Formel erlaubt berechnung ohne Division in \runtime{n^2}
+\end{itemize}
 
 \paragraph{\textsc{Stirling}-Zahlen 2. Ordnung}
 Die Anzahl der Möglichkeiten $n$ Elemente in $k$ nichtleere Teilmengen zu zerlegen.
 Es gibt $k$ Möglichkeiten die $n$ in eine $n-1$-Partition einzuordnen.
 Dazu kommt der Fall, dass die $n$ in ihrer eigenen Teilmenge (alleine) steht.
+\[\stirlingII{n}{1} = \stirlingII{n}{n} = 1 \qquad
+\stirlingII{n}{k} = k \stirlingII{n-1}{k} + \stirlingII{n-1}{k-1} =
+\frac{1}{k!} \sum\limits_{i=0}^{k} (-1)^{k-i}\binom{k}{i}i^n\]
+\begin{itemize}
+	\item Formel $1$ erlaubt berechnung ohne Division in \runtime{n^2}
+	\item Formel $2$ erlaubt berechnung in \runtime{n\log(n)}
+\end{itemize}
 
 \paragraph{\textsc{Bell}-Zahlen}
 Anzahl der Partitionen von $\{1, \ldots, n\}$.
 Wie \textsc{Striling}-Zahlen 2. Ordnung ohne Limit durch $k$.
+\[B_1 = 1 \qquad
+B_n = \sum\limits_{k = 0}^{n - 1} B_k\binom{n-1}{k}
+= \sum\limits_{k = 0}^{n}\stirlingII{n}{k}\qquad\qquad B_{p^m+n}\equiv m\cdot B_n + B_{n+1} \bmod{p}\]
 
-\paragraph{Integer Partitions}
-Anzahl der Teilmengen von $\mathbb{N}$, die sich zu $n$ aufaddieren mit maximalem Elment $\leq k$.\\
+\paragraph{Partitions}
+Die Anzahl der Partitionen von $n$ in genau $k$ positive Summanden.
+Die Anzahl der Partitionen von $n$ mit Elementen aus ${1,\dots,k}$.
+\begin{align*}
+	p_0(0)=1 \qquad p_k(n)&=0 \text{ für } k > n \text{ oder } n \leq 0 \text{ oder } k \leq 0\\
+	p_k(n)&= p_k(n-k) + p_{k-1}(n-1)\\[2pt]
+	p(n)&=\sum_{k=1}^{n} p_k(n)=p_n(2n)=\sum\limits_{k\neq0}^\infty(-1)^{k+1}p\bigg(n - \frac{k(3k-1)}{2}\bigg)
+\end{align*}
+\begin{itemize}
+	\item in Formel $3$ kann abgebrochen werden wenn $\frac{k(3k-1)}{2} > n$.
+	\item Die Anzahl der Partitionen von $n$ in bis zu $k$ positive Summanden ist $\sum\limits_{i=0}^{k}p_i(n)=p_k(n+k)$.
+\end{itemize}
 
-\begin{tabular}{lcr}
-	\toprule
-	\multicolumn{3}{c}{Binomialkoeffizienten} \\
-	\midrule
-	$\binom{n}{k} = \frac{n!}{k!(n - k)!}$ &
-	$\binom{n}{k} = \binom{n - 1}{k} + \binom{n - 1}{k - 1}$ &
-	$\sum\limits_{k = 0}^n\binom{r + k}{k} = \binom{r + n + 1}{n}$ \\
+\paragraph{Binomialkoeffizienten}
+Die Anzahl der \mbox{$k$-elementigen} Teilmengen einer \mbox{$n$-elementigen} Menge.
 
-	$\sum\limits_{k = 0}^n \binom{n}{k} = 2^n$ &
-	$\binom{n}{m}\binom{m}{k} = \binom{n}{k}\binom{n - k}{m - k}$ &
-	$\binom{n}{k} = (-1)^k \binom{k - n - 1}{k}$ \\
+\textbf{WICHTIG:} Binomialkoeffizient in \runtime{1} berechnen indem man $x!$ vorberechnet.
 
-	$\binom{n}{k} = \binom{n}{n - k}$ &
-	$\sum\limits_{k = 0}^n \binom{k}{m} = \binom{n + 1}{m + 1}$ &
-	$\sum\limits_{i = 0}^n \binom{n}{i}^2 = \binom{2n}{n}$ \\
+%\begin{algorithm}{Binomialkoeffizienten}
+	\begin{methods}
+		\method{calc\_binom}{berechnet Binomialkoeffizient $(n \le 61)$}{k}
+	\end{methods}
+	\sourcecode{math/binomial.cpp}
 
-	$\binom{n}{k} = \frac{n}{k}\binom{n - 1}{k - 1}$ &
-	$\sum\limits_{k = 0}^n \binom{r}{k}\binom{s}{n - k} = \binom{r + s}{n}$ &
-	$\sum\limits_{i = 1}^n \binom{n}{i} F_i = F_{2n} \quad F_n = n\text{-th Fib.}$ \\
-	\bottomrule
-\end{tabular}
-\vspace{1mm}
+\columnbreak
+	\begin{methods}
+		\method{calc\_binom}{berechnet Binomialkoeffizient modulo Primzahl $p$}{p-n}
+	\end{methods}
+	\textbf{Wichtig:} $p > n$
+	\sourcecode{math/binomial3.cpp}
+	
+	\begin{methods}
+		\method{calc\_binom}{berechnet Primfaktoren vom Binomialkoeffizient}{n}
+	\end{methods}
+	\textbf{WICHTIG:} braucht alle Primzahlen $\leq n$
+	\sourcecode{math/binomial2.cpp}
+%\end{algorithm}
 
-\begin{tabular}{l|l|l}
-	\toprule
-	\multicolumn{3}{c}{Reihen} \\
-	\midrule
-	$\sum\limits_{i = 1}^n i = \frac{n(n+1)}{2}$ &
-	$\sum\limits_{i = 1}^n i^2 = \frac{n(n + 1)(n + 2)}{6}$ & 
-	$\sum\limits_{i = 1}^n i^3 = \frac{n^2 (n + 1)^2}{4}$ \\
+%\input{math/tables/numbers}
 
-	$\sum\limits_{i = 0}^n c^i = \frac{c^{n + 1} - 1}{c - 1} \quad c \neq 1$ &
-	$\sum\limits_{i = 0}^\infty c^i = \frac{1}{1 - c} \quad \vert c \vert < 1$ &
-	$\sum\limits_{i = 1}^\infty c^i = \frac{c}{1 - c} \quad \vert c \vert < 1$ \\
-
-	\multicolumn{2}{l|}{
-		$\sum\limits_{i = 0}^n ic^i = \frac{nc^{n + 2} - (n + 1)c^{n + 1} + c}{(c - 1)^2} \quad c \neq 1$
-	} &
-	$\sum\limits_{i = 0}^\infty ic^i = \frac{c}{(1 - c)^2} \quad \vert c \vert < 1$ \\
-
-	$H_n = \sum\limits_{i = 1}^n \frac{1}{i}$ &
-	\multicolumn{2}{l}{
-		$\sum\limits_{i = 1}^n iH_i = \frac{n(n + 1)}{2}H_n - \frac{n(n - 1)}{4}$
-	} \\
-
-	$\sum\limits_{i = 1}^n H_i = (n + 1)H_n - n$ &
-	\multicolumn{2}{l}{
-		$\sum\limits_{i = 1}^n \binom{i}{m}H_i =
-		\binom{n + 1}{m + 1} \left(H_{n + 1} - \frac{1}{m  + 1}\right)$
-	} \\
-	\bottomrule
-\end{tabular}
-\vspace{1mm}
-
-\begin{tabular}{l|r}
-	\toprule
-	\multicolumn{2}{c}{
-		Wahrscheinlichkeitstheorie ($A,B$ Ereignisse und $X,Y$ Variablen)
-	} \\
-	\midrule
-	$\E(X + Y) = \E(X) + \E(Y)$ &
-	$\E(\alpha X) = \alpha \E(X)$ \\
-
-	$X, Y$ unabh. $\Leftrightarrow \E(XY) = \E(X) \cdot \E(Y)$ &
-	$\Pr[A \vert B] = \frac{\Pr[A \land B]}{\Pr[B]}$ \\
-
-	$\Pr[A \lor B] = \Pr[A] + \Pr[B] - \Pr[A \land B]$ &
-	$\Pr[A \land B] = \Pr[A] \cdot \Pr[B]$ \\
-	\bottomrule
-\end{tabular}
-\vspace{1mm}
-
-\begin{tabular}{lr|lr}
-	\toprule
-	\multicolumn{4}{c}{\textsc{Bertrand}'s Ballot Theorem (Kandidaten $A$ und $B$, $k \in \mathbb{N}$)} \\
-	\midrule
-	$\#A > k\#B$ & $Pr = \frac{a - kb}{a + b}$ &
-	$\#B - \#A \leq k$ & $Pr = 1 - \frac{a!b!}{(a + k + 1)!(b - k - 1)!}$ \\
-
-	$\#A \geq k\#B$ & $Pr = \frac{a + 1 - kb}{a + 1}$ &
-	$\#A \geq \#B + k$ & $Num = \frac{a - k + 1 - b}{a - k + 1} \binom{a + b - k}{b}$ \\
-	\bottomrule
-\end{tabular}
-\vspace{5mm}
-
-\begin{tabular}{c|cccc}
-	\toprule
-	\multicolumn{5}{c}{The Twelvefold Way (verteile $n$ Bälle auf $k$ Boxen)} \\
-	\midrule
-	Bälle & identisch & unterscheidbar & identisch      & unterscheidbar \\
-	Boxen & identisch & identisch      & unterscheidbar & unterscheidbar \\
-	\midrule
-	- &
-	$p_k(n)$ &
-	$\sum\limits_{i = 0}^k \stirlingII{n}{i}$ &
-	$\binom{n + k - 1}{k - 1}$ &
-	$k^n$ \\
-
-	size $\geq 1$ &
-	$p(n, k)$ &
-	$\stirlingII{n}{k}$ &
-	$\binom{n - 1}{k - 1}$ &
-	$k! \stirlingII{n}{k}$ \\
-
-	size $\leq 1$ &
-	$[n \leq k]$ &
-	$[n \leq k]$ &
-	$\binom{k}{n}$ &
-	$n! \binom{k}{n}$ \\
-	\midrule
-	\multicolumn{5}{l}{
-		$p_k(n)$: \#Anzahl der Partitionen von $n$ in $\leq k$ positive Summanden.
-	} \\
-	\multicolumn{5}{l}{
-		$p(n, k)$: \#Anzahl der Partitionen von $n$ in genau $k$ positive Summanden.
-	} \\
-	\multicolumn{5}{l}{
-		$[\text{Bedingung}]$: \lstinline{return Bedingung ? 1 : 0;}
-	} \\
-	\bottomrule
-\end{tabular}
-\vspace{1mm}
-
-\begin{flushleft}
-	\begin{tabular}{l|cccl}
-		\toprule
-		\multicolumn{5}{c}{Platonische Körper} \\
-		\midrule
-		Übersicht       & Seiten & Ecken & Kanten & dual zu \\
-		\midrule
-		Tetraeder       & 4      & 4     & 6      & Tetraeder \\
-		Würfel/Hexaeder & 6      & 8     & 12     & Oktaeder \\
-		Oktaeder        & 8      & 6     & 12     & Würfel/Hexaeder\\
-		Dodekaeder      & 12     & 20    & 30     & Ikosaeder \\
-		Ikosaeder       & 20     & 12    & 30     & Dodekaeder \\
-		\midrule
-		\multicolumn{5}{c}{Färbungen mit maximal $n$ Farben (bis auf Isomorphie)} \\
-		\midrule
-		\multicolumn{3}{l}{Ecken vom Oktaeder/Seiten vom Würfel} &
-		\multicolumn{2}{l}{$(n^6 + 3n^4 + 12n^3 + 8n^2)/24$} \\
-
-		\multicolumn{3}{l}{Ecken vom Würfel/Seiten vom Oktaeder} &
-		\multicolumn{2}{l}{$(n^8 + 17n^4 + 6n^2)/24$} \\
-
-		\multicolumn{3}{l}{Kanten vom Würfel/Oktaeder} &
-		\multicolumn{2}{l}{$(n^{12} + 6n^7 + 3n^6 + 8n^4 + 6n^3)/24$} \\
-
-		\multicolumn{3}{l}{Ecken/Seiten vom Tetraeder} &
-		\multicolumn{2}{l}{$(n^4 + 11n^2)/12$} \\
-
-		\multicolumn{3}{l}{Kanten vom Tetraeder} &
-		\multicolumn{2}{l}{$(n^6 + 3n^4 + 8n^2)/12$} \\
-
-		\multicolumn{3}{l}{Ecken vom Ikosaeder/Seiten vom Dodekaeder} &
-		\multicolumn{2}{l}{$(n^{12} + 15n^6 + 44n^4)/60$} \\
-
-		\multicolumn{3}{l}{Ecken vom Dodekaeder/Seiten vom Ikosaeder} &
-		\multicolumn{2}{l}{$(n^{20} + 15n^{10} + 20n^8 + 24n^4)/60$} \\
-
-		\multicolumn{3}{l}{Kanten vom Dodekaeder/Ikosaeder (evtl. falsch)} &
-		\multicolumn{2}{l}{$(n^{30} + 15n^{16} + 20n^{10} + 24n^6)/60$} \\
-		\bottomrule
-	\end{tabular}
-\end{flushleft}
-\vspace{1mm}
-
-\begin{tabular}{p{4.3cm}|p{7cm}}
-	\toprule
-	\multicolumn{2}{c}{Nim-Spiele (\ding{182} letzter gewinnt (normal), \ding{183} letzter verliert)} \\
-	\midrule
-	Beschreibung &
-	Strategie \\
-	\midrule
-
-	$M = [\mathit{pile}_i]$\newline
-	$[x] := \{1, \ldots, x\}$&
-	$\mathit{SG} = \oplus_{i = 1}^n \mathit{pile}_i$\newline
-	\ding{182} Nimm von einem Stapel, sodass $\mathit{SG}$ $0$ wird.\newline
-	\ding{183} Genauso.
-	Außer: Bleiben nur noch Stapel der Größe $1$, erzeuge ungerade Anzahl solcher Stapel.\\
-	\midrule
-
-	$M = \{a^m \mid m \geq 0\}$ &
-	$a$ ungerade: $\mathit{SG}_n = n \% 2$\newline
-	$a$ gerade:\newline
-	$\mathit{SG}_n = 2$, falls $n \equiv a \mod (a + 1) $\newline
-	$\mathit{SG}_n = n \% (a + 1) \% 2$, sonst.\\
-	\midrule
-
-	$M_{\text{\ding{172}}} = \left[\frac{\mathit{pile}_i}{2}\right]$\newline
-	$M_{\text{\ding{173}}} =
-	\left\{\left\lceil\frac{\mathit{pile}_i}{2}\right\rceil,
-	\mathit{pile}_i\right\}$ &
-	\ding{172}
-	$\mathit{SG}_{2n} = n$,
-	$\mathit{SG}_{2n+1} = \mathit{SG}_n$\newline
-	\ding{173}
-	$\mathit{SG}_0 = 0$,
-	$\mathit{SG}_n = [\log_2 n] + 1$ \\
-	\midrule
-
-	$M_{\text{\ding{172}}} = \text{Teiler von $\mathit{pile}_i$}$\newline
-	$M_{\text{\ding{173}}} = \text{echte Teiler von $\mathit{pile}_i$}$ &
-	\ding{172}
-	$\mathit{SG}_0 = 0$,
-	$\mathit{SG}_n = \mathit{SG}_{\text{\ding{173},n}} + 1$\newline
-	\ding{173}
-	$\mathit{ST}_1 = 0$,
-	$\mathit{SG}_n = \text{\#Nullen am Ende von $n_{bin}$}$\\
-	\midrule
-
-	$M_{\text{\ding{172}}} = [k]$\newline
-	$M_{\text{\ding{173}}} = S$, ($S$ endlich)\newline
-	$M_{\text{\ding{174}}} = S \cup \{\mathit{pile}_i\}$ &
-	$\mathit{SG}_{\text{\ding{172}}, n} = n \mod (k + 1)$\newline
-	\ding{182} Niederlage bei $\mathit{SG} = 0$\newline
-	\ding{183} Niederlage bei $\mathit{SG} = 1$\newline
-	$\mathit{SG}_{\text{\ding{174}}, n} = \mathit{SG}_{\text{\ding{173}}, n} + 1$\\
-	\midrule
-
-	\multicolumn{2}{l}{
-		Für jedes endliche $M$ ist $\mathit{SG}$ eines Stapels irgendwann periodisch.
-	} \\
-	\midrule
-
-	\textsc{Moore}'s Nim:\newline
-	Beliebige Zahl von maximal $k$ Stapeln. &
-	\ding{182}
-	Schreibe $\mathit{pile}_i$ binär.
-	Addiere ohne Übertrag zur Basis $k + 1$.
-	Niederlage, falls Ergebnis gleich 0.\newline
-	\ding{183}
-	Wenn alle Stapel $1$ sind:
-	Niederlage, wenn $n \equiv 1 \mod (k + 1)$.
-	Sonst wie in \ding{182}.\\
-	\midrule
-
-	Staircase Nim:\newline
-	$n$ Stapel in einer Reihe.
-	Beliebige Zahl von Stapel $i$ nach Stapel $i-1$. &
-	Niederlage, wenn Nim der ungeraden Spiele verloren ist:\newline
-	$\oplus_{i = 0}^{(n - 1) / 2} \mathit{pile}_{2i + 1} = 0$\\
-	\midrule
-
-	\textsc{Lasker}'s Nim:\newline
-	Zwei mögliche Züge:\newline
-	1) Nehme beliebige Zahl.\newline
-	2) Teile Stapel in zwei Stapel (ohne Entnahme).&
-	$\mathit{SG}_n = n$, falls $n \equiv 1,2 \mod 4$\newline
-	$\mathit{SG}_n = n + 1$, falls $n \equiv 3 \mod 4$\newline
-	$\mathit{SG}_n = n - 1$, falls $n \equiv 0 \mod 4$\\
-	\midrule
-
-	\textsc{Kayles}' Nim:\newline
-	Zwei mögliche Züge:\newline
-	1) Nehme beliebige Zahl.\newline
-	2) Teile Stapel in zwei Stapel (mit Entnahme).&
-	Berechne $\mathit{SG}_n$ für kleine $n$ rekursiv.\newline
-	$n \in [72,83]: \quad 4, 1, 2, 8, 1, 4, 7, 2, 1, 8, 2, 7$\newline
-	Periode ab $n = 72$ der Länge $12$.\\
-	\bottomrule
-\end{tabular}
-
-\begin{tabular}{ll}
-	\toprule
-	\multicolumn{2}{c}{Verschiedenes} \\
-	\midrule
-	Türme von Hanoi, minimale Schirttzahl: &
-	$T_n = 2^n - 1$ \\
-
-	\#Regionen zwischen $n$ Gearden	&
-	$\frac{n\left(n + 1\right)}{2} + 1$ \\
-
-	\#geschlossene Regionen zwischen $n$ Geraden &
-	$\frac{n^2 - 3n + 2}{2}$ \\
-
-	\#markierte, gewurzelte Bäume	&
-	$n^{n-1}$ \\
-
-	\#markierte, nicht gewurzelte Bäume	&
-	$n^{n-2}$ \\
-
-	\#Wälder mit $k$ gewurzelten Bäumen	&
-	$\frac{k}{n}\binom{n}{k}n^{n-k}$ \\
-
-	Derangements &
-	$!n = (n - 1)(!(n - 1) + !(n - 2))$ \\
-	&
-	$!n = \left\lfloor\frac{n!}{e} + \frac{1}{2}\right\rfloor$ \\
-	&
-	$\lim\limits_{n \to \infty} \frac{!n}{n!} = \frac{1}{e}$ \\
-	\bottomrule
-\end{tabular}
-
-% \subsection{Big Integers}
-% \lstinputlisting{math/bigint.cpp}
+\begin{algorithm}[optional]{Big Integers}
+	\sourcecode{math/bigint.cpp}
+\end{algorithm}

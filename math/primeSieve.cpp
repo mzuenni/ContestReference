@@ -1,22 +1,17 @@
-// Laufzeit: O(n * log log n)
-// Kann erweitert werden: Für jede Zahl den kleinsten Primfaktor.
-// Dabei vorsicht: Nicht kleinere Faktoren überschreiben.
-#define N 100000000 // Bis 10^8 in unter 64MB Speicher.
+constexpr ll N = 100000000;
 bitset<N / 2> isNotPrime;
+vector<ll> primes = {2};
 
-inline bool isPrime(int x) { // Diese Methode zum Lookup verwenden.
-  if (x < 2) return false;
-  else if (x == 2) return true;
-  else if (!(x & 1)) return false;
-  else return !isNotPrime[x / 2];
+bool isPrime(ll x) {
+	if (x < 2 || x % 2 == 0) return x == 2;
+	else return !isNotPrime[x / 2];
 }
 
-inline int primeSieve() { // Rückgabe: Anzahl der Primzahlen < N.
-  int counter = 1; // Die 2, die sonst vergessen würde.
-  for (int i = 3; i < N; i += 2) {
-    if (!isNotPrime[i / 2]) {
-      for (int j = i * i; j < N; j+= 2 * i) isNotPrime[j / 2] = 1;
-      counter++;
-  }}
-  return counter;
-}
+void primeSieve() {
+	// i * i < N is enough for isPrime
+	for (ll i = 3; i < N; i += 2) {
+		if (!isNotPrime[i / 2]) {
+			primes.push_back(i);
+			for (ll j = i * i; j < N; j+= 2 * i) {
+				isNotPrime[j / 2] = 1;
+}}}}

@@ -1,67 +1,64 @@
-static const ll flowlimit = 1LL << 60; // Größer als der maximale Fluss.
-struct MinCostFlow { // Mit new erstellen!
-	static const int maxn = 400; // Größer als die Anzahl der Knoten.
-	static const int maxm = 5000; // Größer als die Anzahhl der Kanten.
-	struct edge { int node, next; ll flow, value; } edges[maxm << 1];
-	int graph[maxn], queue[maxn], pre[maxn], con[maxn];
-	int n, m, source, target, top;
-	bool inqueue[maxn];
-	ll maxflow, mincost, dis[maxn];
+constexpr ll INF = 1LL << 60; // Größer als der maximale Fluss.
+struct MinCostFlow {
+	struct edge {
+		int to;
+		ll f, cost;
+	};
+	vector<edge> edges;
+	vector<vector<int>> adjlist;
+	vector<int> pref, con;
+	vector<ll> dist;
 
-	MinCostFlow() { memset(graph, -1, sizeof(graph)); top = 0; }
+	const int s, t;
+	ll maxflow, mincost;
 
-	inline int inverse(int x) {	return 1 + ((x >> 1) << 2) - x; }
+	MinCostFlow(int n, int source, int target) : 
+		adjlist(n), s(source), t(target) {};
 
-	// Directed edge from u to v, capacity c, weight w.
-	inline int addedge(int u, int v, int c, int w) {
-		edges[top].value = w; edges[top].flow = c; edges[top].node = v;
-		edges[top].next = graph[u];	graph[u] = top++;
-		edges[top].value = -w; edges[top].flow = 0; edges[top].node = u;
-		edges[top].next = graph[v];	graph[v] = top++;
-		return top - 2;
+	void addedge(int u, int v, ll c, ll cost) {
+		adjlist[u].push_back(sz(edges));
+		edges.push_back({v, c, cost});
+		adjlist[v].push_back(sz(edges));
+		edges.push_back({u, 0, -cost});
 	}
 
 	bool SPFA() {
-		int point, node, now, head = 0, tail = 1;
-		memset(pre, -1, sizeof(pre));
-		memset(inqueue, 0, sizeof(inqueue));
-		memset(dis, 0x7F, sizeof(dis));
-		dis[source] = 0; queue[0] = source;
-		pre[source] = source; inqueue[source] = true;
+		pref.assign(sz(adjlist), - 1);
+		dist.assign(sz(adjlist), INF);
+		vector<bool> inqueue(sz(adjlist));
+		queue<int> queue;
 
-		while (head != tail) {
-			now = queue[head++];
-			point = graph[now];
-			inqueue[now] = false;
-			head %= maxn;
+		dist[s] = 0; queue.push(s);
+		pref[s] = s; inqueue[s] = true;
 
-			while (point != -1) {
-				node = edges[point].node;
-				if (edges[point].flow > 0 &&
-						dis[node] > dis[now] + edges[point].value) {
-					dis[node] = dis[now] + edges[point].value;
-					pre[node] = now; con[node] = point;
-					if (!inqueue[node]) {
-						inqueue[node] = true; queue[tail++] = node;
-						tail %= maxn;
-				}}
-				point = edges[point].next;
-		}}
-		return pre[target] != -1;
+		while (!queue.empty()) {
+			int cur = queue.front(); queue.pop();
+			inqueue[cur] = false;
+			for (int id : adjlist[cur]) {
+				int to = edges[id].to;
+				if (edges[id].f > 0 &&
+						dist[to] > dist[cur] + edges[id].cost) {
+					dist[to] = dist[cur] + edges[id].cost;
+					pref[to] = cur; con[to] = id;
+					if (!inqueue[to]) {
+						inqueue[to] = true; queue.push(to);
+		}}}}
+		return pref[t] != -1;
 	}
 
 	void extend() {
-		ll w = flowlimit;
-		for (int u = target; pre[u] != u; u = pre[u])
-			w = min(w, edges[con[u]].flow);
+		ll w = INF;
+		for (int u = t; pref[u] != u; u = pref[u])
+			w = min(w, edges[con[u]].f);
 		maxflow += w;
-		mincost += dis[target] * w;
-		for (int u = target; pre[u] != u; u = pre[u]) {
-			edges[con[u]].flow -= w;
-			edges[inverse(con[u])].flow += w;
+		mincost += dist[t] * w;
+		for (int u = t; pref[u] != u; u = pref[u]) {
+			edges[con[u]].f -= w;
+			edges[con[u] ^ 1].f += w;
 	}}
 
 	void mincostflow() {
+		con.assign(sz(adjlist), 0);
 		maxflow = mincost = 0;
 		while (SPFA()) extend();
 	}

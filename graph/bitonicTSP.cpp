@@ -1,24 +1,31 @@
-// Laufzeit: O(n^2)
-vector<vector<double>> dp, dist; // Entfernungen zwischen Punkten.
+vector<vector<double>> dist; // Initialisiere mit Entfernungen zwischen Punkten.
 
-double get(int p1, int p2) {
-  int v = max(p1, p2) + 1;
-  if (v == dist.size()) return dist[p1][v - 1] + dist[p2][v - 1];
-  if (dp[p1][p2] >= 0.0) return dp[p1][p2];
-  double tryLR = dist[p1][v] + get(v, p2);
-  double tryRL = dist[p2][v] + get(p1, v);
-  return dp[p1][p2] = min(tryLR, tryRL);
-}
+void bitonicTSP() {
+	vector<double> dp(sz(dist), HUGE_VAL);
+	vector<int> pre(sz(dist)); // nur für Tour
+	dp[0] = 0; dp[1] = 2 * dist[0][1]; pre[1] = 0;
+	for (unsigned int i = 2; i < sz(dist); i++) {
+		double link = 0;
+		for (int j = i - 2; j >= 0; j--) {
+			link += dist[j + 1][j + 2];
+			double opt = link + dist[j][i] + dp[j + 1] - dist[j][j + 1];
+			if (opt < dp[i]) {
+				dp[i] = opt;
+				pre[i] = j;
+	}}}
+	// return dp.back(); // Länger der Tour
 
-void bitonicTour() {
-  dp.assign(dist.size(), vector<double>(dist.size(), -1));
-  get(0, 0); // return dp[0][0]; // Länger der Tour
-  vector<int> lr = {0}, rl = {0};
-  for (int p1 = 0, p2 = 0, v; (v = max(p1, p2) + 1) < dist.size();) {
-    if (dp[p1][p2] == dist[p1][v] + dp[v][p2]) {
-      lr.push_back(v); p1 = v;
-    } else {
-      rl.push_back(v); p2 = v;
-	}}
-  lr.insert(lr.end(), rl.rbegin(), rl.rend()); // Tour, Knoten 0 doppelt.
+	int j, n = sz(dist) - 1;
+	vector<int> ut, lt = {n, n - 1};
+	do {
+		j = pre[n];
+		(lt.back() == n ? lt : ut).push_back(j);
+		for (int i = n - 1; i > j + 1; i--) {
+			(lt.back() == i ? lt : ut).push_back(i - 1);
+		}
+	} while(n = j + 1, j > 0);
+	(lt.back() == 1 ? lt : ut).push_back(0);
+	reverse(lt.begin(), lt.end());
+	lt.insert(lt.end(), ut.begin(), ut.end());
+	//return lt;// Enthält Knoten 0 zweimal. An erster und letzter Position.
 }

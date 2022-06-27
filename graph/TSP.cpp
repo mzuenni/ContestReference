@@ -1,23 +1,28 @@
-// Laufzeit: O(n^2*2^n)
-vector<vector<int>> dist; // Entfernung zwischen je zwei Punkten.
-vector<int> TSP() {
-	int n = dist.size(), m = 1 << n;
-	vector<vector<ii>> dp(n, vector<ii>(m, ii(INF, -1)));
-	
-	for(int c = 0; c < n; c++) dp[c][m-1].first = dist[c][0], dp[c][m-1].second = 0;
+vector<vector<ll>> dist; // Entfernung zwischen je zwei Punkten.
 
-	for(int v = m - 2; v >= 0; v--) {
-		for(int c = n - 1; c >= 0; c--) {
-			for(int g = 0; g < n; g++) { 
-				if(g != c && !((1 << g) & v)) {
-					if((dp[g][(v | (1 << g))].first + dist[c][g]) < dp[c][v].first) {
-						dp[c][v].first = dp[g][(v | (1 << g))].first + dist[c][g];
-						dp[c][v].second = g;
-	}}}}}
+void TSP() {
+	int n = sz(dist), m = 1 << n;
+	vector<vector<edge>> dp(n, vector<edge>(m, edge{INF, -1}));
 	
-	vector<int> res; res.push_back(0); int v = 0;
-	while(res.back() != 0 || res.size() == 1) {
-		res.push_back(dp[res.back()][(v |= (1 << res.back()))].second);
-	}
-	return res; // Enthält Knoten 0 zweimal. An erster und letzter Position.
+	for (int c = 0; c < n; c++)
+		dp[c][m-1].dist = dist[c][0], dp[c][m-1].to = 0;
+
+	for (int v = m - 2; v >= 0; v--) {
+		for (int c = n - 1; c >= 0; c--) {
+			for (int g = 0; g < n; g++) { 
+				if (g != c && !((1 << g) & v)) {
+					if ((dp[g][(v | (1 << g))].dist + dist[c][g]) < 
+							 dp[c][v].dist) {
+						dp[c][v].dist =
+							dp[g][(v | (1 << g))].dist + dist[c][g];
+						dp[c][v].to = g;
+	}}}}}
+	// return dp[0][1]; // Länge der Tour
+	
+	vector<int> tour; tour.push_back(0); int v = 0;
+	while (tour.back() != 0 || sz(tour) == 1)
+		tour.push_back(dp[tour.back()]
+										 [(v |= (1 << tour.back()))].to);
+	// Enthält Knoten 0 zweimal. An erster und letzter Position.
+	// return tour;
 }

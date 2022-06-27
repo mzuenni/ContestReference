@@ -1,42 +1,42 @@
-#define ALPHABET_SIZE		26
+constexpr char MIN_CHAR = 'a';
+constexpr long long ALPHABET_SIZE = 26;
 struct SuffixAutomaton {
 	struct State {
-		int length; int link; int next[ALPHABET_SIZE];
-		State() { memset(next, 0, sizeof(next)); }
+		int length, link; 
+		vector<int> next;
+		State() : next(ALPHABET_SIZE) {}
 	};
-	static const int MAX_N = 100000; // Maximale Länge des Strings.
-	State states[2 * MAX_N];
+	vector<State> states;
 	int size, last;
 
-	SuffixAutomaton(string &s) { // Laufzeit: O(|s|)
+	SuffixAutomaton(string &s) {
+		states.resize(2 * sz(s));
 		size = 1; last = 0;
 		states[0].length = 0;
 		states[0].link = -1;
-		for (auto c : s) extend(c);
+		for (auto c : s) extend(c - MIN_CHAR);
 	}
 
-	void extend(char c) {
-		c -= 'a'; // Werte von c müssen bei 0 beginnen.
+	void extend(int c) {
 		int current = size++;
 		states[current].length = states[last].length + 1;
 		int pos = last;
-		while (pos != -1 && !states[pos].next[(int)c]) {
-			states[pos].next[(int)c] = current;
+		while (pos != -1 && !states[pos].next[c]) {
+			states[pos].next[c] = current;
 			pos = states[pos].link;
 		}
 		if (pos == -1) states[current].link = 0;
 		else {
-			int q = states[pos].next[(int)c];
+			int q = states[pos].next[c];
 			if (states[pos].length + 1 == states[q].length) {
 				states[current].link = q;
 			} else {
 				int clone = size++;
 				states[clone].length = states[pos].length + 1;
 				states[clone].link = states[q].link;
-				memcpy(states[clone].next, states[q].next,
-						sizeof(states[q].next));
-				while (pos != -1 && states[pos].next[(int)c] == q) {
-					states[pos].next[(int)c] = clone;
+				states[clone].next = states[q].next;
+				while (pos != -1 && states[pos].next[c] == q) {
+					states[pos].next[c] = clone;
 					pos = states[pos].link;
 				}
 				states[q].link = states[current].link = clone;
@@ -44,22 +44,23 @@ struct SuffixAutomaton {
 		last = current;
 	}
 
-	// Paar mit Startposition und Länge des LCS. Index in Parameter s.
-	ii longestCommonSubstring(string &s) { // Laufzeit: O(|s|)
+	// Pair with start index and length of LCS.
+	// Index in parameter t.
+	pair<int, int> longestCommonSubstring(string &t) {
 		int v = 0, l = 0, best = 0, bestpos = 0;
-		for (int i = 0; i < (int)s.size(); i++) {
-			int c = s[i] - 'a';
+		for (int i = 0; i < (int)t.size(); i++) {
+			int c = t[i] - MIN_CHAR;
 			while (v && !states[v].next[c]) {
 				v = states[v].link;
 				l = states[v].length;
 			}
-			if (states[v].next[c]) { v = states[v].next[c]; l++; }
-			if (l > best) { best = l; bestpos = i; }
+			if (states[v].next[c]) {v = states[v].next[c]; l++;}
+			if (l > best) {best = l; bestpos = i;}
 		}
-		return ii(bestpos - best + 1, best);
+		return {bestpos - best + 1, best};
 	}
 
-	// Berechnet die Terminale des Automaten.
+	// Returns all terminals of the automaton.
 	vector<int> calculateTerminals() {
 		vector<int> terminals;
 		int pos = last;

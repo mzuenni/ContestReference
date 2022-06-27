@@ -1,19 +1,17 @@
-ll q = 31; // Größer als Alphabetgröße. q=31,53,311
+// q = 29, 53, 101, 257, 1009, 65537
+// or choose q random from [sigma, m)
+// m = 1500000001, 1600000009, 1700000009
 struct Hasher {
-  string s;
-  ll mod;
-  vector<ll> power, pref;
-  Hasher(const string& s, ll mod) : s(s), mod(mod) {
-    power.push_back(1);
-    for (int i = 1; i < (int)s.size(); i++)
-      power.push_back(power.back() * q % mod);
-    pref.push_back(0);
-    for (int i = 0; i < (int)s.size(); i++)
-      pref.push_back((pref.back() * q % mod + s[i]) % mod);
-  }
+	vector<ll> power = {1}, pref = {0};
+	ll m, q; char c;
+	Hasher(const string& s, ll m, ll q, char c) : 
+		  	 m(m), q(q), c(c) {
+		for (char x : s) {
+			power.push_back(power.back() * q % m);
+			pref.push_back((pref.back() * q % m + (x - c)) % m);
+	}}
 
-  // Berechnet hash(s[l..r]). l,r inklusive.
-  ll hash(int l, int r) {
-    return (pref[r+1] - power[r-l+1] * pref[l] % mod + mod) % mod;
-  }
+	ll hash(int l, int r) {	 // Berechnet hash(s[l..r)).
+		return (pref[r] - power[r-l] * pref[l] % m + m) % m;
+	}
 };

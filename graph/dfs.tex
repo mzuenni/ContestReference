@@ -1,0 +1,16 @@
+\begin{expandtable}
+\begin{tabularx}{\linewidth}{|X|XIXIX|}
+	\hline
+	Kantentyp $(v, w)$ & \code{dfs[v] < dfs[w]} & \code{fin[v] > fin[w]} & \code{seen[w]} \\
+	%$(v, w)$ & \code{dfs[w]} & \code{fin[w]} & \\
+	\hline
+	in-tree & \code{true} & \code{true} & \code{false} \\
+	\grayhline
+	forward & \code{true} & \code{true} & \code{true} \\
+	\grayhline
+	backward & \code{false} & \code{false} & \code{true} \\
+	\grayhline
+	cross & \code{false} & \code{true} & \code{true} \\
+	\hline
+\end{tabularx}
+\end{expandtable}

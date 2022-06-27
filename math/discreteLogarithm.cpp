@@ -1,13 +1,14 @@
-// Bestimmt Lösung x für a^x=b mod m.
-ll solve (ll a, ll b, ll m) { // Laufzeit: O(sqrt(m)*log(m))
-  ll n = (ll)sqrt((double)m) + 1;
-  map<ll,ll> vals;
-  for (int i = n; i >= 1; i--) vals[powMod(a, i * n, m)] = i;
-  for (int i = 0; i <= n; i++) {
-    ll cur = (powMod(a, i, m) * b) % m;
-    if (vals.count(cur)) {
-      ll ans = vals[cur] * n - i;
-      if (ans < m) return ans;
-  }}
-  return -1;
+ll dlog(ll a, ll b, ll m) {
+	ll bound = sqrtl(m) + 1; //memory usage bound
+	map<ll, ll> vals;
+	for (ll i = 0, e = 1; i < bound; i++, e = (e * a) % m) {
+		vals[e] = i;
+	}
+	ll fact = powMod(a, m - bound - 1, m);
+
+	for (ll i = 0; i < m; i += bound, b = (b * fact) % m) {
+		if (vals.count(b)) {
+			return i + vals[b];
+	}}
+	return -1;
 }

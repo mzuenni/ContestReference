@@ -1,0 +1,81 @@
+% Don't waste space at the page borders. Use two column layout.
+\usepackage[
+  top=2cm,
+  bottom=1cm,
+  left=1cm,
+  right=1cm,
+  landscape
+]{geometry}
+
+% Headline and bottomline.
+\usepackage{scrlayer-scrpage}
+\pagestyle{scrheadings}
+\clearscrheadfoot
+\ihead{\university}
+\chead{\teamname}
+\ohead{\pagemark}
+
+% Shift the title up to waste less space.
+\usepackage{titling}
+\setlength{\droptitle}{-8em}
+
+% Multicol layout for the table of contents.
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{array}
+
+% Automatically have table fill horizontal space.
+\usepackage{makecell}
+\usepackage{tabularx}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+\newcolumntype{I}{!{\color{lightgray}\vrule}}
+\usepackage{colortbl}
+\newcommand{\grayhline}{\arrayrulecolor{lightgray}\hline
+						\arrayrulecolor{black}}
+
+% Nice table line.
+\usepackage{booktabs}
+
+% Dingbats symbols.
+\usepackage{pifont}
+
+% use less space...
+%\usepackage[subtle, sections, indent, leading, charwidths]{savetrees}
+\usepackage[moderate,sections]{savetrees}
+\RedeclareSectionCommands[
+	beforeskip=1pt plus 5pt,
+	afterskip=0.1pt plus 1.5pt
+]{section,subsection,subsubsection}
+\RedeclareSectionCommands[
+	beforeskip=1pt plus 5pt,
+	afterskip=-1.2ex
+]{paragraph}
+
+% dont indent paragagraphs
+\setlength{\parindent}{0em}
+\parskip=0pt
+
+% dont encourage breaks before lists
+\@beginparpenalty=10000
+
+% Nice enumerations without wasting space above and below.
+\usepackage{relsize}
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=2ex,labelwidth=1ex,labelsep=1ex}
+\setlist[2]{leftmargin=3ex,label=\smaller[2]\ding{228}}
+\setlist[3]{leftmargin=3ex,label=\larger\textbf{--}}
+\setlist[description]{leftmargin=0pt}
+
+% decrease space for tables
+\tabcolsep=2pt
+\setlength\extrarowheight{0.3pt plus 1pt}
+
+\newenvironment{expandtable}{%
+	\begin{addmargin}{-3.4pt}
+}{%
+	\end{addmargin}
+}
+
+\usepackage{needspace}

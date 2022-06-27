@@ -1,0 +1,32 @@
+\begin{expandtable}
+\begin{tabularx}{\linewidth}{|C|CICICIC|}
+	\hline
+	Bälle & identisch & verschieden & identisch      & verschieden \\
+	Boxen & identisch & identisch      & verschieden & verschieden \\
+	\hline
+	-- &
+	$p_k(n + k)$ &
+	$\sum\limits_{i = 0}^k \stirlingII{n}{i}$ &
+	$\binom{n + k - 1}{k - 1}$ &
+	$k^n$ \\
+	\grayhline
+
+	\makecell{Bälle pro\\Box $\geq 1$} &
+	$p_k(n)$ &
+	$\stirlingII{n}{k}$ &
+	$\binom{n - 1}{k - 1}$ &
+	$k! \stirlingII{n}{k}$ \\
+	\grayhline
+
+	\makecell{Bälle pro\\Box $\leq 1$} &
+	$[n \leq k]$ &
+	$[n \leq k]$ &
+	$\binom{k}{n}$ &
+	$n! \binom{k}{n}$ \\
+	\hline
+	\multicolumn{5}{|l|}{
+		$[\text{Bedingung}]$: \lstinline{return Bedingung ? 1 : 0;}
+	} \\
+	\hline
+\end{tabularx}
+\end{expandtable}

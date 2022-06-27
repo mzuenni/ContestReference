@@ -1,0 +1,106 @@
+% Colors, used for syntax highlighting.
+% To print this document, set all colors to black!
+\usepackage{xcolor}
+\definecolor{safeRed}{HTML}{D7191C}
+\definecolor{safeOrange}{HTML}{FFDE71}
+\definecolor{safeYellow}{HTML}{FFFFBF}
+\definecolor{safeGreen}{HTML}{99CF8F}
+\definecolor{safeBlue}{HTML}{2B83BA}
+
+%try printer friendly colors?
+%\colorlet{keyword}{safeBlue}
+%\colorlet{string}{safeRed}
+%\colorlet{comment}{safeGreen}
+%\colorlet{identifier}{black}
+\definecolor{keyword}{HTML}{2750A0}
+\definecolor{string}{HTML}{7B3294}
+\definecolor{comment}{HTML}{1A9641}
+\definecolor{identifier}{HTML}{000000}
+
+% Source code listings.
+\usepackage[scaled=0.80]{beramono}
+
+\usepackage{listings}
+\lstset{
+	language={C++},
+	numbers=left,
+	stepnumber=1,
+	numbersep=6pt,
+	numberstyle=\small,
+	breaklines=true,
+	breakautoindent=true,
+	breakatwhitespace=false,
+	numberblanklines=true,
+	postbreak=\space,
+	tabsize=2,
+	basicstyle=\ttfamily\normalsize,
+	showspaces=false,
+	showstringspaces=false,
+	extendedchars=true,
+	keywordstyle=\color{keyword}\bfseries,
+	stringstyle=\color{string}\bfseries,
+	commentstyle=\color{comment}\bfseries\itshape,
+	identifierstyle=\color{identifier},
+	frame=trbl,
+	aboveskip=3pt,
+	belowskip=3pt,
+	escapechar=@
+	%moredelim=**[is][{\btHL[fill=green!30,draw=red,dashed,thin]}]{@}{@}	
+}
+
+% Listings doesn't support UTF8. This is just enough for German umlauts.
+\lstset{literate=%
+  {Ö}{{\"O}}1
+  {Ä}{{\"A}}1
+  {Ü}{{\"U}}1
+  {ß}{{\ss}}1
+  {ü}{{\"u}}1
+  {ä}{{\"a}}1
+  {ö}{{\"o}}1
+  {~}{{\textasciitilde}}1
+}
+
+\let\orig@lstnumber=\thelstnumber
+\newcommand\lstresetnumber{\global\let\thelstnumber=\orig@lstnumber}
+\let\orig@placelstnumber=\lst@PlaceNumber
+\gdef\lst@PlaceNumber{\orig@placelstnumber\lstresetnumber}
+\newcommand\lstsettmpnumber[1]{\gdef\thelstnumber{#1}}
+
+\lst@AddToHook{OnEmptyLine}{%
+	\ifnum\value{lstnumber}>99
+		\lstsettmpnumber{\_\_\_}
+	\else\ifnum\value{lstnumber}>9
+		\lstsettmpnumber{\_\_}
+	\else
+		\lstsettmpnumber{\_}
+	\fi\fi
+%	\lstsettmpnumber{\_\_\kern-6pt}%
+	\vspace{-1.75ex}%
+	\addtocounter{lstnumber}{-1}%
+}
+% old: (change numberblanklines=false!)
+%\lst@AddToHook{OnEmptyLine}{%
+%	\vspace{\dimexpr\baselineskip+0.5em}%
+%	\addtocounter{lstnumber}{-1}%
+%}
+
+\newenvironment{btHighlight}[1][]
+{\begingroup\tikzset{bt@Highlight@par/.style={#1}}\begin{lrbox}{\@tempboxa}}
+{\end{lrbox}\bt@HL@box[bt@Highlight@par]{\@tempboxa}\endgroup}
+
+\newcommand\btHL[1][]{%
+	\begin{btHighlight}[#1]\bgroup\aftergroup\bt@HL@endenv%
+	}
+	\def\bt@HL@endenv{%
+	\end{btHighlight}%   
+	\egroup%
+}
+\newcommand{\bt@HL@box}[2][]{%
+	\tikz[#1]{%
+		\pgfpathrectangle{\pgfpoint{1pt}{0pt}}{\pgfpoint{\wd #2}{\ht #2}}%
+		\pgfusepath{use as bounding box}%
+		\node[anchor=base west, fill=orange!30,outer sep=0pt,inner xsep=2.2pt, inner ysep=0pt, rounded corners=3pt, minimum height=\ht\strutbox+1pt,#1]{\raisebox{1pt}{\strut}\strut\usebox{#2}};
+	}%
+}
+
+\newcommand{\hl}[1]{\btHL[fill=safeOrange,draw=black,thin]{#1}}

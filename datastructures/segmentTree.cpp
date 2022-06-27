@@ -1,27 +1,43 @@
-// Laufzeit: init: O(n), query: O(log n), update: O(log n)
-// Berechnet das Maximum im Array.
-int a[MAX_N], m[4 * MAX_N];
+vector<ll> tree;
+constexpr ll query_default = 0;
 
-int query(int x, int y, int k = 0, int X = 0, int Y = MAX_N - 1) {
-	if (x <= X && Y <= y) return m[k];
-	if (y < X || Y < x) return -INF; // Ein "neutrales" Element.
-	int M = (X + Y) / 2;
-	return max(query(x, y, 2*k+1, X, M), query(x, y, 2*k+2, M+1, Y));
+ll combine(ll a, ll b) {
+	return a + b;
 }
 
-void update(int i, int v, int k = 0, int X = 0, int Y = MAX_N - 1) {
-	if (i < X || Y < i) return;
-	if (X == Y) { m[k] = v; a[i] = v; return; }
-	int M = (X + Y) / 2;
-	update(i, v, 2 * k + 1, X, M);
-	update(i, v, 2 * k + 2, M + 1, Y);
-	m[k] = max(m[2 * k + 1], m[2 * k + 2]);
+void init(vector<ll>& values) {
+	tree.assign(sz(values)*2, 0);
+	copy(values.begin(), values.end(), tree.begin() + sz(values));
+	for (int i = sz(tree)/2 - 1; i > 0; --i) {
+		tree[i] = combine(tree[2*i], tree[2*i+1]);
+}}
+
+void update(int p, ll value) {
+	for (tree[p += sz(tree)/2] = value, p /= 2; p > 0; p /= 2) {
+		tree[p] = combine(tree[2*p], tree[2*p+1]);
+}}
+
+ll query(int l, int r) {
+	ll resL = query_default;
+	ll resR = query_default;
+	for (l += sz(tree)/2, r += sz(tree)/2; l < r; l /= 2, r /= 2) {
+		if (l&1) resL = combine(resL, tree[l++]);
+		if (r&1) resR = combine(tree[--r], resR);
+	}
+	return combine(resL, resR);
 }
 
-void init(int k = 0, int X = 0, int Y = MAX_N - 1) {
-	if (X == Y) { m[k] = a[X]; return; }
-	int M = (X + Y) / 2;
-	init(2 * k + 1, X, M);
-	init(2 * k + 2, M + 1, Y);
-	m[k] = max(m[2 * k + 1], m[2 * k + 2]);
+// Oder: Intervall-Modifikation, Punkt-Query:
+void modify(int l, int r, ll value) {
+	for (l += sz(tree)/2, r += sz(tree)/2; l < r; l /= 2, r /= 2) {
+		if (l&1) {tree[l] = combine(tree[l], value); l++;};
+		if (r&1) {--r; tree[r] = combine(value, tree[r]);};
+}}
+
+ll query(int p) {
+	ll res = query_default;
+	for (p += sz(tree)/2; p > 0; p = p/2) {
+		res = combine(res, tree[p]);
+	}
+	return res;
 }

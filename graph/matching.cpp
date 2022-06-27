@@ -1,35 +1,41 @@
-// Fehlerwahrscheinlichkeit: (n / MOD)^I
-const int N=200, MOD=1000000007, I=10;
-int n, adj[N][N], a[N][N];
+constexpr int MOD=1000000007, I=10;
+vector<vector<ll>> adjlist, mat;
 
-int rank() {
-  int r = 0;
-  for (int j = 0; j < n; j++) {
-    int k = r;
-    while (k < n && !a[k][j]) ++k;
-    if (k == n) continue;
-    swap(a[r], a[k]);
-    int inv = powmod(a[r][j], MOD - 2);
-    for (int i = j; i < n; i++)
-      a[r][i] = 1LL * a[r][i] * inv % MOD;
-    for (int u = r + 1; u < n; u++)
-      for (int v = j; v < n; v++)
-        a[u][v] = (a[u][v] - 1LL * a[r][v] * a[u][j] % MOD + MOD) % MOD;
-    ++r;
-  }
-  return r;
+int gauss(int n, ll p) {
+	int rank = n;
+	for (int line = 0; line < n; line++) {
+		int swappee = line;
+		while (swappee < n && mat[swappee][line] == 0) swappee++;
+		if (swappee == n) {rank--; continue;}
+		swap(mat[line], mat[swappee]);
+		ll factor = powMod(mat[line][line], p - 2, p);
+		for (int i = 0; i < n; i++) {
+			mat[line][i] *= factor;
+			mat[line][i] %= p;
+		}
+		for (int i = 0; i < n; i++) {
+			if (i == line) continue;
+			ll diff = mat[i][line];
+			for (int j = 0; j < n; j++) {
+				mat[i][j] -= (diff * mat[line][j]) % p;
+				mat[i][j] %= p;
+				if (mat[i][j] < 0) mat[i][j] += p;
+	}}}
+	return rank;
 }
 
 int max_matching() {
-  int ans = 0;
-  for (int _ = 0; _ < I; _++) {
-    for (int i = 0; i < n; i++) {
-      for (int j = 0; j < i; j++) {
-        if (adj[i][j]) {
-          a[i][j] = rand() % (MOD - 1) + 1;
-          a[j][i] = MOD - a[i][j];
-    }}}
-    ans = max(ans, rank()/2);
-  }
-  return ans;
+	int ans = 0;
+	mat.assign(sz(adjlist), vector<ll>(sz(adjlist)));
+	for (int _ = 0; _ < I; _++) {
+		for (int i = 0; i < sz(adjlist); i++) {
+			mat[i].assign(sz(adjlist), 0);
+			for (int j : adjlist[i]) {
+				if (j < i) {
+					mat[i][j] = rand() % (MOD - 1) + 1;
+					mat[j][i] = MOD - mat[i][j];
+		}}}
+		ans = max(ans, gauss(sz(adjlist), MOD)/2);
+	}
+	return ans;
 }

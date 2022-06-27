@@ -1,0 +1,96 @@
+\begin{tabularx}{\linewidth}{|p{0.37\linewidth}|X|}
+	\hline
+	\multicolumn{2}{|c|}{Nim-Spiele (\ding{182} letzter gewinnt (normal), \ding{183} letzter verliert)} \\
+	\hline
+	Beschreibung &
+	Strategie \\
+	\hline
+
+	$M = [\mathit{pile}_i]$\newline
+	$[x] := \{1, \ldots, x\}$&
+	$\mathit{SG} = \oplus_{i = 1}^n \mathit{pile}_i$\newline
+	\ding{182} Nimm von einem Stapel, sodass $\mathit{SG}$ $0$ wird.\newline
+	\ding{183} Genauso.
+	Außer: Bleiben nur noch Stapel der Größe $1$, erzeuge ungerade Anzahl solcher Stapel.\\
+	\hline
+
+	$M = \{a^m \mid m \geq 0\}$ &
+	$a$ ungerade: $\mathit{SG}_n = n \% 2$\newline
+	$a$ gerade:\newline
+	$\mathit{SG}_n = 2$, falls $n \equiv a \bmod (a + 1) $\newline
+	$\mathit{SG}_n = n \% (a + 1) \% 2$, sonst.\\
+	\hline
+
+	$M_{\text{\ding{172}}} = \left[\frac{\mathit{pile}_i}{2}\right]$\newline
+	$M_{\text{\ding{173}}} =
+	\left\{\left\lceil\frac{\mathit{pile}_i}{2}\right\rceil,~
+	\mathit{pile}_i\right\}$ &
+	\ding{172}
+	$\mathit{SG}_{2n} = n$,
+	$\mathit{SG}_{2n+1} = \mathit{SG}_n$\newline
+	\ding{173}
+	$\mathit{SG}_0 = 0$,
+	$\mathit{SG}_n = [\log_2 n] + 1$ \\
+	\hline
+
+	$M_{\text{\ding{172}}} = \text{Teiler von $\mathit{pile}_i$}$\newline
+	$M_{\text{\ding{173}}} = \text{echte Teiler von $\mathit{pile}_i$}$ &
+	\ding{172}
+	$\mathit{SG}_0 = 0$,
+	$\mathit{SG}_n = \mathit{SG}_{\text{\ding{173},n}} + 1$\newline
+	\ding{173}
+	$\mathit{ST}_1 = 0$,
+	$\mathit{SG}_n = \text{\#Nullen am Ende von $n_{bin}$}$\\
+	\hline
+
+	$M_{\text{\ding{172}}} = [k]$\newline
+	$M_{\text{\ding{173}}} = S$, ($S$ endlich)\newline
+	$M_{\text{\ding{174}}} = S \cup \{\mathit{pile}_i\}$ &
+	$\mathit{SG}_{\text{\ding{172}}, n} = n \bmod (k + 1)$\newline
+	\ding{182} Niederlage bei $\mathit{SG} = 0$\newline
+	\ding{183} Niederlage bei $\mathit{SG} = 1$\newline
+	$\mathit{SG}_{\text{\ding{174}}, n} = \mathit{SG}_{\text{\ding{173}}, n} + 1$\\
+	\hline
+
+	\multicolumn{2}{|l|}{
+		Für jedes endliche $M$ ist $\mathit{SG}$ eines Stapels irgendwann periodisch.
+	} \\
+	\hline
+
+	\textsc{Moore}'s Nim:\newline
+	Beliebige Zahl von maximal $k$ Stapeln. &
+	\ding{182}
+	Schreibe $\mathit{pile}_i$ binär.
+	Addiere ohne Übertrag zur Basis $k + 1$.
+	Niederlage, falls Ergebnis gleich 0.\newline
+	\ding{183}
+	Wenn alle Stapel $1$ sind:
+	Niederlage, wenn $n \equiv 1 \bmod (k + 1)$.
+	Sonst wie in \ding{182}.\\
+	\hline
+
+	Staircase Nim:\newline
+	$n$ Stapel in einer Reihe.
+	Beliebige Zahl von Stapel $i$ nach Stapel $i-1$. &
+	Niederlage, wenn Nim der ungeraden Spiele verloren ist:\newline
+	$\oplus_{i = 0}^{(n - 1) / 2} \mathit{pile}_{2i + 1} = 0$\\
+	\hline
+
+	\textsc{Lasker}'s Nim:\newline
+	Zwei mögliche Züge:\newline
+	1) Nehme beliebige Zahl.\newline
+	2) Teile Stapel in zwei Stapel (ohne Entnahme).&
+	$\mathit{SG}_n = n$, falls $n \equiv 1,2 \bmod 4$\newline
+	$\mathit{SG}_n = n + 1$, falls $n \equiv 3 \bmod 4$\newline
+	$\mathit{SG}_n = n - 1$, falls $n \equiv 0 \bmod 4$\\
+	\hline
+
+	\textsc{Kayles}' Nim:\newline
+	Zwei mögliche Züge:\newline
+	1) Nehme beliebige Zahl.\newline
+	2) Teile Stapel in zwei Stapel (mit Entnahme).&
+	Berechne $\mathit{SG}_n$ für kleine $n$ rekursiv.\newline
+	$n \in [72,83]: \quad 4, 1, 2, 8, 1, 4, 7, 2, 1, 8, 2, 7$\newline
+	Periode ab $n = 72$ der Länge $12$.\\
+	\hline
+\end{tabularx}

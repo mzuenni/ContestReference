@@ -1,0 +1,98 @@
+% For Headlines with math
+\usepackage{bm}
+
+% Display math.
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{ntheorem}
+
+%\usepackage{pxfonts}
+\usepackage[scaled=0.945,largesc,looser]{newpxtext}%better than pxfonts...
+\usepackage[scaled=0.945,bigdelims]{newpxmath}
+\let\mathbb\vmathbb
+
+\DeclareFontFamily{LMX}{npxexx}{}
+\DeclareFontShape{LMX}{npxexx}{m}{n}{<-> s * [1.045] zplexx}{}
+\DeclareFontShape{LMX}{npxexx}{b}{n}{<-> s * [1.045] zplbexx}{}
+%\DeclareFontShape{LMX}{npxexx}{m}{n}{<-> s * [0.78] zplexx}{}
+%\DeclareFontShape{LMX}{npxexx}{b}{n}{<-> s * [0.78] zplbexx}{}
+\DeclareFontShape{LMX}{npxexx}{bx}{n}{<->ssub * npxexx/b/n}{}
+
+%\usepackage[scaled=0.91]{XCharter}
+%\usepackage[scaled=0.89,type1]{cabin}% sans serif
+%\usepackage[charter,varbb,scaled=1.00,noxchvw]{newtxmath}
+
+%\usepackage{libertine}
+%\usepackage[libertine]{newtxmath}
+
+% New enviroment for remarks.
+\theoremstyle{break}
+\newtheorem{bem}{Bemerkung}
+
+% New commands for math operators.
+% Binomial coefficients.
+\renewcommand{\binom}[2]{
+  \Bigl(
+  \begin{matrix}
+    #1 \\
+    #2
+  \end{matrix}
+  \Bigr)
+}
+% Euler numbers, first kind.
+\newcommand{\eulerI}[2]{
+  \Bigl\langle
+  \begin{matrix}
+    #1 \\
+    #2
+  \end{matrix}
+  \Bigr\rangle
+}
+% Euler numbers, second kind.
+\newcommand{\eulerII}[2]{
+  \Bigl\langle\mkern-4mu\Bigl\langle
+  \begin{matrix}
+    #1 \\
+    #2
+  \end{matrix}
+  \Bigr\rangle\mkern-4mu\Bigr\rangle
+}
+% Stirling numbers, first kind.
+\newcommand{\stirlingI}[2]{
+  \Bigl[
+  \begin{matrix}
+    #1 \\
+    #2
+  \end{matrix}
+  \Bigr]
+}
+% Stirling numbers, second kind.
+\newcommand{\stirlingII}[2]{
+  \Bigl\{
+  \begin{matrix}
+    #1 \\
+    #2
+  \end{matrix}
+  \Bigr\}
+}
+% Legendre symbol.
+\newcommand{\legendre}[2]{
+  \Bigl(
+  \dfrac{#1}{#2}
+  \Bigr)
+}
+% Expectation values.
+\newcommand{\E}{\text{E}}
+% Greates common divisor.
+\newcommand{\ggT}{\text{ggT}}
+% sign for negative values
+\newcommand{\sign}{\scalebox{0.66}[1.0]{\( - \)}}
+% absolute values
+\newcommand{\abs}[1]{\left|#1\right|}
+% ceiling function
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
+% floor function
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+% multiplication
+\renewcommand{\*}{\ensuremath{\cdotp}}

@@ -1,8 +1,3 @@
-// Laufzeit: O(n^3)
-void swapLines(int n, int l1, int l2) {
-	for (int i = 0; i <= n; i++) swap(mat[l1][i], mat[l2][i]);
-}
-
 void normalLine(int n, int line) {
 	double factor = mat[line][line];
 	for (int i = 0; i <= n; i++) {
@@ -17,7 +12,7 @@ void takeAll(int n, int line) {
 			mat[i][j] -= diff * mat[line][j];
 }}}
 
-int gauss(int n) { // Gibt zurück, ob das System (eindeutig) lösbar ist.
+int gauss(int n) {
 	vector<bool> done(n, false);
 	for (int i = 0; i < n; i++) {
 		int swappee = i; // Sucht Pivotzeile für bessere Stabilität.
@@ -25,12 +20,13 @@ int gauss(int n) { // Gibt zurück, ob das System (eindeutig) lösbar ist.
 			if (done[j]) continue;
 			if (abs(mat[j][i]) > abs(mat[i][i])) swappee = j;
 		}
-		swapLines(n, i, swappee);
+		swap(mat[i], mat[swappee]);
 		if (abs(mat[i][i]) > EPSILON) {
 			normalLine(n, i);
 			takeAll(n, i);
 			done[i] = true;	
-	}} // Ab jetzt nur noch checks bzgl. Eindeutigkeit/Existenz der Lösung.
+	}}
+	// Ab jetzt nur checks bzgl. Eindeutigkeit/Existenz der Lösung.
 	for (int i = 0; i < n; i++) {
 		bool allZero = true;
 		for (int j = i; j < n; j++)

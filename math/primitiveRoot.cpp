@@ -1,23 +1,23 @@
-// Ist g Primitivwurzel modulo p. Teste zufällige g, um eine zu finden.
-bool is_primitive(ll g, ll p) {
-  map<ll, int> facs;
-  factor(p - 1, facs);
-  for (auto &f : facs)
-    if (1 == powMod(g, (p - 1) / f.first, p)) return false;
-  return true;
+bool isPrimitive(ll g, ll n, ll phi, map<ll, int> phiFacs) {
+	if (g == 1) return n == 2;
+	for (auto& f : phiFacs)
+		if (1 == powMod(g, phi / f.first, n)) return false;
+	return true;
 }
 
-// Alternativ: Generator zum Finden. -1 falls keine existiert.
-ll generator (ll p) { // Laufzeit: O(ans*log(phi(n))*log(n))
-	map<ll, int> facs;
-	factor(n, facs);
-  ll phi = phi(p),  n = phi;
+bool isPrimitive(ll g, ll n) {
+	ll phin = phi(n); //isPrime(n) => phi(n) = n - 1 
+	map<ll, int> phiFacs;
+	factor(phin, phiFacs);
+	return isPrimitive(g, n, phin, phiFacs);
+}
 
-  for (ll res = 2; res <= p; res++) {
-    bool ok = true;
-    for (auto &f : facs)
-    	ok &= powMod(res, phi / f.first, p) != 1;
-    if (ok)  return res;
-  }
-  return -1;
+ll findPrimitive(ll n) {
+	ll phin = phi(n); //isPrime(n) => phi(n) = n - 1
+	map<ll, int> phiFacs;
+	factor(phin, phiFacs);
+	//auch zufällige Reihenfolge möglich!
+	for (ll res = 1; res < n; res++)
+		if (isPrimitive(res, n, phin, phiFacs)) return res;
+	return -1;
 }

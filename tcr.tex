@@ -1,40 +1,65 @@
-\documentclass[a4paper,9pt]{scrartcl}
+
+%maybe size 9pt if too many pages
+\documentclass[a4paper,fontsize=7.8pt]{scrartcl}
 
 % General information.
-\newcommand{\teamname}{Hello KITty}
+\newcommand{\teamname}{Let's party!}
 \newcommand{\university}{Karlsruhe Institute of Technology}
+
+% Options
+\newif\ifoptional
+%\optionaltrue
 
 % Font encoding.
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage[hidelinks,pdfencoding=auto]{hyperref}
 
-% Include headers.  
-\input{latexHeaders/layout}
-\input{latexHeaders/math}
+% Include headers.
+\usepackage{latexHeaders/layout}
+\usepackage{latexHeaders/math}
+%\usepackage{latexHeaders/listings}
 \input{latexHeaders/listings}
+\usepackage{latexHeaders/commands}
 
 % Title and author information.
 \title{Team Contest Reference}
 \author{\teamname \\ \university}
-\date{26. November 2017}
+\date{\today}
 \begin{document}
 
 % Titlepage with table of contents.
-\maketitle
 \setlength{\columnsep}{1cm}
-% \begin{multicols}{2}
-% 	\tableofcontents
-% \end{multicols}
-% \newpage
+\optional{
+\maketitle
+\begin{multicols*}{3}
+	\tableofcontents
+\end{multicols*}
+}
+\newpage
 
 % Content.
-\begin{multicols*}{2}
+\begin{multicols*}{3}
   \input{datastructures/datastructures}
   \input{graph/graph}
   \input{geometry/geometry}
   \input{math/math}
+\end{multicols*}
+  \clearpage
+  \input{math/tables}
+\begin{multicols*}{3}
   \input{string/string}
+  \input{java/java}
   \input{other/other}
+  \input{template/template}
+  \clearpage
+  \ifodd\value{page}
+  \else
+    \null
+    \thispagestyle{empty}
+    \clearpage
+  \fi
+  \input{tests/test}
 \end{multicols*}
 \end{document}

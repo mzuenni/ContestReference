@@ -1,0 +1,49 @@
+% custom commands
+\newcommand{\optional}[1]{
+	\ifoptional
+	#1
+	\fi}
+\newcommand{\runtime}[1]{\ensuremath{\mathcal{O}\left(#1\right)}}
+\newcommand{\code}[1]{\lstinline[breaklines=true]{#1}}
+
+\usepackage{tikz}
+
+
+%new environment to define algorithms
+\usepackage{ifthen}
+\NewDocumentEnvironment{algorithm}{ O{required} m +b }{}{
+	\ifthenelse{\equal{#1}{optional}}{%
+		\optional{
+				\needspace{4\baselineskip}%
+				\subsection{#2\textcolor{gray}{(optional)}}%
+				#3%
+			}
+	}{%
+		\needspace{4\baselineskip}%
+		\subsection{#2}%
+		#3%
+	}
+}
+
+%\ifthenelse{\equal{#3}{}}{}{\runtime{#3}}
+
+\newcommand{\sourcecode}[1]{%
+	\nobreak%
+%	\needspace{3\baselineskip}%
+%	\nopagebreak%
+	\lstinputlisting{#1}%
+	\penalty -1000%
+}
+\newcommand{\method}[4][]{\texttt{#2}~~#3~~\runtime{#4}#1\par}
+
+\newenvironment{methods}[1][lll]{%
+	%\begin{minipage}{\linewidth}%
+		\renewcommand{\method}[4][]{\texttt{##2}&##3&\ifthenelse{\equal{##4}{}}{}{\runtime{##4}}##1\\}%
+		\begin{tabular}{@{}#1@{}}%
+}{%
+		\end{tabular}%
+	%\end{minipage}%
+	\nobreak%
+	\needspace{3\baselineskip}%
+	\nobreak%
+}

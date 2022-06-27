@@ -1,35 +1,131 @@
 \section{Datenstrukturen}
 
-\subsection{Union-Find}
-\lstinputlisting{datastructures/unionFind.cpp}
+\begin{algorithm}{Union-Find}
+	\begin{methods}
+		\method{init}{legt n einzelne Unions an}{n}
+		\method{findSet}{findet den Repräsentanten}{\log(n)}
+		\method{unionSets}{vereint 2 Mengen}{\log(n)}
+		\method{m\*findSet + n\*unionSets}{Folge von Befehlen}{n+m\*\alpha(n)}
+	\end{methods}
+	\sourcecode{datastructures/unionFind.cpp}
+\end{algorithm}
 
-\subsection{Segmentbaum}
-\lstinputlisting{datastructures/segmentTree.cpp}
+\begin{algorithm}{Segmentbaum}
+	\begin{methods}
+		\method{init}{baut den Baum auf}{n}
+		\method{query}{findet das min(max) in [l, r)}{\log(n)}
+		\method{update}{ändert einen Wert}{\log(n)}
+	\end{methods}
+	\sourcecode{datastructures/segmentTree.cpp}
+	
+	\subsubsection{Lazy Propagation}
+	Increment modifications, maximum queries
+	\sourcecode{datastructures/lazyPropagation1.cpp}
+	
+	Assignment modifications, sum queries
+	\sourcecode{datastructures/lazyPropagation2.cpp}
+\end{algorithm}
 
-\subsection{2D-Segmentbaum}
-\lstinputlisting{datastructures/segmentTree2D.cpp}
+\begin{algorithm}{Fenwick Tree}
+	\begin{methods}
+		\method{init}{baut den Baum auf}{n\*\log(n)}
+		\method{prefix\_sum}{summe von [0, i]}{\log(n)}
+		\method{update}{addiert ein Delta zu einem Element}{\log(n)}
+	\end{methods}
+	\sourcecode{datastructures/fenwickTree.cpp}
+	
+	\begin{methods}
+		\method{init}{baut den Baum auf}{n\*\log(n)}
+		\method{prefix\_sum}{summe von [0, i]}{\log(n)}
+		\method{update}{addiert ein Delta zu allen Elementen [l, r)}{\log(n)}
+	\end{methods}
+	\sourcecode{datastructures/fenwickTree2.cpp}
+\end{algorithm}
 
-\subsection{Fenwick Tree}
-\lstinputlisting{datastructures/fenwickTree.cpp}
-\lstinputlisting{datastructures/fenwickTreeNiklas.cpp}
+\begin{algorithm}{Wavelet Tree}
+	\begin{methods}
+		\method{Constructor}{baut den Baum auf}{n\*\log(n)}
+		\method{kth}{sort$[l, r)[k]$}{\log(n)}
+		\method{countSmaller}{Anzahl elemente in $[l, r)$ kleiner als $k$}{\log(n)}
+	\end{methods}
+	\sourcecode{datastructures/waveletTree.cpp}
+\end{algorithm}
 
-\subsection{Sparse Table}
-\lstinputlisting{datastructures/sparseTable.cpp}
+\begin{algorithm}[optional]{Erste unbenutzte natürliche Zahl}
+	\begin{methods}
+		\method{get\_first\_unused}{findet kleinste unbenutzte Zahl}{\log(n)}
+	\end{methods}
+	\sourcecode{datastructures/firstUnused.cpp}
+\end{algorithm}
 
-\subsection{STL-Tree}
-\lstinputlisting{datastructures/stlTree.cpp}
+\begin{algorithm}{Treap (Cartesian Tree)}
+	\sourcecode{datastructures/treap.cpp}
+\end{algorithm}
 
-\subsection{STL-Rope (Implicit Cartesian Tree)}
-\lstinputlisting{datastructures/stlRope.cpp}
+\begin{algorithm}[optional]{Range Minimum Query}
+	\begin{methods}
+		\method{init}{baut Struktur auf}{n\*\log(n)}
+		\method{query}{Index des Minimums in [l, r)}{1}
+	\end{methods}
+	\sourcecode{datastructures/RMQ.cpp}
+\end{algorithm}
 
-\subsection{Treap (Cartesian Tree)}
-\lstinputlisting{datastructures/treap.cpp}
+\needspace{5\baselineskip}%
+\begin{algorithm}{Range Minimum Query}
+	\begin{methods}
+		\method{init}{baut Struktur auf}{n\*\log(n)}
+		\method{queryIdempotent}{Index des Minimums in [l, r)}{1}
+	\end{methods}
+	\begin{itemize}
+		\item \code{better}-Funktion muss idempotent sein!
+	\end{itemize}
+	\sourcecode{datastructures/sparseTable.cpp}
+\end{algorithm}
 
-\subsection{STL Priority Queue}
-Nicht notwendig, wenn Smaller-Larger-Optimization greift.
-\lstinputlisting{datastructures/stlPQ.cpp}
+\begin{algorithm}{STL-Tree}
+	\sourcecode{datastructures/stlTree.cpp}
+\end{algorithm}
 
-\subsection{Lower/Upper Envelop (Convex Hull Optimization)}
-Um aus einem lower envelope einen upper envelope zu machen (oder umgekehrt), einfach beim Einfügen der Geraden $m$ und $b$ negieren.
-\lstinputlisting{datastructures/monotonicConvexHull.cpp}
-\lstinputlisting{datastructures/dynamicConvexHull.cpp}
+\begin{algorithm}{STL HashMap}
+	3 bis 4 mal langsamer als \code{std::vector} aber 8 bis 9 mal schneller als \code{std::map}
+	\sourcecode{datastructures/stlHashMap.cpp}
+\end{algorithm}
+
+\begin{algorithm}{STL Priority Queue}
+	Nicht notwendig, wenn Smaller-Larger-Optimization greift.
+	\sourcecode{datastructures/stlPQ.cpp}
+\end{algorithm}
+
+\begin{algorithm}{STL-Rope (Implicit Cartesian Tree)}
+	\sourcecode{datastructures/stlRope.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Lower/Upper Envelope (Convex Hull Optimization)}
+	Um aus einem lower envelope einen upper envelope zu machen (oder umgekehrt), einfach beim Einfügen der Geraden $m$ und $b$ negieren.
+	\sourcecode{datastructures/monotonicConvexHull.cpp}
+	\sourcecode{datastructures/dynamicConvexHull.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Link-Cut-Tree}
+	\begin{methods}
+		\method{Constructor}{baut Wald auf}{n}
+		\method{connected}{prüft ob zwei Knoten im selben baum liegen}{\log(n)}
+		\method{link}{fügt $\{x,y\}$ Kante ein}{\log(n)}
+		\method{cut}{entfernt $\{x,y\}$ Kante}{\log(n)}
+		\method{lca}{berechnet LCA von $x$ und $y$}{\log(n)}
+		\method{query}{berechnet \texttt{query} auf den Knoten des $xy$-Pfades}{\log(n)}
+		\method{modify}{erhöht jeden wert auf dem $xy$-Pfad}{\log(n)}
+	\end{methods}
+	\sourcecode{datastructures/LCT.cpp}
+\end{algorithm}
+
+\clearpage
+\begin{algorithm}{Persistent}
+	\begin{methods}
+		\method{get}{berechnet Wert zu Zeitpunkt $t$}{\log(t)}
+		\method{set}{ändert Wert zu Zeitpunkt $t$}{\log(t)}
+		\method{reset}{setzt die Datenstruktur auf Zeitpunkt $t$}{1}
+	\end{methods}
+	\sourcecode{datastructures/persistent.cpp}
+	\sourcecode{datastructures/persistentArray.cpp}
+\end{algorithm}

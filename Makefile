@@ -1,6 +1,5 @@
 all:
-	pdflatex tcr.tex
-	pdflatex tcr.tex
-	make clean
+	latexmk -pdf tcr
 clean:
-	rm -f *~ .*~ *.aux *.log *.backup *.out *.backup *.bbl *.blg *.brf *.idx *.ilg *.ind *.thm *.toc *.fls
+	latexmk -c tcr
+	rm -f *.thm

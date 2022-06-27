@@ -1,21 +1,15 @@
-vector<int> FT; // Fenwick-Tree
-int n;
+vector<ll> tree;
 
-// Addiert val zum Element an Index i. O(log(n)).
-void updateFT(int i, int val) {
-	i++; while(i <= n) { FT[i] += val; i += (i & (-i)); }
+void update(int i, ll val) {
+	for (i++; i < sz(tree); i += (i & (-i))) tree[i] += val;
 }
 
-// Baut Baum auf. O(n*log(n)).
-void buildFenwickTree(vector<int>& a) {
-  n = a.size();
-  FT.assign(n+1,0);
-  for(int i = 0; i < n; i++)  updateFT(i,a[i]);
+void init(int n) {
+	tree.assign(n + 1,0);
 }
 
-// Präfix-Summe über das Intervall [0..i]. O(log(n)).
-int prefix_sum(int i) {
-  int sum = 0; i++;
-  while(i > 0) { sum += FT[i]; i -= (i & (-i)); }	
-  return sum;
+ll prefix_sum(int i) {
+	ll sum = 0;
+	for (i++; i > 0; i -= (i & (-i))) sum += tree[i];
+	return sum;
 }

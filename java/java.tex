@@ -1,0 +1,37 @@
+\section{Java}
+\lstset{language=Java}
+
+\optional{
+\subsection{Introduction}
+
+\begin{itemize}
+	\item Compilen: \code{javac main.java}
+	\item Ausführen: \code{java main < sample.in}
+\end{itemize}
+}
+
+\subsection{Input}
+\begin{itemize}
+	\item \code{Scanner} ist sehr langsam. Nicht für lange Eingaben verwenden
+\end{itemize}
+\optional{
+\lstinputlisting{java/inputA.java}
+\lstinputlisting{java/inputB.java}
+}
+
+\subsection{Output}
+\begin{itemize}
+	\item \code{System.out} flusht nach jeder newline $\Rightarrow$ langsam
+	\item \code{String.format} langsam
+	\item \code{+} auf \code{String} benutzt \code{StringBuilder}  $\Rightarrow$ schnell und leicht \\(bei vielen \code{+}-Operationen an unterschiedlichen Stellen doch explizit \code{StringBuilder} nutzen)
+\end{itemize}
+\optional{
+\lstinputlisting{java/output.java}
+}
+
+\optional{
+\subsection{BigInteger}
+\lstinputlisting{java/bigInteger.java}
+}
+
+\lstset{language=C++}

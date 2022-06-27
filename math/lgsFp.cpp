@@ -1,10 +1,5 @@
-// Laufzeit: O(n^3)
-void swapLines(int n, int l1, int l2) {
-	for (int i = 0; i <= n; i++) swap(mat[l1][i], mat[l2][i]);
-}
-
 void normalLine(int n, int line, ll p) {
-	ll factor = multInv(mat[line][line], p); // Implementierung von oben.
+	ll factor = multInv(mat[line][line], p);
 	for (int i = 0; i <= n; i++) {
 		mat[line][i] *= factor;
 		mat[line][i] %= p;
@@ -23,8 +18,10 @@ void takeAll(int n, int line, ll p) {
 void gauss(int n, ll p) { // nx(n+1)-Matrix, Körper F_p.
 	for (int line = 0; line < n; line++) {
 		int swappee = line;
-		while (mat[swappee][line] == 0) swappee++;
-		swapLines(n, line, swappee);
+		while (swappee < n && mat[swappee][line] == 0) swappee++;
+		if (swappee == n) continue;
+		swap(mat[line], mat[swappee]);
 		normalLine(n, line, p);
 		takeAll(n, line, p);
+		// für Eindeutigkeit, Existenz etc. siehe LGS
 }}

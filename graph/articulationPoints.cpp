@@ -1,33 +1,45 @@
-// Laufzeit: O(|V|+|E|)
-vector<vector<int>> adjlist;
+vector<vector<edge>> adjlist;
+vector<int> num;
+int counter, rootCount, root;
 vector<bool> isArt;
-vector<int> d, low;
-int counter, root, rootCount; // rootCount >= 2 <=> root Artikulationspunkt
-vector<ii> bridges; // Nur fuer Brücken.
+vector<edge> bridges, st;
+vector<vector<edge>> bcc;
 
-void dfs(int v, int parent = -1) {
-	d[v] = low[v] = ++counter;
-	if (parent == root) ++rootCount;
-	
-	for (auto w : adjlist[v]) {
-		if (!d[w]) {
-			dfs(w, v);
-			if (low[w] >= d[v] && v != root) isArt[v] = true;
-			if (low[w] > d[v]) bridges.push_back(ii(v, w));
-			low[v] = min(low[v], low[w]);
-		} else if (w != parent) {
-			low[v] = min(low[v], d[w]);
-}}}
+int dfs(int v, int parent = -1) {
+	int me = num[v] = ++counter, top = me;
+	for (edge& e : adjlist[v]) {
+		if (e.id == parent){}
+		else if (num[e.to]) {
+			top = min(top, num[e.to]);
+			if (num[e.to] < me) st.push_back(e);
+		} else {
+			if (v == root) rootCount++;
+			int si = sz(st);
+			int up = dfs(e.to, e.id);
+			top = min(top, up);
+			if (up >= me) isArt[v] = true;
+			if (up > me) bridges.push_back(e);
+			if (up <= me) st.push_back(e);
+			if (up == me) {
+				bcc.emplace_back();
+				while (sz(st) > si) {
+					bcc.back().push_back(st.back());
+					st.pop_back();
+	}}}}
+	return top;
+}
 
 void findArticulationPoints() {
 	counter = 0;
-	low.resize(adjlist.size());
-	d.assign(adjlist.size(), 0);
-	isArt.assign(adjlist.size(), false);
-	bridges.clear(); //nur fuer Bruecken
-	for (int v = 0; v < (int)adjlist.size(); v++) {
-		if (!d[v]) {
-			root = v; rootCount = 0;
+	num.assign(sz(adjlist), 0);
+	isArt.assign(sz(adjlist), false);
+	bridges.clear();
+	st.clear();
+	bcc.clear();
+	for (int v = 0; v < sz(adjlist); v++) {
+		if (!num[v]) {
+			root = v;
+			rootCount = 0;
 			dfs(v);
-			if (rootCount > 1) isArt[v] = true;
+			isArt[v] = rootCount > 1;
 }}}

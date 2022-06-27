@@ -1,17 +1,21 @@
-// Laufzeit: O((|E|+|V|)*log |V|) 
-void dijkstra(int start) {
-	priority_queue<ii, vector<ii>, greater<ii> > pq;
-	vector<int> dist(NUM_VERTICES, INF), parent(NUM_VERTICES, -1);
-	dist[start] = 0; pq.push(ii(0, start));
+using path = pair<ll, int>; //dist, destination
+
+void dijkstra(const vector<vector<path>> &adjlist, int start) {
+	priority_queue<path, vector<path>, greater<path>> pq;
+	vector<ll> dist(sz(adjlist), INF);
+	vector<int> prev(sz(adjlist), -1);
+	dist[start] = 0; pq.emplace(0, start);
 
 	while (!pq.empty()) {
-		ii front = pq.top(); pq.pop();
-		int curNode = front.second, curDist = front.first;
-		if (curDist > dist[curNode]) continue; // WICHTIG!
-		
-		for (auto n : adjlist[curNode]) {
-			int nextNode = n.first, nextDist = curDist + n.second;
-			if (nextDist < dist[nextNode]) {
-				dist[nextNode] = nextDist; parent[nextNode] = curNode;
-				pq.push(ii(nextDist, nextNode));
-}}}}
+		path front = pq.top(); pq.pop();
+		if (front.first > dist[front.second]) continue; // WICHTIG!
+
+		for (path e : adjlist[front.second]) {
+			ll newDist = front.first + e.first;
+			if (newDist < dist[e.second]) {
+				dist[e.second] = newDist;
+				prev[e.second] = front.second;
+				pq.emplace(newDist, e.second);
+	}}}
+	//return dist, prev;
+}

@@ -1,25 +1,33 @@
 // Zahlenwerte müssen bei 0 beginnen und zusammenhängend sein.
+constexpr int ALPHABET_SIZE = 2;
 struct node {
-  int children[ALPHABET_SIZE], c; // c = #Wörter, die hier enden.
-  node () {
-    idx = -1;
-    for (int i = 0; i < ALPHABET_SIZE; i++) children[i] = -1;
-  }
+	int words, wordEnds; vector<int> children;
+	node() : words(0), wordEnds(0), children(ALPHABET_SIZE, -1){}
 };
-vector<node> trie; // Anlegen mit trie.push_back(node());
+vector<node> trie = {node()};
 
-void insert(int vert, vector<int> &txt, int s) { // Laufzeit: O(|txt|)
-  if (s == (int)txt.size()) { trie[vert].c++; return; }
-  if (trie[vert].children[txt[s]] == -1) {
-    trie[vert].children[txt[s]] = trie.size();
-    trie.push_back(node());
-  }
-  insert(trie[vert].children[txt[s]], txt, s + 1);
+int insert(vector<int>& word) {
+	int id = 0;
+	for (int c : word) {
+		trie[id].words++;
+		if (trie[id].children[c] < 0) {
+			trie[id].children[c] = trie.size();
+			trie.emplace_back();
+		}
+		id = trie[id].children[c];
+	}
+	trie[id].words++;
+	trie[id].wordEnds++;
+	return id;
 }
 
-int contains(int vert, vector<int> &txt, int s) { // Laufzeit: O(|txt|)
-  if (s == (int)txt.size()) return trie[vert].c;
-  if (trie[vert].children[txt[s]] != -1) {
-    return contains(trie[vert].children[txt[s]], txt, s + 1);
-  } else return 0;
+void erase(vector<int>& word) {
+	int id = 0;
+	for (int c : word) {
+		trie[id].words--;
+		id = trie[id].children[c];
+		if (id < 0) return;
+	}
+	trie[id].words--;
+	trie[id].wordEnds--;
 }

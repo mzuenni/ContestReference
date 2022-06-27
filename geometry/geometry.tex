@@ -1,13 +1,47 @@
 \section{Geometrie}
 
-\subsection{Closest Pair}
-\lstinputlisting{geometry/closestPair.cpp}
+\begin{algorithm}{Closest Pair}
+	\begin{methods}
+		\method{shortestDist}{kürzester Abstand zwischen Punkten}{n\*\log(n)}
+	\end{methods}
+	\sourcecode{geometry/closestPair.cpp}
+\end{algorithm}
 
+\begin{algorithm}{Konvexe Hülle}
+	\begin{methods}
+		\method{convexHull}{berechnet Konvexehülle}{n\*\log(n)}
+	\end{methods}
+	\begin{itemize}
+		\item Konvexehülle gegen den Uhrzeigersinn Sortiert
+		\item nur Eckpunkte enthalten(für alle Punkte = im CCW Test entfernen)
+		\item Erster und Letzter Punkt sind identisch
+	\end{itemize}
+	\sourcecode{geometry/convexHull.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Rotating calipers}
+	\begin{methods}
+		\method{antipodalPoints}{berechnet antipodale Punkte}{n}
+	\end{methods}
+	\textbf{WICHTIG:} Punkte müssen gegen den Uhrzeigersinn Sortiert sein und konvexes Polygon bilden!
+	\sourcecode{geometry/antipodalPoints.cpp}
+\end{algorithm}
+
+\subsection{Formeln~~--~\texttt{std::complex}}
+\sourcecode{geometry/formulars.cpp}
+\sourcecode{geometry/linesAndSegments.cpp}
+\sourcecode{geometry/triangle.cpp}
+\sourcecode{geometry/polygon.cpp}
+\sourcecode{geometry/circle.cpp}
+\sourcecode{geometry/sortAround.cpp}
+
+\subsection{Formeln - 3D}
+\sourcecode{geometry/formulars3d.cpp}
+
+\subsection{3D-Kugeln}
+\sourcecode{geometry/spheres.cpp}
+
+\optional{
 \subsection{Geraden}
-\lstinputlisting{geometry/lines.cpp}
-
-\subsection{Konvexe Hülle}
-\lstinputlisting{geometry/convexHull.cpp}
-
-\subsection{Formeln - \lstinline{std::complex}}
-\lstinputlisting{geometry/formulars.cpp}
+\sourcecode{geometry/lines.cpp}
+}

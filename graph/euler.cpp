@@ -1,40 +1,26 @@
-// Laufzeit: O(|V|+|E|)
-vector< vector<int> > adjlist, otherIdx;
-vector<int> cycle, validIdx;
+vector<vector<int>> idx;
+vector<int> to, validIdx, cycle;
+vector<bool> used;
 
-// Vertauscht Kanten mit Indizes a und b von Knoten n.
-void swapEdges(int n, int a, int b) {
-	int neighA = adjlist[n][a], neighB = adjlist[n][b];
-	int idxNeighA = otherIdx[n][a], idxNeighB = otherIdx[n][b];
-	swap(adjlist[n][a], adjlist[n][b]);
-	swap(otherIdx[n][a], otherIdx[n][b]);
-	otherIdx[neighA][idxNeighA] = b;
-	otherIdx[neighB][idxNeighB] = a;
-}
-
-// Entfernt Kante i von Knoten n (und die zugehörige Rückwärtskante).
-void removeEdge(int n, int i) {
-	int other = adjlist[n][i];
-	if (other == n) { //Schlingen.
-		validIdx[n]++;
-		return;
-	}
-	int otherIndex = otherIdx[n][i];
-	validIdx[n]++;
-	if (otherIndex != validIdx[other]) {
-		swapEdges(other, otherIndex, validIdx[other]);
-	}
-	validIdx[other]++;
+void addEdge(int a, int b) {
+	idx[a].push_back(sz(to));
+	to.push_back(b);
+	used.push_back(false);
+	idx[b].push_back(sz(to)); //für ungerichtet
+	to.push_back(a);
+	used.push_back(false);
 }
 
 // Findet Eulerzyklus an Knoten n startend.
-// Teste vorher, dass Graph zusammenhängend ist! Isolierten Knoten?
-// Teste vorher, ob Eulerzyklus überhaupt existiert!
+// init idx und validIdx
 void euler(int n) {
-	while (validIdx[n] < (int)adjlist[n].size()) {
-		int nn = adjlist[n][validIdx[n]];
-		removeEdge(n, validIdx[n]);
-		euler(nn);
-	}
-	cycle.push_back(n); // Zyklus in cycle in umgekehrter Reihenfolge.
+	for (;validIdx[n] < sz(idx[n]); validIdx[n]++) {
+		if (!used[idx[n][validIdx[n]]]) {
+			int nn = to[idx[n][validIdx[n]]];
+			used[idx[n][validIdx[n]]] = true;
+			used[idx[n][validIdx[n]] ^ 1] = true; //für ungerichtet
+			euler(nn);
+	}}
+	// Zyklus in cycle in umgekehrter Reihenfolge.
+	cycle.push_back(n);
 }
