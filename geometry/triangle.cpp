@@ -25,7 +25,7 @@ pt outCenter(pt a, pt b, pt c) {
 // Zentrum des größten Kreises im Dreiecke
 pt inCenter(pt a, pt b, pt c) {
 	double x = abs(a-b), y = abs(b-c), z = abs(a-c);
-	return (y*a + z*b + x*c) / (a+b+c);
+	return (y*a + z*b + x*c) / (x+y+z);
 }
 
 
