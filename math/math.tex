@@ -267,19 +267,18 @@ Multipliziert Polynome $A$ und $B$.
 	%\lstinputlisting{math/ntt.cpp}
 	%\textcolor{safeOrange}{$\blacksquare$} NTT code, %\textcolor{safeGreen}{$\blacksquare$} FFT code
 	\sourcecode{math/transforms/all.cpp}
-	\columnbreak
 	Für sehr viele transforms kann die Vertauschung vorberechnet werden:
 	\sourcecode{math/transforms/fftPerm.cpp}
 	Multiplikation mit 2 transforms statt 3: (nur benutzten wenn nötig!)
 	\sourcecode{math/transforms/fftMul.cpp}
 \end{algorithm}
 
-\begin{algorithm}{Numerisch Integrieren, Simpsonregel}
-	\sourcecode{math/simpson.cpp}
-\end{algorithm}
-
 \begin{algorithm}{Numerisch Extremstelle bestimmen}
 	\sourcecode{math/goldenSectionSearch.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Numerisch Integrieren, Simpsonregel}
+	\sourcecode{math/simpson.cpp}
 \end{algorithm}
 
 \begin{algorithm}{Longest Increasing Subsequence}
@@ -288,10 +287,6 @@ Multipliziert Polynome $A$ und $B$.
 		\item \code{upper\_bound} $\Rightarrow$ monoton
 	\end{itemize}
 	\sourcecode{math/longestIncreasingSubsequence.cpp}
-\end{algorithm}
-
-\begin{algorithm}{Inversionszahl}
-	\sourcecode{math/inversions.cpp}
 \end{algorithm}
 
 \begin{algorithm}{\textsc{Legendre}-Symbol}
@@ -321,13 +316,17 @@ Multipliziert Polynome $A$ und $B$.
 	\sourcecode{math/legendre.cpp}
 \end{algorithm}
 
+\begin{algorithm}{Inversionszahl}
+	\sourcecode{math/inversions.cpp}
+\end{algorithm}
+
 \subsection{Satz von \textsc{Sprague-Grundy}}
 Weise jedem Zustand $X$ wie folgt eine \textsc{Grundy}-Zahl $g\left(X\right)$ zu:
 \[
-	g\left(X\right) := \min\left\{
-		\mathbb{Z}_0^+ \setminus
-		\left\{g\left(Y\right) \mid Y \text{ von } X \text{ aus direkt erreichbar}\right\}
-	\right\} 
+g\left(X\right) := \min\left\{
+\mathbb{Z}_0^+ \setminus
+\left\{g\left(Y\right) \mid Y \text{ von } X \text{ aus direkt erreichbar}\right\}
+\right\} 
 \]
 $X$ ist genau dann gewonnen, wenn $g\left(X\right) > 0$ ist.\\
 Wenn man $k$ Spiele in den Zuständen $X_1, \ldots, X_k$ hat, dann ist die \textsc{Grundy}-Zahl des Gesamtzustandes $g\left(X_1\right) \oplus \ldots \oplus g\left(X_k\right)$.
@@ -455,7 +454,6 @@ Die Anzahl der \mbox{$k$-elementigen} Teilmengen einer \mbox{$n$-elementigen} Me
 	\end{methods}
 	\sourcecode{math/binomial.cpp}
 
-\columnbreak
 	\begin{methods}
 		\method{calc\_binom}{berechnet Binomialkoeffizient modulo Primzahl $p$}{p-n}
 	\end{methods}

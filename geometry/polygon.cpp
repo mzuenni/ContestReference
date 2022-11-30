@@ -31,3 +31,43 @@ bool inside(pt p, const vector<pt>& hull) {
 	}
 	return orientation(hull[l], hull[r], p) >= 0;
 }
+
+void rotateMin(vector<pt>& hull) {
+	auto mi = min_element(all(hull), [](const pt& a, const pt& b){
+		return real(a) == real(b) ? imag(a) < imag(b)
+															: real(a) < real(b);
+	});
+	rotate(hull.begin(), mi, hull.end());
+}
+
+//convex hulls without duplicates, h[0] != h.back()
+vector<pt> minkowski(vector<pt> ps, vector<pt> qs) {
+	rotateMin(ps);
+	rotateMin(qs);
+	ps.push_back(ps[0]);
+	qs.push_back(qs[0]);
+	ps.push_back(ps[1]);
+	qs.push_back(qs[1]);
+	vector<pt> res;
+	for (ll i = 0, j = 0; i + 2 < sz(ps) || j + 2 < sz(qs);) {
+		res.push_back(ps[i] + qs[j]);
+		auto c = cross(ps[i + 1] - ps[i], qs[j + 1] - qs[j]);
+		if(c <= 0) i++;
+		if(c >= 0) j++;
+	}
+	return res;
+}
+
+//convex hulls without duplicates, h[0] != h.back()
+double dist(const vector<pt>& ps, const vector<pt>& qs) {
+	for (pt& q : qs) q *= -1;
+	auto p = minkowski(ps, qs);
+	p.push_back(p[0]);
+	double res = 0.0;
+	//bool intersect = true;
+	for (ll i = 0; i + 1 < sz(p); i++) {
+		//intersect &= cross(p[i], p[i+1] - p[i]) <= 0;
+		res = max(res, cross(p[i], p[i+1]-p[i]) / abs(p[i+1]-p[i]));
+	}
+	return res;
+}
