@@ -54,6 +54,6 @@ double match(int l, int r) {
 			y = prec;
 	}}
 	// Wert des Matchings
-	return accumulate(lx.begin(), lx.end(), 0.0) +
-				 accumulate(ly.begin(), ly.end(), 0.0);
+	return accumulate(all(lx), 0.0) +
+				 accumulate(all(ly), 0.0);
 }

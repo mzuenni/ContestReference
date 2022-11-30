@@ -12,14 +12,14 @@ bool compX(pt a, pt b) {
 															: real(a) < real(b);
 }
 
-double shortestDist(vector<pt>& points) { // points.size() > 1
+double shortestDist(vector<pt>& pts) { // pts.size() > 1
 	set<pt, bool(*)(pt, pt)> status(compY);
-	sort(points.begin(), points.end(), compX);
+	sort(all(pts), compX);
 	double opt = 1.0/0.0, sqrtOpt = 1.0/0.0;
-	auto left = points.begin(), right = points.begin();
+	auto left = pts.begin(), right = pts.begin();
 	status.insert(*right); right++;
 
-	while (right != points.end()) {
+	while (right != pts.end()) {
 		if (left != right &&
 				abs(real(*left - *right)) >= sqrtOpt) {
 			status.erase(*left);

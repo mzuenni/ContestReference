@@ -1,4 +1,4 @@
-sort(edges.begin(), edges.end());
+sort(all(edges));
 vector<edge> mst;
 int cost = 0;
 for (edge& e : edges) {

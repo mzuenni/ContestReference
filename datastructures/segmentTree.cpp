@@ -7,7 +7,7 @@ ll combine(ll a, ll b) {
 
 void init(vector<ll>& values) {
 	tree.assign(sz(values)*2, 0);
-	copy(values.begin(), values.end(), tree.begin() + sz(values));
+	copy(all(values), tree.begin() + sz(values));
 	for (int i = sz(tree)/2 - 1; i > 0; --i) {
 		tree[i] = combine(tree[2*i], tree[2*i+1]);
 }}

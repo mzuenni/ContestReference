@@ -26,8 +26,7 @@ struct ChineseRemainder {
 
 	// Löst das System.
 	ll solve() {
-		M = accumulate(mods.begin(), mods.end(), lll(1), 
-									 multiplies<lll>());
+		M = accumulate(all(mods), lll(1), multiplies<lll>());
 		inv.resize(sz(lhs));
 		for (int i = 0; i < sz(lhs); i++) {
 			lll x = (M / mods[i]) % mods[i];

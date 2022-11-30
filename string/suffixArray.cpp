@@ -12,7 +12,7 @@ struct SuffixArray {
 			for (int i = 0; i < n; i++)
 				L[i] = {{P[step-1][i], 
 						 		 i+count < n ? P[step-1][i+count] : -1}, i};
-			sort(L.begin(), L.end());
+			sort(all(L));
 			for (int i = 0; i < n; i++) {
 				P[step][L[i].second] = 
 					i > 0 && L[i].first == L[i-1].first ?

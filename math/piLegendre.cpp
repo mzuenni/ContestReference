@@ -16,7 +16,7 @@ ll phi(ll n, ll k) {
 
 ll pi(ll n) {
 	if (n < N) { // implement this as O(1) lookup for speedup!
-		return distance(primes.begin(), upper_bound(primes.begin(), primes.end(), n));
+		return distance(primes.begin(), upper_bound(all(primes), n));
 	} else {
 		ll k = pi(sqrtl(n) + 1);
 		return n - phi(n, k) + k;
