@@ -1,5 +1,5 @@
 constexpr ll ALPHABET_SIZE = 26;
-constexpr char OFFSET = 26;
+constexpr char OFFSET = 'a';
 struct AhoCorasick {
 	struct vert {
 		int suffix, exit, character, parent;
