@@ -107,7 +107,7 @@
 	\sourcecode{string/lyndon.cpp}
 	\sourcecode{string/duval.cpp}
 	\begin{itemize}
-		\item \textbf{De-Bruijn-Sequenze $\boldsymbol{B(\Sigma, n)}$:}~ein Wort das jedes Wort der Länge $n$ genau einmal als substring enthält (und minimal ist). Wobei $B(\Sigma, n)$ zyklisch betrachtet wird.
+		\item \textbf{De-Bruijn-Sequenze $\boldsymbol{B(\Sigma, n)}$:}~~~ein Wort das jedes Wort der Länge $n$ genau einmal als substring enthält (und minimal ist). Wobei $B(\Sigma, n)$ zyklisch betrachtet wird.
 		\item es gibt $\frac{(k!)^{k^{n-1}}}{k^{n}}$ verschiedene $B(\Sigma, n)$
 		\item $B(\Sigma, n)$ hat Länge $\abs{\Sigma}^n$
 	\end{itemize}
@@ -115,4 +115,17 @@
 		\method{deBruijn}{berechnet ein festes $B(\Sigma, n)$}{\abs{\Sigma}^n}
 	\end{methods}
 	\sourcecode{string/deBruijn.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Pattern Matching mit Wildcards}
+	Gegeben zwei strings $A$ und $B$,$B$ enthält $k$ \emph{wildcards} enthält. Sei:
+	\begin{align*}
+		a_i&=\cos(\alpha_i) + i\sin(\alpha_i) &\text{ mit } \alpha_i&=\frac{2\pi A[i]}{\Sigma}\\
+		b_i&=\cos(\beta_i) + i\sin(\beta_i) &\text{ mit } \beta_i&=\begin{cases*}
+			\frac{2\pi B[\abs{B}-i-1]}{\Sigma} & falls $B[\abs{B}-i-1]\in\Sigma$ \\
+			0 & sonst
+		\end{cases*}
+	\end{align*}
+	$B$ matcht $A$ an stelle $i$ wenn $(b\cdot a)[|B|-1+i]=|B|-k$.
+	Benutze FFT um $(b\cdot a)$ zu berechnen.
 \end{algorithm}
