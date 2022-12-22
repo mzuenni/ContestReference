@@ -1,15 +1,11 @@
-vector<int> Z(const vector<int> &s) {
-	int n = sz(s);
-	vector<int> z(n, n);
-	int l = 0, r = 0, p, q;
-	for (int i = 1; i < n; ++i) {
-		if (i <= r && z[i - l] < r - i + 1) {
-			z[i] = z[i - l];
-		} else {
-			if (i > r) p = 0, q = i;
-			else p = r - i + 1, q = r + 1;
-			while (q < n && s[p] == s[q]) ++p, ++q;
-			z[i] = q - i, l = i, r = q - 1;
-	}}
-	return z;
+vector<int> Z(const string& s) {
+    int n = sz(s);
+    vector<int> z(n, n);
+    int x = 0, y = 0;
+    for (int i = 1; i < n; i++) {
+        z[i] = max(0, min(z[i - x], y - i + 1));
+        while (i + z[i] < n && s[z[i]] == s[i + z[i]]) {
+            x = i, y = i + z[i], z[i]++;
+    }}
+    return z;
 }
