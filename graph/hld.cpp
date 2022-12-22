@@ -37,10 +37,10 @@ vector<pair<int, int>> get_intervals(int u, int v) {
 	while (true) {
 		if (in[v] < in[u]) swap(u, v);
 		if (in[nxt[v]] <= in[u]) {
-			res.eb(in[u], in[v] + 1);
+			res.emplace_back(in[u], in[v] + 1);
 			return res;
 		}
-		res.eb(in[nxt[v]], in[v] + 1);
+		res.emplace_back(in[nxt[v]], in[v] + 1);
 		v = par[nxt[v]];
 }}
 
