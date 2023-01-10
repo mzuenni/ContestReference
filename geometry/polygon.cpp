@@ -35,7 +35,7 @@ bool inside(pt p, const vector<pt>& hull) {
 void rotateMin(vector<pt>& hull) {
 	auto mi = min_element(all(hull), [](const pt& a, const pt& b){
 		return real(a) == real(b) ? imag(a) < imag(b)
-															: real(a) < real(b);
+		                          : real(a) < real(b);
 	});
 	rotate(hull.begin(), mi, hull.end());
 }

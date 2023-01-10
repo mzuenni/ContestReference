@@ -64,7 +64,7 @@ struct SuffixTree {
 					break;
 				}
 				int split = newVert(tree[nxt].start,
-														tree[nxt].start + curLen);
+				                    tree[nxt].start + curLen);
 				tree[curVert].next[s[curEdge]] = split;
 				int leaf = newVert(pos, sz(s));
 				tree[split].next[s[pos]] = leaf;
@@ -78,6 +78,6 @@ struct SuffixTree {
 				curEdge = pos - remainder + 1;
 			} else {
 				curVert = tree[curVert].suffix ? tree[curVert].suffix 
-																			 : root;
+				                               : root;
 	}}}
 };

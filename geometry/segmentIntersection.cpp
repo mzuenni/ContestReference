@@ -4,7 +4,7 @@ struct seg {
 	bool operator<(const seg& o) const {
 		if (real(a) < real(o.a)) {
 			int s = orientation(a, b, o.a);
-			return (s > 0 || (s == 0 && imag(a) < imag(o.a)));//
+			return (s > 0 || (s == 0 && imag(a) < imag(o.a)));
 		} else if (real(a) > real(o.a)) {
 			int s = orientation(o.a, o.b, a);
 			return (s < 0 || (s == 0 && imag(a) < imag(o.a)));
@@ -25,7 +25,7 @@ struct event {
  
 bool lessPT(const pt& a, const pt& b) {
 	return real(a) != real(b) ? real(a) < real(b)
-														: imag(a) < imag(b);
+	                          : imag(a) < imag(b);
 }
  
 bool intersect(const seg& a, const seg& b) {

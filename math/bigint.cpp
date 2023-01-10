@@ -86,8 +86,7 @@ struct bigint {
 			ll s2 = r.a.size() <= b.a.size() - 1 ? 0 : r.a[b.a.size() - 1];
 			ll d = (base * s1 + s2) / b.a.back();
 			r -= b * d;
-			while (r < 0)
-				r += b, --d;
+			while (r < 0) r += b, --d;
 			q.a[i] = d;
 		}
 		q.sign = a1.sign * b1.sign;

@@ -1,7 +1,7 @@
 struct node {
 	int key, prio, left, right, size;
 	node(int key, int prio) : key(key), prio(prio), left(-1), 
-														right(-1), size(1) {};
+	                          right(-1), size(1) {};
 };
 
 vector<node> treap;
@@ -13,7 +13,7 @@ int getSize(int root) {
 void update(int root) {
 	if (root < 0) return;
 	treap[root].size = 1 + getSize(treap[root].left)
-											 + getSize(treap[root].right);
+	                     + getSize(treap[root].right);
 }
 
 pair<int, int> split(int root, int minKeyRight) {

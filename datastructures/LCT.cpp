@@ -42,7 +42,7 @@ struct LCT {
 			
 		bool isRoot() {
 			return !parent || (parent->left != this && 
-												 parent->right != this);
+			       parent->right != this);
 		}
 		
 		void push() {
@@ -54,7 +54,7 @@ struct LCT {
 			}
 			nodeValue = joinValueDelta(nodeValue, delta);
 			subTreeValue = joinValueDelta(subTreeValue, 
-																		_update(delta, size));
+			                              _update(delta, size));
 			if (left) left->delta = joinDeltas(left->delta, delta);
 			if (right) right->delta = joinDeltas(right->delta, delta);
 			delta = updateDefault;
@@ -69,12 +69,12 @@ struct LCT {
 			size = 1;
 			if (left) {
 				subTreeValue = _query(subTreeValue,
-															left->getSubtreeValue());
+				                      left->getSubtreeValue());
 				size += left->size;
 			}
 			if (right) {
 				subTreeValue = _query(subTreeValue, 
-															right->getSubtreeValue());
+				                      right->getSubtreeValue());
 				size += right->size;
 		}}
 	};
@@ -112,7 +112,7 @@ struct LCT {
 			p->push();
 			x->push();
 			if (!p->isRoot()) rotate((x == p->left) == 
-															 (p == g->left) ?  p : x);
+			                         (p == g->left) ?  p : x);
 			rotate(x);
 		}
 		x->push();

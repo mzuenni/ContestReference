@@ -6,12 +6,12 @@ struct SuffixArray {
 
 	SuffixArray(const string& s) : n(sz(s)) {
 		SA.resize(n); LCP.resize(n); L.resize(n);
-		P.assign(ceil(log2(n)) + 1, vector<int>(n));
+		P.assign(__ln(n)*4-2, vector<int>(n));
 		for (int i = 0; i < n; i++) P[0][i] = s[i];
 		for (step = 1, count = 1; count < n; step++, count *= 2) {
 			for (int i = 0; i < n; i++)
 				L[i] = {{P[step-1][i], 
-						 		 i+count < n ? P[step-1][i+count] : -1}, i};
+				         i+count < n ? P[step-1][i+count] : -1}, i};
 			sort(all(L));
 			for (int i = 0; i < n; i++) {
 				P[step][L[i].second] = 

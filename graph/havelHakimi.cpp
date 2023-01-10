@@ -4,7 +4,7 @@ vector<vector<int>> havelHakimi(const vector<int>& deg) {
 	vector<vector<int>> adj;
 	while (!pq.empty()) {
 		auto v = pq.top(); pq.pop();
-		if (sz(pq) < v.first) return {}; //ERROR
+		if (sz(pq) < v.first) return {}; //impossible
 		vector<pair<int, int>> todo;
 		for (int i = 0; i < v.first; i++) {
 			auto u = pq.top(); pq.pop();

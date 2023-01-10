@@ -6,7 +6,7 @@ struct GM {
 	int head, tail;
 
 	GM(int n) : adjlist(n), pairs(n + 1, n), first(n + 1, n), 
-							que(n), label(n + 1, {-1, -1}) {}
+	            que(n), label(n + 1, {-1, -1}) {}
 
 	void rematch(int v, int w) {
 		int t = pairs[v]; pairs[v] = w;
@@ -23,7 +23,7 @@ struct GM {
 
 	int findFirst(int u) {
 		return label[first[u]].first < 0 ? first[u]
-				 : first[u] = findFirst(first[u]);
+		     : first[u] = findFirst(first[u]);
 	}
 
 	void relabel(int x, int y) {

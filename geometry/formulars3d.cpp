@@ -6,8 +6,8 @@ double dot(pt3 a, pt3 b) {return a|b;}
 
 // Kreuzprodukt
 pt3 operator*(pt3 a, pt3 b) {return {a.y*b.z - a.z*b.y,
-																		 a.z*b.x - a.x*b.z,
-																		 a.x*b.y - a.y*b.x};}
+                                     a.z*b.x - a.x*b.z,
+                                     a.x*b.y - a.y*b.x};}
 pt3 cross(pt3 a, pt3 b) {return a*b;}
 
 // Länge von a

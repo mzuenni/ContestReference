@@ -21,7 +21,7 @@ struct HullDynamic : public multiset<Line> {
 		auto x = prev(y);
 		if (z == end()) return y->m == x->m && y->b <= x->b;
 		return (x->b - y->b)*(z->m - y->m) >=
-					 (y->b - z->b)*(y->m - x->m);
+		       (y->b - z->b)*(y->m - x->m);
 	}
 
 	// Variant 1: niklasb (2015)

@@ -4,12 +4,12 @@ double squaredDist(pt a, pt b) {
 
 bool compY(pt a, pt b) {
 	return (imag(a) == imag(b)) ? real(a) < real(b) 
-															: imag(a) < imag(b);
+	                            : imag(a) < imag(b);
 }
 
 bool compX(pt a, pt b) {
 	return (real(a) == real(b)) ? imag(a) < imag(b)
-															: real(a) < real(b);
+	                            : real(a) < real(b);
 }
 
 double shortestDist(vector<pt>& pts) { // pts.size() > 1
@@ -21,7 +21,7 @@ double shortestDist(vector<pt>& pts) { // pts.size() > 1
 
 	while (right != pts.end()) {
 		if (left != right &&
-				abs(real(*left - *right)) >= sqrtOpt) {
+		    abs(real(*left - *right)) >= sqrtOpt) {
 			status.erase(*left);
 			left++;
 		} else {

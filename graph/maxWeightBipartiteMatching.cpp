@@ -55,5 +55,5 @@ double match(int l, int r) {
 	}}
 	// Wert des Matchings
 	return accumulate(all(lx), 0.0) +
-				 accumulate(all(ly), 0.0);
+	       accumulate(all(ly), 0.0);
 }

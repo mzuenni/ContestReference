@@ -12,7 +12,7 @@ void TSP() {
 			for (int g = 0; g < n; g++) { 
 				if (g != c && !((1 << g) & v)) {
 					if ((dp[g][(v | (1 << g))].dist + dist[c][g]) < 
-							 dp[c][v].dist) {
+					    dp[c][v].dist) {
 						dp[c][v].dist =
 							dp[g][(v | (1 << g))].dist + dist[c][g];
 						dp[c][v].to = g;
@@ -22,7 +22,7 @@ void TSP() {
 	vector<int> tour; tour.push_back(0); int v = 0;
 	while (tour.back() != 0 || sz(tour) == 1)
 		tour.push_back(dp[tour.back()]
-										 [(v |= (1 << tour.back()))].to);
+		                 [(v |= (1 << tour.back()))].to);
 	// Enthält Knoten 0 zweimal. An erster und letzter Position.
 	// return tour;
 }

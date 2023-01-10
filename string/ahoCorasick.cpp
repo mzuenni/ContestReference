@@ -5,7 +5,7 @@ struct AhoCorasick {
 		int suffix, exit, character, parent;
 		vector<int> nxt, patterns;
 		vert(int c, int p) : suffix(-1), exit(-1), 
-				 character(c), nxt(ALPHABET_SIZE, -1), parent(p) {}
+		     character(c), nxt(ALPHABET_SIZE, -1), parent(p) {}
 	};
 	vector<vert> aho;
 
@@ -29,7 +29,7 @@ struct AhoCorasick {
 		if (aho[v].suffix == -1) {
 			if (v == 0 || aho[v].parent == 0) aho[v].suffix = 0;
 			else aho[v].suffix = go(getSuffix(aho[v].parent), 
-															aho[v].character);
+			                        aho[v].character);
 		}
 		return aho[v].suffix;
 	}

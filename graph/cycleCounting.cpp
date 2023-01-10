@@ -45,7 +45,7 @@ struct cylces {
 			if (cur[i]) {
 				cur[i] = false;
 				if (findSet(edges[i].first) == 
-					findSet(edges[i].second)) break;
+				    findSet(edges[i].second)) break;
 				unionSets(edges[i].first, edges[i].second);
 		}}
 		return cur.none();

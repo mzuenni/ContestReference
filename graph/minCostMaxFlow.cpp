@@ -37,7 +37,7 @@ struct MinCostFlow {
 			for (int id : adjlist[cur]) {
 				int to = edges[id].to;
 				if (edges[id].f > 0 &&
-						dist[to] > dist[cur] + edges[id].cost) {
+				    dist[to] > dist[cur] + edges[id].cost) {
 					dist[to] = dist[cur] + edges[id].cost;
 					pref[to] = cur; con[to] = id;
 					if (!inqueue[to]) {

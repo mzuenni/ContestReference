@@ -8,7 +8,7 @@ struct persistent {
 	
 	T get(int t) {
 		return prev(upper_bound(all(data), 
-														pair<int, T>(t+1, {})))->second;
+		                        pair<int, T>(t+1, {})))->second;
 	}
 	
 	int set(T value) {

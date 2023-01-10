@@ -3,7 +3,7 @@ vector<int> lis(vector<int> &seq) {
 	vector<int> L(n), L_id(n), parents(n);
 	for (int i = 0; i < n; i++) {
 		int pos = upper_bound(L.begin(), L.begin() + lisLength, 
-													seq[i]) - L.begin();
+		                      seq[i]) - L.begin();
 		L[pos] = seq[i];
 		L_id[pos] = i;
 		parents[i] = pos ? L_id[pos - 1] : -1;

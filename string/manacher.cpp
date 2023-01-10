@@ -15,7 +15,7 @@ void manacher() {
 		int i2 = 2 * center - i;
 		longest[i] = (last > i) ? min(last - i, longest[i2]) : 0;
 		while (i + longest[i] + 1 < n && i - longest[i] - 1 >= 0 &&
-			  	 b[i + longest[i] + 1] == b[i - longest[i] - 1]) {
+		       b[i + longest[i] + 1] == b[i - longest[i] - 1]) {
 			longest[i]++;
 		}
 		if (i + longest[i] > last) {

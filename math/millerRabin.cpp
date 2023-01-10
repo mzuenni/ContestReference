@@ -1,6 +1,6 @@
 constexpr ll bases32[] = {2, 7, 61};
 constexpr ll bases64[] = {2, 325, 9375, 28178, 450775, 
-													9780504, 1795265022};
+                          9780504, 1795265022};
 
 bool isPrime(ll n) {
 	if(n < 2 || n % 2 == 0) return n == 2;

@@ -4,10 +4,10 @@ double gcDist(double pLat, double pLon,
 	pLat *= PI / 180; pLon *= PI / 180;
 	qLat *= PI / 180; qLon *= PI / 180;
 	return radius * acos(cos(pLat) * cos(pLon) *
-											 cos(qLat) * cos(qLon) +
-											 cos(pLat) * sin(pLon) *
-											 cos(qLat) * sin(qLon) +
-											 sin(pLat) * sin(qLat));
+	                     cos(qLat) * cos(qLon) +
+	                     cos(pLat) * sin(pLon) *
+	                     cos(qLat) * sin(qLon) +
+	                     sin(pLat) * sin(qLat));
 }
 
 // Great Cirlce Distance mit kartesischen Koordinaten.

@@ -17,7 +17,7 @@ void addEdge(int from, int to, ll c) {
 
 void addFlow(int id, ll f) {
 	if (ec[edges[id].to] == 0 && f > 0)
-			hs[H[edges[id].to]].push_back(edges[id].to);
+		hs[H[edges[id].to]].push_back(edges[id].to);
 	edges[id].f += f;
 	edges[id^1].f -= f;
 	ec[edges[id].to] += f;
@@ -45,7 +45,7 @@ ll maxFlow(int s, int t) {
 				for (int i = 0; i < sz(adjlist[u]); i++) {
 					int id = adjlist[u][i];
 					if (edges[id].c - edges[id].f > 0 &&
-							H[u] > H[edges[id].to] + 1) {
+					    H[u] > H[edges[id].to] + 1) {
 						H[u] = H[edges[id].to] + 1;
 						cur[u] = i;
 				}}

@@ -24,7 +24,7 @@ struct connect {
 	void eraseEdge(ll id) {
 		if (connected(edges[id].first, edges[id].second) &&
 			lct.query(&lct.nodes[edges[id].first], 
-								&lct.nodes[edges[id].second]) == id) {
+			          &lct.nodes[edges[id].second]) == id) {
 			lct.cut(&lct.nodes[edges[id].first], &lct.nodes[id + n]);
 			lct.cut(&lct.nodes[edges[id].second], &lct.nodes[id + n]);
 	}}

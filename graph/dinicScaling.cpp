@@ -26,7 +26,7 @@ bool bfs() {
 		for (int id : adjlist[cur]) {
 			int to = edges[id].to;
 			if (dist[to] < 0 &&
-					edges[id ^ 1].c - edges[id ^ 1].f >= lim) {
+			    edges[id ^ 1].c - edges[id ^ 1].f >= lim) {
 				dist[to] = dist[cur] - 1;
 				q.push(to);
 	}}}
@@ -40,7 +40,7 @@ bool dfs(int v, ll flow) {
 	for (; pt[v] < sz(adjlist[v]); pt[v]++) {
 		int id = adjlist[v][pt[v]], to = edges[id].to;
 		if (dist[to] == dist[v] + 1 && 
-				edges[id].c - edges[id].f >= flow) {
+		    edges[id].c - edges[id].f >= flow) {
 			if (dfs(to, flow)) {
 				edges[id].f += flow;
 				edges[id ^ 1].f -= flow;

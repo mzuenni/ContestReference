@@ -1,5 +1,5 @@
 bool left(pt p) {return real(p) < 0 || 
-											 (real(p) == 0 && imag(p) < 0);}
+                       (real(p) == 0 && imag(p) < 0);}
 
 void sortAround(pt p, vector<pt>& ps) {
 	sort(all(ps), [&](const pt& a, const pt& b){

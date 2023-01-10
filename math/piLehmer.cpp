@@ -16,7 +16,7 @@ void init() {
 		memoB[i] = primes[i - 1] * memoB[i - 1];
 		for(ll j = 1; j <= cacheA; j++) {
 			memoA[j][i] = memoA[j][i - 1] - memoA[j /
-										primes[i - 1]][i - 1];
+			              primes[i - 1]][i - 1];
 }}}
 
 ll phi(ll n, ll k) {

@@ -6,7 +6,7 @@ vector<pair<int, int>> antipodalPoints(vector<pt>& h) {
 		while (true) {
 			result.push_back({i, j});
 			if (cross(h[(i + 1) % n] - h[i], 
-								h[(j + 1) % n] - h[j]) <= 0) break;
+			          h[(j + 1) % n] - h[j]) <= 0) break;
 			j = (j + 1) % n;
 	}}
 	return result;

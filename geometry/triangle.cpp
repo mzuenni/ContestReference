@@ -15,11 +15,11 @@ double area(double a, double b, double c) {
 // Zentrum des Kreises durch alle Eckpunkte
 pt outCenter(pt a, pt b, pt c) {
 	double d = 2.0 * (real(a) * imag(b-c) +
-										real(b) * imag(c-a) +
-										real(c) * imag(a-b));
+	                  real(b) * imag(c-a) +
+	                  real(c) * imag(a-b));
 	return (a*conj(a)*conj(b-c) +
-					b*conj(b)*conj(c-a) +
-					c*conj(c)*conj(a-b)) / d;
+	        b*conj(b)*conj(c-a) +
+	        c*conj(c)*conj(a-b)) / d;
 }
 
 // Zentrum des größten Kreises im Dreiecke
@@ -34,7 +34,7 @@ pt inCenter(pt a, pt b, pt c) {
 // zweite Zeile testet Ähnlichkeit mit verschiedener Orientierung
 bool similar (pt a1, pt b1, pt c1, pt a2, pt b2, pt c2) {
 	return ((b2-a2) * (c1-a1) == (b1-a1) * (c2-a2) ||
-					(b2-a2) * (conj(c1)-conj(a1)) == (conj(b1)-conj(a1))
-									* (c2-a2)
+	        (b2-a2) * (conj(c1)-conj(a1)) == (conj(b1)-conj(a1))
+			* (c2-a2)
 	);
 }

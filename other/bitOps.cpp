@@ -1,7 +1,7 @@
 // Iteriert über alle Teilmengen einer Bitmaske
 // (außer der leeren Menge).
 for (int subset = bitmask; subset > 0;
-		 subset = (subset - 1) & bitmask)
+     subset = (subset - 1) & bitmask)
 
 // Zählt Anzahl der gesetzten Bits.
 int numberOfSetBits(int i) {

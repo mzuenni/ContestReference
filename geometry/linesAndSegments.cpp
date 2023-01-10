@@ -2,11 +2,11 @@
 bool lineSegmentIntersection(pt a, pt b, pt c, pt d) {
 	if (orientation(a, b, c) == 0 && orientation(a, b, d) == 0)
 			return pointOnLineSegment(a,b,c) ||
-						 pointOnLineSegment(a,b,d) ||
-						 pointOnLineSegment(c,d,a) ||
-						 pointOnLineSegment(c,d,b);
+			       pointOnLineSegment(a,b,d) ||
+			       pointOnLineSegment(c,d,a) ||
+			       pointOnLineSegment(c,d,b);
 	return orientation(a, b, c) * orientation(a, b, d) <= 0 &&
-				 orientation(c, d, a) * orientation(c, d, b) <= 0;
+	       orientation(c, d, a) * orientation(c, d, b) <= 0;
 }
 
 // Berechnet die Schnittpunkte der Strecken p0-p1 und p2-p3.
@@ -18,7 +18,7 @@ vector<pt> lineSegmentIntersection(pt p0, pt p1, pt p2, pt p3) {
 	double c = cross(p1 - p0, p0 - p2);
 	if (a < 0) {a = -a; b = -b; c = -c;}
 	if (b < -EPS || a-b < -EPS ||
-			c < -EPS || a-c < -EPS) return {};
+	    c < -EPS || a-c < -EPS) return {};
 	if (a > EPS) return {p0 + b/a*(p1 - p0)};
 	vector<pt> result;
 	auto insertUnique = [&](pt p) {

@@ -38,7 +38,7 @@ public:
 		if (l >= r || k <= lo) return 0;
 		if (hi <= k) return r - l;
 		return ln->countSmaller(b[l], b[r], k) + 
-					 rn->countSmaller(l-b[l], r-b[r], k);
+		       rn->countSmaller(l-b[l], r-b[r], k);
 	}
 
 	~WaveletTree(){
