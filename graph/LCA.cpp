@@ -16,9 +16,9 @@ int getLCA(int a, int b) {
 
 void exampleUse() {
 	int c = 0;
-	visited = vector<int>(2*adjlist.size());
-	first = vector<int>(adjlist.size(), 2*adjlist.size());
-	depth = vector<int>(2*adjlist.size());
+	visited = vector<int>(2*sz(adjlist));
+	first = vector<int>(sz(adjlist), 2*sz(adjlist));
+	depth = vector<int>(2*sz(adjlist));
 	initLCA(0, 0, c);
 	init(depth);
 }

@@ -14,9 +14,9 @@ vector<list<int>::iterator> iter;
 int highest, highestActive;
 
 void addEdge(int from, int to, ll c) {
-	adjlist[from].push_back(edges.size());
+	adjlist[from].push_back(sz(edges));
 	edges.push_back({from, to, 0, c});
-	adjlist[to].push_back(edges.size());
+	adjlist[to].push_back(sz(edges));
 	edges.push_back({to, from, 0, 0});
 }
 
@@ -79,7 +79,7 @@ void discharge(int n, int u) {
 }}
 
 ll maxFlow(int s, int t) {
-	int n = adjlist.size();
+	int n = sz(adjlist);
 	llist.assign(n + 1, {});
 	dlist.assign(n + 1, {});
 	highestActive = highest = 0;

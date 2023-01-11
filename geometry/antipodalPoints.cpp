@@ -1,6 +1,6 @@
 vector<pair<int, int>> antipodalPoints(vector<pt>& h) {
 	vector<pair<int, int>> result;
-	int n = (int)h.size();
+	int n = sz(h);
 	if (n < 2) return result;
 	for (int i = 0, j = 1; i < j; i++) {
 		while (true) {

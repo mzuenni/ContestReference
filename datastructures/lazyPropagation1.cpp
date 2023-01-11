@@ -5,7 +5,7 @@ vector<ll> d(N, updateFlag);
 
 void apply(int p, ll value) {
 	tree[p] += value;
-	if (p < tree.size()/2) d[p] += value;
+	if (p < sz(tree)/2) d[p] += value;
 }
 
 void build(int p) {

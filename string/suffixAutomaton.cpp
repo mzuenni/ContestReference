@@ -1,5 +1,5 @@
 constexpr char MIN_CHAR = 'a';
-constexpr long long ALPHABET_SIZE = 26;
+constexpr ll ALPHABET_SIZE = 26;
 struct SuffixAutomaton {
 	struct State {
 		int length, link; 
@@ -9,8 +9,7 @@ struct SuffixAutomaton {
 	vector<State> states;
 	int size, last;
 
-	SuffixAutomaton(string &s) {
-		states.resize(2 * sz(s));
+	SuffixAutomaton(const string &s) : states(2*sz(s)) {
 		size = 1; last = 0;
 		states[0].length = 0;
 		states[0].link = -1;
@@ -46,9 +45,9 @@ struct SuffixAutomaton {
 
 	// Pair with start index and length of LCS.
 	// Index in parameter t.
-	pair<int, int> longestCommonSubstring(string &t) {
+	pair<int, int> longestCommonSubstring(const string &t) {
 		int v = 0, l = 0, best = 0, bestpos = 0;
-		for (int i = 0; i < (int)t.size(); i++) {
+		for (int i = 0; i < sz(t); i++) {
 			int c = t[i] - MIN_CHAR;
 			while (v && !states[v].next[c]) {
 				v = states[v].link;

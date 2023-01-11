@@ -11,7 +11,7 @@ int insert(vector<int>& word) {
 	for (int c : word) {
 		trie[id].words++;
 		if (trie[id].children[c] < 0) {
-			trie[id].children[c] = trie.size();
+			trie[id].children[c] = sz(trie);
 			trie.emplace_back();
 		}
 		id = trie[id].children[c];

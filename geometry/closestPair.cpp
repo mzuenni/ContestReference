@@ -12,7 +12,7 @@ bool compX(pt a, pt b) {
 	                            : real(a) < real(b);
 }
 
-double shortestDist(vector<pt>& pts) { // pts.size() > 1
+double shortestDist(vector<pt>& pts) { // sz(pts) > 1
 	set<pt, bool(*)(pt, pt)> status(compY);
 	sort(all(pts), compX);
 	double opt = 1.0/0.0, sqrtOpt = 1.0/0.0;

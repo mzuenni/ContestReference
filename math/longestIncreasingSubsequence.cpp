@@ -1,5 +1,5 @@
 vector<int> lis(vector<int> &seq) {
-	int n = seq.size(), lisLength = 0, lisEnd = 0;
+	int n = sz(seq), lisLength = 0, lisEnd = 0;
 	vector<int> L(n), L_id(n), parents(n);
 	for (int i = 0; i < n; i++) {
 		int pos = upper_bound(L.begin(), L.begin() + lisLength, 

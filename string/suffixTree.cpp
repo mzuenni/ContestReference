@@ -53,7 +53,6 @@ struct SuffixTree {
 			if (!tree[curVert].next.count(s[curEdge])) {
 				int leaf = newVert(pos, sz(s));
 				tree[curVert].next[s[curEdge]] = leaf;
-				tree[curVert].next[s[curEdge]] = leaf;
 				addSuffixLink(curVert);
 			} else {
 				int nxt = tree[curVert].next[s[curEdge]];
@@ -77,7 +76,7 @@ struct SuffixTree {
 				curLen--;
 				curEdge = pos - remainder + 1;
 			} else {
-				curVert = tree[curVert].suffix ? tree[curVert].suffix 
+				curVert = tree[curVert].suffix ? tree[curVert].suffix
 				                               : root;
 	}}}
 };

@@ -10,9 +10,9 @@ vector<int> visited;
 ll capacity;
 
 void addEdge(int from, int to, ll c) {
-	adjlist[from].push_back(edges.size());
+	adjlist[from].push_back(sz(edges));
 	edges.push_back({from, to, 0, c});
-	adjlist[to].push_back(edges.size());
+	adjlist[to].push_back(sz(edges));
 	edges.push_back({to, from, 0, 0});
 }
 
@@ -34,7 +34,7 @@ ll maxFlow(int source, int target) {
 	s = source;
 	t = target;
 	ll flow = 0;
-	visited.assign(adjlist.size(), 0);
+	visited.assign(sz(adjlist), 0);
 	dfsCounter = 0;
 	while (capacity) {
 		while (dfsCounter++, dfs(s)) flow += capacity;
