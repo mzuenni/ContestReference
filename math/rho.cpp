@@ -1,13 +1,15 @@
+using lll = __int128;
 ll rho(ll n) { // Findet Faktor < n, nicht unbedingt prim.
 	if (n % 2 == 0) return 2;
-	ll c = rand() % n, x = rand() % n, y = x, d = 1;
-	                           // mulmod or int128
-	auto f = [&](ll x){return ((x * x) % n + c) % n;};
-	while (d == 1) {
+	ll x = 0, y = 0;
+	lll prd = 2;
+	auto f = [n](lll x){return (x * x) % n + 1;};
+	for (ll t = 30, i = n / 2 + 7; t % 40 || mgcd(prd, n) == 1; t++) {
+		if (x == y) x = ++i, y = f(x);
+		if (lll q = prd * abs(x-y) % n; q) prd = q;
 		x = f(x); y = f(f(y));
-		d = gcd(abs(x - y), n);
 	}
-	return d == n ? rho(n) : d;
+	return mgcd(prd, n);
 }
 
 void factor(ll n, map<ll, int>& facts) {
