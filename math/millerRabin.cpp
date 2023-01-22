@@ -8,7 +8,7 @@ bool isPrime(ll n) {
 	while(d % 2 == 0) d /= 2, j++;
 	for(ll a : bases64) {
 		if (a % n == 0) continue;
-		ll v = powMod(a, d, n);
+		ll v = powMod(a, d, n); //with mulmod or int128
 		if(v == 1 || v == n - 1) continue;
 		for(ll i = 1; i <= j; i++) {
 			v = (v * v) % n; //mulmod or int128
