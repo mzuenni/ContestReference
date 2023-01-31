@@ -1,12 +1,11 @@
 struct SuffixArray {
-	vector<pair<pair<int, int>, int>> L;
 	int n, step, count;
+	vector<int> SA, LCP;
 	vector<vector<int>> P;
-	vector<int> SA, LCP; 
+	vector<pair<pair<int, int>, int>> L;
 
-	SuffixArray(const string& s) : n(sz(s)) {
-		SA.resize(n); LCP.resize(n); L.resize(n);
-		P.assign(__ln(n)*4-2, vector<int>(n));
+	SuffixArray(const string& s) : n(sz(s)), SA(n), LCP(n), L(n) {
+		P.assign(__lg(n)*4-2, vector<int>(n));
 		for (int i = 0; i < n; i++) P[0][i] = s[i];
 		for (step = 1, count = 1; count < n; step++, count *= 2) {
 			for (int i = 0; i < n; i++)
@@ -26,12 +25,12 @@ struct SuffixArray {
 	int lcp(int x, int y) {
 		int ret = 0;
 		if (x == y) return n - x;
-		for (int k = step - 1; k >= 0 && x < n && y < n; k--)
+		for (int k = step - 1; k >= 0 && x < n && y < n; k--) {
 			if (P[k][x] == P[k][y]) {
 				x += 1 << k;
 				y += 1 << k;
 				ret += 1 << k;
-			}
+		}}
 		return ret;
 	}
 };

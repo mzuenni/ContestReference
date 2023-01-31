@@ -1,0 +1,41 @@
+
+\begin{minipage}[T]{0.27\linewidth}
+	Generell:
+	\begin{itemize}
+		\item $\cos(\gamma)=\frac{a^2+b^2-c^2}{2ab}$
+		\item $b=\frac{a}{\sin(\alpha)}\sin(\beta)$
+		%\item $b=\frac{a}{\sin(\pi-\beta-\gamma)}\sin(\beta)$
+		%\item $\sin(\beta)=\frac{b\sin(\alpha)}{a}$ %asin is not uniquely invertible
+		\item $\Delta=\frac{bc}{2}\sin(\alpha)$
+	\end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}[B]{0.5\linewidth}
+	\centering
+	\begin{tikzpicture}[line cap=round,minimum size=0,x=.7cm,y=0.7cm]
+		\node[circle,inner sep=0] (AA) at (0,0) {$A$};
+		\node[circle,inner sep=0] (BB) at (3,-1) {$B$};
+		\node[circle,inner sep=0] (CC) at (3.666667,1) {$C$};
+		
+		\coordinate (A) at (AA.0);
+		\coordinate (B) at (BB.100);
+		\coordinate (C) at (CC.210);
+		
+		\pic[draw,angle radius=15,pic text=$\gamma$]{angle = A--C--B};
+		\pic[draw,angle radius=15,pic text=$\beta$]{angle = C--B--A};
+		\pic[draw,angle radius=20,pic text=$\alpha$]{angle = B--A--C};
+		
+		\draw (A) to[edge label={$b$},inner sep=1] (C);
+		\draw (A) to[edge label'={$c$},inner sep=1.3] (B);
+		\draw (B) to[edge label'={$a$},inner sep=0.6] (C);
+	\end{tikzpicture}
+\end{minipage}
+\hfill
+\begin{minipage}[T]{0.16\linewidth}
+	$\beta=90^\circ$:
+	\begin{itemize}
+		\item $\sin(\alpha)=\frac{a}{b}$
+		\item $\cos(\alpha)=\frac{c}{b}$
+		\item $\tan(\alpha)=\frac{a}{c}$
+	\end{itemize}
+\end{minipage}
