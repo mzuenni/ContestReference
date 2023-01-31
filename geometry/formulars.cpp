@@ -1,10 +1,8 @@
-// Komplexe Zahlen als Darstellung für Punkte. 
-// Wenn immer möglich complex<int> verwenden.
-// Funktionen wie abs() geben dann int zurück.
+// Komplexe Zahlen als Punkte. Wenn immer möglich complex<ll>
+// verwenden. Funktionen wie abs() geben dann aber ll zurück.
 using pt = complex<double>;
 
-// PIL < PI < PIU
-constexpr double PIU = acos(-1.0l);
+constexpr double PIU = acos(-1.0l); // PIL < PI < PIU
 constexpr double PIL = PIU-2e-19l;
 
 // Winkel zwischen Punkt und x-Achse in [-PI, PI].
@@ -34,4 +32,11 @@ int orientation(pt a, pt b, pt c) {
 // Liegt d in der gleichen Ebene wie a, b, und c?
 bool isCoplanar(pt a, pt b, pt c, pt d) {
 	return abs((b - a) * (c - a) * (d - a)) < EPS;
+}
+
+// identifiziert winkel zwischen Vektoren u und v
+pt uniqueAngle(pt u, pt v) {
+	pt tmp = v * conj(u);
+	ll g = abs(gcd(real(tmp), imag(tmp)));
+	return tmp / g;
 }
