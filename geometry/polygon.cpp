@@ -71,3 +71,65 @@ double dist(const vector<pt>& ps, const vector<pt>& qs) {
 	}
 	return res;
 }
+
+bool left(pt of, pt p) {return cross(p, of) < 0 || 
+                       (cross(p, of) == 0 && dot(p, of) > 0);}
+
+// convex hulls without duplicates, poly[0] == poly.back() and
+// poly[0] must be a convex point (with angle < pi)
+// returns index of corner where dot(dir, corner) is maximized
+int extremal(const vector<pt>& poly, pt dir) {
+	dir *= pt(0, 1);
+	int l = 0;
+	int r = sz(poly) - 1;
+	while (l + 1 < r) {
+		int m = (l + r) / 2;
+		pt dm = poly[m+1]-poly[m];
+		pt dl = poly[l+1]-poly[l];
+		if (left(dl, dir) != left(dl, dm)) {
+			if (left(dl, dm)) l = m;
+			else r = m;
+		} else {
+			if (cross(dir, dm) < 0) l = m;
+			else r = m;
+	}}
+	return r;
+}
+
+// convex hulls without duplicates, poly[0] == poly.back() and
+// poly[0] must be a convex point (with angle < pi)
+// {} if no intersection
+// {x} if corner is only intersection
+// {a, b} segments (a,a+1) and (b,b+1) intersected (if only the
+// border is intersected corners a and b are the start and end)
+vector<int> intersect(const vector<pt>& poly, pt a, pt b) {
+	int endA = extremal(poly, (a-b) * pt(0, 1));
+	int endB = extremal(poly, (b-a) * pt(0, 1));
+
+	// cross == 0 => line only intersects border
+	if (cross(poly[endA], a, b) > 0 ||
+	    cross(poly[endB], a, b) < 0) return {};
+
+	int n = sz(poly) - 1;
+	vector<int> res;
+	for (auto _ : {0, 1}) {
+		int l = endA;
+		int r = endB;
+		if (r < l) r += n;
+		while (l+1 < r) {
+			int m = (l + r) / 2;
+			if (cross(poly[m % n], a, b) <= 0 &&
+			    cross(poly[m % n], a, b) != cross(poly[endB], a, b)) {
+				l = m;
+			} else {
+				r = m;
+		}}
+		if (cross(poly[r % n], a, b) == 0) l++;
+		res.push_back(l % n);
+		swap(endA, endB);
+		swap(a, b);
+	}
+	if (res[0] == res[1]) res.pop_back();
+	return res;
+}
+
