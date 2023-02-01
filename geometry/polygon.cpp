@@ -23,9 +23,9 @@ bool inside(pt p, const vector<pt>& polygon) {//points unique
 //convex hull without duplicates, h[0] == h.back()
 bool inside(pt p, const vector<pt>& hull) {
 	if (orientation(hull[0], hull.back(), p) > 0) return false;
-	ll l = 0, r = sz(hull) - 1;
+	int l = 0, r = sz(hull) - 1;
 	while (l + 1 < r) {
-		ll m = (l + r) / 2;
+		int m = (l + r) / 2;
 		if (orientation(hull[0], hull[m], p) >= 0) l = m;
 		else r = m;
 	}
@@ -75,17 +75,16 @@ double dist(const vector<pt>& ps, const vector<pt>& qs) {
 bool left(pt of, pt p) {return cross(p, of) < 0 || 
                        (cross(p, of) == 0 && dot(p, of) > 0);}
 
-// convex hulls without duplicates, poly[0] == poly.back() and
-// poly[0] must be a convex point (with angle < pi)
+// convex hulls without duplicates, hull[0] == hull.back() and
+// hull[0] must be a convex point (with angle < pi)
 // returns index of corner where dot(dir, corner) is maximized
-int extremal(const vector<pt>& poly, pt dir) {
+int extremal(const vector<pt>& hull, pt dir) {
 	dir *= pt(0, 1);
-	int l = 0;
-	int r = sz(poly) - 1;
+	int l = 0, r = sz(hull) - 1;
 	while (l + 1 < r) {
 		int m = (l + r) / 2;
-		pt dm = poly[m+1]-poly[m];
-		pt dl = poly[l+1]-poly[l];
+		pt dm = hull[m+1]-hull[m];
+		pt dl = hull[l+1]-hull[l];
 		if (left(dl, dir) != left(dl, dm)) {
 			if (left(dl, dm)) l = m;
 			else r = m;
@@ -96,35 +95,34 @@ int extremal(const vector<pt>& poly, pt dir) {
 	return r;
 }
 
-// convex hulls without duplicates, poly[0] == poly.back() and
-// poly[0] must be a convex point (with angle < pi)
+// convex hulls without duplicates, hull[0] == hull.back() and
+// hull[0] must be a convex point (with angle < pi)
 // {} if no intersection
 // {x} if corner is only intersection
 // {a, b} segments (a,a+1) and (b,b+1) intersected (if only the
 // border is intersected corners a and b are the start and end)
-vector<int> intersect(const vector<pt>& poly, pt a, pt b) {
-	int endA = extremal(poly, (a-b) * pt(0, 1));
-	int endB = extremal(poly, (b-a) * pt(0, 1));
+vector<int> intersect(const vector<pt>& hull, pt a, pt b) {
+	int endA = extremal(hull, (a-b) * pt(0, 1));
+	int endB = extremal(hull, (b-a) * pt(0, 1));
 
 	// cross == 0 => line only intersects border
-	if (cross(poly[endA], a, b) > 0 ||
-	    cross(poly[endB], a, b) < 0) return {};
+	if (cross(hull[endA], a, b) > 0 ||
+	    cross(hull[endB], a, b) < 0) return {};
 
-	int n = sz(poly) - 1;
+	int n = sz(hull) - 1;
 	vector<int> res;
 	for (auto _ : {0, 1}) {
-		int l = endA;
-		int r = endB;
+		int l = endA, r = endB;
 		if (r < l) r += n;
-		while (l+1 < r) {
+		while (l + 1 < r) {
 			int m = (l + r) / 2;
-			if (cross(poly[m % n], a, b) <= 0 &&
-			    cross(poly[m % n], a, b) != cross(poly[endB], a, b)) {
+			if (cross(hull[m % n], a, b) <= 0 &&
+			    cross(hull[m % n], a, b) != hull(poly[endB], a, b)) {
 				l = m;
 			} else {
 				r = m;
 		}}
-		if (cross(poly[r % n], a, b) == 0) l++;
+		if (cross(hull[r % n], a, b) == 0) l++;
 		res.push_back(l % n);
 		swap(endA, endB);
 		swap(a, b);
