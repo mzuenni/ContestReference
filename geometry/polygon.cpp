@@ -40,13 +40,13 @@ bool inside(pt p, const vector<pt>& poly) {
 // Change line 43 and 49 >= if border counts as inside
 bool inside(pt p, const vector<pt>& hull) {
 	int l = 0, r = sz(hull) - 1;
-	if (orientation(hull[0], hull[r], p) > 0) return false;
+	if (cross(hull[0], hull[r], p) > 0) return false;
 	while (l + 1 < r) {
 		int m = (l + r) / 2;
-		if (orientation(hull[0], hull[m], p) >= 0) l = m;
+		if (cross(hull[0], hull[m], p) >= 0) l = m;
 		else r = m;
 	}
-	return orientation(hull[l], hull[r], p) > 0;
+	return cross(hull[l], hull[r], p) > 0;
 }
 
 void rotateMin(vector<pt>& hull) {
