@@ -1,35 +1,52 @@
-// Berechnet den Flächeninhalt eines Polygons
-// (nicht selbstschneidend).
+// Flächeninhalt eines Polygons (nicht selbstschneidend).
 // Punkte gegen den Uhrzeigersinn: positiv, sonst negativ.
-double area(const vector<pt>& polygon) {//points unique
-	double res = 0; int n = sz(polygon);
-	for (int i = 0; i < n; i++)
-		res += cross(polygon[i], polygon[(i + 1) % n]);
+double area(const vector<pt>& poly) { //poly[0] == poly.back()
+	double res = 0;
+	for (int i = 0; i + 1 < n; i++)
+		res += cross(poly[i], poly[i + 1]);
 	return 0.5 * res;
 }
 
-// Testet, ob ein Punkt im Polygon liegt (beliebige Polygone).
-bool inside(pt p, const vector<pt>& polygon) {//points unique
-	pt rayEnd = p + pt(1, 1000000);
-	int counter = 0, n = sz(polygon);
-	for (int i = 0; i < n; i++) {
-		pt start = polygon[i], end = polygon[(i + 1) % n];
-		if (lineSegmentIntersection(p, rayEnd, start, end)) {
-			counter++;
+// Anzahl drehungen einer Polyline um einen Punkt
+// p nicht auf rand und poly[0] == poly.back()
+ll windingNumber(pt p, const vector<pt>& poly) {
+	ll res = 0;
+	for (int i = 0; i + 1 < sz(poly); i++) {
+		pt a = poly[i], b = poly[i + 1];
+		if (real(a) > real(b)) swap(a,b);
+		if (real(a) <= real(p) &&real(p) < real(b) &&
+		    cross(p, a, b) < 0) {
+			res += orientation(p, poly[i], poly[i + 1]);
 	}}
-	return counter & 1;
+	return res;
 }
 
-//convex hull without duplicates, h[0] == h.back()
+// Testet, ob ein Punkt im Polygon liegt (beliebige Polygone).
+// Ändere Zeile 31 falls rand zählt, poly[0] == poly.back()
+bool inside(pt p, const vector<pt>& poly) {
+	bool in = false;
+	for (int i = 0; i + 1 < sz(poly); i++) {
+		pt a = poly[i], b = poly[i + 1];
+		if (pointOnLineSegment(a, b, b)) return false;
+		if (real(a) > real(b)) swap(a,b);
+		if (real(a) <= real(p) && real(p) < real(b) &&
+		    cross(p, a, b) < 0) {
+			in ^= 1;
+	}}
+	return in;
+}
+
+// convex hull without duplicates, h[0] == h.back()
+// Change line 43 and 49 >= if border counts as inside
 bool inside(pt p, const vector<pt>& hull) {
-	if (orientation(hull[0], hull.back(), p) > 0) return false;
 	int l = 0, r = sz(hull) - 1;
+	if (orientation(hull[0], hull[r], p) > 0) return false;
 	while (l + 1 < r) {
 		int m = (l + r) / 2;
 		if (orientation(hull[0], hull[m], p) >= 0) l = m;
 		else r = m;
 	}
-	return orientation(hull[l], hull[r], p) >= 0;
+	return orientation(hull[l], hull[r], p) > 0;
 }
 
 void rotateMin(vector<pt>& hull) {
@@ -40,7 +57,7 @@ void rotateMin(vector<pt>& hull) {
 	rotate(hull.begin(), mi, hull.end());
 }
 
-//convex hulls without duplicates, h[0] != h.back()
+// convex hulls without duplicates, h[0] != h.back()
 vector<pt> minkowski(vector<pt> ps, vector<pt> qs) {
 	rotateMin(ps);
 	rotateMin(qs);
@@ -58,7 +75,7 @@ vector<pt> minkowski(vector<pt> ps, vector<pt> qs) {
 	return res;
 }
 
-//convex hulls without duplicates, h[0] != h.back()
+// convex hulls without duplicates, h[0] != h.back()
 double dist(const vector<pt>& ps, const vector<pt>& qs) {
 	for (pt& q : qs) q *= -1;
 	auto p = minkowski(ps, qs);
