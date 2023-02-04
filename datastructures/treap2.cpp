@@ -2,7 +2,7 @@ mt19937 rng(0xc4bd5dad);
 struct Treap {
 	struct Node {
 		ll val;
-		int prio, sz = 1, l = -1, r = -1;
+		int prio, size = 1, l = -1, r = -1;
 		Node (ll x) : val(x), prio(rng()) {}
 	};
 
@@ -10,13 +10,13 @@ struct Treap {
 	int root = -1;
 
 	int getSize(int v) {
-		return v < 0 ? 0 : treap[v].sz;
+		return v < 0 ? 0 : treap[v].size;
 	}
 
 	void upd(int v) {
 		if (v < 0) return;
 		auto *V = &treap[v];
-		V->sz = 1 + getSize(V->l) + getSize(V->r);
+		V->size = 1 + getSize(V->l) + getSize(V->r);
 		// Update Node Code
 	}
 
