@@ -39,7 +39,7 @@ double distToLine(pt a, pt b, pt p) {
 
 // Liegt p auf der Geraden a-b? 2d und 3d
 bool pointOnLine(pt a, pt b, pt p) {
-	return orientation(a, b, p) == 0;
+	return cross(a, b, p) == 0;
 }
 
 // Test auf Linienschnitt zwischen a-b und c-d.
@@ -57,7 +57,7 @@ pt lineIntersection(pt p0, pt p1, pt p2, pt p3) {
 
 // Liegt p auf der Strecke a-b?
 bool pointOnLineSegment(pt a, pt b, pt p) {
-	if (orientation(a, b, p) != 0) return false;
+	if (cross(a, b, p) != 0) return false;
 	ld dist = norm(a - b);
 	return norm(a - p) <= dist && norm(b - p) <= dist;
 }

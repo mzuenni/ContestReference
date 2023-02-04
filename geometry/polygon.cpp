@@ -24,7 +24,7 @@ ll windingNumber(pt p, const vector<pt>& poly) {
 }
 
 // Testet, ob ein Punkt im Polygon liegt (beliebige Polygone).
-// Ändere Zeile 31 falls rand zählt, poly[0] == poly.back()
+// Ändere Zeile 32 falls rand zählt, poly[0] == poly.back()
 bool inside(pt p, const vector<pt>& poly) {
 	bool in = false;
 	for (int i = 0; i + 1 < sz(poly); i++) {
@@ -39,7 +39,7 @@ bool inside(pt p, const vector<pt>& poly) {
 }
 
 // convex hull without duplicates, h[0] == h.back()
-// Change line 43 and 49 >= if border counts as inside
+// Change line 45 and 51 >= if border counts as inside
 bool inside(pt p, const vector<pt>& hull) {
 	int l = 0, r = sz(hull) - 1;
 	if (cross(hull[0], hull[r], p) > 0) return false;
