@@ -2,7 +2,7 @@
 // Punkte gegen den Uhrzeigersinn: positiv, sonst negativ.
 double area(const vector<pt>& poly) { //poly[0] == poly.back()
 	double res = 0;
-	for (int i = 0; i + 1 < n; i++)
+	for (int i = 0; i + 1 < sz(poly); i++)
 		res += cross(poly[i], poly[i + 1]);
 	return 0.5 * res;
 }
@@ -27,7 +27,7 @@ bool inside(pt p, const vector<pt>& poly) {
 	bool in = false;
 	for (int i = 0; i + 1 < sz(poly); i++) {
 		pt a = poly[i], b = poly[i + 1];
-		if (pointOnLineSegment(a, b, b)) return false;
+		if (pointOnLineSegment(a, b, p)) return false;
 		if (real(a) > real(b)) swap(a,b);
 		if (real(a) <= real(p) && real(p) < real(b) &&
 		    cross(p, a, b) < 0) {
