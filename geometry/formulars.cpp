@@ -21,9 +21,9 @@ double norm(pt a) {return dot(a, a);}
 double cross(pt a, pt b) {return imag(conj(a) * b);}
 double cross(pt p, pt a, pt b) {return cross(a - p, b - p);}
 
-// -1 => gegen den Uhrzeigersinn
-//  0 => kolliniear
-//  1 => im Uhrzeigersinn.
+//  1 => c links von a->b
+//  0 => a, b und c kolliniear
+// -1 => c rechts von a->b
 int orientation(pt a, pt b, pt c) {
 	double orien = cross(b - a, c - a);
 	return (orien > EPS) - (orien < -EPS);

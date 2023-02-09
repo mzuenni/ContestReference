@@ -2,13 +2,15 @@
 // Punkte gegen den Uhrzeigersinn: positiv, sonst negativ.
 double area(const vector<pt>& poly) { //poly[0] == poly.back()
 	double res = 0;
-	for (int i = 0; i + 1 < n; i++)
+	for (int i = 0; i + 1 < sz(poly); i++)
 		res += cross(poly[i], poly[i + 1]);
 	return 0.5 * res;
 }
 
 // Anzahl drehungen einer Polyline um einen Punkt
 // p nicht auf rand und poly[0] == poly.back()
+// res != 0 or (res & 1) != 0 um inside zu prüfen bei
+// selbstschneidenden polygonen (definitions sache)
 ll windingNumber(pt p, const vector<pt>& poly) {
 	ll res = 0;
 	for (int i = 0; i + 1 < sz(poly); i++) {
@@ -22,12 +24,12 @@ ll windingNumber(pt p, const vector<pt>& poly) {
 }
 
 // Testet, ob ein Punkt im Polygon liegt (beliebige Polygone).
-// Ändere Zeile 31 falls rand zählt, poly[0] == poly.back()
+// Ändere Zeile 32 falls rand zählt, poly[0] == poly.back()
 bool inside(pt p, const vector<pt>& poly) {
 	bool in = false;
 	for (int i = 0; i + 1 < sz(poly); i++) {
 		pt a = poly[i], b = poly[i + 1];
-		if (pointOnLineSegment(a, b, b)) return false;
+		if (pointOnLineSegment(a, b, p)) return false;
 		if (real(a) > real(b)) swap(a,b);
 		if (real(a) <= real(p) && real(p) < real(b) &&
 		    cross(p, a, b) < 0) {
@@ -37,16 +39,16 @@ bool inside(pt p, const vector<pt>& poly) {
 }
 
 // convex hull without duplicates, h[0] == h.back()
-// Change line 43 and 49 >= if border counts as inside
+// Change line 45 and 51 >= if border counts as inside
 bool inside(pt p, const vector<pt>& hull) {
 	int l = 0, r = sz(hull) - 1;
-	if (orientation(hull[0], hull[r], p) > 0) return false;
+	if (cross(hull[0], hull[r], p) > 0) return false;
 	while (l + 1 < r) {
 		int m = (l + r) / 2;
-		if (orientation(hull[0], hull[m], p) >= 0) l = m;
+		if (cross(hull[0], hull[m], p) >= 0) l = m;
 		else r = m;
 	}
-	return orientation(hull[l], hull[r], p) > 0;
+	return cross(hull[l], hull[r], p) > 0;
 }
 
 void rotateMin(vector<pt>& hull) {
