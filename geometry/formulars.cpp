@@ -9,7 +9,7 @@ constexpr double PIL = PIU-2e-19l;
 double angle(pt a) {return arg(a);}
 
 // rotiert Punkt im Uhrzeigersinn um den Ursprung.
-pt rotate(pt a, double theta) {return a * exp(pt(0.0, theta));}
+pt rotate(pt a, double theta) {return a * polar(1.0, theta);}
 
 // Skalarprodukt.
 double dot(pt a, pt b) {return real(conj(a) * b);}

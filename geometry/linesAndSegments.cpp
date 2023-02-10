@@ -37,6 +37,11 @@ double distToLine(pt a, pt b, pt p) {
 	return abs(cross(p - a, b - a)) / abs(b - a);
 }
 
+// Projektiert p auf die Gerade a-b
+pt projectToLine(pt a, pt b, pt p) {
+	return a + (b - a) * dot(p - a, b - a) / norm(b - a);
+}
+
 // Liegt p auf der Geraden a-b? 2d und 3d
 bool pointOnLine(pt a, pt b, pt p) {
 	return cross(a, b, p) == 0;
@@ -58,27 +63,23 @@ pt lineIntersection(pt p0, pt p1, pt p2, pt p3) {
 // Liegt p auf der Strecke a-b?
 bool pointOnLineSegment(pt a, pt b, pt p) {
 	if (cross(a, b, p) != 0) return false;
-	ld dist = norm(a - b);
+	double dist = norm(a - b);
 	return norm(a - p) <= dist && norm(b - p) <= dist;
 }
 
 // Entfernung von Punkt p zur Strecke a-b.
 double distToSegment(pt a, pt b, pt p) {
 	if (a == b) return abs(p - a);
-	pt dir = b - a;
-	if (dot(dir, a) <= dot(dir, p) && dot(dir, p) <= dot(dir, b)) {
-		return distToLine(a, b, p);
-	} else {
-		return min(abs(p - a), abs(p - b));
+	if (dot(p - a, b - a) <= 0) return abs(p - a);
+	if (dot(p - b, b - a) >= 0) return abs(p - b);
+	return distToLine(a, b, p);
 }}
 
 // Kürzeste Entfernung zwischen den Strecken a-b und c-d.
 double distBetweenSegments(pt a, pt b, pt c, pt d) {
 	if (lineSegmentIntersection(a, b, c, d)) return 0.0;
-	double result = distToSegment(a, b, c);
-	result = min(result, distToSegment(a, b, d));
-	result = min(result, distToSegment(c, d, a));
-	return min(result, distToSegment(c, d, b));
+	return min({distToSegment(a, b, c), distToSegment(a, b, d),
+	            distToSegment(c, d, a)), distToSegment(c, d, b)});
 }
 
 // sortiert alle Punkte pts auf einer Linie 
