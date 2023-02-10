@@ -45,7 +45,7 @@
 \begin{algorithm}{Wavelet Tree}
 	\begin{methods}
 		\method{Constructor}{baut den Baum auf}{n\*\log(n)}
-		\method{kth}{sort$[l, r)[k]$}{\log(n)}
+		\method{kth}{sort $[l, r)[k]$}{\log(n)}
 		\method{countSmaller}{Anzahl elemente in $[l, r)$ kleiner als $k$}{\log(n)}
 	\end{methods}
 	\sourcecode{datastructures/waveletTree.cpp}
@@ -59,6 +59,10 @@
 \end{algorithm}
 
 \begin{algorithm}{(Implicit) Treap (Cartesian Tree)}
+	\begin{methods}
+		\method{insert}{fügt wert $\mathit{val}$ an stelle $i$ ein (verschiebt alle Positionen >= $i$)}{\log(n)}
+		\method{remove}{löscht werte $[i,i+\mathit{count})$}{\log(n)}
+	\end{methods}
 	\sourcecode{datastructures/treap2.cpp}
 \end{algorithm}
 
