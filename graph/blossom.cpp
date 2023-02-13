@@ -80,5 +80,4 @@ struct GM {
 		}
 		return matching;
 	}
-
 };

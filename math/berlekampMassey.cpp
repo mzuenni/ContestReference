@@ -1,3 +1,4 @@
+constexpr ll mod = 1000000007;
 vector<ll> BerlekampMassey(const vector<ll>& s) {
 	int n = sz(s), L = 0, m = 0;
 	vector<ll> C(n), B(n), T;
