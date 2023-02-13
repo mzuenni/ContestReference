@@ -73,13 +73,13 @@ double distToSegment(pt a, pt b, pt p) {
 	if (dot(p - a, b - a) <= 0) return abs(p - a);
 	if (dot(p - b, b - a) >= 0) return abs(p - b);
 	return distToLine(a, b, p);
-}}
+}
 
 // Kürzeste Entfernung zwischen den Strecken a-b und c-d.
 double distBetweenSegments(pt a, pt b, pt c, pt d) {
 	if (lineSegmentIntersection(a, b, c, d)) return 0.0;
 	return min({distToSegment(a, b, c), distToSegment(a, b, d),
-	            distToSegment(c, d, a)), distToSegment(c, d, b)});
+	            distToSegment(c, d, a), distToSegment(c, d, b)});
 }
 
 // sortiert alle Punkte pts auf einer Linie 
