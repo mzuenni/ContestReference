@@ -2,7 +2,7 @@
 
 \begin{algorithm}{Union-Find}
 	\begin{methods}
-		\method{init}{legt n einzelne Unions an}{n}
+		\method{init}{legt $n$ einzelne Unions an}{n}
 		\method{findSet}{findet den Repräsentanten}{\log(n)}
 		\method{unionSets}{vereint 2 Mengen}{\log(n)}
 		\method{m\*findSet + n\*unionSets}{Folge von Befehlen}{n+m\*\alpha(n)}
@@ -113,7 +113,7 @@
 \begin{algorithm}{Link-Cut-Tree}
 	\begin{methods}
 		\method{Constructor}{baut Wald auf}{n}
-		\method{connected}{prüft ob zwei Knoten im selben baum liegen}{\log(n)}
+		\method{connected}{prüft ob zwei Knoten im selben Baum liegen}{\log(n)}
 		\method{link}{fügt $\{x,y\}$ Kante ein}{\log(n)}
 		\method{cut}{entfernt $\{x,y\}$ Kante}{\log(n)}
 		\method{lca}{berechnet LCA von $x$ und $y$}{\log(n)}

@@ -68,52 +68,6 @@ Sei $d_{ij}$ die Distanzmatrix von $G$, dann gibt $d_{ij}^k$ die kürzeste Dista
 
 Sei $a_{ij}$ die Adjazenzmatrix von $G$ \textcolor{gray}{(mit $a_{ii} = 1$)}, dann gibt $a_{ij}^k$ die Anzahl der Wege von $i$ nach $j$ mit Länge genau \textcolor{gray}{(maximal)} $k$ an mit der Verknüpfung: $c_{ij} = a_{ij} \* b_{ij} = \sum a_{ik} + b_{kj}$
 
-\begin{algorithm}{Artikulationspunkte, Brücken und BCC}
-	\begin{methods}
-		\method{findArticulationPoints}{berechnet Artikulationspunkte,}{\abs{V}+\abs{E}}
-		\method{}{Brücken und BCC}{}
-	\end{methods}
-	\textbf{Wichtig:} isolierte Knoten und Brücken sind keine BCC.
-	\sourcecode{graph/articulationPoints.cpp}
-\end{algorithm}
-
-\begin{algorithm}{Strongly Connected Components (\textsc{Tarjan})}
-	\begin{methods}
-		\method{scc}{berechnet starke Zusammenhangskomponenten}{\abs{V}+\abs{E}}
-	\end{methods}
-	\sourcecode{graph/scc.cpp}
-\end{algorithm}
-
-\begin{algorithm}{2-SAT}
-	\sourcecode{graph/2sat.cpp}
-\end{algorithm}
-
-\begin{algorithm}{Eulertouren}
-	\begin{methods}
-		\method{euler}{berechnet den Kreis}{\abs{V}+\abs{E}}
-	\end{methods}
-	\sourcecode{graph/euler.cpp}
-	\begin{itemize}
-		\item Zyklus existiert, wenn jeder Knoten geraden Grad hat (ungerichtet),\\ bei jedem Knoten Ein- und Ausgangsgrad übereinstimmen (gerichtet).
-		\item Pfad existiert, wenn genau $\{0, 2\}$ Knoten ungeraden Grad haben (ungerichtet),\\ bei allen Knoten Ein- und Ausgangsgrad übereinstimmen oder einer eine Ausgangskante mehr hat (Startknoten) und einer eine Eingangskante mehr hat (Endknoten).
-		\item \textbf{Je nach Aufgabenstellung überprüfen, wie ein unzusammenhängender Graph interpretiert werden sollen.}
-		\item Wenn eine bestimmte Sortierung verlangt wird oder Laufzeit vernachlässigbar ist, ist eine Implementierung mit einem \code{vector<set<int>> adjlist} leichter
-		\item \textbf{Wichtig:} Algorithmus schlägt nicht fehl, falls kein Eulerzyklus existiert.
-		Die Existenz muss separat geprüft werden.
-	\end{itemize}
-\end{algorithm}
-
-\begin{algorithm}{Cycle Counting}
-	\begin{methods}
-		\method{findBase}{berechnet Basis}{\abs{V}\cdot\abs{E}}
-		\method{count}{zählt Zykel}{2^{\abs{\mathit{base}}}}
-	\end{methods}
-	\begin{itemize}
-		\item jeder Zyklus ist das xor von einträgen in \code{base}.
-	\end{itemize}
-	\sourcecode{graph/cycleCounting.cpp}
-\end{algorithm}
-
 \begin{algorithm}{Lowest Common Ancestor}
 	\begin{methods}
 		\method{init}{baut DFS-Baum über $g$ auf}{\abs{V}\*\log(\abs{V})}
@@ -132,14 +86,33 @@ Sei $a_{ij}$ die Adjazenzmatrix von $G$ \textcolor{gray}{(mit $a_{ii} = 1$)}, da
 	Subbaum unter dem Knoten $v$ ist das Intervall  $[\text{\code{in[v]}},~\text{\code{out[v]}})$.
 	\sourcecode{graph/hld.cpp}
 \end{algorithm}
+\clearpage
 
-\begin{algorithm}{Dynamic Connectivity}
+\begin{algorithm}{Maximal Cliques}
 	\begin{methods}
-		\method{Constructor}{erzeugt Baum ($n$ Knoten, $m$ updates)}{n+m}
-		\method{addEdge}{fügt Kannte ein,\texttt{id}=delete Zeitpunkt}{\log(n)}
-		\method{eraseEdge}{entfernt Kante \texttt{id}}{\log(n)}
+		\method{bronKerbosch}{berechnet alle maximalen Cliquen}{3^\frac{n}{3}}
+		\method{addEdge}{fügt \textbf{ungerichtete} Kante ein}{1}
 	\end{methods}
-	\sourcecode{graph/connect.cpp}
+	\sourcecode{graph/bronKerbosch.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Artikulationspunkte, Brücken und BCC}
+	\begin{methods}
+		\method{find}{berechnet Artikulationspunkte, Brücken und BCC}{\abs{V}+\abs{E}}
+	\end{methods}
+	\textbf{Wichtig:} isolierte Knoten und Brücken sind keine BCC.
+	\sourcecode{graph/articulationPoints.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Strongly Connected Components (\textsc{Tarjan})}
+	\begin{methods}
+		\method{scc}{berechnet starke Zusammenhangskomponenten}{\abs{V}+\abs{E}}
+	\end{methods}
+	\sourcecode{graph/scc.cpp}
+\end{algorithm}
+
+\begin{algorithm}{2-SAT}
+	\sourcecode{graph/2sat.cpp}
 \end{algorithm}
 
 \begin{algorithm}{Global Mincut}
@@ -254,10 +227,37 @@ Sei $a_{ij}$ die Adjazenzmatrix von $G$ \textcolor{gray}{(mit $a_{ii} = 1$)}, da
 \end{algorithm}
 }
 
-\begin{algorithm}{Maximal Cliques}
+\begin{algorithm}{Cycle Counting}
 	\begin{methods}
-		\method{bronKerbosch}{berechnet alle maximalen Cliquen}{3^\frac{n}{3}}
-		\method{addEdge}{fügt \textbf{ungerichtete} Kante ein}{1}
+		\method{findBase}{berechnet Basis}{\abs{V}\cdot\abs{E}}
+		\method{count}{zählt Zykel}{2^{\abs{\mathit{base}}}}
 	\end{methods}
-	\sourcecode{graph/bronKerbosch.cpp}
+	\begin{itemize}
+		\item jeder Zyklus ist das xor von einträgen in \code{base}.
+	\end{itemize}
+	\sourcecode{graph/cycleCounting.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Eulertouren}
+	\begin{methods}
+		\method{euler}{berechnet den Kreis}{\abs{V}+\abs{E}}
+	\end{methods}
+	\sourcecode{graph/euler.cpp}
+	\begin{itemize}
+		\item Zyklus existiert, wenn jeder Knoten geraden Grad hat (ungerichtet),\\ bei jedem Knoten Ein- und Ausgangsgrad übereinstimmen (gerichtet).
+		\item Pfad existiert, wenn genau $\{0, 2\}$ Knoten ungeraden Grad haben (ungerichtet),\\ bei allen Knoten Ein- und Ausgangsgrad übereinstimmen oder einer eine Ausgangskante mehr hat (Startknoten) und einer eine Eingangskante mehr hat (Endknoten).
+		\item \textbf{Je nach Aufgabenstellung überprüfen, wie ein unzusammenhängender Graph interpretiert werden sollen.}
+		\item Wenn eine bestimmte Sortierung verlangt wird oder Laufzeit vernachlässigbar ist, ist eine Implementierung mit einem \code{vector<set<int>> adjlist} leichter
+		\item \textbf{Wichtig:} Algorithmus schlägt nicht fehl, falls kein Eulerzyklus existiert.
+		Die Existenz muss separat geprüft werden.
+	\end{itemize}
+\end{algorithm}
+
+\begin{algorithm}{Dynamic Connectivity}
+	\begin{methods}
+		\method{Constructor}{erzeugt Baum ($n$ Knoten, $m$ updates)}{n+m}
+		\method{addEdge}{fügt Kannte ein,\texttt{id}=delete Zeitpunkt}{\log(n)}
+		\method{eraseEdge}{entfernt Kante \texttt{id}}{\log(n)}
+	\end{methods}
+	\sourcecode{graph/connect.cpp}
 \end{algorithm}

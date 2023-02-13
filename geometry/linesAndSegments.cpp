@@ -82,9 +82,8 @@ double distBetweenSegments(pt a, pt b, pt c, pt d) {
 	            distToSegment(c, d, a), distToSegment(c, d, b)});
 }
 
-// sortiert alle Punkte pts auf einer Linie 
-// entsprechend der richtung dir 2d und 3d
-void sortLine(pt dir, vector<pt>& pts) {
+// sortiert alle Punkte pts auf einer Linie entsprechend dir
+void sortLine(pt dir, vector<pt>& pts) { // (2d und 3d)
 	sort(all(pts), [&](pt a, pt b){
 		return dot(dir, a) < dot(dir, b);
 	});

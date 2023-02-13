@@ -4,19 +4,19 @@ struct sat2 {
 
 	sat2(int vars) : n(vars*2), adjlist(vars*2) {};
 
-	static int var(int i) {return i << 1;}
+	static int var(int i) {return i << 1;} // use this!
 
-	void addImpl(int v1, int v2) {
-		adjlist[v1].push_back(v2);
-		adjlist[1^v2].push_back(1^v1);
+	void addImpl(int a, int b) {
+		adjlist[a].push_back(b);
+		adjlist[1^b].push_back(1^a);
 	}
-	void addEquiv(int v1, int v2) {addImpl(v1, v2); addImpl(v2, v1);}
-	void addOr(int v1, int v2) {addImpl(1^v1, v2);}
-	void addXor(int v1, int v2) {addOr(v1, v2); addOr(1^v1, 1^v2);}
-	void addTrue(int v1) {addImpl(1^v1, v1);}
-	void addFalse(int v1) {addTrue(1^v1);}
-	void addAnd(int v1, int v2) {addTrue(v1); addTrue(v2);}
-	void addNand(int v1, int v2) {addOr(1^v1, 1^v2);}
+	void addEquiv(int a, int b) {addImpl(a, b); addImpl(b, a);}
+	void addOr(int a, int b) {addImpl(1^a, b);}
+	void addXor(int a, int b) {addOr(a, b); addOr(1^a, 1^b);}
+	void addTrue(int a) {addImpl(1^a, a);}
+	void addFalse(int a) {addTrue(1^a);}
+	void addAnd(int a, int b) {addTrue(a); addTrue(b);}
+	void addNand(int a, int b) {addOr(1^a, 1^b);}
 
 	bool solvable() {
 		scc(); //scc code von oben

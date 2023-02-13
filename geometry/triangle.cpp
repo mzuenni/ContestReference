@@ -12,6 +12,12 @@ double area(double a, double b, double c) {
 	return sqrt(s * (s-a) * (s-b) * (s-c));
 }
 
+// Zentrum des größten Kreises im Dreiecke
+pt inCenter(pt a, pt b, pt c) {
+	double x = abs(a-b), y = abs(b-c), z = abs(a-c);
+	return (y*a + z*b + x*c) / (x+y+z);
+}
+
 // Zentrum des Kreises durch alle Eckpunkte
 pt outCenter(pt a, pt b, pt c) {
 	double d = 2.0 * (real(a) * imag(b-c) +
@@ -21,13 +27,6 @@ pt outCenter(pt a, pt b, pt c) {
 	        b*conj(b)*conj(c-a) +
 	        c*conj(c)*conj(a-b)) / d;
 }
-
-// Zentrum des größten Kreises im Dreiecke
-pt inCenter(pt a, pt b, pt c) {
-	double x = abs(a-b), y = abs(b-c), z = abs(a-c);
-	return (y*a + z*b + x*c) / (x+y+z);
-}
-
 
 // Sind die Dreiecke a1, b1, c1, and a2, b2, c2 ähnlich?
 // Erste Zeile testet Ähnlichkeit mit gleicher Orientierung,

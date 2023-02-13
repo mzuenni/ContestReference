@@ -24,8 +24,7 @@ void fft(vector<cplx>& a, bool inverse = 0) {
 				t %= mod;
 				a[j + k] = (u + t) % mod;
 				a[j + s + k] = (u - t + mod) % mod;
-				w *= ws;
-				w %= mod;*/
+				w = (w * ws) % mod;*/
 				/*ll u = a[j + k], t = a[j + s + k]; @\hl{xor only}@
 				a[j + k] = u + t;
 				a[j + s + k] = u - t;*/
@@ -52,8 +51,7 @@ void fft(vector<cplx>& a, bool inverse = 0) {
 	/*if (inverse) { @\hl{NTT only}@
 		ll div = powMod(n, mod - 2, mod);
 		for (ll i = 0; i < n; i++) {
-			a[i] *= div;
-			a[i] %= mod;
+			a[i] = (a[i] * div) % mod;
 	}}*/
 	/*if (inverse) { @\hl{xor only}@
 		for (ll i = 0; i < n; i++) {

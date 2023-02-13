@@ -29,7 +29,7 @@ int dfs(int v, int parent = -1) {
 	return top;
 }
 
-void findArticulationPoints() {
+void find() {
 	counter = 0;
 	num.assign(sz(adjlist), 0);
 	isArt.assign(sz(adjlist), false);

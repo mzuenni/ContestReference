@@ -1,15 +1,14 @@
-constexpr ll maxEdges = 128;
+constexpr int maxEdges = 128;
 using cycle = bitset<maxEdges>;
 struct cylces {
-	ll n;
-	vector<vector<pair<ll, ll>>> adj;
+	vector<vector<pair<int, int>>> adj;
 	vector<bool> seen;
 	vector<cycle> paths, base;
-	vector<pair<ll, ll>> edges;
+	vector<pair<int, int>> edges;
 
-	cylces(ll n) : n(n), adj(n), seen(n), paths(n) {}
+	cylces(int n) : adj(n), seen(n), paths(n) {}
 
-	void addEdge(ll a, ll b) {
+	void addEdge(int a, int b) {
 		adj[a].push_back({b, sz(edges)});
 		adj[b].push_back({a, sz(edges)});
 		edges.push_back({a, b});
@@ -23,8 +22,8 @@ struct cylces {
 		if (cur.any()) base.push_back(cur);
 	}
 
-	void findBase(ll c = 0, ll p = -1, cycle cur = {}) {
-		if (n == 0) return;
+	void findBase(int c = 0, int p = -1, cycle cur = {}) {
+		if (adj.empty()) return;
 		if (seen[c]) {
 			addBase(cur ^ paths[c]);
 		} else {
@@ -40,8 +39,8 @@ struct cylces {
 	//cycle must be constrcuted from base
 	bool isCycle(cycle cur) {
 		if (cur.none()) return false;
-		init(n);
-		for (ll i = 0; i < sz(edges); i++) {
+		init(sz(adj)); // union find
+		for (int i = 0; i < sz(edges); i++) {
 			if (cur[i]) {
 				cur[i] = false;
 				if (findSet(edges[i].first) == 
@@ -51,12 +50,12 @@ struct cylces {
 		return cur.none();
 	};
 
-	ll count() {
+	int count() {
 		findBase();
-		ll res = 0;
-		for (ll i = 1; i < (1ll << sz(base)); i++) {
+		int res = 0;
+		for (int i = 1; i < (1 << sz(base)); i++) {
 			cycle cur;
-			for (ll j = 0; j < sz(base); j++) {
+			for (int j = 0; j < sz(base); j++) {
 				if (((i >> j) & 1) != 0) cur ^= base[j];
 			if (isCycle(cur)) res++;
 		}

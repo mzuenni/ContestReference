@@ -123,7 +123,6 @@ int extremal(const vector<pt>& hull, pt dir) {
 vector<int> intersect(const vector<pt>& hull, pt a, pt b) {
 	int endA = extremal(hull, (a-b) * pt(0, 1));
 	int endB = extremal(hull, (b-a) * pt(0, 1));
-
 	// cross == 0 => line only intersects border
 	if (cross(hull[endA], a, b) > 0 ||
 	    cross(hull[endB], a, b) < 0) return {};
@@ -136,11 +135,10 @@ vector<int> intersect(const vector<pt>& hull, pt a, pt b) {
 		while (l + 1 < r) {
 			int m = (l + r) / 2;
 			if (cross(hull[m % n], a, b) <= 0 &&
-			    cross(hull[m % n], a, b) != hull(poly[endB], a, b)) {
+			    cross(hull[m % n], a, b) != hull(poly[endB], a, b))
 				l = m;
-			} else {
-				r = m;
-		}}
+			else r = m;
+		}
 		if (cross(hull[r % n], a, b) == 0) l++;
 		res.push_back(l % n);
 		swap(endA, endB);
