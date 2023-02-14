@@ -3,8 +3,7 @@ constexpr ll root = 3;*/
 
 using cplx = complex<double>;
 
-@\hl{NTT, xor, or, and}@
-//void fft(vector<ll> &a, bool inverse = 0) {
+//void fft(vector<ll> &a, bool inverse = 0) { @\hl{NTT, xor, or, and}@
 void fft(vector<cplx>& a, bool inverse = 0) {
 	int n = a.size();
 	for (int i = 0, j = 1; j < n - 1; ++j) {

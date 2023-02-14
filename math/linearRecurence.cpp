@@ -1,5 +1,6 @@
 constexpr ll mod = 1000000007;
-vector<ll> modMul(const vector<ll>& a, const vector<ll>& b, const vector<ll>& c) {
+vector<ll> modMul(const vector<ll>& a, const vector<ll>& b,
+                  const vector<ll>& c) {
 	ll n = sz(c);
 	vector<ll> res(n * 2 + 1);
 	for (int i = 0; i <= n; i++) { //a*b
