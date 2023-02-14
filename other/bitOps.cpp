@@ -14,5 +14,5 @@ int numberOfSetBits(int i) {
 // (z.B. 00111 => 01011 => 01101 => ...)
 ll nextPerm(ll v) {
 	ll t = v | (v - 1);
-	return (t + 1) | (((~t & -~t) - 1) >> (__builtin_ctzll(v) + 1));
+	return (t+1) | (((~t & -~t) - 1) >> (__builtin_ctzll(v) + 1));
 }

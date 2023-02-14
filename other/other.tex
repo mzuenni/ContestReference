@@ -1,32 +1,11 @@
 \section{Sonstiges}
 
-\begin{algorithm}[optional]{Zeileneingabe}
-	\sourcecode{other/split.cpp}
-\end{algorithm}
-
-\begin{algorithm}[optional]{Fast IO}
-	\sourcecode{other/fastIO.cpp}
-\end{algorithm}
-
-\begin{algorithm}{Pragmas}
-	\sourcecode{other/pragmas.cpp}
-\end{algorithm}
-
-\begin{algorithm}{Sonstiges}
-	\sourcecode{other/stuff.cpp}
-\end{algorithm}
-
 \begin{algorithm}{Compiletime}
 	\begin{itemize}
 		\item überprüfen ob Compilezeit Berechnungen erlaubt sind!
 		\item braucht \code{c++14} oder höher!
 	\end{itemize}
 	\sourcecode{other/compiletime.cpp}
-\end{algorithm}
-
-\begin{algorithm}{Timed}
-	Kann benutzt werdem un randomisierte Algorithmen so lange wie möglich laufen zu lassen.
-	\sourcecode{other/timed.cpp}
 \end{algorithm}
 
 \begin{algorithm}{Bit Operations}
@@ -60,10 +39,20 @@
 	\end{expandtable}
 \end{algorithm}
 
+\begin{algorithm}{Timed}
+	Kann benutzt werdem un randomisierte Algorithmen so lange wie möglich laufen zu lassen.
+	\sourcecode{other/timed.cpp}
+\end{algorithm}
+
 \begin{algorithm}{DP Optimizations}
 	Aufgabe: Partitioniere Array in genau $k$ zusammenhängende Teile mit minimalen Kosten:
 	$dp[i][j] = \min_{k<j}\{dp[i-1][k]+C[k][j]\}$. Es sei $A[i][j]$ das \emph{minimale} optimale
 	$k$ bei der Berechnung von $dp[i][j]$.
+	
+	\paragraph{\textsc{Knuth}-Optimization} Vorbedingung: $A[i - 1][j] \leq A[i][j] \leq A[i][j + 1]$
+	
+	\method{calc}{berechnet das DP}{n^2}
+	\sourcecode{other/knuth.cpp}
 	
 	\paragraph{Divide and Conquer}
 	Vorbedingung: $A[i][j - 1] \leq A[i][j]$.
@@ -71,16 +60,11 @@
 	\method{calc}{berechnet das DP}{k\*n\*\log(n)}
 	\sourcecode{other/divideAndConquer.cpp}
 	
-	\paragraph{\textsc{Knuth}-Optimization} Vorbedingung: $A[i - 1][j] \leq A[i][j] \leq A[i][j + 1]$
-	
-	\method{calc}{berechnet das DP}{n^2}
-	\sourcecode{other/knuth.cpp}
-	
 	\paragraph{Quadrangle inequality} Die Bedingung  $\forall a\leq b\leq c\leq d:
 	C[a][d] + C[b][c] \geq C[a][c] + C[b][d]$ ist hinreichend für beide Optimierungen.
 	
 	\paragraph{Sum over Subsets DP} $\text{res}[\text{mask}]=\sum_{i\subseteq\text{mask}}\text{in}[i]$
-		\sourcecode{other/sos.cpp}
+	\sourcecode{other/sos.cpp}
 \end{algorithm}
 
 \begin{algorithm}{Parallel Binary Search}
@@ -95,7 +79,7 @@
 		(Rotiere $n$ um eine Stelle nach links)
 	\end{description}
 	\sourcecode{other/josephus2.cpp}
-		
+	
 	\begin{description}
 		\item[Allgemein:] Sei $F(n,k)$ die Position des letzten Überlebenden.
 		Nummeriere die Personen mit $0, 1, \ldots, n-1$.
@@ -104,6 +88,22 @@
 	\end{description}
 	\lstinputlisting{other/josephusK.cpp}
 	\textbf{Beachte bei der Ausgabe, dass die Personen im ersten Fall von $\boldsymbol{1, \ldots, n}$ nummeriert sind, im zweiten Fall von $\boldsymbol{0, \ldots, n-1}$!}
+\end{algorithm}
+
+\begin{algorithm}[optional]{Zeileneingabe}
+	\sourcecode{other/split.cpp}
+\end{algorithm}
+
+\begin{algorithm}[optional]{Fast IO}
+	\sourcecode{other/fastIO.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Pragmas}
+	\sourcecode{other/pragmas.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Sonstiges}
+	\sourcecode{other/stuff.cpp}
 \end{algorithm}
 
 \clearpage
