@@ -15,15 +15,21 @@
 	\sourcecode{string/z.cpp}
 \end{algorithm}
 
-\begin{algorithm}{Trie}
-	\sourcecode{string/trie.cpp}
+\begin{algorithm}{Rolling Hash}
+	\sourcecode{string/rollingHash.cpp}
 \end{algorithm}
 
-\begin{algorithm}{Longest Common Subsequence}
-	\begin{methods}
-		\method{lcss}{findet längste gemeinsame Sequenz}{\abs{a}\*\abs{b}}
-	\end{methods}
-	\sourcecode{string/longestCommonSubsequence.cpp}
+\begin{algorithm}{Pattern Matching mit Wildcards}
+	Gegeben zwei strings $A$ und $B$,$B$ enthält $k$ \emph{wildcards} enthält. Sei:
+	\begin{align*}
+		a_i&=\cos(\alpha_i) + i\sin(\alpha_i) &\text{ mit } \alpha_i&=\frac{2\pi A[i]}{\Sigma}\\
+		b_i&=\cos(\beta_i) + i\sin(\beta_i) &\text{ mit } \beta_i&=\begin{cases*}
+			\frac{2\pi B[\abs{B}-i-1]}{\Sigma} & falls $B[\abs{B}-i-1]\in\Sigma$ \\
+			0 & sonst
+		\end{cases*}
+	\end{align*}
+	$B$ matcht $A$ an stelle $i$ wenn $(b\cdot a)[|B|-1+i]=|B|-k$.
+	Benutze FFT um $(b\cdot a)$ zu berechnen.
 \end{algorithm}
 
 \begin{algorithm}{\textsc{Manacher}'s Algorithm, Longest Palindrome}
@@ -34,8 +40,11 @@
 	\sourcecode{string/manacher.cpp}
 \end{algorithm}
 
-\begin{algorithm}{Rolling Hash}
-	\sourcecode{string/rollingHash.cpp}
+\begin{algorithm}{Longest Common Subsequence}
+	\begin{methods}
+		\method{lcss}{findet längste gemeinsame Sequenz}{\abs{a}\*\abs{b}}
+	\end{methods}
+	\sourcecode{string/longestCommonSubsequence.cpp}
 \end{algorithm}
 
 \begin{algorithm}{\textsc{Aho-Corasick}-Automat}
@@ -49,48 +58,6 @@
 		\item dabei mit \code{aho[state].patterns} die Matches zählen
 	\end{enumerate}
 	\sourcecode{string/ahoCorasick.cpp}
-\end{algorithm}
-
-\begin{algorithm}{Suffix-Baum}
-	\begin{methods}
-		\method{SuffixTree}{berechnet einen Suffixbaum}{\abs{s}}
-		\method{extend}{fügt den nächsten Buchstaben aus \code{s} ein}{1}
-	\end{methods}
-	\sourcecode{string/suffixTree.cpp}
-\end{algorithm}
-
-\begin{algorithm}{Suffix-Array}
-	\begin{methods}
-		\method{SuffixArray}{berechnet ein Suffix Array}{\abs{s}\*\log^2(\abs{s})}
-		\method{lcp}{berechnet den logest common prefix}{\log(\abs{s})}
-		\method{}{von \code{s[x]} und \code{s[y]}}{}
-	\end{methods}
-	\textbf{ACHTUNG:} \code{s} muss mit einem sentinel enden! \code{'\$'} oder \code{'#'}
-	\sourcecode{string/suffixArray.cpp}
-\end{algorithm}
-
-\begin{algorithm}{Suffix-Automaton}
-	\sourcecode{string/suffixAutomaton.cpp}
-	\begin{itemize}
-		\item \textbf{Ist \textit{w} Substring von \textit{s}?}
-		Baue Automaten für \textit{s} und wende ihn auf \textit{w} an.
-		Wenn alle Übergänge vorhanden sind, ist \textit{w} Substring von \textit{s}.
-	
-		\item \textbf{Ist \textit{w} Suffix von \textit{s}?}
-		Wie oben.
-		Überprüfe am Ende, ob aktueller Zustand ein Terminal ist.
-	
-		\item \textbf{Anzahl verschiedener Substrings.}
-		Jeder Pfad im Automaten entspricht einem Substring.
-		Für einen Knoten ist die Anzahl der ausgehenden Pfade gleich der Summe über die Anzahlen der Kindknoten plus 1.
-		Der letzte Summand ist der Pfad, der in diesem Knoten endet.
-	
-		\item \textbf{Wie oft taucht \textit{w} in \textit{s} auf?}
-		Sei \textit{p} der Zustand nach Abarbeitung von \textit{w}.
-		Lösung ist Anzahl der Pfade, die in \textit{p} starten und in einem Terminal enden.
-		Diese Zahl lässt sich wie oben rekursiv berechnen.
-		Bei jedem Knoten darf nur dann plus 1 gerechnet werden, wenn es ein Terminal ist.
-	\end{itemize}
 \end{algorithm}
 
 \begin{algorithm}{Lyndon und De-Bruijn}
@@ -117,15 +84,47 @@
 	\sourcecode{string/deBruijn.cpp}
 \end{algorithm}
 
-\begin{algorithm}{Pattern Matching mit Wildcards}
-	Gegeben zwei strings $A$ und $B$,$B$ enthält $k$ \emph{wildcards} enthält. Sei:
-	\begin{align*}
-		a_i&=\cos(\alpha_i) + i\sin(\alpha_i) &\text{ mit } \alpha_i&=\frac{2\pi A[i]}{\Sigma}\\
-		b_i&=\cos(\beta_i) + i\sin(\beta_i) &\text{ mit } \beta_i&=\begin{cases*}
-			\frac{2\pi B[\abs{B}-i-1]}{\Sigma} & falls $B[\abs{B}-i-1]\in\Sigma$ \\
-			0 & sonst
-		\end{cases*}
-	\end{align*}
-	$B$ matcht $A$ an stelle $i$ wenn $(b\cdot a)[|B|-1+i]=|B|-k$.
-	Benutze FFT um $(b\cdot a)$ zu berechnen.
+\begin{algorithm}{Suffix-Array}
+\begin{methods}
+	\method{SuffixArray}{berechnet ein Suffix Array}{\abs{s}\*\log^2(\abs{s})}
+	\method{lcp}{berechnet den logest common prefix}{\log(\abs{s})}
+	\method{}{von \code{s[x]} und \code{s[y]}}{}
+\end{methods}
+\textbf{ACHTUNG:} \code{s} muss mit einem sentinel enden! \code{'\$'} oder \code{'#'}
+\sourcecode{string/suffixArray.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Suffix-Baum}
+	\begin{methods}
+		\method{SuffixTree}{berechnet einen Suffixbaum}{\abs{s}}
+		\method{extend}{fügt den nächsten Buchstaben aus \code{s} ein}{1}
+	\end{methods}
+	\sourcecode{string/suffixTree.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Suffix-Automaton}
+	\sourcecode{string/suffixAutomaton.cpp}
+	\begin{itemize}
+		\item \textbf{Ist \textit{w} Substring von \textit{s}?}
+		Baue Automaten für \textit{s} und wende ihn auf \textit{w} an.
+		Wenn alle Übergänge vorhanden sind, ist \textit{w} Substring von \textit{s}.
+	
+		\item \textbf{Ist \textit{w} Suffix von \textit{s}?}
+		Wie oben und prüfe, ob Endzustand ein Terminal ist.
+	
+		\item \textbf{Anzahl verschiedener Substrings.}
+		Jeder Pfad im Automaten entspricht einem Substring.
+		Für einen Knoten ist die Anzahl der ausgehenden Pfade gleich der Summe über die Anzahlen der Kindknoten plus 1.
+		Der letzte Summand ist der Pfad, der in diesem Knoten endet.
+	
+		\item \textbf{Wie oft taucht \textit{w} in \textit{s} auf?}
+		Sei \textit{p} der Zustand nach Abarbeitung von \textit{w}.
+		Lösung ist Anzahl der Pfade, die in \textit{p} starten und in einem Terminal enden.
+		Diese Zahl lässt sich wie oben rekursiv berechnen.
+		Bei jedem Knoten darf nur dann plus 1 gerechnet werden, wenn es ein Terminal ist.
+	\end{itemize}
+\end{algorithm}
+
+\begin{algorithm}{Trie}
+	\sourcecode{string/trie.cpp}
 \end{algorithm}

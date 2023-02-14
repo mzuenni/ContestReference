@@ -9,7 +9,6 @@ ios::sync_with_stdio(false);
 cin.tie(nullptr);
 
 // Set mit eigener Sortierfunktion.
-// Typ muss nicht explizit angegeben werden.
 set<point2, decltype(comp)> set1(comp);
 
 // STL-Debugging, Compiler flags.

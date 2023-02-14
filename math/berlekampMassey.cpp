@@ -19,7 +19,7 @@ vector<ll> BerlekampMassey(const vector<ll>& s) {
 		}
 		if (2 * L > i) continue;
 		L = i + 1 - L;
-		B = T;
+		swap(B, T);
 		b = d;
 		m = 0;
 	}

@@ -11,7 +11,6 @@ struct SuffixAutomaton {
 
 	SuffixAutomaton(const string &s) : states(2*sz(s)) {
 		size = 1; last = 0;
-		states[0].length = 0;
 		states[0].link = -1;
 		for (auto c : s) extend(c - MIN_CHAR);
 	}
@@ -43,8 +42,7 @@ struct SuffixAutomaton {
 		last = current;
 	}
 
-	// Pair with start index and length of LCS.
-	// Index in parameter t.
+	// Pair with start index (in t) and length of LCS.
 	pair<int, int> longestCommonSubstring(const string &t) {
 		int v = 0, l = 0, best = 0, bestpos = 0;
 		for (int i = 0; i < sz(t); i++) {

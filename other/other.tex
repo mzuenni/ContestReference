@@ -12,6 +12,10 @@
 	\sourcecode{other/pragmas.cpp}
 \end{algorithm}
 
+\begin{algorithm}{Sonstiges}
+	\sourcecode{other/stuff.cpp}
+\end{algorithm}
+
 \begin{algorithm}{Compiletime}
 	\begin{itemize}
 		\item überprüfen ob Compilezeit Berechnungen erlaubt sind!
@@ -46,18 +50,14 @@
 \begin{algorithm}{Overflow-sichere arithmetische Operationen}
 	Gibt zurück, ob es einen Overflow gab. Wenn nicht, enthält \code{c} das Ergebnis.
 	\begin{expandtable}
-	\begin{tabularx}{\linewidth}{|lR|}
-		\hline
-		Addition & \code{__builtin_saddll_overflow(a, b, &c)} \\
-		Subtraktion & \code{__builtin_ssubll_overflow(a, b, &c)} \\
-		Multiplikation & \code{__builtin_smulll_overflow(a, b, &c)} \\
-		\hline
-	\end{tabularx}
+		\begin{tabularx}{\linewidth}{|lR|}
+			\hline
+			Addition & \code{__builtin_saddll_overflow(a, b, &c)} \\
+			Subtraktion & \code{__builtin_ssubll_overflow(a, b, &c)} \\
+			Multiplikation & \code{__builtin_smulll_overflow(a, b, &c)} \\
+			\hline
+		\end{tabularx}
 	\end{expandtable}
-\end{algorithm}
-
-\begin{algorithm}{Sonstiges}
-	\sourcecode{other/stuff.cpp}
 \end{algorithm}
 
 \begin{algorithm}{DP Optimizations}
@@ -106,6 +106,7 @@
 	\textbf{Beachte bei der Ausgabe, dass die Personen im ersten Fall von $\boldsymbol{1, \ldots, n}$ nummeriert sind, im zweiten Fall von $\boldsymbol{0, \ldots, n-1}$!}
 \end{algorithm}
 
+\clearpage
 \subsection{Gemischtes}
 \begin{itemize}
 	\item \textbf{(Minimum) Flow mit Demand \textit{d}:}
@@ -157,7 +158,6 @@
 		A = I + \frac{R}{2} - 1
 	\]
 
-\columnbreak
 	\item \textbf{Lemma von \textsc{Burnside}:}
 	Sei $G$ eine endliche Gruppe, die auf der Menge $X$ operiert.
 	Für jedes $g \in G$ sei $X^g$ die Menge der Fixpunkte bei Operation durch $g$, also $X^g = \{x \in X \mid g \bullet x = x\}$.

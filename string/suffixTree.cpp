@@ -1,48 +1,39 @@
 struct SuffixTree {
 	struct Vert {
-		int start, end, suffix;
+		int start, end, suf;
 		map<char, int> next;
 	};
 	string s;
-	int root, lastIdx, needsSuffix, pos, remainder;
-	int curVert, curEdge, curLen;
+	int needsSuffix, pos, remainder, curVert, curEdge, curLen;
 	// Each Vertex gives its children range as [start, end)
-	vector<Vert> tree;
+	vector<Vert> tree = {Vert{-1, -1, 0 {}}};
 
-	SuffixTree(string& s) : s(s) {
-		needsSuffix = remainder = curEdge = curLen = 0;
-		lastIdx = pos = -1;
-		root = curVert = newVert(-1, -1);
+	SuffixTree(const string& s) : s(s) {
+		needsSuffix = remainder = curVert = curEdge = curLen = 0;
+		pos = -1;
 		for (int i = 0; i < sz(s); i++) extend();
 	}
 
 	int newVert(int start, int end) {
-		Vert v;
-		v.start = start;
-		v.end = end;
-		v.suffix = 0;
-		tree.push_back(v);
-		return ++lastIdx;
-	}
-
-	int len(Vert& v) {
-		return min(v.end, pos + 1) - v.start;
+		tree.push_back({start, end, 0, {}});
+		return sz(tree) - 1;
 	}
 
 	void addSuffixLink(int vert) {
-		if (needsSuffix) tree[needsSuffix].suffix = vert;
+		if (needsSuffix) tree[needsSuffix].suf = vert;
 		needsSuffix = vert;
 	}
 
 	bool fullImplicitEdge(int vert) {
-		if (curLen >= len(tree[vert])) {
-			curEdge += len(tree[vert]);
-			curLen -= len(tree[vert]);
+		len = min(tree[vert].end, pos + 1) - tree[vert].start;
+		if (curLen >= len) {
+			curEdge += len;
+			curLen -= len;
 			curVert = vert;
 			return true;
-		}
-		return false;
-	}
+		} else {
+			return false;
+	}}
 
 	void extend() {
 		pos++;
@@ -72,11 +63,10 @@ struct SuffixTree {
 				addSuffixLink(split);
 			}
 			remainder--;
-			if (curVert == root && curLen) {
+			if (curVert == 0 && curLen) {
 				curLen--;
 				curEdge = pos - remainder + 1;
 			} else {
-				curVert = tree[curVert].suffix ? tree[curVert].suffix
-				                               : root;
+				curVert = tree[curVert].suf ? tree[curVert].suf : 0;
 	}}}
 };
