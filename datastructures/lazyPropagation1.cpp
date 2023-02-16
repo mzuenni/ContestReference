@@ -24,7 +24,7 @@ void push(int p) {
 			d[i] = updateFlag;
 }}}
 
-void update(int l, int r, ll value) { // add value
+void update(int l, int r, ll value) { // data[l..r)+=value
 	l += sz(tree)/2, r += sz(tree)/2;
 	int l0 = l, r0 = r;
 	for (; l < r; l /= 2, r /= 2) {
@@ -35,7 +35,7 @@ void update(int l, int r, ll value) { // add value
 	build(r0 - 1);
 }
 
-ll query(int l, int r) { // max(l..r)
+ll query(int l, int r) { // max[l..r)
 	l += sz(tree)/2, r += sz(tree)/2;
 	push(l);
 	push(r - 1);
