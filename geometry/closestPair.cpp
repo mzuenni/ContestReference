@@ -21,8 +21,10 @@ double shortestDist(vector<pt>& pts) { // sz(pts) > 1
 			status.erase(*left);
 			left++;
 		} else {
-			auto lower = status.lower_bound({-1.0/0.0, imag(*right) - sqrtOpt});
-			auto upper = status.upper_bound({-1.0/0.0, imag(*right) + sqrtOpt});
+			auto lower = status.lower_bound({-1.0/0.0, //-INF
+			                                 imag(*right) - sqrtOpt});
+			auto upper = status.upper_bound({-1.0/0.0, //-INF
+			                                 imag(*right) + sqrtOpt});
 			for (;lower != upper; lower++) {
 				double cand = norm(*right - *lower);
 				if (cand < opt) {

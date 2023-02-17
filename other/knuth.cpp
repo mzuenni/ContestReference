@@ -6,7 +6,7 @@ ll calc(int n, int k, const vector<vector<ll>> &C) {
 	for (int i = 1; i < k; i++) {
 		for (int j = n - 1; j >= 0; --j) {
 			opt[i][j] = i == 1 ? 0 : opt[i - 1][j];
-			for (int k = opt[i][j]; k <= min(opt[i][j + 1], j - 1); ++k) {
+			for (int k = opt[i][j]; k <= min(opt[i][j+1], j-1); k++) {
 				if (dp[i][j] <= dp[i - 1][k] + C[k + 1][j]) continue;
 				dp[i][j] = dp[i - 1][k] + C[k + 1][j];
 				opt[i][j] = k;

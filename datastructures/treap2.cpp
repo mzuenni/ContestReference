@@ -41,7 +41,8 @@ struct Treap {
 			upd(v);
 			return {left, v};
 		} else {
-			auto [left, right] = split(V->r, k - getSize(V->l) - 1); // and only "k"
+			// and only "k"
+			auto [left, right] = split(V->r, k - getSize(V->l) - 1);
 			V->r = left;
 			upd(v);
 			return {v, right};
