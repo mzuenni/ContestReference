@@ -61,15 +61,15 @@ struct SegTree {
 	}
 
 	// Optional:
-	ll find_first(int l, int r, int x) {
+	ll lower_bound(int l, int r, int x) {
 		l += size, r += size;
 		push(l), push(r - 1);
-		vector<pair<int, int>> a; stack<pair<int, int>> st;
+		vector<pair<int, int>> a, st;
 		for (int k = 1; l < r; l /= 2, r /= 2, k *= 2) {
 			if (l&1) a.emplace_back(l++, k);
-			if (r&1) st.emplace(--r, k);
+			if (r&1) st.emplace_back(--r, k);
 		}
-		while (!st.empty()) a.push_back(st.top()), st.pop();
+		a.insert(a.begin(), st.rbegin(), st.rend());
 		for (auto [i, k] : a) {
 			if (tree[i] >= x) return find(i, x, k); // Modify this
 		}
