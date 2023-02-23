@@ -388,6 +388,13 @@ so gilt
 	\item Formel $2$ und $3$ erlauben Berechnung in \runtime{n}
 \end{itemize}
 
+\paragraph{\textsc{Catalan}-Convolution}
+\begin{itemize}
+	\item Anzahl an Klammerausdrücken mit $n+k$ Klammerpaaren, die mit $(^k$ beginnen.
+\end{itemize}
+\[C^k_0 = 1\qquad C^k_n = \sum\limits_{\mathclap{a_0+a_1+\dots+a_k=n}} C_{a_0}C_{a_1}\cdots C_{a_k} =
+\frac{k+1}{n+k+1}\binom{2n+k}{n} = \frac{(2n+k-1)\cdot(2n+k)}{n(n+k+1)} \cdot C_{n-1}\]
+
 \paragraph{\textsc{Euler}-Zahlen 1. Ordnung}
 Die Anzahl der Permutationen von $\{1, \ldots, n\}$ mit genau $k$ Anstiegen.
 Für die $n$-te Zahl gibt es $n$ mögliche Positionen zum Einfügen.
@@ -453,6 +460,7 @@ Die Anzahl der Partitionen von $n$ mit Elementen aus ${1,\dots,k}$.
 Die Anzahl der \mbox{$k$-elementigen} Teilmengen einer \mbox{$n$-elementigen} Menge.
 
 \textbf{WICHTIG:} Binomialkoeffizient in \runtime{1} berechnen indem man $x!$ vorberechnet.
+\columnbreak
 
 %\begin{algorithm}{Binomialkoeffizienten}
 	\begin{methods}
@@ -463,7 +471,6 @@ Die Anzahl der \mbox{$k$-elementigen} Teilmengen einer \mbox{$n$-elementigen} Me
 	\begin{methods}
 		\method{calc\_binom}{berechnet Binomialkoeffizient modulo Primzahl $p$}{p-n}
 	\end{methods}
-	\textbf{Wichtig:} $p > n$
 	\sourcecode{math/binomial3.cpp}
 	
 	\begin{methods}
