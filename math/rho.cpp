@@ -13,7 +13,7 @@ ll rho(ll n) { // Findet Faktor < n, nicht unbedingt prim.
 
 void factor(ll n, map<ll, int>& facts) {
 	if (n == 1) return;
-	if (isPrime(n)) {facts[n]++, return;}
+	if (isPrime(n)) {facts[n]++; return;}
 	ll f = rho(n);
 	factor(n / f, facts); factor(f, facts);
 }

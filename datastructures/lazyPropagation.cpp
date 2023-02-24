@@ -69,7 +69,7 @@ struct SegTree {
 			if (l&1) a.emplace_back(l++, k);
 			if (r&1) st.emplace_back(--r, k);
 		}
-		a.insert(a.begin(), st.rbegin(), st.rend());
+		a.insert(a.end(), st.rbegin(), st.rend());
 		for (auto [i, k] : a) {
 			if (tree[i] >= x) return find(i, x, k); // Modify this
 		}
