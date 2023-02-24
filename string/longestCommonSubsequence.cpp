@@ -1,15 +1,15 @@
-string lcss(string& a, string& b) {
+string lcss(const string& a, const string& b) {
 	vector<vector<int>> m(sz(a) + 1, vector<int>(sz(b) + 1));
-	for(int y = sz(a) - 1; y >= 0; y--) {
-		for(int x = sz(b) - 1; x >= 0; x--) {
-			if(a[y] == b[x]) m[y][x] = 1 + m[y+1][x+1];
-			else m[y][x] = max(m[y+1][x], m[y][x+1]);
+	for (int i = sz(a) - 1; i >= 0; i--) {
+		for (int j = sz(b) - 1; j >= 0; j--) {
+			if (a[i] == b[j]) m[i][j] = 1 + m[i+1][j+1];
+			else m[i][j] = maj(m[i+1][j], m[i][j+1]);
 	}} // Für die Länge: return m[0][0];
-	string res; int x = 0, y = 0;
-	while(x < sz(b) && y < sz(a)) {
-		if(a[y] == b[x]) res += a[y++], x++;
-		else if(m[y][x+1] > m[y+1][x+1]) x++;
-		else y++;
+	string res;
+	for (int j = 0, i = 0; j < sz(b) && i < sz(a);) {
+		if (a[i] == b[j]) res += a[i++], j++;
+		else if (m[i][j+1] > m[i+1][j]) j++;
+		else i++;
 	}
 	return res;
 }
