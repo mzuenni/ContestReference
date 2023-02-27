@@ -15,7 +15,7 @@ void takeAll(int n, int line, ll p) {
 void gauss(int n, ll mod) { // Nx(N+1)-Matrix, Körper F_p.
 	vector<bool> done(n, false);
 	for (int i = 0; i < n; i++) {
-		int j = i;
+		int j = 0;
 		while (j < n && (done[j] || mat[j][i] == 0)) j++;
 		if (j == n) continue;
 		swap(mat[i], mat[j]);
