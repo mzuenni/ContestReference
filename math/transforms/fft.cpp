@@ -1,4 +1,4 @@
-using cplx = complex<double>; // Eigene Implementierung ist schneller.
+using cplx = complex<double>;
 
 void fft(vector<cplx>& a, bool inverse = 0) {
 	int n = sz(a);

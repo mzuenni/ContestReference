@@ -9,7 +9,7 @@ vector<pt> circleIntersection(pt c1, double r1,
 	if (d == abs(r1 - r2) || d == abs(r1 + r2)) return {p};
 	double h = sqrt(r1 * r1 - a * a);
 	return {p + pt{0, 1} * (c2 - c1) * h / d,
-					p - pt{0, 1} * (c2 - c1) * h / d};
+	        p - pt{0, 1} * (c2 - c1) * h / d};
 }
 
 // berechnet die Schnittpunkte zwischen

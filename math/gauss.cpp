@@ -1,8 +1,7 @@
-void normalLine(int n, int line) {
+void normalLine(int line) {
 	double factor = mat[line][line];
-	for (int i = 0; i <= n; i++) {
-		mat[line][i] /= factor;
-}}
+	for (double& x : mat[line]) x /= factor;
+}
 
 void takeAll(int n, int line) {
 	for (int i = 0; i < n; i++) {
@@ -21,18 +20,17 @@ int gauss(int n) {
 			if (abs(mat[j][i]) > abs(mat[i][i])) swappee = j;
 		}
 		swap(mat[i], mat[swappee]);
-		if (abs(mat[i][i]) > EPSILON) {
-			normalLine(n, i);
+		if (abs(mat[i][i]) > EPS) {
+			normalLine(i);
 			takeAll(n, i);
 			done[i] = true;	
 	}}
 	// Ab jetzt nur checks bzgl. Eindeutigkeit/Existenz der Lösung.
 	for (int i = 0; i < n; i++) {
 		bool allZero = true;
-		for (int j = i; j < n; j++)
-			if (abs(mat[i][j]) > EPSILON) allZero = false;
-		if (allZero && abs(mat[i][n]) > EPSILON) return INCONSISTENT;
-		if (allZero && abs(mat[i][n]) < EPSILON) return MULTIPLE;
+		for (int j = i; j < n; j++) allZero &= abs(mat[i][j]) <= EPS;
+		if (allZero && abs(mat[i][n]) > EPS) return INCONSISTENT;
+		if (allZero && abs(mat[i][n]) <= EPS) return MULTIPLE;
 	}
 	return UNIQUE;
 }

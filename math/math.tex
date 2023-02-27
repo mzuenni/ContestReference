@@ -149,23 +149,53 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
 	\sourcecode{math/discreteNthRoot.cpp}
 \end{algorithm}
 
+\begin{algorithm}{Linearessieb und Multiplikative Funktionen}
+	Eine (zahlentheoretische) Funktion $f$ heißt multiplikativ wenn $f(1)=1$ und $f(a\cdot b)=f(a)\cdot f(b)$, falls $\ggT(a,b)=1$.
+	
+	$\Rightarrow$ Es ist ausreichend $f(p^k)$ für alle primen $p$ und alle $k$ zu kennen.
+	
+	\begin{methods}
+		\method{sieve}{berechnet Primzahlen und co.}{N}
+		\method{sieved}{Wert der endsprechenden Multiplikativen Funktion}{1}
+		
+		\method{naive}{Wert der endsprechenden Multiplikativen Funktion}{\sqrt{n}}
+	\end{methods}
+	\textbf{Wichtig:} Sieb rechts ist schneller für \code{isPrime} oder \code{primes}!
+	
+	\sourcecode{math/linearSieve.cpp}
+	\textbf{\textsc{Möbius} Funtkion:}
+	\begin{itemize}
+		\item $\mu(n)=+1$, falls $n$ quadratfrei ist und gerade viele Primteiler hat 
+		\item $\mu(n)=-1$, falls $n$ quadratfrei ist und ungerade viele Primteiler hat 
+		\item $\mu(n)=0$, falls $n$ nicht quadratfrei ist
+	\end{itemize}
 
-
+	\textbf{\textsc{Euler}sche $\boldsymbol{\varphi}$-Funktion:}
+	\begin{itemize}
+		\item Zählt die relativ primen Zahlen $\leq n$.			
+		\item $p$ prim, $k \in \mathbb{N}$:
+		$~\varphi(p^k) = p^k - p^{k - 1}$
+		
+		\item \textbf{Euler's Theorem:}
+		Für $b \geq \varphi(c)$ gilt: $a^b \equiv a^{b \bmod \varphi(c) + \varphi(c)} \pmod{c}$. Darüber hinaus gilt: $\gcd(a, c) = 1 \Leftrightarrow a^b \equiv a^{b \bmod \varphi(c)} \pmod{c}$.
+		Falls $m$ prim ist, liefert das den \textbf{kleinen Satz von \textsc{Fermat}}:
+		$a^{m} \equiv a \pmod{m}$
+	\end{itemize}
+\end{algorithm}
 
 
 \begin{algorithm}{Primzahlsieb von \textsc{Eratosthenes}}
 	\begin{itemize}
-		\item Kann erweitert werden: Für jede Zahl den \{kleinsten, größten\} Primfaktor speichern, Liste von Primzahlen berechnen
 		\item Bis $10^8$ in unter 64MB Speicher (lange Berechnung)
 	\end{itemize}
 	\begin{methods}
-		\method{primeSieve}{berechnet Primzahlen und Anzahl}{n\*\log(\log(n))}
+		\method{primeSieve}{berechnet Primzahlen und Anzahl}{N\*\log(\log(N))}
 		\method{isPrime}{prüft ob Zahl prim ist}{1}
 	\end{methods}
 	\sourcecode{math/primeSieve.cpp}
 \end{algorithm}
 
-\begin{algorithm}{\textsc{Möbius}-Funktion und \textsc{Möbius}-Inversion}
+\begin{algorithm}{\textsc{Möbius}-Inversion}
 	\begin{itemize}
 		\item Seien $f,g : \mathbb{N} \to \mathbb{N}$ und  $g(n) := \sum_{d \vert n}f(d)$.
 		Dann ist $f(n) = \sum_{d \vert n}g(d)\mu(\frac{n}{d})$.
@@ -181,37 +211,32 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
 	Für jedes $x$, sei $cnt[x]$ die Anzahl der Vielfachen von $x$ in $A$.
 	Es gibt $2^{[x]}-1$ nicht leere Subsequences in $A$, die nur Vielfache von $x$ enthalten.
 	Die Anzahl der Subsequences mit $\ggT=1$ ist gegeben durch $\sum_{i = 1}^N \mu(i) \cdot (2^{cnt[i]} - 1)$.
-	\sourcecode{math/mobius.cpp}
+	%\sourcecode{math/mobius.cpp}
 \end{algorithm}
 
-\columnbreak
-\subsection{\textsc{Euler}sche $\boldsymbol{\varphi}$-Funktion}
-\begin{itemize}
-	\item Zählt die relativ primen Zahlen $\leq n$.
-	
-	\item Multiplikativ:
-	$\gcd(a,b) = 1 \Longrightarrow \varphi(a) \cdot \varphi(b) = \varphi(ab)$
-	
-	\item $p$ prim, $k \in \mathbb{N}$:
-	$~\varphi(p^k) = p^k - p^{k - 1}$
-	
-	\item \textbf{\textsc{Euler}'s Theorem:}
-	Für $b \geq \varphi(c)$ gilt: $a^b \equiv a^{b \bmod \varphi(c) + \varphi(c)} \pmod{c}$. Darüber hinaus gilt: $\gcd(a, c) = 1 \Leftrightarrow a^b \equiv a^{b \bmod \varphi(c)} \pmod{c}$.
-	Falls $m$ prim ist, liefert das den \textbf{kleinen Satz von \textsc{Fermat}}:
-	$a^{m} \equiv a \pmod{m}$
-\end{itemize}
-\sourcecode{math/phi.cpp}
+%\columnbreak
+%\subsection{\textsc{Euler}sche $\boldsymbol{\varphi}$-Funktion}
+%\begin{itemize}
+%	\item Zählt die relativ primen Zahlen $\leq n$.
+%	
+%	\item Multiplikativ:
+%	$\gcd(a,b) = 1 \Longrightarrow \varphi(a) \cdot \varphi(b) = \varphi(ab)$
+%	
+%	\item $p$ prim, $k \in \mathbb{N}$:
+%	$~\varphi(p^k) = p^k - p^{k - 1}$
+%	
+%	\item \textbf{\textsc{Euler}'s Theorem:}
+%	Für $b \geq \varphi(c)$ gilt: $a^b \equiv a^{b \bmod \varphi(c) + \varphi(c)} \pmod{c}$. Darüber hinaus gilt: $\gcd(a, c) = 1 \Leftrightarrow a^b \equiv a^{b \bmod \varphi(c)} \pmod{c}$.
+%	Falls $m$ prim ist, liefert das den \textbf{kleinen Satz von \textsc{Fermat}}:
+%	$a^{m} \equiv a \pmod{m}$
+%\end{itemize}
+%\sourcecode{math/phi.cpp}
 
-\subsection{LGS über $\boldsymbol{\mathbb{F}_p}$}
-\method{gauss}{löst LGS}{n^3}
-\sourcecode{math/lgsFp.cpp}
-
-\subsection{LGS über $\boldsymbol{\mathbb{R}}$}
-\sourcecode{math/gauss.cpp}
 
 \begin{algorithm}{Numerisch Extremstelle bestimmen}
 	\sourcecode{math/goldenSectionSearch.cpp}
 \end{algorithm}
+
 
 \begin{algorithm}{Numerisch Integrieren, Simpsonregel}
 	\sourcecode{math/simpson.cpp}
@@ -231,11 +256,18 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
 	%\lstinputlisting{math/ntt.cpp}
 	%\textcolor{safeOrange}{$\blacksquare$} NTT code, %\textcolor{safeGreen}{$\blacksquare$} FFT code
 	\sourcecode{math/transforms/all.cpp}
-	Für sehr viele transforms kann die Vertauschung vorberechnet werden:
-	\sourcecode{math/transforms/fftPerm.cpp}
 	Multiplikation mit 2 transforms statt 3: (nur benutzten wenn nötig!)
 	\sourcecode{math/transforms/fftMul.cpp}
 \end{algorithm}
+
+\subsection{LGS über $\boldsymbol{\mathbb{R}}$}
+\method{gauss}{löst LGS}{n^3}
+\sourcecode{math/gauss.cpp}
+
+\subsection{LGS über $\boldsymbol{\mathbb{F}_p}$}
+\method{gauss}{löst LGS}{n^3}
+\sourcecode{math/lgsFp.cpp}
+
 \clearpage
 
 \subsection{Primzahlzählfunktion $\boldsymbol{\pi}$}

@@ -1,9 +1,7 @@
-void normalLine(int n, int line, ll p) {
+void normalLine(int line, ll p) {
 	ll factor = multInv(mat[line][line], p);
-	for (int i = 0; i <= n; i++) {
-		mat[line][i] *= factor;
-		mat[line][i] %= p;
-}}
+	for (ll& x : mat[line]) x = (x * factor) % p;
+}
 
 void takeAll(int n, int line, ll p) {
 	for (int i = 0; i < n; i++) {
@@ -11,17 +9,18 @@ void takeAll(int n, int line, ll p) {
 		ll diff = mat[i][line];
 		for (int j = 0; j <= n; j++) {
 			mat[i][j] -= (diff * mat[line][j]) % p;
-			mat[i][j] %= p;
-			if (mat[i][j] < 0) mat[i][j] += p;
+			mat[i][j] = (mat[i][j] + p) % p;
 }}}
 
-void gauss(int n, ll p) { // nx(n+1)-Matrix, Körper F_p.
-	for (int line = 0; line < n; line++) {
-		int swappee = line;
-		while (swappee < n && mat[swappee][line] == 0) swappee++;
-		if (swappee == n) continue;
-		swap(mat[line], mat[swappee]);
-		normalLine(n, line, p);
-		takeAll(n, line, p);
-		// für Eindeutigkeit, Existenz etc. siehe LGS
+void gauss(int n, ll mod) { // Nx(N+1)-Matrix, Körper F_p.
+	vector<bool> done(n, false);
+	for (int i = 0; i < n; i++) {
+		int j = i;
+		while (j < n && (done[j] || mat[j][i] == 0)) j++;
+		if (j == n) continue;
+		swap(mat[i], mat[j]);
+		normalLine(i, mod);
+		takeAll(n, i, mod);
+		done[i] = true;
 }}
+// für Eindeutigkeit, Existenz etc. siehe LGS
