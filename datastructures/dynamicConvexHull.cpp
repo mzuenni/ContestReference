@@ -1,50 +1,31 @@
-// Upper Envelope, dynamisch.
 struct Line {
-	ll m, b;
-	mutable function<const Line*()> succ;
-	bool operator<(const Line& rhs) const {
-		if (rhs.b != LLONG_MIN) return m < rhs.m;
-		const Line* s = succ();
-		if (!s) return 0;
-		ll x = rhs.m;
-		return b - s->b < (s->m - m) * x;
-	}
+	mutable ll m, b, p;
+	bool operator<(const Line& o) const { return m < o.m; }
+	bool operator<(ll x) const { return p < x; }
 };
 
-struct HullDynamic : public multiset<Line> {
-	bool bad(iterator y) {
-		auto z = next(y);
-		if (y == begin()) {
-			if (z == end()) return 0;
-			return y->m == z->m && y->b <= z->b;
-		}
-		auto x = prev(y);
-		if (z == end()) return y->m == x->m && y->b <= x->b;
-		return (x->b - y->b)*(z->m - y->m) >=
-		       (y->b - z->b)*(y->m - x->m);
+struct HullDynamic : multiset<Line, less<>> {
+	// (for doubles, use inf = 1/.0, div(a,b) = a/b)
+	static constexpr ll INF = LLONG_MAX;
+	ll div(ll a, ll b) { return a / b - ((a ^ b) < 0 && a % b); }
+
+	bool isect(iterator x, iterator y) {
+		if (y == end()) {x->p = INF; return false;}
+		if (x->m == y->m) x->p = x->b > y->b ? INF : -INF;
+		else x->p = div(y->b - x->b, x->m - y->m);
+		return x->p >= y->p;
 	}
 
-	// Variant 1: niklasb (2015)
-	void insert_line(ll m, ll b) { // Laufzeit: O(log(n))
-		auto y = insert({m, b});
-		y->succ = [=] {return next(y) == end() ? 0 : &*next(y);};
-		if (bad(y)) {erase(y); return;}
-		while (next(y) != end() && bad(next(y))) erase(next(y));
-		while (y != begin() && bad(prev(y))) erase(prev(y));
+	void add(ll m, ll b) {
+		auto z = insert({m, b, 0}), y = z++, x = y;
+		while (isect(y, z)) z = erase(z);
+		if (x != begin() && isect(--x, y)) isect(x, y = erase(y));
+		while ((y = x) != begin() && (--x)->p >= y->p)
+			isect(x, erase(y));
 	}
 
-	// Variant 2: barni120400 (2019)
-	void insert_line(ll m, ll b) {
-		auto y = insert({ m, b });
-		if (bad(y)) {erase(y); return;}
-		while (next(y) != end() && bad(next(y))) erase(next(y));
-		y->succ = [=] {return next(y) == end() ? 0 : &*next(y);};
-		while (y != begin() && bad(prev(y))) erase(prev(y));
-		if (y != begin()) prev(y)->succ = [=] {return &*y;};
-	}
-
-	ll query(ll x) { // Laufzeit: O(log(n)) 
-		auto l = *lower_bound((Line) {x, LLONG_MIN});
+	ll query(ll x) {
+		auto l = *lower_bound(x);
 		return l.m * x + l.b;
 	}
 };
