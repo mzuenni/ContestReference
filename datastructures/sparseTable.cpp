@@ -19,4 +19,4 @@ struct SparseTable {
 		int j = __lg(r - l); //31 - builtin_clz(r - l);
 		return better(st[j][l] , st[j][r - (1 << j)]);
 	}
-}
+};
