@@ -244,6 +244,11 @@
 		\item Wenn die Summe über $x_i$ durch $X$ beschränkt ist, dann gibt es nur $\sqrt{2X}$ verschiedene Werte von $x_i$ (z.b. Längen von Strings).
 		\item Wenn $w\cdot h$ durch $X$ beschränkt ist, dann ist $\min(w,h)\leq\sqrt{X}$.
 	\end{itemize}
+
+	\item \textbf{Partition:}
+	Gegeben Gewichte $w_0+w_1+\cdots+w_k=W$, existiert eine Teilmenge mit Gewicht $x$?
+	Drei gleiche Gewichte $w$ können zu $w$ und $2w$ kombiniert werden ohne die Lösung zu ändern $\Rightarrow$ nur $2\sqrt{W}$ unterschiedliche Gewichte.
+	Mit bitsets daher selbst für $10^5$ lösbar.
 \end{itemize}
 
 \subsection{Tipps \& Tricks}
