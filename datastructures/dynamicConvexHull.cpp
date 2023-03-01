@@ -17,12 +17,18 @@ struct HullDynamic : multiset<Line, less<>> {
 	}
 
 	void add(ll m, ll b) {
-		auto z = insert({m, b, 0}), y = z++, x = y;
-		while (isect(y, z)) z = erase(z);
-		if (x != begin() && isect(--x, y)) isect(x, y = erase(y));
-		while ((y = x) != begin() && (--x)->p >= y->p)
-			isect(x, erase(y));
-	}
+		auto x = insert({m, b, 0});
+		while (isect(x, next(x))) erase(next(x));
+		if (x != begin()) {
+			x--;
+			if (isect(x, next(x))) {
+				erase(next(x));
+				isect(x, next(x));
+		}}
+		while (x != begin() && prev(x)->p >= x->p) {
+			x--;
+			isect(x, erase(next(x)));
+	}}
 
 	ll query(ll x) {
 		auto l = *lower_bound(x);
