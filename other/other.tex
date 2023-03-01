@@ -86,7 +86,7 @@
 		Nach Erschießen der $k$-ten Person, hat der Kreis noch Größe $n-1$ und die Position des Überlebenden ist jetzt $F(n-1,k)$.
 		Also: $F(n,k) = (F(n-1,k)+k)\%n$. Basisfall: $F(1,k) = 0$.
 	\end{description}
-	\lstinputlisting{other/josephusK.cpp}
+	\sourcecode{other/josephusK.cpp}
 	\textbf{Beachte bei der Ausgabe, dass die Personen im ersten Fall von $\boldsymbol{1, \ldots, n}$ nummeriert sind, im zweiten Fall von $\boldsymbol{0, \ldots, n-1}$!}
 \end{algorithm}
 
@@ -264,16 +264,16 @@
 	
 	\item Strings:
 	\begin{itemize}
-		\item Soll \lstinline{"aa"} kleiner als \lstinline{"z"} sein oder nicht?
+		\item Soll \codeSafe{"aa"} kleiner als \codeSafe{"z"} sein oder nicht?
 		\item bit \code{0x20} beeinflusst Groß-/Kleinschreibung.
 	\end{itemize}
 	
 	\item Gleitkommazahlen:
 	\begin{itemize}
-		\item \lstinline{NaN}? Evtl. ungültige Werte für mathematische Funktionen, z.B. \mbox{\lstinline{acos(1.00000000000001)}}?
+		\item \code{NaN}? Evtl. ungültige Werte für mathematische Funktionen, z.B. \mbox{\code{acos(1.00000000000001)}}?
 		\item Falsches Runden bei negativen Zahlen? Abschneiden $\neq$ Abrunden!
-		\item genügend Präzision oder Output in wissenschaftlicher Notation (\lstinline{1e-25})?
-		\item Kann \lstinline{-0.000} ausgegeben werden?
+		\item genügend Präzision oder Output in wissenschaftlicher Notation (\code{1e-25})?
+		\item Kann \code{-0.000} ausgegeben werden?
 	\end{itemize}
 
 	\item Wrong Answer:

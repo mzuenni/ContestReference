@@ -257,8 +257,8 @@ Sei $a_{ij}$ die Adjazenzmatrix von $G$ \textcolor{gray}{(mit $a_{ii} = 1$)}, da
 \begin{algorithm}{Dynamic Connectivity}
 	\begin{methods}
 		\method{Constructor}{erzeugt Baum ($n$ Knoten, $m$ updates)}{n+m}
-		\method{addEdge}{fügt Kannte ein,\texttt{id}=delete Zeitpunkt}{\log(n)}
-		\method{eraseEdge}{entfernt Kante \texttt{id}}{\log(n)}
+		\method{addEdge}{fügt Kannte ein,\code{id}=delete Zeitpunkt}{\log(n)}
+		\method{eraseEdge}{entfernt Kante \code{id}}{\log(n)}
 	\end{methods}
 	\sourcecode{graph/connect.cpp}
 \end{algorithm}
