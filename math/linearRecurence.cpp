@@ -1,4 +1,4 @@
-constexpr ll mod = 1000000007;
+constexpr ll mod = 1'000'000'007;
 vector<ll> modMul(const vector<ll>& a, const vector<ll>& b,
                   const vector<ll>& c) {
 	ll n = sz(c);

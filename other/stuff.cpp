@@ -24,6 +24,6 @@ __int128, __float128
 std::decimal::decimal128
 
 // 1e18 < INF < Max_Value / 2
-constexpr long long INF = 0x3FFF_FFFF_FFFF_FFFFll;
+constexpr long long INF = 0x3FFF'FFFF'FFFF'FFFFll;
 // 1e9 < INF < Max_Value / 2
-constexpr int INF = 0x3FFF_FFFF;
+constexpr int INF = 0x3FFF'FFFF;

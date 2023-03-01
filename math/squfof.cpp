@@ -64,7 +64,7 @@ lll squfof(lll N) {
 	exit(1);//try fallback to pollard rho
 }
 
-constexpr lll trialLim = 5000;
+constexpr lll trialLim = 5'000;
 
 void factor(lll n, map<lll, int>& facts) {
 	for (lll i = 2; i * i <= n && i <= trialLim; i++) {

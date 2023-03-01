@@ -22,7 +22,7 @@
 
 \usepackage{listings}
 \lstset{
-	language={C++},
+	language={[11]C++},
 	numbers=left,
 	stepnumber=1,
 	numbersep=6pt,
@@ -44,6 +44,7 @@
 	frame=trbl,
 	aboveskip=3pt,
 	belowskip=3pt,
+	deletestring=[b]{'},%lose char heighlighting but win digit separator
 	escapechar=@
 	%moredelim=**[is][{\btHL[fill=green!30,draw=red,dashed,thin]}]{@}{@}	
 }
@@ -106,3 +107,4 @@
 \makeatother
 
 \newcommand{\hl}[1]{\btHL[fill=safeOrange,draw=black,thin]{#1}}
+

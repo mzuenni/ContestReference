@@ -1,4 +1,4 @@
-constexpr ll N = 10000000;
+constexpr ll N = 10'000'000;
 ll smallest[N], power[N], sieved[N];
 vector<ll> primes;
 

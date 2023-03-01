@@ -1,4 +1,4 @@
-constexpr ll mod = 1000000009;
+constexpr ll mod = 1'000'000'009;
 
 ll binomPPow(ll n, ll k, ll p) {
 	ll res = 1;

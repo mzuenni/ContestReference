@@ -1,5 +1,5 @@
 // base and base_digits must be consistent
-constexpr ll base = 1000000;
+constexpr ll base = 1'000'000;
 constexpr ll base_digits = 6;
 struct bigint {
 	vll a; ll sign;

@@ -4,4 +4,4 @@ struct Table {
 	constexpr Table() : data {} {
 		for (int i = 0; i < N; i++) data[i] = i;
 }};
-constexpr Table<100000> precalculated;
+constexpr Table<100'000> precalculated;

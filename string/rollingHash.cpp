@@ -1,6 +1,6 @@
-// q = 29, 101, 257, 65537, 100003, 1000033 (or random)
-// m = 1500000001, 1600000009, 1700000009
-// always compare hash and length of hashed range!
+// q = 29, 53, 101, 257, 1009, 65'537
+// or choose q random from [sigma, m)
+// m = 1'500'000'001, 1'600'000'009, 1'700'000'009
 template<ll M, ll Q>
 struct Hasher {
 	vector<ll> power = {1}, pref = {0};

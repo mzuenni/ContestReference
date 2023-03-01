@@ -1,4 +1,4 @@
-constexpr ll N = 100000000;
+constexpr ll N = 100'000'000;
 bitset<N / 2> isNotPrime;
 vector<ll> primes = {2};
 

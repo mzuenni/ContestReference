@@ -1,4 +1,4 @@
-constexpr int MOD=1000000007, I=10;
+constexpr int MOD=1'000'000'007, I=10;
 vector<vector<ll>> adjlist, mat;
 
 int gauss(int n, ll p) {
