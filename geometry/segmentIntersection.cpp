@@ -12,7 +12,7 @@ struct seg {
 		return imag(a) < imag(o.a);
 	}
 };
- 
+
 struct event {
 	pt p;
 	int id, type;
@@ -22,16 +22,16 @@ struct event {
 		return imag(p) < imag(o.p);
 	}
 };
- 
+
 bool lessPT(const pt& a, const pt& b) {
 	return real(a) != real(b) ? real(a) < real(b)
 	                          : imag(a) < imag(b);
 }
- 
+
 bool intersect(const seg& a, const seg& b) {
 	return lineSegmentIntersection(a.a, a.b, b.a, b.b);
 }
- 
+
 pair<int, int> intersect(vector<seg>& segs) {
 	vector<event> events;
 	for (seg& s : segs) {
@@ -40,7 +40,7 @@ pair<int, int> intersect(vector<seg>& segs) {
 		events.push_back({s.b, s.id, -1});
 	}
 	sort(all(events));
- 
+
 	set<seg> q;
 	vector<set<seg>::iterator> where(sz(segs));
 	for (auto e : events) {

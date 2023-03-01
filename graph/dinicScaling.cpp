@@ -1,5 +1,5 @@
 struct edge {
-	int from, to; 
+	int from, to;
 	ll f, c;
 };
 
@@ -19,7 +19,7 @@ void addEdge(int from, int to, ll c) {
 
 bool bfs() {
 	dist.assign(sz(dist), -1);
-	dist[t] = sz(adjlist) + 1; 
+	dist[t] = sz(adjlist) + 1;
 	q.push(t);
 	while (!q.empty() && dist[s] < 0) {
 		int cur = q.front(); q.pop();
@@ -39,7 +39,7 @@ bool dfs(int v, ll flow) {
 	if (v == t) return true;
 	for (; pt[v] < sz(adjlist[v]); pt[v]++) {
 		int id = adjlist[v][pt[v]], to = edges[id].to;
-		if (dist[to] == dist[v] + 1 && 
+		if (dist[to] == dist[v] + 1 &&
 		    edges[id].c - edges[id].f >= flow) {
 			if (dfs(to, flow)) {
 				edges[id].f += flow;

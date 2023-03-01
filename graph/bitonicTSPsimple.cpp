@@ -11,7 +11,7 @@ double get(int p1, int p2) {
 }
 
 void bitonicTour() {
-	dp = vector<vector<double>>(sz(dist), 
+	dp = vector<vector<double>>(sz(dist),
 	            vector<double>(sz(dist), -1));
 	get(0, 0);
 	// return dp[0][0]; // Länger der Tour

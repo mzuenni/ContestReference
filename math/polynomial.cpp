@@ -62,4 +62,4 @@ struct poly {
 		s.trim(); r.trim();
 		return {s, r};
 	}
-}; 
+};

@@ -12,7 +12,7 @@ struct MinCostFlow {
 	const int s, t;
 	ll maxflow, mincost;
 
-	MinCostFlow(int n, int source, int target) : 
+	MinCostFlow(int n, int source, int target) :
 		adjlist(n), s(source), t(target) {};
 
 	void addedge(int u, int v, ll c, ll cost) {

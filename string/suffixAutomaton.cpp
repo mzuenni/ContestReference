@@ -2,7 +2,7 @@ constexpr char MIN_CHAR = 'a';
 constexpr ll ALPHABET_SIZE = 26;
 struct SuffixAutomaton {
 	struct State {
-		int length, link; 
+		int length, link;
 		vector<int> next;
 		State() : next(ALPHABET_SIZE) {}
 	};

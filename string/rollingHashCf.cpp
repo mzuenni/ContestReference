@@ -4,7 +4,7 @@
 struct Hasher {
 	vector<ll> power = {1}, pref = {0};
 	ll m, q; char c;
-	Hasher(const string& s, ll m, ll q, char c) : 
+	Hasher(const string& s, ll m, ll q, char c) :
 	       m(m), q(q), c(c) {
 		for (char x : s) {
 			power.push_back(power.back() * q % m);

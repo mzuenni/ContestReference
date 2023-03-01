@@ -1,6 +1,6 @@
 struct node {
 	int key, prio, left, right, size;
-	node(int key, int prio) : key(key), prio(prio), left(-1), 
+	node(int key, int prio) : key(key), prio(prio), left(-1),
 	                          right(-1), size(1) {};
 };
 

@@ -15,7 +15,7 @@ vector<pair<int, int>> duval(const string& s) {
 
 int minrotation(const string& s) {
 	auto parts = duval(s+s);
-	for (auto e : parts) {
-		if (e.first < sz(s) && e.second >= sz(s)) {
-			return e.first;
+	for (auto [l, r] : parts) {
+		if (l < sz(s) && r >= sz(s)) {
+			return l;
 }}}

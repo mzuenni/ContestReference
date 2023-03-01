@@ -5,7 +5,7 @@ struct GM {
 	vector<pair<int, int>> label;
 	int head, tail;
 
-	GM(int n) : adjlist(n), pairs(n + 1, n), first(n + 1, n), 
+	GM(int n) : adjlist(n), pairs(n + 1, n), first(n + 1, n),
 	            que(n), label(n + 1, {-1, -1}) {}
 
 	void rematch(int v, int w) {
@@ -15,8 +15,7 @@ struct GM {
 			pairs[t] = label[v].first;
 			rematch(pairs[t], t);
 		} else {
-			int x = label[v].first;
-			int y = label[v].second;
+			auto [x, y] = label[v];
 			rematch(x, y);
 			rematch(y, x);
 	}}

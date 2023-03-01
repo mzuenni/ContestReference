@@ -10,7 +10,7 @@ bool lineSegmentIntersection(pt a, pt b, pt c, pt d) {
 }
 
 // Berechnet die Schnittpunkte der Strecken p0-p1 und p2-p3.
-// Enthält entweder keinen Punkt, den einzigen Schnittpunkt 
+// Enthält entweder keinen Punkt, den einzigen Schnittpunkt
 // oder die Endpunkte der Schnittstrecke.
 vector<pt> lineSegmentIntersection(pt p0, pt p1, pt p2, pt p3) {
 	double a = cross(p1 - p0, p3 - p2);
@@ -53,7 +53,7 @@ bool lineIntersection(pt a, pt b, pt c, pt d) {
 }
 
 // Berechnet den Schnittpunkt der Graden p0-p1 und p2-p3.
-// die Graden dürfen nicht parallel sein! 
+// die Graden dürfen nicht parallel sein!
 pt lineIntersection(pt p0, pt p1, pt p2, pt p3) {
 	double a = cross(p1 - p0, p3 - p2);
 	double b = cross(p2 - p0, p3 - p2);

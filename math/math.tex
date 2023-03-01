@@ -38,7 +38,7 @@
 %\end{multicols}
 %\vspace{-2.75em}
 \begin{itemize}
-	\item für $a > 10^9$ \code{__int128} oder \code{modMul} benutzten! 
+	\item für $a > 10^9$ \code{__int128} oder \code{modMul} benutzten!
 \end{itemize}
 
 \begin{algorithm}{ggT, kgV, erweiterter euklidischer Algorithmus}
@@ -165,8 +165,8 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
 	\sourcecode{math/linearSieve.cpp}
 	\textbf{\textsc{Möbius} Funtkion:}
 	\begin{itemize}
-		\item $\mu(n)=+1$, falls $n$ quadratfrei ist und gerade viele Primteiler hat 
-		\item $\mu(n)=-1$, falls $n$ quadratfrei ist und ungerade viele Primteiler hat 
+		\item $\mu(n)=+1$, falls $n$ quadratfrei ist und gerade viele Primteiler hat
+		\item $\mu(n)=-1$, falls $n$ quadratfrei ist und ungerade viele Primteiler hat
 		\item $\mu(n)=0$, falls $n$ nicht quadratfrei ist
 	\end{itemize}
 
@@ -293,7 +293,7 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
 	Alternativ kann der \mbox{$k$-te} Term in \runtime{n^3\log(k)} berechnet werden:
 	$$\renewcommand\arraystretch{1.5}
 	\setlength\arraycolsep{3pt}
-	\begin{pmatrix} 
+	\begin{pmatrix}
 		c_{n-1} & c_{n-2} & \smash{\cdots} & \smash{\cdots} & c_0 \\
 		1 & 0 & \smash{\cdots} & \smash{\cdots} & 0 \\
 		0 & \smash{\ddots} & \smash{\ddots} & & \smash{\vdots} \\
@@ -301,7 +301,7 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
 		0 & \smash{\cdots} & 0 & 1 & 0 \\
 	\end{pmatrix}^k
 	\times~~
-	\begin{pmatrix} 
+	\begin{pmatrix}
 		f(n-1) \\
 		f(n-2) \\
 		\smash{\vdots} \\
@@ -309,7 +309,7 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
 		f(0) \\
 	\end{pmatrix}
 	~~=~~
-	\begin{pmatrix} 
+	\begin{pmatrix}
 		f(n-1+k) \\
 		f(n-2+k) \\
 		\smash{\vdots} \\
@@ -364,7 +364,7 @@ Weise jedem Zustand $X$ wie folgt eine \textsc{Grundy}-Zahl $g\left(X\right)$ zu
 g\left(X\right) := \min\left\{
 \mathbb{Z}_0^+ \setminus
 \left\{g\left(Y\right) \mid Y \text{ von } X \text{ aus direkt erreichbar}\right\}
-\right\} 
+\right\}
 \]
 $X$ ist genau dann gewonnen, wenn $g\left(X\right) > 0$ ist.\\
 Wenn man $k$ Spiele in den Zuständen $X_1, \ldots, X_k$ hat, dann ist die \textsc{Grundy}-Zahl des Gesamtzustandes $g\left(X_1\right) \oplus \ldots \oplus g\left(X_k\right)$.
@@ -372,7 +372,7 @@ Wenn man $k$ Spiele in den Zuständen $X_1, \ldots, X_k$ hat, dann ist die \text
 \subsection{Kombinatorik}
 
 \paragraph{Wilsons Theorem}
-A number $n$ is prime if and only if 
+A number $n$ is prime if and only if
 $(n-1)!\equiv -1\bmod{n}$.\\
 ($n$ is prime if and only if $(m-1)!\cdot(n-m)!\equiv(-1)^m\bmod{n}$ for all $m$ in $\{1,\dots,n\}$)
 \begin{align*}

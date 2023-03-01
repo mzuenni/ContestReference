@@ -11,4 +11,4 @@ vector<cplx> mul(vector<cplx>& a, vector<cplx>& b) {
 		d[i] = x * y;
 	}		
 	return fft(d, true);
-} 
+}

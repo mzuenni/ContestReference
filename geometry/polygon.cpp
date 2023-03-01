@@ -91,7 +91,7 @@ double dist(const vector<pt>& ps, const vector<pt>& qs) {
 	return res;
 }
 
-bool left(pt of, pt p) {return cross(p, of) < 0 || 
+bool left(pt of, pt p) {return cross(p, of) < 0 ||
                        (cross(p, of) == 0 && dot(p, of) > 0);}
 
 // convex hulls without duplicates, hull[0] == hull.back() and

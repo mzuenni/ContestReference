@@ -1,5 +1,5 @@
 struct edge {
-	int from, to; 
+	int from, to;
 	ll f, c;
 };
 

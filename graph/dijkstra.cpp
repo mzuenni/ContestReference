@@ -7,15 +7,15 @@ void dijkstra(const vector<vector<path>> &adjlist, int start) {
 	dist[start] = 0; pq.emplace(0, start);
 
 	while (!pq.empty()) {
-		path front = pq.top(); pq.pop();
-		if (front.first > dist[front.second]) continue; // WICHTIG!
+		auto [dc, c] = pq.top(); pq.pop();
+		if (dc > dist[c]) continue; // WICHTIG!
 
-		for (path e : adjlist[front.second]) {
-			ll newDist = front.first + e.first;
-			if (newDist < dist[e.second]) {
-				dist[e.second] = newDist;
-				prev[e.second] = front.second;
-				pq.emplace(newDist, e.second);
+		for (auto [dx, x] : adjlist[c]) {
+			ll newDist = dc + dx;
+			if (newDist < dist[x]) {
+				dist[x] = newDist;
+				prev[x] = c;
+				pq.emplace(newDist, x);
 	}}}
 	//return dist, prev;
 }

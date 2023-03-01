@@ -11,17 +11,15 @@ int findSet(int i) {
 }
 	
 void linkSets(int i, int j) {
-	//Take |uf[i]|, where i must be a root, to get the size 
+	//Take |uf[i]|, where i must be a root, to get the size
 	//of the subset
 	if(abs(uf[i]) < abs(uf[j])) { //Union-by-size.
-		uf[j] += uf[i]; uf[i] = j; 
+		uf[j] += uf[i]; uf[i] = j;
 	} else {
-		uf[i] += uf[j]; uf[j] = i; 
+		uf[i] += uf[j]; uf[j] = i;
 	}
 }
 	
 void unionSets(int i, int j) {
 	if(findSet(i) != findSet(j)) linkSets(findSet(i),findSet(j));
-} 
-	
-	
+}

@@ -1,7 +1,7 @@
 constexpr ll inf = 1ll<<60;
 
 struct edge {
-	int from, to; 
+	int from, to;
 	ll f, c;
 };
 

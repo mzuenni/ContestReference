@@ -54,7 +54,7 @@
 	\begin{enumerate}
 		\item mit \code{addString(pattern, idx);} Patterns hinzufügen.
 		\item mit \code{state = go(state, idx)} in nächsten Zustand wechseln.
-		\item mit \code{state = getExit(state)} den exit Kanten folgen bis \code{state == 0} 
+		\item mit \code{state = getExit(state)} den exit Kanten folgen bis \code{state == 0}
 		\item dabei mit \code{aho[state].patterns} die Matches zählen
 	\end{enumerate}
 	\sourcecode{string/ahoCorasick.cpp}

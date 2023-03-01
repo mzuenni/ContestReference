@@ -29,11 +29,11 @@ struct cylces {
 		} else {
 			seen[c] = true;
 			paths[c] = cur;
-			for (auto e : adj[c]) {
-				if (e.first == p) continue;
-				cur[e.second].flip();
-				findBase(e.first, c, cur);
-				cur[e.second].flip();
+			for (auto [to, id] : adj[c]) {
+				if (to == p) continue;
+				cur[id].flip();
+				findBase(to, c, cur);
+				cur[id].flip();
 	}}}
 
 	//cycle must be constrcuted from base
@@ -43,7 +43,7 @@ struct cylces {
 		for (int i = 0; i < sz(edges); i++) {
 			if (cur[i]) {
 				cur[i] = false;
-				if (findSet(edges[i].first) == 
+				if (findSet(edges[i].first) ==
 				    findSet(edges[i].second)) break;
 				unionSets(edges[i].first, edges[i].second);
 		}}

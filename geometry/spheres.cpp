@@ -1,5 +1,5 @@
 // Great Cirlce Distance mit Längen- und Breitengrad.
-double gcDist(double pLat, double pLon, 
+double gcDist(double pLat, double pLon,
 							double qLat, double qLon, double radius) {
 	pLat *= PI / 180; pLon *= PI / 180;
 	qLat *= PI / 180; qLon *= PI / 180;

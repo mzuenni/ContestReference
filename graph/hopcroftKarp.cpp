@@ -22,8 +22,8 @@ bool bfs(int n) {
 bool dfs(int u) {
 	for (int v : adjlist[u]) {
 		if (pairs[v] < 0 ||
-		   (dist[pairs[v]] > dist[u] && dfs(pairs[v]))) { 
-			pairs[v] = u; pairs[u] = v; 
+		   (dist[pairs[v]] > dist[u] && dfs(pairs[v]))) {
+			pairs[v] = u; pairs[u] = v;
 			return true;
 	}}
 	dist[u] = -1;

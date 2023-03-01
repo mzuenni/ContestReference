@@ -9,9 +9,9 @@ void TSP() {
 
 	for (int v = m - 2; v >= 0; v--) {
 		for (int c = n - 1; c >= 0; c--) {
-			for (int g = 0; g < n; g++) { 
+			for (int g = 0; g < n; g++) {
 				if (g != c && !((1 << g) & v)) {
-					if ((dp[g][(v | (1 << g))].dist + dist[c][g]) < 
+					if ((dp[g][(v | (1 << g))].dist + dist[c][g]) <
 					    dp[c][v].dist) {
 						dp[c][v].dist =
 							dp[g][(v | (1 << g))].dist + dist[c][g];

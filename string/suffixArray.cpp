@@ -9,11 +9,11 @@ struct SuffixArray {
 		for (int i = 0; i < n; i++) P[0][i] = s[i];
 		for (step = 1, count = 1; count < n; step++, count *= 2) {
 			for (int i = 0; i < n; i++)
-				L[i] = {{P[step-1][i], 
+				L[i] = {{P[step-1][i],
 				         i+count < n ? P[step-1][i+count] : -1}, i};
 			sort(all(L));
 			for (int i = 0; i < n; i++) {
-				P[step][L[i].second] = 
+				P[step][L[i].second] =
 					i > 0 && L[i].first == L[i-1].first ?
 					P[step][L[i-1].second] : i;
 		}}

@@ -35,13 +35,13 @@ struct LCT {
 		int id, size;
 		Node *left, *right, *parent;
 		
-		Node(int id = 0, int val = queryDefault) : 
-			nodeValue(val), subTreeValue(val), delta(updateDefault), 
+		Node(int id = 0, int val = queryDefault) :
+			nodeValue(val), subTreeValue(val), delta(updateDefault),
 			revert(false), id(id), size(1),
 			left(nullptr), right(nullptr), parent(nullptr) {}
 			
 		bool isRoot() {
-			return !parent || (parent->left != this && 
+			return !parent || (parent->left != this &&
 			       parent->right != this);
 		}
 		
@@ -53,7 +53,7 @@ struct LCT {
 				if (right) right->revert ^= 1;
 			}
 			nodeValue = joinValueDelta(nodeValue, delta);
-			subTreeValue = joinValueDelta(subTreeValue, 
+			subTreeValue = joinValueDelta(subTreeValue,
 			                              _update(delta, size));
 			if (left) left->delta = joinDeltas(left->delta, delta);
 			if (right) right->delta = joinDeltas(right->delta, delta);
@@ -73,7 +73,7 @@ struct LCT {
 				size += left->size;
 			}
 			if (right) {
-				subTreeValue = _query(subTreeValue, 
+				subTreeValue = _query(subTreeValue,
 				                      right->getSubtreeValue());
 				size += right->size;
 		}}
@@ -111,7 +111,7 @@ struct LCT {
 			if (!p->isRoot()) g->push();
 			p->push();
 			x->push();
-			if (!p->isRoot()) rotate((x == p->left) == 
+			if (!p->isRoot()) rotate((x == p->left) ==
 			                         (p == g->left) ?  p : x);
 			rotate(x);
 		}

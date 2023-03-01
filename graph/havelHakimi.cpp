@@ -3,17 +3,16 @@ vector<vector<int>> havelHakimi(const vector<int>& deg) {
 	for (int i = 0; i < sz(deg); i++) pq.push({deg[i], i});
 	vector<vector<int>> adj;
 	while (!pq.empty()) {
-		auto v = pq.top(); pq.pop();
-		if (sz(pq) < v.first) return {}; //impossible
+		auto [degV, v] = pq.top(); pq.pop();
+		if (sz(pq) < degV) return {}; //impossible
 		vector<pair<int, int>> todo;
-		for (int i = 0; i < v.first; i++) {
-			auto u = pq.top(); pq.pop();
-			adj[v.second].push_back(u.second);
-			adj[u.second].push_back(v.second);
-			u.first--;
-			if (u.first > 0) todo.push_back(u);
+		for (int i = 0; i < degV; i++) {
+			auto [degU, v] = pq.top(); pq.pop();
+			adj[v].push_back(u);
+			adj[u].push_back(v);
+			if (degU > 1) todo.push_back({degU - 1, u});
 		}
 		for (auto e : todo) pq.push(e);
 	}
 	return adj;
-} 
+}

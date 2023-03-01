@@ -1,5 +1,5 @@
 bool compY(pt a, pt b) {
-	return (imag(a) == imag(b)) ? real(a) < real(b) 
+	return (imag(a) == imag(b)) ? real(a) < real(b)
 	                            : imag(a) < imag(b);
 }
 

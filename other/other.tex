@@ -84,7 +84,7 @@
 		\item[Allgemein:] Sei $F(n,k)$ die Position des letzten Überlebenden.
 		Nummeriere die Personen mit $0, 1, \ldots, n-1$.
 		Nach Erschießen der $k$-ten Person, hat der Kreis noch Größe $n-1$ und die Position des Überlebenden ist jetzt $F(n-1,k)$.
-		Also: $F(n,k) = (F(n-1,k)+k)\%n$. Basisfall: $F(1,k) = 0$. 
+		Also: $F(n,k) = (F(n-1,k)+k)\%n$. Basisfall: $F(1,k) = 0$.
 	\end{description}
 	\lstinputlisting{other/josephusK.cpp}
 	\textbf{Beachte bei der Ausgabe, dass die Personen im ersten Fall von $\boldsymbol{1, \ldots, n}$ nummeriert sind, im zweiten Fall von $\boldsymbol{0, \ldots, n-1}$!}
@@ -200,7 +200,7 @@
 	Berechnung: Maximales Matching in bipartitem Graphen.
 	Dupliziere jedes $s \in S$ in $u_s$ und $v_s$.
 	Falls $x \leq y$, füge Kante $u_x \to v_y$ hinzu.
-	Wenn Matching zu langsam ist, versuche Struktur des Posets auszunutzen und evtl. anders eine maximale Anitkette zu finden. 
+	Wenn Matching zu langsam ist, versuche Struktur des Posets auszunutzen und evtl. anders eine maximale Anitkette zu finden.
 	
 	\item \textbf{\textsc{Turan}'s-Theorem:}
 	Die Anzahl an Kanten in einem Graphen mit $n$ Knoten der keine clique der größe $x+1$ enthält ist:

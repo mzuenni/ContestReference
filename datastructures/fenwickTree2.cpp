@@ -4,7 +4,7 @@ void update(int l, int r, ll val) {
 	for (int tl = l + 1; tl < sz(add); tl += tl&(-tl))
 		add[tl] += val, mul[tl] -= val * l;
 	for (int tr = r + 1; tr < sz(add); tr += tr&(-tr))
-		add[tr] -= val, mul[tr] += val * r; 
+		add[tr] -= val, mul[tr] += val * r;
 }
 
 void init(vector<ll>& v) {

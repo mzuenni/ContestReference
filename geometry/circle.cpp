@@ -1,6 +1,6 @@
 // berechnet die Schnittpunkte von zwei kreisen
 // (Kreise dürfen nicht gleich sein!)
-vector<pt> circleIntersection(pt c1, double r1, 
+vector<pt> circleIntersection(pt c1, double r1,
                               pt c2, double r2) {
 	double d = abs(c1 - c2);
 	if (d < abs(r1 - r2) || d > abs(r1 + r2)) return {};
@@ -14,7 +14,7 @@ vector<pt> circleIntersection(pt c1, double r1,
 
 // berechnet die Schnittpunkte zwischen
 // einem Kreis(Kugel) und einer Grade 2d und 3d
-vector<pt> circleRayIntersection(pt center, double r, 
+vector<pt> circleRayIntersection(pt center, double r,
                                  pt orig, pt dir) {
 	vector<pt> result;
 	double a = dot(dir, dir);
