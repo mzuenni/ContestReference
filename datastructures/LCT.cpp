@@ -34,17 +34,17 @@ struct LCT {
 		bool revert;
 		int id, size;
 		Node *left, *right, *parent;
-		
+
 		Node(int id = 0, int val = queryDefault) :
 			nodeValue(val), subTreeValue(val), delta(updateDefault),
 			revert(false), id(id), size(1),
 			left(nullptr), right(nullptr), parent(nullptr) {}
-			
+
 		bool isRoot() {
 			return !parent || (parent->left != this &&
 			       parent->right != this);
 		}
-		
+
 		void push() {
 			if (revert) {
 				revert = false;
@@ -63,7 +63,7 @@ struct LCT {
 		ll getSubtreeValue() {
 			return joinValueDelta(subTreeValue, _update(delta, size));
 		}
-		
+
 		void update() {
 			subTreeValue = joinValueDelta(nodeValue, delta);
 			size = 1;
@@ -78,13 +78,13 @@ struct LCT {
 				size += right->size;
 		}}
 	};
-	
+
 	vector<Node> nodes;
-	
+
 	LCT(int n) : nodes(n) {
 		for (int i = 0; i < n; i++) nodes[i].id = i;
 	}
-	
+
 	void connect(Node* ch, Node* p, int isLeftChild) {
 		if (ch) ch->parent = p;
 		if (isLeftChild >= 0) {
@@ -103,7 +103,7 @@ struct LCT {
 		connect(x, g, isRootP ? -1 : p == g->left);
 		p->update();
 	}
-	
+
 	void splay(Node* x) {
 		while (!x->isRoot()) {
 			Node* p = x->parent;
@@ -118,7 +118,7 @@ struct LCT {
 		x->push();
 		x->update();
 	}
-	
+
 	Node* expose(Node* x) {
 		Node* last = nullptr;
 		for (Node* y = x; y; y = y->parent) {
@@ -129,25 +129,25 @@ struct LCT {
 		splay(x);
 		return last;
 	}
-	
+
 	void makeRoot(Node* x) {
 		expose(x);
 		x->revert ^= 1;
 	}
-	
+
 	bool connected(Node* x, Node* y) {
 		if (x == y) return true;
 		expose(x);
 		expose(y);
 		return x->parent;
 	}
-	
+
 	void link(Node* x, Node* y) {
 		assert(!connected(x, y)); // not yet connected!
 		makeRoot(x);
 		x->parent = y;
 	}
-	
+
 	void cut(Node* x, Node* y) {
 		makeRoot(x);
 		expose(y);
@@ -162,14 +162,14 @@ struct LCT {
 		expose(x);
 		return expose(y);
 	}
-	
+
 	ll query(Node* from, Node* to) {
 		makeRoot(from);
 		expose(to);
 		if (to) return to->getSubtreeValue();
 		return queryDefault;
 	}
-	
+
 	void modify(Node* from, Node* to, ll delta) {
 		makeRoot(from);
 		expose(to);

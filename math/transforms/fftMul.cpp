@@ -9,6 +9,6 @@ vector<cplx> mul(vector<cplx>& a, vector<cplx>& b) {
 		cplx x = (c[i] + conj(c[j])) / cplx{2, 0}; //fft(a)[i];
 		cplx y = (c[i] - conj(c[j])) / cplx{0, 2}; //fft(b)[i];
 		d[i] = x * y;
-	}		
+	}
 	return fft(d, true);
 }

@@ -2,13 +2,13 @@ struct connect {
 	int n;
 	vector<pair<int, int>> edges;
 	LCT lct; // min LCT no updates required
-	
+
 	connect(int n, int m) : n(n), edges(m), lct(n+m) {}
-	
+
 	bool connected(int a, int b) {
 		return lct.connected(&lct.nodes[a], &lct.nodes[b]);
 	}
-	
+
 	void addEdge(int a, int b, int id) {
 		lct.nodes[id + n] = LCT::Node(id + n, id + n);
 		edges[id] = {a, b};
@@ -20,7 +20,7 @@ struct connect {
 			lct.link(&lct.nodes[a], &lct.nodes[id + n]);
 			lct.link(&lct.nodes[b], &lct.nodes[id + n]);
 	}}
-	
+
 	void eraseEdge(ll id) {
 		if (connected(edges[id].first, edges[id].second) &&
 			lct.query(&lct.nodes[edges[id].first],

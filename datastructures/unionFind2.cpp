@@ -9,7 +9,7 @@ int findSet(int i) {
 	uf[i] = findSet(uf[i]); //Path-Compression
 	return uf[i];
 }
-	
+
 void linkSets(int i, int j) {
 	//Take |uf[i]|, where i must be a root, to get the size
 	//of the subset
@@ -19,7 +19,7 @@ void linkSets(int i, int j) {
 		uf[i] += uf[j]; uf[j] = i;
 	}
 }
-	
+
 void unionSets(int i, int j) {
 	if(findSet(i) != findSet(j)) linkSets(findSet(i),findSet(j));
 }
