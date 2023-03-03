@@ -63,7 +63,8 @@
 	\paragraph{Quadrangle inequality} Die Bedingung  $\forall a\leq b\leq c\leq d:
 	C[a][d] + C[b][c] \geq C[a][c] + C[b][d]$ ist hinreichend für beide Optimierungen.
 	
-	\paragraph{Sum over Subsets DP} $\text{res}[\text{mask}]=\sum_{i\subseteq\text{mask}}\text{in}[i]$
+	\paragraph{Sum over Subsets DP} $\text{res}[\text{mask}]=\sum_{i\subseteq\text{mask}}\text{in}[i]$.
+	Für Summe über Supersets \code{res} einmal vorher und einmal nachher reversen.
 	\sourcecode{other/sos.cpp}
 \end{algorithm}
 
