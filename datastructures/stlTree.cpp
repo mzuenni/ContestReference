@@ -7,10 +7,7 @@ using Tree = tree<T, null_type, less<T>, rb_tree_tag,
 
 int main() {
 	Tree<int> X;
-	// insert {1, 2, 4, 8, 16}
-	for (int i = 1; i <= 16; i *= 2) X.insert(i);
-	cout << *X.find_by_order(3) << endl; // => 8
-	cout << X.order_of_key(10) << endl;
-	// => 4 = min i, mit X[i] >= 10
-	return 0;
+	for (int i : {1, 2, 4, 8, 16}) X.insert(i);
+	*X.find_by_order(3); // => 8
+	X.order_of_key(10);  // => 4 = min i, mit X[i] >= 10
 }

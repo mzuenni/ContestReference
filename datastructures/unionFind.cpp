@@ -12,12 +12,10 @@ int findSet(int n) { // Pfadkompression
 }
 
 void linkSets(int a, int b) { // Union by rank.
-	if (unions[a] > unions[b]) unions[a] = b;
-	else if (unions[b] > unions[a]) unions[b] = a;
-	else {
-		unions[a] = b;
-		unions[b]--;
-}}
+	if (unions[b] > unions[a]) swap(a, b);
+	if (unions[b] == unions[a]) unions[b]--;
+	unions[a] = b;
+}
 
 void unionSets(int a, int b) { // Diese Funktion aufrufen.
 	if (findSet(a) != findSet(b)) linkSets(findSet(a), findSet(b));

@@ -14,6 +14,4 @@ void bellmannFord(int n, vector<edge> edges, int start) {
 		if (dist[e.from] != INF &&
 		    dist[e.from] + e.cost < dist[e.to]) {
 			// Negativer Kreis gefunden.
-	}}
-	//return dist, parent;
-}
+}}} //return dist, parent?;

@@ -9,7 +9,7 @@ void bronKerboschRec(bits R, bits P, bits X) {
 	if (!P.any() && !X.any()) {
 		cliques.push_back(R);
 	} else {
-		int q = (P | X)._Find_first();
+		int q = min(P._Find_first(), X._Find_first());
 		bits cands = P & ~adj[q];
 		for (int i = 0; i < sz(adj); i++) if (cands[i]){
 			R[i] = 1;

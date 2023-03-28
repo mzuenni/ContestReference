@@ -23,13 +23,15 @@ struct MinCostFlow {
 	}
 
 	bool SPFA() {
-		pref.assign(sz(adjlist), - 1);
+		pref.assign(sz(adjlist), -1);
 		dist.assign(sz(adjlist), INF);
 		vector<bool> inqueue(sz(adjlist));
 		queue<int> queue;
 
-		dist[s] = 0; queue.push(s);
-		pref[s] = s; inqueue[s] = true;
+		dist[s] = 0;
+		queue.push(s);
+		pref[s] = s;
+		inqueue[s] = true;
 
 		while (!queue.empty()) {
 			int cur = queue.front(); queue.pop();
@@ -39,9 +41,11 @@ struct MinCostFlow {
 				if (edges[id].f > 0 &&
 				    dist[to] > dist[cur] + edges[id].cost) {
 					dist[to] = dist[cur] + edges[id].cost;
-					pref[to] = cur; con[to] = id;
+					pref[to] = cur;
+					con[to] = id;
 					if (!inqueue[to]) {
-						inqueue[to] = true; queue.push(to);
+						inqueue[to] = true;
+						queue.push(to);
 		}}}}
 		return pref[t] != -1;
 	}

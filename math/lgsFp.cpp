@@ -12,7 +12,7 @@ void takeAll(int n, int line, ll p) {
 			mat[i][j] = (mat[i][j] + p) % p;
 }}}
 
-void gauss(int n, ll mod) { // Nx(N+1)-Matrix, Körper F_p.
+void gauss(int n, ll mod) {
 	vector<bool> done(n, false);
 	for (int i = 0; i < n; i++) {
 		int j = 0;

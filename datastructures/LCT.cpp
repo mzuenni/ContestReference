@@ -42,7 +42,7 @@ struct LCT {
 
 		bool isRoot() {
 			return !parent || (parent->left != this &&
-			       parent->right != this);
+			                   parent->right != this);
 		}
 
 		void push() {

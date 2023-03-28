@@ -1,15 +1,5 @@
 \section{Datenstrukturen}
 
-\begin{algorithm}{Union-Find}
-	\begin{methods}
-		\method{init}{legt $n$ einzelne Unions an}{n}
-		\method{findSet}{findet den Repräsentanten}{\log(n)}
-		\method{unionSets}{vereint 2 Mengen}{\log(n)}
-		\method{m\*findSet + n\*unionSets}{Folge von Befehlen}{n+m\*\alpha(n)}
-	\end{methods}
-	\sourcecode{datastructures/unionFind.cpp}
-\end{algorithm}
-
 \begin{algorithm}{Segmentbaum}
 	\begin{methods}
 		\method{init}{baut den Baum auf}{n}
@@ -20,14 +10,9 @@
 	
 	\subsubsection{Lazy Propagation}
 	Assignment modifications, sum queries \\
-		\method{lower\_bound}{erster Index in [l, r) $\geq$ x (erfordert max-combine)}{\log(n)}
+	\method{lower\_bound}{erster Index in [l, r) $\geq$ x (erfordert max-combine)}{\log(n)}
 	\sourcecode{datastructures/lazyPropagation.cpp}
 \end{algorithm}
-
-\begin{algorithm}{STL-Bitset}
-	\sourcecode{datastructures/bitset.cpp}
-\end{algorithm}
-\clearpage
 
 \begin{algorithm}{Fenwick Tree}
 	\begin{methods}
@@ -44,21 +29,10 @@
 	\end{methods}
 	\sourcecode{datastructures/fenwickTree2.cpp}
 \end{algorithm}
+\clearpage
 
-\begin{algorithm}{Wavelet Tree}
-	\begin{methods}
-		\method{Constructor}{baut den Baum auf}{n\*\log(n)}
-		\method{kth}{sort $[l, r)[k]$}{\log(n)}
-		\method{countSmaller}{Anzahl elemente in $[l, r)$ kleiner als $k$}{\log(n)}
-	\end{methods}
-	\sourcecode{datastructures/waveletTree.cpp}
-\end{algorithm}
-
-\begin{algorithm}[optional]{Erste unbenutzte natürliche Zahl}
-	\begin{methods}
-		\method{get\_first\_unused}{findet kleinste unbenutzte Zahl}{\log(n)}
-	\end{methods}
-	\sourcecode{datastructures/firstUnused.cpp}
+\begin{algorithm}{STL-Rope (Implicit Cartesian Tree)}
+	\sourcecode{datastructures/stlRope.cpp}
 \end{algorithm}
 
 \begin{algorithm}{(Implicit) Treap (Cartesian Tree)}
@@ -69,15 +43,6 @@
 	\sourcecode{datastructures/treap2.cpp}
 \end{algorithm}
 
-\begin{algorithm}[optional]{Range Minimum Query}
-	\begin{methods}
-		\method{init}{baut Struktur auf}{n\*\log(n)}
-		\method{query}{Index des Minimums in [l, r)}{1}
-	\end{methods}
-	\sourcecode{datastructures/RMQ.cpp}
-\end{algorithm}
-
-\needspace{5\baselineskip}%
 \begin{algorithm}{Range Minimum Query}
 	\begin{methods}
 		\method{init}{baut Struktur auf}{n\*\log(n)}
@@ -89,31 +54,18 @@
 	\sourcecode{datastructures/sparseTable.cpp}
 \end{algorithm}
 
-\begin{algorithm}{STL-Tree}
-	\sourcecode{datastructures/stlTree.cpp}
+\begin{algorithm}{Wavelet Tree}
+	\begin{methods}
+		\method{Constructor}{baut den Baum auf}{n\*\log(n)}
+		\method{kth}{sort $[l, r)[k]$}{\log(n)}
+		\method{countSmaller}{Anzahl elemente in $[l, r)$ kleiner als $k$}{\log(n)}
+	\end{methods}
+	\sourcecode{datastructures/waveletTree.cpp}
 \end{algorithm}
 
-\begin{algorithm}{STL-Rope (Implicit Cartesian Tree)}
-	\sourcecode{datastructures/stlRope.cpp}
+\begin{algorithm}{STL-Bitset}
+	\sourcecode{datastructures/bitset.cpp}
 \end{algorithm}
-
-\begin{algorithm}{STL HashMap}
-	3 bis 4 mal langsamer als \code{std::vector} aber 8 bis 9 mal schneller als \code{std::map}
-	\sourcecode{datastructures/stlHashMap.cpp}
-\end{algorithm}
-
-\begin{algorithm}{STL Priority Queue}
-	Nicht notwendig, wenn Smaller-Larger-Optimization greift.
-	\sourcecode{datastructures/stlPQ.cpp}
-\end{algorithm}
-
-\begin{algorithm}{Lower/Upper Envelope (Convex Hull Optimization)}
-	Um aus einem lower envelope einen upper envelope zu machen (oder umgekehrt), einfach beim Einfügen der Geraden $m$ und $b$ negieren.
-	\sourcecode{datastructures/monotonicConvexHull.cpp}
-	\sourcecode{datastructures/dynamicConvexHull.cpp}
-\end{algorithm}
-
-\clearpage
 
 \begin{algorithm}{Link-Cut-Tree}
 	\begin{methods}
@@ -127,8 +79,25 @@
 	\end{methods}
 	\sourcecode{datastructures/LCT.cpp}
 \end{algorithm}
-
 \clearpage
+
+\begin{algorithm}{Union-Find}
+	\begin{methods}
+		\method{init}{legt $n$ einzelne Unions an}{n}
+		\method{findSet}{findet den Repräsentanten}{\log(n)}
+		\method{unionSets}{vereint 2 Mengen}{\log(n)}
+		\method{m\*findSet + n\*unionSets}{Folge von Befehlen}{n+m\*\alpha(n)}
+	\end{methods}
+	\sourcecode{datastructures/unionFind.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Lower/Upper Envelope (Convex Hull Optimization)}
+	Um aus einem lower envelope einen upper envelope zu machen (oder umgekehrt), einfach beim Einfügen der Geraden $m$ und $b$ negieren.
+	\sourcecode{datastructures/monotonicConvexHull.cpp}
+	\columnbreak
+	\sourcecode{datastructures/dynamicConvexHull.cpp}
+\end{algorithm}
+
 \begin{algorithm}{Persistent}
 	\begin{methods}
 		\method{get}{berechnet Wert zu Zeitpunkt $t$}{\log(t)}
@@ -138,3 +107,35 @@
 	\sourcecode{datastructures/persistent.cpp}
 	\sourcecode{datastructures/persistentArray.cpp}
 \end{algorithm}
+
+\begin{algorithm}{STL-Tree}
+	\sourcecode{datastructures/stlTree.cpp}
+\end{algorithm}
+
+\begin{algorithm}{STL Priority Queue}
+	Nicht notwendig, wenn Smaller-Larger-Optimization greift.
+	\sourcecode{datastructures/stlPQ.cpp}
+\end{algorithm}
+
+\begin{algorithm}{STL HashMap}
+	3 bis 4 mal langsamer als \code{std::vector} aber 8 bis 9 mal schneller als \code{std::map}
+	\sourcecode{datastructures/stlHashMap.cpp}
+\end{algorithm}
+
+
+
+\begin{algorithm}[optional]{Range Minimum Query}
+	\begin{methods}
+		\method{init}{baut Struktur auf}{n\*\log(n)}
+		\method{query}{Index des Minimums in [l, r)}{1}
+	\end{methods}
+	\sourcecode{datastructures/RMQ.cpp}
+\end{algorithm}
+
+\begin{algorithm}[optional]{Erste unbenutzte natürliche Zahl}
+	\begin{methods}
+		\method{get\_first\_unused}{findet kleinste unbenutzte Zahl}{\log(n)}
+	\end{methods}
+	\sourcecode{datastructures/firstUnused.cpp}
+\end{algorithm}
+

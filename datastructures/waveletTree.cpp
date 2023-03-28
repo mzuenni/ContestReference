@@ -3,7 +3,6 @@ struct WaveletTree {
 	WaveletTree *ln, *rn;
 	ll lo, hi;
 	vector<int> b;
-
 private:
 	WaveletTree(it from, it to, ll x, ll y)
 	: ln(nullptr), rn(nullptr), lo(x), hi(y), b(1) {
@@ -17,7 +16,6 @@ private:
 		ln = new WaveletTree(from, pivot, lo, mid);
 		rn = new WaveletTree(pivot, to, mid, hi);
 	}
-
 public:
 	WaveletTree(vector<ll> in) : WaveletTree(all(in), 
 		*min_element(all(in)), *max_element(all(in)) + 1){}

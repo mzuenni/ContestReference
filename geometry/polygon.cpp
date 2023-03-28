@@ -10,13 +10,13 @@ double area(const vector<pt>& poly) { //poly[0] == poly.back()
 // Anzahl drehungen einer Polyline um einen Punkt
 // p nicht auf rand und poly[0] == poly.back()
 // res != 0 or (res & 1) != 0 um inside zu prüfen bei
-// selbstschneidenden polygonen (definitions sache)
+// selbstschneidenden Polygonen (definitions Sache)
 ll windingNumber(pt p, const vector<pt>& poly) {
 	ll res = 0;
 	for (int i = 0; i + 1 < sz(poly); i++) {
 		pt a = poly[i], b = poly[i + 1];
-		if (real(a) > real(b)) swap(a,b);
-		if (real(a) <= real(p) &&real(p) < real(b) &&
+		if (real(a) > real(b)) swap(a, b);
+		if (real(a) <= real(p) && real(p) < real(b) &&
 		    cross(p, a, b) < 0) {
 			res += orientation(p, poly[i], poly[i + 1]);
 	}}

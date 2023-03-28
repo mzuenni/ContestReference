@@ -17,8 +17,7 @@ vector<pt> lineSegmentIntersection(pt p0, pt p1, pt p2, pt p3) {
 	double b = cross(p2 - p0, p3 - p2);
 	double c = cross(p1 - p0, p0 - p2);
 	if (a < 0) {a = -a; b = -b; c = -c;}
-	if (b < -EPS || a-b < -EPS ||
-	    c < -EPS || a-c < -EPS) return {};
+	if (b < -EPS || b-a > EPS || c < -EPS || c-a > EPS) return {};
 	if (a > EPS) return {p0 + b/a*(p1 - p0)};
 	vector<pt> result;
 	auto insertUnique = [&](pt p) {

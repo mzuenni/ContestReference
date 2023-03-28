@@ -6,9 +6,8 @@ ll permIndex(vector<ll> v) {
 		x = t.order_of_key(x);
 	}
 	ll res = 0;
-	for (ll i = sz(v); i > 0; i--) {
-		res *= i;
-		res += v[i - 1];
+	for (int i = sz(v); i > 0; i--) {
+		res = res * i + v[i - 1];
 	}
 	return res;
 }

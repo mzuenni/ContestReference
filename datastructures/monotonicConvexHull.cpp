@@ -1,6 +1,7 @@
 // Lower Envelope mit MONOTONEN Inserts und Queries. Jede neue
 // Gerade hat kleinere Steigung als alle vorherigen.
-vector<ll> ms, bs; int ptr = 0;
+vector<ll> ms, bs;
+int ptr = 0;
 
 bool bad(int l1, int l2, int l3) {
 	return (bs[l3]-bs[l1])*(ms[l1]-ms[l2]) <

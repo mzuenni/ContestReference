@@ -28,12 +28,17 @@ pt outCenter(pt a, pt b, pt c) {
 	        c*conj(c)*conj(a-b)) / d;
 }
 
+//  1 => p außerhalb Kreis durch a,b,c
+//  0 => p auf Kreis durch a,b,c
+// -1 => p im Kreis durch a,b,c
+int insideOutCenter(pt a, pt b, pt c, pt p) {// braucht lll
+	return sgn(imag((c-b)*conj(p-c)*(a-p)*conj(b-a)));
+}
+
 // Sind die Dreiecke a1, b1, c1, and a2, b2, c2 ähnlich?
 // Erste Zeile testet Ähnlichkeit mit gleicher Orientierung,
 // zweite Zeile testet Ähnlichkeit mit verschiedener Orientierung
-bool similar (pt a1, pt b1, pt c1, pt a2, pt b2, pt c2) {
-	return ((b2-a2) * (c1-a1) == (b1-a1) * (c2-a2) ||
-	        (b2-a2) * (conj(c1)-conj(a1)) == (conj(b1)-conj(a1))
-			* (c2-a2)
-	);
+bool similar(pt a1, pt b1, pt c1, pt a2, pt b2, pt c2) {
+	return (b2-a2) * (c1-a1) == (b1-a1) * (c2-a2) ||
+	       (b2-a2) * conj(c1-a1) == conj(b1-a1) * (c2-a2);
 }

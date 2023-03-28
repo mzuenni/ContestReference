@@ -5,14 +5,12 @@ vector<vector<int>> havelHakimi(const vector<int>& deg) {
 	while (!pq.empty()) {
 		auto [degV, v] = pq.top(); pq.pop();
 		if (sz(pq) < degV) return {}; //impossible
-		vector<pair<int, int>> todo;
-		for (int i = 0; i < degV; i++) {
-			auto [degU, v] = pq.top(); pq.pop();
+		vector<pair<int, int>> todo(degV);
+		for (auto& e : todo) e = pq.top(), pq.pop();
+		for (auto [degU, u] : todo) {
 			adj[v].push_back(u);
 			adj[u].push_back(v);
-			if (degU > 1) todo.push_back({degU - 1, u});
-		}
-		for (auto e : todo) pq.push(e);
-	}
+			if (degU > 1) pq.push({degU - 1, u});
+	}}
 	return adj;
 }
