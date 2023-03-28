@@ -17,7 +17,7 @@ struct SuffixAutomaton {
 
 	void extend(int c) {
 		int p = cur;
-		int cur = sz(st);
+		cur = sz(st);
 		st.emplace_back(st[p].len + 1);
 		for (; p != -1 && !st[p].next[c]; p = st[p].link) {
 			st[p].next[c] = cur;
