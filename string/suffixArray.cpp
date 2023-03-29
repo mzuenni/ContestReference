@@ -5,7 +5,7 @@ struct SuffixArray {
 	vector<pair<pair<int, int>, int>> L;
 
 	SuffixArray(const string& s) : n(sz(s)), SA(n), LCP(n), L(n) {
-		P.assign(__lg(n)*4-2, vector<int>(n));
+		P.assign(__lg(n)+2, vector<int>(n));
 		for (int i = 0; i < n; i++) P[0][i] = s[i];
 		for (step = 1, count = 1; count < n; step++, count *= 2) {
 			for (int i = 0; i < n; i++)
