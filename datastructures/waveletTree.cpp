@@ -8,12 +8,12 @@ struct WaveletTree {
 
 	WaveletTree(it from, it to) : // call above one
 		lo(*min_element(from, to)), hi(*max_element(from, to) + 1) {
-		if (lo + 1 >= hi) return;
 		ll mid = (lo + hi) / 2;
-		auto f = [&](ll x){return x < mid;};
+		auto f = [&](ll x) {return x < mid;};
 		for (it c = from; c != to; c++) {
 			b.push_back(b.back() + f(*c));
 		}
+		if (lo + 1 >= hi) return;
 		it pivot = stable_partition(from, to, f);
 		ln = new WaveletTree(from, pivot);
 		rn = new WaveletTree(pivot, to);
@@ -32,8 +32,8 @@ struct WaveletTree {
 	int countSmaller(int l, int r, ll k) {
 		if (l >= r || k <= lo) return 0;
 		if (hi <= k) return r - l;
-		return ln->countSmaller(b[l], b[r], k) + 
-			   rn->countSmaller(l-b[l], r-b[r], k);
+		return ln->countSmaller(b[l], b[r], k) +
+		       rn->countSmaller(l-b[l], r-b[r], k);
 	}
 
 	~WaveletTree() {delete ln; delete rn;}
