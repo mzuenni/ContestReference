@@ -4,19 +4,19 @@ struct WaveletTree {
 	vector<int> b = {0};
 	ll lo, hi;
 
-	WaveletTree(vector<ll> a) : WaveletTree(all(a), // call this
-		*min_element(all(a)), *max_element(all(a)) + 1) {}
+	WaveletTree(vector<ll> in) : WaveletTree(all(in)) {}
 
-	WaveletTree(it from, it to, ll x, ll y) : lo(x), hi(y) {
-		if (lo + 1 >= hi || from == to) return;
+	WaveletTree(it from, it to) : // call above one
+		lo(*min_element(from, to)), hi(*max_element(from, to) + 1) {
+		if (lo + 1 >= hi) return;
 		ll mid = (lo + hi) / 2;
 		auto f = [&](ll x){return x < mid;};
 		for (it c = from; c != to; c++) {
 			b.push_back(b.back() + f(*c));
 		}
 		it pivot = stable_partition(from, to, f);
-		ln = new WaveletTree(from, pivot, lo, mid);
-		rn = new WaveletTree(pivot, to, mid, hi);
+		ln = new WaveletTree(from, pivot);
+		rn = new WaveletTree(pivot, to);
 	}
 
 	// kth element in sort[l, r) all 0-indexed
@@ -32,8 +32,8 @@ struct WaveletTree {
 	int countSmaller(int l, int r, ll k) {
 		if (l >= r || k <= lo) return 0;
 		if (hi <= k) return r - l;
-		return ln->countSmaller(b[l], b[r], k) +
-		       rn->countSmaller(l-b[l], r-b[r], k);
+		return ln->countSmaller(b[l], b[r], k) + 
+			   rn->countSmaller(l-b[l], r-b[r], k);
 	}
 
 	~WaveletTree() {delete ln; delete rn;}
