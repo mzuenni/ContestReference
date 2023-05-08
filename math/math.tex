@@ -398,8 +398,33 @@ so gilt
 	\binom{m}{n} \equiv \prod_{i=0}^k\binom{m_i}{n_i} \bmod{p}.
 \]
 
-\subsection{The Twelvefold Way \textnormal{(verteile $n$ Bälle auf $k$ Boxen)}}
-\input{math/tables/twelvefold}
+%\begin{algorithm}{Binomialkoeffizienten}
+\paragraph{Binomialkoeffizienten}
+	Die Anzahl der \mbox{$k$-elementigen} Teilmengen einer \mbox{$n$-elementigen} Menge.
+	\begin{methods}
+		\method{precalc}{berechnet $n!$ und $n!^{-1}$ vor}{\mathit{lim}}
+		\method{calc\_binom}{berechnet Binomialkoeffizient}{1}
+	\end{methods}
+	\sourcecode{math/binomial0.cpp}
+	Falls $n >= p$ for $\mathit{mod}=p^k$ berechne \textit{fac} und \textit{inv} aber teile $p$ aus $i$ und berechne die häufigkeit von $p$ in $n!$ als $\sum\limits_{i=1}\big\lfloor\frac{n}{p^i}\big\rfloor$
+\columnbreak
+	
+	\begin{methods}
+		\method{calc\_binom}{berechnet Binomialkoeffizient $(n \le 61)$}{k}
+	\end{methods}
+	\sourcecode{math/binomial1.cpp}
+	
+	\begin{methods}
+		\method{calc\_binom}{berechnet Binomialkoeffizient modulo Primzahl $p$}{p-n}
+	\end{methods}
+	\sourcecode{math/binomial3.cpp}
+
+%	\begin{methods}
+%		\method{calc\_binom}{berechnet Primfaktoren vom Binomialkoeffizient}{n}
+%	\end{methods}
+%	\textbf{WICHTIG:} braucht alle Primzahlen $\leq n$
+%	\sourcecode{math/binomial2.cpp}
+%\end{algorithm}
 
 \paragraph{\textsc{Catalan}-Zahlen}
 \begin{itemize}
@@ -455,6 +480,10 @@ Es gibt zwei Möglichkeiten für die $n$-te Zahl. Entweder sie bildet einen eige
 \begin{itemize}
 	\item Formel erlaubt berechnung ohne Division in \runtime{n^2}
 \end{itemize}
+\[\sum_{k=0}^{n}\pm\stirlingI{n}{k}x^k=x(x-1)(x-2)\cdots(x-n+1)\]
+\begin{itemize}
+	\item Berechne Polynom mit FFT und benutzte betrag der Koeffizienten \runtime{n\log(n)^2} (nur ungefähr gleich große Polynome zusammen multiplizieren beginnend mit $x-k$)
+\end{itemize}
 
 \paragraph{\textsc{Stirling}-Zahlen 2. Ordnung}
 Die Anzahl der Möglichkeiten $n$ Elemente in $k$ nichtleere Teilmengen zu zerlegen.
@@ -488,29 +517,8 @@ Die Anzahl der Partitionen von $n$ mit Elementen aus ${1,\dots,k}$.
 	\item Die Anzahl der Partitionen von $n$ in bis zu $k$ positive Summanden ist $\sum\limits_{i=0}^{k}p_i(n)=p_k(n+k)$.
 \end{itemize}
 
-\paragraph{Binomialkoeffizienten}
-Die Anzahl der \mbox{$k$-elementigen} Teilmengen einer \mbox{$n$-elementigen} Menge.
-
-\textbf{WICHTIG:} Binomialkoeffizient in \runtime{1} berechnen indem man $x!$ vorberechnet.
-\columnbreak
-
-%\begin{algorithm}{Binomialkoeffizienten}
-	\begin{methods}
-		\method{calc\_binom}{berechnet Binomialkoeffizient $(n \le 61)$}{k}
-	\end{methods}
-	\sourcecode{math/binomial.cpp}
-
-	\begin{methods}
-		\method{calc\_binom}{berechnet Binomialkoeffizient modulo Primzahl $p$}{p-n}
-	\end{methods}
-	\sourcecode{math/binomial3.cpp}
-	
-	\begin{methods}
-		\method{calc\_binom}{berechnet Primfaktoren vom Binomialkoeffizient}{n}
-	\end{methods}
-	\textbf{WICHTIG:} braucht alle Primzahlen $\leq n$
-	\sourcecode{math/binomial2.cpp}
-%\end{algorithm}
+\subsection{The Twelvefold Way \textnormal{(verteile $n$ Bälle auf $k$ Boxen)}}
+\input{math/tables/twelvefold}
 
 %\input{math/tables/numbers}
 
