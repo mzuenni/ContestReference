@@ -94,7 +94,7 @@ double dist(const vector<pt>& ps, const vector<pt>& qs) {
 bool left(pt of, pt p) {return cross(p, of) < 0 ||
                        (cross(p, of) == 0 && dot(p, of) > 0);}
 
-// convex hulls without duplicates, hull[0] != hull.back() and
+// convex hulls without duplicates, hull[0] == hull.back() and
 // hull[0] must be a convex point (with angle < pi)
 // returns index of corner where dot(dir, corner) is maximized
 int extremal(const vector<pt>& hull, pt dir) {
@@ -114,7 +114,7 @@ int extremal(const vector<pt>& hull, pt dir) {
 	return r;
 }
 
-// convex hulls without duplicates, hull[0] != hull.back() and
+// convex hulls without duplicates, hull[0] == hull.back() and
 // hull[0] must be a convex point (with angle < pi)
 // {} if no intersection
 // {x} if corner is only intersection
