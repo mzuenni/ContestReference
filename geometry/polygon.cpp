@@ -38,17 +38,17 @@ bool inside(pt p, const vector<pt>& poly) {
 	return in;
 }
 
-// convex hull without duplicates, h[0] == h.back()
-// Change line 45 and 51 >= if border counts as inside
+// convex hull without duplicates, h[0] != h.back()
+// apply comments if border counts as inside
 bool inside(pt p, const vector<pt>& hull) {
 	int l = 0, r = sz(hull) - 1;
-	if (cross(hull[0], hull[r], p) > 0) return false;
+	if (cross(hull[0], hull[r], p) >= 0) return false; // > 0
 	while (l + 1 < r) {
 		int m = (l + r) / 2;
-		if (cross(hull[0], hull[m], p) >= 0) l = m;
+		if (cross(hull[0], hull[m], p) > 0) l = m; // >= 0
 		else r = m;
 	}
-	return cross(hull[l], hull[r], p) > 0;
+	return cross(hull[l], hull[r], p) > 0; // >= 0
 }
 
 void rotateMin(vector<pt>& hull) {
@@ -71,8 +71,8 @@ vector<pt> minkowski(vector<pt> ps, vector<pt> qs) {
 	for (ll i = 0, j = 0; i + 2 < sz(ps) || j + 2 < sz(qs);) {
 		res.push_back(ps[i] + qs[j]);
 		auto c = cross(ps[i + 1] - ps[i], qs[j + 1] - qs[j]);
-		if(c <= 0) i++;
-		if(c >= 0) j++;
+		if(c >= 0) i++;
+		if(c <= 0) j++;
 	}
 	return res;
 }
@@ -94,7 +94,7 @@ double dist(const vector<pt>& ps, const vector<pt>& qs) {
 bool left(pt of, pt p) {return cross(p, of) < 0 ||
                        (cross(p, of) == 0 && dot(p, of) > 0);}
 
-// convex hulls without duplicates, hull[0] == hull.back() and
+// convex hulls without duplicates, hull[0] != hull.back() and
 // hull[0] must be a convex point (with angle < pi)
 // returns index of corner where dot(dir, corner) is maximized
 int extremal(const vector<pt>& hull, pt dir) {
@@ -114,7 +114,7 @@ int extremal(const vector<pt>& hull, pt dir) {
 	return r;
 }
 
-// convex hulls without duplicates, hull[0] == hull.back() and
+// convex hulls without duplicates, hull[0] != hull.back() and
 // hull[0] must be a convex point (with angle < pi)
 // {} if no intersection
 // {x} if corner is only intersection
