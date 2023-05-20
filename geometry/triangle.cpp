@@ -19,13 +19,12 @@ pt inCenter(pt a, pt b, pt c) {
 }
 
 // Zentrum des Kreises durch alle Eckpunkte
-pt outCenter(pt a, pt b, pt c) {
-	double d = 2.0 * (real(a) * imag(b-c) +
-	                  real(b) * imag(c-a) +
-	                  real(c) * imag(a-b));
-	return (a*conj(a)*conj(b-c) +
-	        b*conj(b)*conj(c-a) +
-	        c*conj(c)*conj(a-b)) / d;
+// a, b und c nicht kollinear
+pt circumCenter(pt a, pt b, pt c) {
+	b = b - a, c = c - a;
+	pt d = b * norm(c) - c * norm(b);
+	d = {-d.imag(), d.real()};
+	return a + d / cross(b, c) / 2.0;
 }
 
 //  1 => p außerhalb Kreis durch a,b,c
