@@ -6,15 +6,18 @@ void fft(vector<cplx>& a, bool inverse = 0) {
 		for (int k = n >> 1; k > (i ^= k); k >>= 1);
 		if (j < i) swap(a[i], a[j]);
 	}
+	static vector<cplx> ws(2, 1);
+	for (static int k = 2; k < n; k *= 2) {
+		ws.resize(n);
+		cplx w = polar(1.0, acos(-1.0) / k);
+		for (int i=k; i<2*k; i++) ws[i] = ws[i/2] * (i % 2 ? w : 1);
+	}
 	for (int s = 1; s < n; s *= 2) {
-		double angle = PI / s * (inverse ? -1 : 1);
-		cplx ws(cos(angle), sin(angle));
-		for (int j = 0; j < n; j+= 2 * s) {
-			cplx w = 1;
+		for (int j = 0; j < n; j += 2 * s) {
 			for (int k = 0; k < s; k++) {
-				cplx u = a[j + k], t = a[j + s + k] * w;
+				cplx u = a[j + k], t = a[j + s + k];
+				t *= (inverse ? conj(ws[s + k]) : ws[s + k]);
 				a[j + k] = u + t;
 				a[j + s + k] = u - t;
 				if (inverse) a[j + k] /= 2, a[j + s + k] /= 2;
-				w *= ws;
 }}}}

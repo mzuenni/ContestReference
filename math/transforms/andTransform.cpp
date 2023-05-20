@@ -14,4 +14,4 @@ void fft(vector<cplx>& a, bool inverse = 0) {
 				} else {
 					a[j + k] = t - u;
 					a[j + s + k] = u;
-}}}}
+}}}}}
