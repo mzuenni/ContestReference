@@ -1,10 +1,11 @@
+template<typename T = ll, typename U = ll>
 struct SegTree {
 	int size, height;
-	static constexpr ll neutral = 0; // Neutral element for combine
-	static constexpr ll updateFlag = 0; // Unused value by updates
-	vector<ll> tree, lazy;
+	static constexpr T neutral = 0; // Neutral element for combine
+	static constexpr U updateFlag = 0; // Unused value by updates
+	vector<T> tree; vector<U> lazy;
 
-	SegTree(const vector<ll>& a) : SegTree(sz(a)) {
+	SegTree(const vector<T>& a) : SegTree(sz(a)) {
 		copy(all(a), tree.begin() + size);
 		for (int i = size - 1; i > 0; i--)
 			tree[i] = combine(tree[2 * i], tree[2 * i + 1]);
@@ -13,9 +14,9 @@ struct SegTree {
 	SegTree(int n) : size(n), height(__lg(2 * n)),
 		tree(2 * n, neutral), lazy(n, updateFlag) {}
 
-	ll combine(ll a, ll b) {return a + b;} // Modify this + neutral
+	T combine(T a, T b) {return a + b;} // Modify this + neutral
 
-	void apply(int i, ll val, int k) { // And this + updateFlag
+	void apply(int i, U val, int k) { // And this + updateFlag
 		tree[i] = val * k;
 		if (i < size) lazy[i] = val; // Don't forget this
 	}
@@ -38,7 +39,7 @@ struct SegTree {
 			tree[i] = combine(tree[2 * i], tree[2 * i + 1]);
 	}}
 
-	void update(int l, int r, ll val) { // data[l..r) = val
+	void update(int l, int r, U val) { // data[l..r) = val
 		l += size, r += size;
 		int l0 = l, r0 = r;
 		push(l0), push(r0 - 1);
@@ -49,10 +50,10 @@ struct SegTree {
 		build(l0), build(r0 - 1);
 	}
 
-	ll query(int l, int r) { // sum[l..r)
+	T query(int l, int r) { // sum[l..r)
 		l += size, r += size;
 		push(l), push(r - 1);
-		ll resL = neutral, resR = neutral;
+		T resL = neutral, resR = neutral;
 		for (; l < r; l /= 2, r /= 2) {
 			if (l&1) resL = combine(resL, tree[l++]);
 			if (r&1) resR = combine(tree[--r], resR);
@@ -61,7 +62,7 @@ struct SegTree {
 	}
 
 	// Optional:
-	ll lower_bound(int l, int r, int x) {
+	ll lower_bound(int l, int r, T x) {
 		l += size, r += size;
 		push(l), push(r - 1);
 		vector<pair<int, int>> a, st;
@@ -76,7 +77,7 @@ struct SegTree {
 		return -1;
 	}
 
-	ll find(int i, int x, int k) {
+	ll find(int i, T x, int k) {
 		if (i >= size) return i - size;
 		push_down(i, k / 2);
 		if (tree[2*i] >= x) return find(2 * i, x, k / 2); // And this
