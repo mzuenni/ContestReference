@@ -21,7 +21,7 @@ pt inCenter(pt a, pt b, pt c) {
 // Zentrum des Kreises durch alle Eckpunkte
 // a, b und c nicht kollinear
 pt circumCenter(pt a, pt b, pt c) {
-	b = b - a, c = c - a;
+	b -= a, c -= a;
 	pt d = b * norm(c) - c * norm(b);
 	d = {-d.imag(), d.real()};
 	return a + d / cross(b, c) / 2.0;
