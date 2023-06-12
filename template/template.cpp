@@ -1,16 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
-
-#define fora(i, n) for (int i = 0; i < n; ++i)
-#define forb(i, n) for (int i = 1; i <= n; ++i)
+#define ll long long
+#define nl '\n'
+#define tsolve int t; cin >> t; while(t--) solve
 #define all(x) ::begin(x), ::end(x)
 #define sz(x) (ll)::size(x)
-#define _ << " " <<
-#define debug(x) #x << " = " << (x)
-
-using ll = long long;
-using ld = long double;
-
+#define debug(x) cerr << __LINE__ << #x << ": " << (x) << endl
+ 
+void solve() {}
+ 
 int main() {
-	cin.tie(0)->sync_with_stdio(false);
+	ios_base::sync_with_stdio(false);
+	cin.tie(0);
+	cout << setprecision(16);
+	solve();
 }
