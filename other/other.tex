@@ -286,6 +286,8 @@
 		\item Lies Aufgabe erneut. Sorgfältig!
 		\item Mehrere Testfälle in einer Datei? Probiere gleichen Testcase mehrfach hintereinander.
 		\item Integer Overflow? Teste maximale Eingabegrößen und mache Überschlagsrechnung.
+		\item Ausgabeformat im 'unmöglich'-Fall überprüfen.
+		\item Ist das Ergebnis modulo einem Wert?
 		\item Integer Division rundet zur $0$ $\neq$ abrunden.
 		\item Eingabegrößen überprüfen. Sonderfälle ausprobieren.
 		\begin{itemize}
@@ -295,6 +297,7 @@
 			\item Liste ist leer/enthält nur ein Element.
 			\item Graph ist Multigraph (enthält Schleifen/Mehrfachkanten).
 			\item Sind Kanten gerichtet/ungerichtet?
+			\item Kolineare Punkte existieren.
 			\item Polygon ist konkav/selbstschneidend.
 		\end{itemize}
 		\item Bei DP/Rekursion: Stimmt Basisfall?
