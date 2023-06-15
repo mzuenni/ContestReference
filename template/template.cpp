@@ -1,11 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define ll long long
-#define nl '\n'
+
 #define tsolve int t; cin >> t; while(t--) solve
+#define debug(x) cerr << __LINE__ << ": "#x" = " << (x) << endl
+#define nl '\n'
 #define all(x) ::begin(x), ::end(x)
 #define sz(x) (ll)::size(x)
-#define debug(x) cerr << __LINE__ << ": "#x" = " << (x) << endl
+
+using ll = long long;
+using ld = long double;
  
 void solve() {}
  
