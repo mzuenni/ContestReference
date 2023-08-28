@@ -2,22 +2,22 @@ vector<vector<int>> idx;
 vector<int> to, validIdx, cycle;
 vector<bool> used;
 
-void addEdge(int a, int b) {
-	idx[a].push_back(sz(to));
-	to.push_back(b);
+void addEdge(int u, int v) {
+	idx[u].push_back(sz(to));
+	to.push_back(v);
 	used.push_back(false);
-	idx[b].push_back(sz(to)); // für ungerichtet
-	to.push_back(a);
+	idx[v].push_back(sz(to)); // für ungerichtet
+	to.push_back(u);
 	used.push_back(false);
 }
 
-void euler(int n) { // init idx und validIdx
-	for (;validIdx[n] < sz(idx[n]); validIdx[n]++) {
-		if (!used[idx[n][validIdx[n]]]) {
-			int nn = to[idx[n][validIdx[n]]];
-			used[idx[n][validIdx[n]]] = true;
-			used[idx[n][validIdx[n]] ^ 1] = true; // für ungerichtet
-			euler(nn);
+void euler(int v) { // init idx und validIdx
+	for (;validIdx[v] < sz(idx[v]); validIdx[v]++) {
+		if (!used[idx[v][validIdx[v]]]) {
+			int u = to[idx[v][validIdx[v]]];
+			used[idx[v][validIdx[v]]] = true;
+			used[idx[v][validIdx[v]] ^ 1] = true; // für ungerichtet
+			euler(u);
 	}}
-	cycle.push_back(n); // Zyklus in umgekehrter Reihenfolge.
+	cycle.push_back(v); // Zyklus in umgekehrter Reihenfolge.
 }

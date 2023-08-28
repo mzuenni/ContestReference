@@ -5,20 +5,20 @@ struct connect {
 
 	connect(int n, int m) : n(n), edges(m), lct(n+m) {}
 
-	bool connected(int a, int b) {
-		return lct.connected(&lct.nodes[a], &lct.nodes[b]);
+	bool connected(int u, int v) {
+		return lct.connected(&lct.nodes[u], &lct.nodes[v]);
 	}
 
-	void addEdge(int a, int b, int id) {
+	void addEdge(int u, int v, int id) {
 		lct.nodes[id + n] = LCT::Node(id + n, id + n);
-		edges[id] = {a, b};
-		if (connected(a, b)) {
-			int old = lct.query(&lct.nodes[a], &lct.nodes[b]);
+		edges[id] = {u, v};
+		if (connected(u, v)) {
+			int old = lct.query(&lct.nodes[u], &lct.nodes[v]);
 			if (old < id) eraseEdge(old);
 		}
-		if (!connected(a, b)) {
-			lct.link(&lct.nodes[a], &lct.nodes[id + n]);
-			lct.link(&lct.nodes[b], &lct.nodes[id + n]);
+		if (!connected(u, v)) {
+			lct.link(&lct.nodes[u], &lct.nodes[id + n]);
+			lct.link(&lct.nodes[v], &lct.nodes[id + n]);
 	}}
 
 	void eraseEdge(ll id) {

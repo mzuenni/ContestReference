@@ -16,11 +16,11 @@ void addEdge(int from, int to, ll c) {
 	edges.push_back({to, from, 0, 0});
 }
 
-bool dfs(int x) {
-	if (x == t) return true;
-	if (visited[x] == dfsCounter) return false;
-	visited[x] = dfsCounter;
-	for (int id : adj[x]) {
+bool dfs(int v) {
+	if (v == t) return true;
+	if (visited[v] == dfsCounter) return false;
+	visited[v] = dfsCounter;
+	for (int id : adj[v]) {
 		if (edges[id].c >= capacity && dfs(edges[id].to)) {
 			edges[id].c -= capacity; edges[id ^ 1].c += capacity;
 			edges[id].f += capacity; edges[id ^ 1].f -= capacity;

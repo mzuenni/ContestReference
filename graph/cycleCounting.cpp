@@ -8,10 +8,10 @@ struct cylces {
 
 	cylces(int n) : adj(n), seen(n), paths(n) {}
 
-	void addEdge(int a, int b) {
-		adj[a].push_back({b, sz(edges)});
-		adj[b].push_back({a, sz(edges)});
-		edges.push_back({a, b});
+	void addEdge(int u, int v) {
+		adj[u].push_back({v, sz(edges)});
+		adj[v].push_back({u, sz(edges)});
+		edges.push_back({u, v});
 	}
 
 	void addBase(cycle cur) {
@@ -22,17 +22,17 @@ struct cylces {
 		if (cur.any()) base.push_back(cur);
 	}
 
-	void findBase(int c = 0, int p = -1, cycle cur = {}) {
+	void findBase(int v = 0, int from = -1, cycle cur = {}) {
 		if (adj.empty()) return;
-		if (seen[c]) {
-			addBase(cur ^ paths[c]);
+		if (seen[v]) {
+			addBase(cur ^ paths[v]);
 		} else {
-			seen[c] = true;
-			paths[c] = cur;
-			for (auto [to, id] : adj[c]) {
-				if (to == p) continue;
+			seen[v] = true;
+			paths[v] = cur;
+			for (auto [u, id] : adj[v]) {
+				if (u == from) continue;
 				cur[id].flip();
-				findBase(to, c, cur);
+				findBase(u, v, cur);
 				cur[id].flip();
 	}}}
 

@@ -5,12 +5,12 @@ int max_matching() {
 	int ans = 0;
 	mat.assign(sz(adj), {});
 	for (int _ = 0; _ < I; _++) {
-		for (int i = 0; i < sz(adj); i++) {
-			mat[i].assign(sz(adj), 0);
-			for (int j : adj[i]) {
-				if (j < i) {
-					mat[i][j] = rand() % (MOD - 1) + 1;
-					mat[j][i] = MOD - mat[i][j];
+		for (int v = 0; v < sz(adj); v++) {
+			mat[v].assign(sz(adj), 0);
+			for (int u : adj[v]) {
+				if (u < v) {
+					mat[v][u] = rand() % (MOD - 1) + 1;
+					mat[u][v] = MOD - mat[v][u];
 		}}}
 		gauss(sz(adj), MOD); //LGS unten
 		int rank = 0;

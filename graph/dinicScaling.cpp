@@ -17,10 +17,10 @@ bool bfs(ll lim) {
 	dist[s] = 0;
 	queue<int> q({s});
 	while (!q.empty() && dist[t] < 0) {
-		int cur = q.front(); q.pop();
-		for (Edge& e : adj[cur]) {
+		int v = q.front(); q.pop();
+		for (Edge& e : adj[v]) {
 			if (dist[e.to] < 0 && e.c - e.f >= lim) {
-				dist[e.to] = dist[cur] + 1;
+				dist[e.to] = dist[v] + 1;
 				q.push(e.to);
 	}}}
 	return dist[t] >= 0;

@@ -1,11 +1,11 @@
 vector<vector<int>> adj;
 map<vector<int>, int> known;
 
-int treeLabel(int root, int p = -1) {
+int treeLabel(int v, int from = -1) {
 	vector<int> children;
-	for (int x : adj[root]) {
-		if (x == p) continue;
-		children.push_back(treeLabel(x, root));
+	for (int u : adj[v]) {
+		if (u == from) continue;
+		children.push_back(treeLabel(u, v));
 	}
 	sort(all(children));
 	if (known.find(children) == known.end()) {

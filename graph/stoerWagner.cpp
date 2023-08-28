@@ -1,19 +1,19 @@
-struct edge {
+struct Edge {
 	int from, to;
 	ll cap;
 };
 
-vector<vector<edge>> adj, tmp;
+vector<vector<Edge>> adj, tmp;
 vector<bool> erased;
 
-void merge(int a, int b) {
-	tmp[a].insert(tmp[a].end(), all(tmp[b]));
-	tmp[b].clear();
-	erased[b] = true;
-	for (auto& v : tmp) {
-		for (auto&e : v) {
-			if (e.from == b) e.from = a;
-			if (e.to == b) e.to = a;
+void merge(int u, int v) {
+	tmp[u].insert(tmp[u].end(), all(tmp[v]));
+	tmp[v].clear();
+	erased[v] = true;
+	for (auto& vec : tmp) {
+		for (Edge& e : vec) {
+			if (e.from == v) e.from = u;
+			if (e.to == v) e.to = u;
 }}}
 
 ll stoer_wagner() {

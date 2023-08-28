@@ -37,30 +37,30 @@ ll maxFlow(int s, int t) {
 	for (int id : adj[s]) addFlow(id, edges[id].c);
 	for (int hi = 0;;) {
 		while (hs[hi].empty()) if (!hi--) return -ec[s];
-		int u = hs[hi].back();
+		int v = hs[hi].back();
 		hs[hi].pop_back();
-		while (ec[u] > 0) {
-			if (cur[u] == sz(adj[u])) {
-				H[u] = 2*n;
-				for (int i = 0; i < sz(adj[u]); i++) {
-					int id = adj[u][i];
+		while (ec[v] > 0) {
+			if (cur[v] == sz(adj[v])) {
+				H[v] = 2*n;
+				for (int i = 0; i < sz(adj[v]); i++) {
+					int id = adj[v][i];
 					if (edges[id].c - edges[id].f > 0 &&
-					    H[u] > H[edges[id].to] + 1) {
-						H[u] = H[edges[id].to] + 1;
-						cur[u] = i;
+					    H[v] > H[edges[id].to] + 1) {
+						H[v] = H[edges[id].to] + 1;
+						cur[v] = i;
 				}}
-				co[H[u]]++;
+				co[H[v]]++;
 				if (!--co[hi] && hi < n) {
 					for (int i = 0; i < n; i++) {
 						if (hi < H[i] && H[i] < n) {
 							co[H[i]]--;
 							H[i] = n + 1;
 				}}}
-				hi = H[u];
+				hi = H[v];
 			} else {
-				auto e = edges[adj[u][cur[u]]];
-				if (e.c - e.f > 0 && H[u] == H[e.to] + 1) {
-					addFlow(adj[u][cur[u]], min(ec[u], e.c - e.f));
+				auto e = edges[adj[v][cur[v]]];
+				if (e.c - e.f > 0 && H[v] == H[e.to] + 1) {
+					addFlow(adj[v][cur[v]], min(ec[v], e.c - e.f));
 				} else {
-					cur[u]++;
+					cur[v]++;
 }}}}}

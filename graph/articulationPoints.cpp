@@ -1,14 +1,14 @@
-vector<vector<edge>> adj;
+vector<vector<Edge>> adj;
 vector<int> num;
 int counter, rootCount, root;
 vector<bool> isArt;
-vector<edge> bridges, st;
-vector<vector<edge>> bcc;
+vector<Edge> bridges, st;
+vector<vector<Edge>> bcc;
 
-int dfs(int v, int parent = -1) {
+int dfs(int v, int from = -1) {
 	int me = num[v] = ++counter, top = me;
-	for (edge& e : adj[v]) {
-		if (e.id == parent){}
+	for (Edge& e : adj[v]) {
+		if (e.id == from){}
 		else if (num[e.to]) {
 			top = min(top, num[e.to]);
 			if (num[e.to] < me) st.push_back(e);

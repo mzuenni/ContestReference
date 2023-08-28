@@ -4,28 +4,28 @@ vector<int> pairs, dist, ptr;
 
 bool bfs(int l) {
 	queue<int> q;
-	for(int i = 0; i < l; i++) {
-		if (pairs[i] < 0) {dist[i] = 0; q.push(i);}
-		else dist[i] = -1;
+	for(int v = 0; v < l; v++) {
+		if (pairs[v] < 0) {dist[v] = 0; q.push(v);}
+		else dist[v] = -1;
 	}
 	bool exist = false;
 	while(!q.empty()) {
-		int u = q.front(); q.pop();
-		for (int v : adj[u]) {
-			if (pairs[v] < 0) {exist = true; continue;}
-			if (dist[pairs[v]] < 0) {
-				dist[pairs[v]] = dist[u] + 1;
-				q.push(pairs[v]);
+		int v = q.front(); q.pop();
+		for (int u : adj[v]) {
+			if (pairs[u] < 0) {exist = true; continue;}
+			if (dist[pairs[u]] < 0) {
+				dist[pairs[u]] = dist[v] + 1;
+				q.push(pairs[u]);
 	}}}
 	return exist;
 }
 
-bool dfs(int u) {
-	for (; ptr[u] < sz(adj[u]); ptr[u]++) {
-		int v = adj[u][ptr[u]];
-		if (pairs[v] < 0 ||
-		   (dist[pairs[v]] > dist[u] && dfs(pairs[v]))) {
-			pairs[v] = u; pairs[u] = v;
+bool dfs(int v) {
+	for (; ptr[v] < sz(adj[v]); ptr[v]++) {
+		int u = adj[v][ptr[v]];
+		if (pairs[u] < 0 ||
+		   (dist[pairs[u]] > dist[v] && dfs(pairs[u]))) {
+			pairs[u] = v; pairs[v] = u;
 			return true;
 	}}
 	return false;
@@ -36,12 +36,12 @@ int hopcroft_karp(int l) { // l = #Knoten links
 	pairs.assign(sz(adj), -1);
 	dist.resize(l);
 	// Greedy Matching, optionale Beschleunigung.
-	for (int i = 0; i < l; i++) for (int w : adj[i])
-		if (pairs[w] < 0) {pairs[i] = w; pairs[w] = i; ans++; break;}
+	for (int v = 0; v < l; v++) for (int u : adj[v])
+		if (pairs[u] < 0) {pairs[u] = v; pairs[v] = u; ans++; break;}
 	while(bfs(l)) {
 		ptr.assign(l, 0);
-		for(int i = 0; i < l; i++) {
-			if (pairs[i] < 0) ans += dfs(i);
+		for(int v = 0; v < l; v++) {
+			if (pairs[v] < 0) ans += dfs(v);
 	}}
 	return ans;
 }

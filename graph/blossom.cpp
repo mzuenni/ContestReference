@@ -8,21 +8,21 @@ struct GM {
 	GM(int n) : adj(n), pairs(n + 1, n), first(n + 1, n),
 	            que(n), label(n + 1, {-1, -1}) {}
 
-	void rematch(int v, int w) {
-		int t = pairs[v]; pairs[v] = w;
-		if (pairs[t] != v) return;
-		if (label[v].second == -1) {
-			pairs[t] = label[v].first;
+	void rematch(int u, int v) {
+		int t = pairs[u]; pairs[u] = v;
+		if (pairs[t] != u) return;
+		if (label[u].second == -1) {
+			pairs[t] = label[u].first;
 			rematch(pairs[t], t);
 		} else {
-			auto [x, y] = label[v];
+			auto [x, y] = label[u];
 			rematch(x, y);
 			rematch(y, x);
 	}}
 
-	int findFirst(int u) {
-		return label[first[u]].first < 0 ? first[u]
-		     : first[u] = findFirst(first[u]);
+	int findFirst(int v) {
+		return label[first[v]].first < 0 ? first[v]
+		     : first[v] = findFirst(first[v]);
 	}
 
 	void relabel(int x, int y) {
@@ -47,14 +47,14 @@ struct GM {
 				que[tail++] = v;
 	}}}
 
-	bool augment(int u) {
-		label[u] = {sz(adj), -1};
-		first[u] = sz(adj);
+	bool augment(int v) {
+		label[v] = {sz(adj), -1};
+		first[v] = sz(adj);
 		head = tail = 0;
-		for (que[tail++] = u; head < tail;) {
+		for (que[tail++] = v; head < tail;) {
 			int x = que[head++];
 			for (int y : adj[x]) {
-				if (pairs[y] == sz(adj) && y != u) {
+				if (pairs[y] == sz(adj) && y != v) {
 					pairs[y] = x;
 					rematch(x, y);
 					return true;
@@ -70,8 +70,8 @@ struct GM {
 
 	int match() {
 		int matching = head = tail = 0;
-		for (int u = 0; u < sz(adj); u++) {
-			if (pairs[u] < sz(adj) || !augment(u)) continue;
+		for (int v = 0; v < sz(adj); v++) {
+			if (pairs[v] < sz(adj) || !augment(v)) continue;
 			matching++;
 			for (int i = 0; i < tail; i++)
 				label[que[i]] = label[pairs[que[i]]] = {-1, -1};
