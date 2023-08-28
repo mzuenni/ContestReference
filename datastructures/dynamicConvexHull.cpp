@@ -6,7 +6,6 @@ struct Line {
 
 struct HullDynamic : multiset<Line, less<>> {
 	// (for doubles, use inf = 1/.0, div(a,b) = a/b)
-	static constexpr ll INF = LLONG_MAX;
 	ll div(ll a, ll b) {return a / b - ((a ^ b) < 0 && a % b);}
 
 	bool isect(iterator x, iterator y) {
