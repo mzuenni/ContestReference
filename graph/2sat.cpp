@@ -2,13 +2,13 @@ struct sat2 {
 	int n; // + scc variablen
 	vector<int> sol;
 
-	sat2(int vars) : n(vars*2), adjlist(vars*2) {};
+	sat2(int vars) : n(vars*2), adj(vars*2) {};
 
 	static int var(int i) {return i << 1;} // use this!
 
 	void addImpl(int a, int b) {
-		adjlist[a].push_back(b);
-		adjlist[1^b].push_back(1^a);
+		adj[a].push_back(b);
+		adj[1^b].push_back(1^a);
 	}
 	void addEquiv(int a, int b) {addImpl(a, b); addImpl(b, a);}
 	void addOr(int a, int b) {addImpl(1^a, b);}

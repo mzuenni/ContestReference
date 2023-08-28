@@ -9,7 +9,7 @@
 		\item Zyklus existiert, wenn jeder Knoten geraden Grad hat (ungerichtet),\\ bei jedem Knoten Ein- und Ausgangsgrad übereinstimmen (gerichtet).
 		\item Pfad existiert, wenn genau $\{0, 2\}$ Knoten ungeraden Grad haben (ungerichtet),\\ bei allen Knoten Ein- und Ausgangsgrad übereinstimmen oder einer eine Ausgangskante mehr hat (Startknoten) und einer eine Eingangskante mehr hat (Endknoten).
 		\item \textbf{Je nach Aufgabenstellung überprüfen, wie ein unzusammenhängender Graph interpretiert werden sollen.}
-		\item Wenn eine bestimmte Sortierung verlangt wird oder Laufzeit vernachlässigbar ist, ist eine Implementierung mit einem \code{vector<set<int>> adjlist} leichter
+		\item Wenn eine bestimmte Sortierung verlangt wird oder Laufzeit vernachlässigbar ist, ist eine Implementierung mit einem \code{vector<set<int>> adj} leichter
 		\item \textbf{Wichtig:} Algorithmus schlägt nicht fehl, falls kein Eulerzyklus existiert.
 		Die Existenz muss separat geprüft werden.
 	\end{itemize}
@@ -170,7 +170,7 @@ Sei $a_{ij}$ die Adjazenzmatrix von $G$ \textcolor{gray}{(mit $a_{ii} = 1$)}, da
 		\method{kuhn}{berechnet Matching}{\abs{V}\*\min(ans^2, \abs{E})}
 	\end{methods}
 	\begin{itemize}
-		\item die ersten [0..n) Knoten in \code{adjlist} sind die linke Seite des Graphen
+		\item die ersten [0..n) Knoten in \code{adj} sind die linke Seite des Graphen
 	\end{itemize}
 	\sourcecode{graph/maxCarBiMatch.cpp}
 	\begin{methods}

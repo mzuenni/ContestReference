@@ -1,4 +1,4 @@
-vector<vector<int>> adjlist;
+vector<vector<int>> adj;
 
 int counter, sccCounter;
 vector<bool> inStack;
@@ -10,7 +10,7 @@ void visit(int v) {
 	d[v] = low[v] = counter++;
 	s.push_back(v); inStack[v] = true;
 
-	for (auto u : adjlist[v]) {
+	for (auto u : adj[v]) {
 		if (d[u] < 0) {
 			visit(u);
 			low[v] = min(low[v], low[u]);
@@ -30,12 +30,12 @@ void visit(int v) {
 }}
 
 void scc() {
-	inStack.assign(sz(adjlist), false);
-	d.assign(sz(adjlist), -1);
-	low.assign(sz(adjlist), -1);
-	idx.assign(sz(adjlist), -1);
+	inStack.assign(sz(adj), false);
+	d.assign(sz(adj), -1);
+	low.assign(sz(adj), -1);
+	idx.assign(sz(adj), -1);
 
 	counter = sccCounter = 0;
-	for (int i = 0; i < sz(adjlist); i++) {
+	for (int i = 0; i < sz(adj); i++) {
 		if (d[i] < 0) visit(i);
 }}

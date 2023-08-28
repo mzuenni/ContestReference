@@ -1,4 +1,4 @@
-vector<vector<edge>> adjlist;
+vector<vector<edge>> adj;
 vector<int> num;
 int counter, rootCount, root;
 vector<bool> isArt;
@@ -7,7 +7,7 @@ vector<vector<edge>> bcc;
 
 int dfs(int v, int parent = -1) {
 	int me = num[v] = ++counter, top = me;
-	for (edge& e : adjlist[v]) {
+	for (edge& e : adj[v]) {
 		if (e.id == parent){}
 		else if (num[e.to]) {
 			top = min(top, num[e.to]);
@@ -31,12 +31,12 @@ int dfs(int v, int parent = -1) {
 
 void find() {
 	counter = 0;
-	num.assign(sz(adjlist), 0);
-	isArt.assign(sz(adjlist), false);
+	num.assign(sz(adj), 0);
+	isArt.assign(sz(adj), false);
 	bridges.clear();
 	st.clear();
 	bcc.clear();
-	for (int v = 0; v < sz(adjlist); v++) {
+	for (int v = 0; v < sz(adj); v++) {
 		if (!num[v]) {
 			root = v;
 			rootCount = 0;

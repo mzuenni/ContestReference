@@ -1,11 +1,11 @@
 struct GM {
-	vector<vector<int>> adjlist;
+	vector<vector<int>> adj;
 	// pairs ist der gematchte knoten oder n
 	vector<int> pairs, first, que;
 	vector<pair<int, int>> label;
 	int head, tail;
 
-	GM(int n) : adjlist(n), pairs(n + 1, n), first(n + 1, n),
+	GM(int n) : adj(n), pairs(n + 1, n), first(n + 1, n),
 	            que(n), label(n + 1, {-1, -1}) {}
 
 	void rematch(int v, int w) {
@@ -32,7 +32,7 @@ struct GM {
 		auto h = label[r] = label[s] = {~x, y};
 		int join;
 		while (true) {
-			if (s != sz(adjlist)) swap(r, s);
+			if (s != sz(adj)) swap(r, s);
 			r = findFirst(label[pairs[r]].first);
 			if (label[r] == h) {
 				join = r;
@@ -48,13 +48,13 @@ struct GM {
 	}}}
 
 	bool augment(int u) {
-		label[u] = {sz(adjlist), -1};
-		first[u] = sz(adjlist);
+		label[u] = {sz(adj), -1};
+		first[u] = sz(adj);
 		head = tail = 0;
 		for (que[tail++] = u; head < tail;) {
 			int x = que[head++];
-			for (int y : adjlist[x]) {
-				if (pairs[y] == sz(adjlist) && y != u) {
+			for (int y : adj[x]) {
+				if (pairs[y] == sz(adj) && y != u) {
 					pairs[y] = x;
 					rematch(x, y);
 					return true;
@@ -70,12 +70,12 @@ struct GM {
 
 	int match() {
 		int matching = head = tail = 0;
-		for (int u = 0; u < sz(adjlist); u++) {
-			if (pairs[u] < sz(adjlist) || !augment(u)) continue;
+		for (int u = 0; u < sz(adj); u++) {
+			if (pairs[u] < sz(adj) || !augment(u)) continue;
 			matching++;
 			for (int i = 0; i < tail; i++)
 				label[que[i]] = label[pairs[que[i]]] = {-1, -1};
-			label[sz(adjlist)] = {-1, -1};
+			label[sz(adj)] = {-1, -1};
 		}
 		return matching;
 	}

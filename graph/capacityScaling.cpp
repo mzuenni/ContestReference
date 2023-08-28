@@ -4,15 +4,15 @@ struct edge {
 };
 
 vector<edge> edges;
-vector<vector<int>> adjlist;
+vector<vector<int>> adj;
 int s, t, dfsCounter;
 vector<int> visited;
 ll capacity;
 
 void addEdge(int from, int to, ll c) {
-	adjlist[from].push_back(sz(edges));
+	adj[from].push_back(sz(edges));
 	edges.push_back({from, to, 0, c});
-	adjlist[to].push_back(sz(edges));
+	adj[to].push_back(sz(edges));
 	edges.push_back({to, from, 0, 0});
 }
 
@@ -20,7 +20,7 @@ bool dfs(int x) {
 	if (x == t) return true;
 	if (visited[x] == dfsCounter) return false;
 	visited[x] = dfsCounter;
-	for (int id : adjlist[x]) {
+	for (int id : adj[x]) {
 		if (edges[id].c >= capacity && dfs(edges[id].to)) {
 			edges[id].c -= capacity; edges[id ^ 1].c += capacity;
 			edges[id].f += capacity; edges[id ^ 1].f -= capacity;
@@ -34,7 +34,7 @@ ll maxFlow(int source, int target) {
 	s = source;
 	t = target;
 	ll flow = 0;
-	visited.assign(sz(adjlist), 0);
+	visited.assign(sz(adj), 0);
 	dfsCounter = 0;
 	while (capacity) {
 		while (dfsCounter++, dfs(s)) flow += capacity;

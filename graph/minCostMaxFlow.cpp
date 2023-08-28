@@ -5,7 +5,7 @@ struct MinCostFlow {
 		ll f, cost;
 	};
 	vector<edge> edges;
-	vector<vector<int>> adjlist;
+	vector<vector<int>> adj;
 	vector<int> pref, con;
 	vector<ll> dist;
 
@@ -13,19 +13,19 @@ struct MinCostFlow {
 	ll maxflow, mincost;
 
 	MinCostFlow(int n, int source, int target) :
-		adjlist(n), s(source), t(target) {};
+		adj(n), s(source), t(target) {};
 
 	void addedge(int u, int v, ll c, ll cost) {
-		adjlist[u].push_back(sz(edges));
+		adj[u].push_back(sz(edges));
 		edges.push_back({v, c, cost});
-		adjlist[v].push_back(sz(edges));
+		adj[v].push_back(sz(edges));
 		edges.push_back({u, 0, -cost});
 	}
 
 	bool SPFA() {
-		pref.assign(sz(adjlist), -1);
-		dist.assign(sz(adjlist), INF);
-		vector<bool> inqueue(sz(adjlist));
+		pref.assign(sz(adj), -1);
+		dist.assign(sz(adj), INF);
+		vector<bool> inqueue(sz(adj));
 		queue<int> queue;
 
 		dist[s] = 0;
@@ -36,7 +36,7 @@ struct MinCostFlow {
 		while (!queue.empty()) {
 			int cur = queue.front(); queue.pop();
 			inqueue[cur] = false;
-			for (int id : adjlist[cur]) {
+			for (int id : adj[cur]) {
 				int to = edges[id].to;
 				if (edges[id].f > 0 &&
 				    dist[to] > dist[cur] + edges[id].cost) {
@@ -62,7 +62,7 @@ struct MinCostFlow {
 	}}
 
 	void mincostflow() {
-		con.assign(sz(adjlist), 0);
+		con.assign(sz(adj), 0);
 		maxflow = mincost = 0;
 		while (SPFA()) extend();
 	}

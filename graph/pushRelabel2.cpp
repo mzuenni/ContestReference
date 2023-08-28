@@ -6,7 +6,7 @@ struct edge {
 };
 
 vector<edge> edges;
-vector<vector<int>> adjlist, llist;
+vector<vector<int>> adj, llist;
 vector<int> height, ccount, que;
 vector<ll> excess;
 vector<list<int>> dlist;
@@ -14,9 +14,9 @@ vector<list<int>::iterator> iter;
 int highest, highestActive;
 
 void addEdge(int from, int to, ll c) {
-	adjlist[from].push_back(sz(edges));
+	adj[from].push_back(sz(edges));
 	edges.push_back({from, to, 0, c});
-	adjlist[to].push_back(sz(edges));
+	adj[to].push_back(sz(edges));
 	edges.push_back({to, from, 0, 0});
 }
 
@@ -28,7 +28,7 @@ void globalRelabel(int n, int t) {
 	int qh = 0, qt = 0;
 	for (que[qt++] = t; qh < qt;) {
 		int u = que[qh++], h = height[u] + 1;
-		for (int id : adjlist[u]) {
+		for (int id : adj[u]) {
 			if (height[edges[id].to] == n && edges[id ^ 1].c - edges[id ^ 1].f > 0) {
 				ccount[height[edges[id].to] = h]++;
 				que[qt++] = edges[id].to;
@@ -55,7 +55,7 @@ void push(int u, int id) {
 
 void discharge(int n, int u) {
 	int nh = n;
-	for (int id : adjlist[u]) {
+	for (int id : adj[u]) {
 		if (edges[id].c - edges[id].f > 0) {
 			if (height[u] == height[edges[id].to] + 1) {
 				push(u, id);
@@ -79,7 +79,7 @@ void discharge(int n, int u) {
 }}
 
 ll maxFlow(int s, int t) {
-	int n = sz(adjlist);
+	int n = sz(adj);
 	llist.assign(n + 1, {});
 	dlist.assign(n + 1, {});
 	highestActive = highest = 0;
@@ -94,7 +94,7 @@ ll maxFlow(int s, int t) {
 	excess.assign(n, 0);
 	excess[s] = inf;
 	excess[t] = -inf;
-	for (int id : adjlist[s]) push(s, id);
+	for (int id : adj[s]) push(s, id);
 	globalRelabel(n, t);
 	while (highestActive >= 0) {
 		if (llist[highestActive].empty()) {

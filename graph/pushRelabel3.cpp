@@ -4,14 +4,14 @@ struct edge {
 };
 
 vector<edge> edges;
-vector<vector<int>> adjlist, hs;
+vector<vector<int>> adj, hs;
 vector<ll> ec;
 vector<int> cur, H;
 
 void addEdge(int from, int to, ll c) {
-	adjlist[from].push_back(sz(edges));
+	adj[from].push_back(sz(edges));
 	edges.push_back({from, to, 0, c});
-	adjlist[to].push_back(sz(edges));
+	adj[to].push_back(sz(edges));
 	edges.push_back({to, from, 0, 0});
 }
 
@@ -25,7 +25,7 @@ void addFlow(int id, ll f) {
 }
 
 ll maxFlow(int s, int t) {
-	int n = sz(adjlist);
+	int n = sz(adj);
 	hs.assign(2*n, {});
 	ec.assign(n, 0);
 	cur.assign(n, 0);
@@ -34,16 +34,16 @@ ll maxFlow(int s, int t) {
 	ec[t] = 1;//never set t to active...
 	vector<int> co(2*n);
 	co[0] = n - 1;
-	for (int id : adjlist[s]) addFlow(id, edges[id].c);
+	for (int id : adj[s]) addFlow(id, edges[id].c);
 	for (int hi = 0;;) {
 		while (hs[hi].empty()) if (!hi--) return -ec[s];
 		int u = hs[hi].back();
 		hs[hi].pop_back();
 		while (ec[u] > 0) {
-			if (cur[u] == sz(adjlist[u])) {
+			if (cur[u] == sz(adj[u])) {
 				H[u] = 2*n;
-				for (int i = 0; i < sz(adjlist[u]); i++) {
-					int id = adjlist[u][i];
+				for (int i = 0; i < sz(adj[u]); i++) {
+					int id = adj[u][i];
 					if (edges[id].c - edges[id].f > 0 &&
 					    H[u] > H[edges[id].to] + 1) {
 						H[u] = H[edges[id].to] + 1;
@@ -58,9 +58,9 @@ ll maxFlow(int s, int t) {
 				}}}
 				hi = H[u];
 			} else {
-				auto e = edges[adjlist[u][cur[u]]];
+				auto e = edges[adj[u][cur[u]]];
 				if (e.c - e.f > 0 && H[u] == H[e.to] + 1) {
-					addFlow(adjlist[u][cur[u]], min(ec[u], e.c - e.f));
+					addFlow(adj[u][cur[u]], min(ec[u], e.c - e.f));
 				} else {
 					cur[u]++;
 }}}}}

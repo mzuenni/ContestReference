@@ -3,7 +3,7 @@ struct edge {
 	ll cap;
 };
 
-vector<vector<edge>> adjlist, tmp;
+vector<vector<edge>> adj, tmp;
 vector<bool> erased;
 
 void merge(int a, int b) {
@@ -18,7 +18,7 @@ void merge(int a, int b) {
 
 ll stoer_wagner() {
 	ll res = INF;
-	tmp = adjlist;
+	tmp = adj;
 	erased.assign(sz(tmp), false);
 	for (int i = 1; i < sz(tmp); i++) {
 		int s = 0;
