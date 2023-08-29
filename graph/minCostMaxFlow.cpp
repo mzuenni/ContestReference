@@ -15,7 +15,7 @@ struct MinCostFlow {
 	MinCostFlow(int n, int source, int target) :
 		adj(n), s(source), t(target) {};
 
-	void addedge(int u, int v, ll c, ll cost) {
+	void addEdge(int u, int v, ll c, ll cost) {
 		adj[u].push_back(sz(edges));
 		edges.push_back({v, c, cost});
 		adj[v].push_back(sz(edges));
