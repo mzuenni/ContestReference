@@ -1,73 +1,109 @@
-struct PushRelabel {
-	vector<vector<ll>> capacitie, flow;
-	vector<ll> excess;
-	vector<int> height, seen, list;
-	int n;
+constexpr ll inf = 1ll<<60;
 
-	PushRelabel(int n) {
-		this->n = n;
-		capacities.assign(n, vector<ll>(n));
-		flow.assign(n, vector<ll>(n));
-		excess.assign(n, 0);
-		height.assign(n, 0);
-		seen.assign(n, 0);
-		list.assign(n - 2, 0);
-	}
-
-	inline void addEdge(int u, int v, ll c) {capacities[u][v] += c;}
-
-	void push(int u, int v) {
-		ll send = min(excess[u], capacities[u][v] - flow[u][v]);
-		flow[u][v] += send; flow[v][u] -= send;
-		excess[u] -= send; excess[v] += send;
-	}
-
-	void relabel(int v) {
-		int minHeight = INT_INF;
-		for (int u = 0; u < n; u++) {
-			if (capacities[v][u] - flow[v][u] > 0) {
-				minHeight = min(minHeight, height[u]);
-				height[v] = minHeight + 1;
-	}}}
-
-	void discharge(int v) {
-		while (excess[v] > 0) {
-			if (seen[v] < n) {
-				int u = seen[v];
-				if (capacities[v][u] - flow[v][u] > 0 && height[v] > height[u]) {
-					push(v, u);
-				} else seen[v]++;
-			} else {
-				relabel(v);
-				seen[v] = 0;
-	}}}
-
-	void moveToFront(int v) {
-		int temp = list[v];
-		for (int u = v; u > 0; u--) list[u] = list[u - 1];
-		list[0] = temp;
-	}
-
-	ll maxFlow(int source, int target) {
-		for (int v = 0, p = 0; v < n; v++)
-			if (v != source && v != target) list[p++] = v;
-
-		height[source] = n;
-		excess[source] = INF;
-		for (int v = 0; v < n; v++) push(source, v);
-
-		int p = 0;
-		while (p < n - 2) {
-			int v = list[p], oldHeight = height[v];
-			discharge(v);
-			if (height[v] > oldHeight) {
-				moveToFront(p);
-				p = 0;
-			} else p++;
-		}
-
-		ll maxflow = 0;
-		for (int v = 0; v < n; v++) maxflow += flow[source][v];
-		return maxflow;
-	}
+struct Edge {
+	int from, to;
+	ll f, c;
 };
+
+vector<Edge> edges;
+vector<vector<int>> adj, llist;
+vector<int> height, ccount, que;
+vector<ll> excess;
+vector<list<int>> dlist;
+vector<list<int>::iterator> iter;
+int highest, highestActive;
+
+void addEdge(int from, int to, ll c) {
+	adj[from].push_back(sz(edges));
+	edges.push_back({from, to, 0, c});
+	adj[to].push_back(sz(edges));
+	edges.push_back({to, from, 0, 0});
+}
+
+void globalRelabel(int n, int t) {
+	height.assign(n, n);
+	height[t] = 0;
+	ccount.assign(n, 0);
+	que.assign(n+1, 0);
+	int qh = 0, qt = 0;
+	for (que[qt++] = t; qh < qt;) {
+		int v = que[qh++], h = height[v] + 1;
+		for (int id : adj[v]) {
+			if (height[edges[id].to] == n && edges[id ^ 1].c - edges[id ^ 1].f > 0) {
+				ccount[height[edges[id].to] = h]++;
+				que[qt++] = edges[id].to;
+	}}}
+	llist.assign(n+1, {});
+	dlist.assign(n+1, {});
+	for (int v = 0; v < n; v++) {
+		if (height[v] < n) {
+			iter[v] = dlist[height[v]].insert(dlist[height[v]].begin(), v);
+			if (excess[v] > 0) llist[height[v]].push_back(v);
+	}}
+	highest = highestActive = height[que[qt - 1]];
+}
+
+void push(int v, int id) {
+	int u = edges[id].to;
+	ll df = min(excess[v], edges[id].c - edges[id].f);
+	edges[id].f += df;
+	edges[id^1].f -= df;
+	excess[v] -= df;
+	excess[u] += df;
+	if (0 < excess[u] && excess[u] <= df) llist[height[u]].push_back(u);
+}
+
+void discharge(int n, int v) {
+	int nh = n;
+	for (int id : adj[v]) {
+		if (edges[id].c - edges[id].f > 0) {
+			if (height[v] == height[edges[id].to] + 1) {
+				push(v, id);
+				if (!excess[v]) return;
+			} else {
+				nh = min(nh, height[edges[id].to] + 1);
+	}}}
+	int h = height[v];
+	if (ccount[h] == 1) {
+		for (int i = h; i <= highest; i++) {
+			for (auto p : dlist[i]) --ccount[height[p]], height[p] = n;
+			dlist[i].clear();
+		}
+		highest = h - 1;
+	} else {
+		--ccount[h], iter[v] = dlist[h].erase(iter[v]), height[v] = nh;
+		if (nh == n) return;
+		++ccount[nh], iter[v] = dlist[nh].insert(dlist[nh].begin(), v);
+		highest = max(highest, highestActive = nh);
+		llist[nh].push_back(v);
+}}
+
+ll maxFlow(int s, int t) {
+	int n = sz(adj);
+	llist.assign(n + 1, {});
+	dlist.assign(n + 1, {});
+	highestActive = highest = 0;
+	height.assign(n, 0);
+	height[s] = n;
+	iter.resize(n);
+	for (int v = 0; v < n; v++) {
+		if (v != s) iter[v] = dlist[height[v]].insert(dlist[height[v]].begin(), v);
+	}
+	ccount.assign(n, 0);
+	ccount[0] = n-1;
+	excess.assign(n, 0);
+	excess[s] = inf;
+	excess[t] = -inf;
+	for (int id : adj[s]) push(s, id);
+	globalRelabel(n, t);
+	while (highestActive >= 0) {
+		if (llist[highestActive].empty()) {
+			highestActive--;
+			continue;
+		}
+		int v = llist[highestActive].back();
+		llist[highestActive].pop_back();
+		discharge(n, v);
+	}
+	return excess[t] + inf;
+}
