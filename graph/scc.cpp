@@ -1,24 +1,19 @@
-vector<vector<int>> adj;
-
+vector<vector<int>> adj, sccs;
 int counter, sccCounter;
 vector<bool> inStack;
-vector<vector<int>> sccs;
 // idx enthält den Index der SCC pro Knoten.
-vector<int> d, low, idx, s;
+vector<int> low, idx, s;
 
 void visit(int v) {
-	d[v] = low[v] = counter++;
+	int old = low[v] = counter++;
 	s.push_back(v); inStack[v] = true;
 
 	for (auto u : adj[v]) {
-		if (d[u] < 0) {
-			visit(u);
-			low[v] = min(low[v], low[u]);
-		} else if (inStack[u]) {
-			low[v] = min(low[v], low[u]);
-	}}
+		if (low[u] < 0) visit(u);
+		if (inStack[u]) low[v] = min(low[v], low[u]);
+	}
 
-	if (d[v] == low[v]) {
+	if (old == low[v]) {
 		sccs.push_back({});
 		int u;
 		do {
@@ -31,11 +26,11 @@ void visit(int v) {
 
 void scc() {
 	inStack.assign(sz(adj), false);
-	d.assign(sz(adj), -1);
 	low.assign(sz(adj), -1);
 	idx.assign(sz(adj), -1);
+	sccs.clear();
 
 	counter = sccCounter = 0;
 	for (int i = 0; i < sz(adj); i++) {
-		if (d[i] < 0) visit(i);
+		if (low[i] < 0) visit(i);
 }}
