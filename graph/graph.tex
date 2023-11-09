@@ -86,7 +86,7 @@
 \sourcecode{graph/floydWarshall.cpp}
 
 \subsubsection{Matrix-Algorithmus}
-Sei $d_{i\smash{j}}$ die Distanzmatrix von $G$, dann gibt $d_{i\smash{j}}^k$ die kürzeste Distanz von $i$ nach $j$ mit maximal $k$ kanten an mit der Verknüpfung: $c_{i\smash{j}} = a_{i\smash{j}} \otimes b_{i\smash{j}} = \min\{a_{ik} + b_{k\smash{j}}\}$
+Sei $d_{i\smash{j}}$ die Distanzmatrix von $G$, dann gibt $d_{i\smash{j}}^k$ die kürzeste Distanz von $i$ nach $j$ mit maximal $k$ kanten an mit der Verknüpfung: $c_{i\smash{j}} = a_{i\smash{j}} \otimes b_{i\smash{j}} = \min\{a_{ik} \cdot b_{k\smash{j}}\}$
 
 
 Sei $a_{ij}$ die Adjazenzmatrix von $G$ \textcolor{gray}{(mit $a_{ii} = 1$)}, dann gibt $a_{i\smash{j}}^k$ die Anzahl der Wege von $i$ nach $j$ mit Länge genau \textcolor{gray}{(maximal)} $k$ an mit der Verknüpfung: $c_{i\smash{j}} = a_{i\smash{j}} \otimes b_{i\smash{j}} = \sum a_{ik} + b_{k\smash{j}}$
