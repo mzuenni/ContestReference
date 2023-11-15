@@ -22,7 +22,7 @@ void dfs_hld(int v = 0, int from = -1) {
 
 void init(int root = 0) {
 	int n = sz(adj);
-	sz.assign(n, 1), nxt.assign(n, 0), par.assign(n, -1);
+	sz.assign(n, 1), nxt.assign(n, root), par.assign(n, -1);
 	in.resize(n), out.resize(n);
 	counter = 0;
 	dfs_sz(root);
