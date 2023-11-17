@@ -3,7 +3,7 @@ vector<cplx> mul(vector<cplx>& a, vector<cplx>& b) {
 	for (int i = 0; i < sz(b); i++) {
 		c[i] = {real(a[i]), real(b[i])};
 	}
-	c = fft(c);
+	fft(c);
 	for (int i = 0; i < sz(b); i++) {
 		int j = (sz(a) - i) % sz(a);
 		cplx x = (c[i] + conj(c[j])) / cplx{2, 0}; //fft(a)[i];
