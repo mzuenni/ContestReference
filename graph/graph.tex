@@ -188,7 +188,7 @@ Sei $a_{ij}$ die Adjazenzmatrix von $G$ \textcolor{gray}{(mit $a_{ii} = 1$)}, da
 
 \begin{algorithm}{Global Mincut}
 	\begin{methods}
-		\method{stoer\_wagner}{berechnet globalen Mincut}{\abs{V}^2\*\log(\abs{E})}
+		\method{stoer\_wagner}{berechnet globalen Mincut}{\abs{V}\abs{E}+\abs{V}^2\*\log(\abs{E})}
 		\method{merge(a,b)}{merged Knoten $b$ in Knoten $a$}{\abs{E}}
 	\end{methods}
 	\textbf{Tipp:} Cut Rekonstruktion mit \code{unionFind} für Partitionierung oder \code{vector<bool>} für edge id's im cut.
