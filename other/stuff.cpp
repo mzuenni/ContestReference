@@ -1,8 +1,9 @@
 // Alles-Header.
 #include <bits/stdc++.h>
 
-// Setzt das deutsche Tastaturlayout.
+// Setzt deutsche Tastaturlayout / toggle mit alt + space
 setxkbmap de
+setxkbmap de,us -option grp:alt_space_toggle
 
 // Schnelle Ein-/Ausgabe mit cin/cout.
 ios::sync_with_stdio(false);
