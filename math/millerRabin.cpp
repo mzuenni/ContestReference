@@ -10,7 +10,7 @@ bool isPrime(ll n) {
 		ll v = powMod(a, d, n); //with mulmod or int128
 		if (v == 1 || v == n - 1) continue;
 		for (ll i = 1; i <= j; i++) {
-			v = (v * v) % n; //mulmod or int128
+			v = ((lll)v * v) % n;
 			if (v == n - 1 || v <= 1) break;
 		}
 		if (v != n - 1) return false;
