@@ -1,23 +1,17 @@
-vector<int> lis(vector<int> &seq) {
-	int n = sz(seq), lisLength = 0, lisEnd = 0;
-	vector<int> L(n), L_id(n), parents(n);
+vector<int> lis(vector<ll>& a) {
+	int n = sz(a), len = 0;
+	vector<ll> dp(n, INF), dp_id(n), prev(n);
 	for (int i = 0; i < n; i++) {
-		int pos = upper_bound(L.begin(), L.begin() + lisLength,
-		                      seq[i]) - L.begin();
-		L[pos] = seq[i];
-		L_id[pos] = i;
-		parents[i] = pos ? L_id[pos - 1] : -1;
-		if (pos + 1 > lisLength) {
-			lisLength = pos + 1;
-			lisEnd = i;
-	}}
-	// Ab hier Rekonstruktion der Sequenz.
-	vector<int> result(lisLength);
-	int pos = lisLength - 1, x = lisEnd;
-	while (parents[x] >= 0) {
-		result[pos--] = x;
-		x = parents[x];
+		int pos = lower_bound(all(dp), a[i]) - dp.begin();
+		dp[pos] = a[i];
+		dp_id[pos] = i;
+		prev[i] = pos ? dp_id[pos - 1] : -1;
+		len = max(len, pos + 1);
 	}
-	result[0] = x;
-	return result; // Liste mit Indizes einer LIS.
+	// reconstruction
+	vector<int> res(len);
+	for (int x = dp_id[len-1]; len--; x = prev[x]) {
+		res[len] = x;
+	}
+	return res; // indices of one LIS
 }
