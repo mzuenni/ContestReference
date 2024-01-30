@@ -11,7 +11,7 @@ struct SegTree {
 			tree[i] = comb(tree[2 * i], tree[2 * i + 1]);
 	}}
 
-	ll comb(T a, T b) { return a + b; } // modify this + neutral
+	ll comb(T a, T b) {return a + b;} // modify this + neutral
 
 	void update(int i, T val) {
 		tree[i += n] = val; // apply update code
