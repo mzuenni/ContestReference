@@ -1,6 +1,6 @@
 struct SparseTable {
 	vector<vector<int>> st;
-	vector<ll> *a;
+	ll *a;
 
 	int better(int lidx, int ridx) {
 		return a[lidx] <= a[ridx] ? lidx : ridx;
