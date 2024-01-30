@@ -1,42 +1,42 @@
-vector<ll> tree;
-constexpr ll neutral = 0; // Neutral element for combine
+struct SegTree {
+	using T = ll;
+	int n;
+	vector<T> tree;
+	static constexpr T E = 0; // Neutral element for combine
 
-ll combine(ll a, ll b) {
-	return a + b;
-}
+	SegTree(vector<T>& a) : n(sz(a)), tree(2 * n) {
+	//SegTree(int size, T val = E) : n(size), tree(2 * n, val) {
+		copy(all(a), tree.begin() + n);
+		for (int i = n - 1; i > 0; i--) { // remove for range update
+			tree[i] = comb(tree[2 * i], tree[2 * i + 1]);
+	}}
 
-void init(vector<ll>& a) {
-	tree.assign(2 * sz(a), 0);
-	copy(all(a), tree.begin() + sz(a));
-	for (int i = sz(tree)/2 - 1; i > 0; i--) {
-		tree[i] = combine(tree[2 * i], tree[2 * i + 1]);
-}}
+	ll comb(T a, T b) { return a + b; } // modify this + neutral
 
-void update(int i, ll val) {
-	for (tree[i += sz(tree)/2] = val; i /= 2; ) {
-		tree[i] = combine(tree[2 * i], tree[2 * i + 1]);
-}}
-
-ll query(int l, int r) {
-	ll resL = neutral, resR = neutral;
-	for (l += sz(tree)/2, r += sz(tree)/2; l < r; l /= 2, r /= 2) {
-		if (l&1) resL = combine(resL, tree[l++]);
-		if (r&1) resR = combine(tree[--r], resR);
+	void update(int i, T val) {
+		tree[i += n] = val; // apply update code
+		while (i /= 2) tree[i] = comb(tree[2 * i], tree[2 * i + 1]);
 	}
-	return combine(resL, resR);
-}
 
-// Oder: Intervall-Modifikation, Punkt-Query:
-void modify(int l, int r, ll val) {
-	for (l += sz(tree)/2, r += sz(tree)/2; l < r; l /= 2, r /= 2) {
-		if (l&1) {tree[l] = combine(tree[l], val); l++;};
-		if (r&1) {--r; tree[r] = combine(tree[r], val);};
-}}
-
-ll query(int i) {
-	ll res = neutral;
-	for (i += sz(tree)/2; i > 0; i /= 2) {
-		res = combine(res, tree[i]);
+	T query(int l, int r) {
+		T resL = E, resR = E;
+		for (l += n, r += n; l < r; l /= 2, r /= 2) {
+			if (l&1) resL = comb(resL, tree[l++]);
+			if (r&1) resR = comb(tree[--r], resR);
+		}
+		return comb(resL, resR);
 	}
-	return res;
-}
+
+	// OR: range update + point query, needs commutative comb
+	void modify(int l, int r, T val) {
+		for (l += n, r += n; l < r; l /= 2, r /= 2) {
+			if (l&1) tree[l] = comb(tree[l], val), l++;
+			if (r&1) --r, tree[r] = comb(tree[r], val);
+	}}
+
+	T query(int i) {
+		T res = E;
+		for (i += n; i > 0; i /= 2) res = comb(res, tree[i]);
+		return res;
+	}
+};
