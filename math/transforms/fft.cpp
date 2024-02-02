@@ -1,6 +1,6 @@
 using cplx = complex<double>;
 
-void fft(vector<cplx>& a, bool inverse = 0) {
+void fft(vector<cplx>& a, bool inv = false) {
 	int n = sz(a);
 	for (int i = 0, j = 1; j < n - 1; ++j) {
 		for (int k = n >> 1; k > (i ^= k); k >>= 1);
@@ -16,8 +16,8 @@ void fft(vector<cplx>& a, bool inverse = 0) {
 		for (int j = 0; j < n; j += 2 * s) {
 			for (int k = 0; k < s; k++) {
 				cplx u = a[j + k], t = a[j + s + k];
-				t *= (inverse ? conj(ws[s + k]) : ws[s + k]);
+				t *= (inv ? conj(ws[s + k]) : ws[s + k]);
 				a[j + k] = u + t;
 				a[j + s + k] = u - t;
-				if (inverse) a[j + k] /= 2, a[j + s + k] /= 2;
+				if (inv) a[j + k] /= 2, a[j + s + k] /= 2;
 }}}}
