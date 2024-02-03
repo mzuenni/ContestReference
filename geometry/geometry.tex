@@ -7,14 +7,14 @@
 	\sourcecode{geometry/closestPair.cpp}
 \end{algorithm}
 
-\begin{algorithm}{Konvexe Hülle}
+\begin{algorithm}{Konvexehülle}
 	\begin{methods}
 		\method{convexHull}{berechnet Konvexehülle}{n\*\log(n)}
 	\end{methods}
 	\begin{itemize}
-		\item Konvexehülle gegen den Uhrzeigersinn Sortiert
+		\item Konvexehülle gegen den Uhrzeigersinn sortiert
 		\item nur Eckpunkte enthalten(für alle Punkte = im CCW Test entfernen)
-		\item Erster und Letzter Punkt sind identisch
+		\item erster und letzter Punkt sind identisch
 	\end{itemize}
 	\sourcecode{geometry/convexHull.cpp}
 \end{algorithm}
@@ -24,7 +24,7 @@
 	\begin{methods}
 		\method{antipodalPoints}{berechnet antipodale Punkte}{n}
 	\end{methods}
-	\textbf{WICHTIG:} Punkte müssen gegen den Uhrzeigersinn Sortiert sein und konvexes Polygon bilden!
+	\textbf{WICHTIG:} Punkte müssen gegen den Uhrzeigersinn sortiert sein und konvexes Polygon bilden!
 	\sourcecode{geometry/antipodalPoints.cpp}
 \end{algorithm}
 
