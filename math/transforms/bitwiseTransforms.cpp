@@ -1,4 +1,4 @@
-void fft(vector<ll>& a, bool inv = false) {
+void bitwiseConv(vector<ll>& a, bool inv = false) {
 	int n = sz(a);
 	for (int s = 1; s < n; s *= 2) {
 		for (int i = 0; i < n; i += 2 * s) {

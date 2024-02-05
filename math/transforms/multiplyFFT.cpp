@@ -1,5 +1,5 @@
 vector<ll> mul(vector<ll>& a, vector<ll>& b) {
-	int n = 1 << (__lg(sz(a) + sz(b)) + 1);
+	int n = 1 << (__lg(sz(a) + sz(b) - 1) + 1);
 	vector<cplx> a2(all(a)), b2(all(b));
 	a2.resize(n), b2.resize(n);
 	fft(a2), fft(b2);

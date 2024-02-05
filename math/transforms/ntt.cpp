@@ -1,6 +1,6 @@
 constexpr ll mod = 998244353, root = 3;
 
-void fft(vector<ll>& a, bool inv = false) {
+void ntt(vector<ll>& a, bool inv = false) {
 	int n = sz(a);
 	auto b = a;
 	ll r = inv ? powMod(root, mod - 2, mod) : root;
