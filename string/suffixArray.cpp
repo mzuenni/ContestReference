@@ -5,7 +5,7 @@ struct SuffixArray {
 	vector<vector<int>> P;
 
 	SuffixArray(const string& s) : n(sz(s)), SA(n), LCP(n),
-		P(__lg(n - 1) + 2, vector<int>(n)) {
+		P(__lg(2 * n - 1) + 1, vector<int>(n)) {
 		P[0].assign(all(s));
 		iota(all(SA), 0);
 		sort(all(SA), [&](int a, int b) {return s[a] < s[b];});
