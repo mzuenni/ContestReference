@@ -2,7 +2,7 @@ struct sat2 {
 	int n; // + scc variablen
 	vector<int> sol;
 
-	sat2(int vars) : n(vars*2), adj(vars*2) {};
+	sat2(int vars) : n(vars*2), adj(n) {}
 
 	static int var(int i) {return i << 1;} // use this!
 
@@ -18,20 +18,14 @@ struct sat2 {
 	void addAnd(int a, int b) {addTrue(a); addTrue(b);}
 	void addNand(int a, int b) {addOr(1^a, 1^b);}
 
-	bool solvable() {
+	bool solve() {
 		scc(); //scc code von oben
+		sol.assign(n, -1);
 		for (int i = 0; i < n; i += 2) {
 			if (idx[i] == idx[i + 1]) return false;
+			sol[i] = idx[i] < idx[i + 1];
+			sol[i + 1] = !sol[i];
 		}
 		return true;
 	}
-
-	void assign() {
-		sol.assign(n, -1);
-		for (int i = 0; i < sccCounter; i++) {
-			if (sol[sccs[i][0]] == -1) {
-				for (int v : sccs[i]) {
-					sol[v] = 1;
-					sol[1^v] = 0;
-	}}}}
 };
