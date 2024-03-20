@@ -1,54 +1,52 @@
-constexpr ll ALPHABET_SIZE = 26;
-constexpr char OFFSET = 'a';
+constexpr ll ALPHABET_SIZE = 26, OFFSET = 'a';
 struct AhoCorasick {
 	struct vert {
-		int suffix, exit, character, parent;
-		vector<int> nxt, patterns;
-		vert(int c, int p) : suffix(-1), exit(-1),
-		     character(c), nxt(ALPHABET_SIZE, -1), parent(p) {}
+		int suffix = 0, ch, cnt = 0;
+		array<int, ALPHABET_SIZE> nxt = {};
+
+		vert(int p, int c) : suffix(-p), ch(c) {}
 	};
-	vector<vert> aho;
+	vector<vert> aho = {{0, -1}};
 
-	AhoCorasick() {aho.push_back(vert(-1, 0));}
-
-	// Call once for each pattern.
-	void addString(string &s, int patternIdx) {
+	int addString(string &s) {
 		int v = 0;
-		for (char c : s) {
+		for (auto c : s) {
 			int idx = c - OFFSET;
-			if (aho[v].nxt[idx] == -1) {
+			if (!aho[v].nxt[idx]) {
 				aho[v].nxt[idx] = sz(aho);
-				aho.emplace_back(idx, v);
+				aho.emplace_back(v, idx);
 			}
 			v = aho[v].nxt[idx];
 		}
-		aho[v].patterns.push_back(patternIdx);
+		aho[v].cnt++;
+		return v; // trie node index of pattern (pattern state)
 	}
 
 	int getSuffix(int v) {
-		if (aho[v].suffix == -1) {
-			if (v == 0 || aho[v].parent == 0) aho[v].suffix = 0;
-			else aho[v].suffix = go(getSuffix(aho[v].parent),
-			                        aho[v].character);
+		if (aho[v].suffix < 0) {
+			aho[v].suffix = go(getSuffix(-aho[v].suffix), aho[v].ch);
 		}
 		return aho[v].suffix;
 	}
 
-	int getExit(int v) {
-		if (aho[v].exit == -1) {
-			int suffix = getSuffix(v);
-			if (v == 0) aho[v].exit = 0;
-			else {
-				if (aho[suffix].patterns.empty()) {
-					aho[v].exit = getExit(suffix);
-				} else {
-					aho[v].exit = suffix;
-		}}}
-		return aho[v].exit;
-	}
-
-	int go(int v, int idx) { // Root is v=0.
-		if (aho[v].nxt[idx] != -1) return aho[v].nxt[idx];
+	int go(int v, int idx) { // Root is v=0, idx is char - OFFSET
+		if (aho[v].nxt[idx]) return aho[v].nxt[idx];
 		else return v == 0 ? 0 : go(getSuffix(v), idx);
 	}
+
+	vector<vector<int>> adj;
+	vector<ll> dp;
+	void buildGraph() {
+		adj.resize(sz(aho));
+		dp.assign(sz(aho), 0);
+		for (int i = 1; i < sz(aho); i++) {
+			adj[getSuffix(i)].push_back(i);
+	}}
+
+	void dfs(int v = 0) { // dp on tree
+		for (int u : adj[v]) {
+			//dp[u] = dp[v] + aho[u].cnt; // pattern count
+			dfs(u);
+			dp[v] += dp[u]; // no of matches
+	}}
 };
