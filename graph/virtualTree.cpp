@@ -1,10 +1,8 @@
 // needs dfs in- and out- time and lca function
 vector<int> in, out;
 
-void virtualTree(const vector<int>& a) { // takes indices of used nodes
-	auto ind = a;
+void virtualTree(vector<int> ind) { // indices of used nodes
 	sort(all(ind), [&](int x, int y) {return in[x] < in[y];});
-
 	for (int i=0; i<sz(a)-1; i++) {
 		ind.push_back(lca(ind[i], ind[i+1]));
 	}
@@ -13,13 +11,12 @@ void virtualTree(const vector<int>& a) { // takes indices of used nodes
 
 	int n = ind.size();
 	vector<vector<int>> tree(n);
-	stack<int> st{{0}};
+	vector<int> st = {0};
 	for (int i=1; i<n; i++) {
-		while (in[ind[i]] >= out[ind[st.top()]]) st.pop();
-		tree[st.top()].push_back(i);
+		while (in[ind[i]] >= out[ind[st.back()]]) st.pop_back();
+		tree[st.back()].push_back(i);
 		st.push(i);
 	}
-
 	// virtual directed tree with n nodes, original indices in ind
-	// weights can be calculated if necessary, e.g. with binary lifting
+	// weights can be calculated, e.g. with binary lifting
 }

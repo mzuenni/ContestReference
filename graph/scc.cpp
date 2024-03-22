@@ -1,8 +1,7 @@
 vector<vector<int>> adj, sccs;
 int counter, sccCounter;
 vector<bool> inStack;
-// idx enthält den Index der SCC pro Knoten.
-vector<int> low, idx, s;
+vector<int> low, idx, s; //idx enthält Index der SCC pro Knoten.
 
 void visit(int v) {
 	int old = low[v] = counter++;
