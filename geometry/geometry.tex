@@ -7,6 +7,14 @@
 	\sourcecode{geometry/closestPair.cpp}
 \end{algorithm}
 
+\begin{algorithm}{Rotating calipers}
+	\begin{methods}
+		\method{antipodalPoints}{berechnet antipodale Punkte}{n}
+	\end{methods}
+	\textbf{WICHTIG:} Punkte müssen gegen den Uhrzeigersinn sortiert sein und konvexes Polygon bilden!
+	\sourcecode{geometry/antipodalPoints.cpp}
+\end{algorithm}
+
 \begin{algorithm}{Konvexehülle}
 	\begin{methods}
 		\method{convexHull}{berechnet Konvexehülle}{n\*\log(n)}
@@ -17,15 +25,6 @@
 		\item erster und letzter Punkt sind identisch
 	\end{itemize}
 	\sourcecode{geometry/convexHull.cpp}
-\end{algorithm}
-
-\columnbreak
-\begin{algorithm}{Rotating calipers}
-	\begin{methods}
-		\method{antipodalPoints}{berechnet antipodale Punkte}{n}
-	\end{methods}
-	\textbf{WICHTIG:} Punkte müssen gegen den Uhrzeigersinn sortiert sein und konvexes Polygon bilden!
-	\sourcecode{geometry/antipodalPoints.cpp}
 \end{algorithm}
 
 \subsection{Formeln~~--~\texttt{std::complex}}
