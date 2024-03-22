@@ -1,5 +1,4 @@
-ll multInv(ll n, ll p) {
-	ll x, y;
-	extendedEuclid(n, p, x, y); // Implementierung von oben.
-	return ((x % p) + p) % p;
+ll multInv(ll x, ll m) {
+	auto [d, a, b] = extendedEuclid(x, m); // Implementierung von oben.
+	return ((a % m) + m) % m;
 }
