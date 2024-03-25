@@ -5,7 +5,7 @@ struct CRT {
 
 	// Adds congruence x = a (mod m)
 	void add(ll a, ll m) {
-        auto [d, s, t] = extendedEuclid(M, m);
+		auto [d, s, t] = extendedEuclid(M, m);
 		if((a - sol) % d != 0) hasSol = false;
 		lll z = M/d * s;
 		M *= m/d;
