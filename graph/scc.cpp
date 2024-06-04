@@ -1,5 +1,5 @@
 vector<vector<int>> adj, sccs;
-int counter, sccCounter;
+int counter;
 vector<bool> inStack;
 vector<int> low, idx, s; //idx enthält Index der SCC pro Knoten.
 
@@ -14,14 +14,11 @@ void visit(int v) {
 
 	if (old == low[v]) {
 		sccs.push_back({});
-		int u;
-		do {
+		for (int u = -1; u != v;) {
 			u = s.back(); s.pop_back(); inStack[u] = false;
-			idx[u] = sccCounter;
-			sccs[sccCounter].push_back(u);
-		} while (u != v);
-		sccCounter++;
-}}
+			idx[u] = sz(sccs) - 1;
+			sccs.back().push_back(u);
+}}}
 
 void scc() {
 	inStack.assign(sz(adj), false);
@@ -29,7 +26,7 @@ void scc() {
 	idx.assign(sz(adj), -1);
 	sccs.clear();
 
-	counter = sccCounter = 0;
+	counter = 0;
 	for (int i = 0; i < sz(adj); i++) {
 		if (low[i] < 0) visit(i);
 }}
