@@ -65,7 +65,7 @@ struct SegTree {
 	ll lower_bound(int l, int r, T x) {
 		l += n, r += n;
 		push(l), push(r - 1);
-		int a[32] = {}, lp = 0, rp = 32;
+		int a[64] = {}, lp = 0, rp = 64;
 		for (; l < r; l /= 2, r /= 2) {
 			if (l&1) a[lp++] = l++;
 			if (r&1) a[--rp] = --r;
