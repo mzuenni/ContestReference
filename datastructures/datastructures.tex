@@ -14,6 +14,15 @@
 	\sourcecode{datastructures/lazyPropagation.cpp}
 \end{algorithm}
 
+\begin{algorithm}{Wavelet Tree}
+	\begin{methods}
+		\method{Constructor}{baut den Baum auf}{n\*\log(n)}
+		\method{kth}{sort $[l, r)[k]$}{\log(n)}
+		\method{countSmaller}{Anzahl elemente in $[l, r)$ kleiner als $k$}{\log(n)}
+	\end{methods}
+	\sourcecode{datastructures/waveletTree.cpp}
+\end{algorithm}
+
 \begin{algorithm}{Fenwick Tree}
 	\begin{methods}
 		\method{init}{baut den Baum auf}{n\*\log(n)}
@@ -29,11 +38,11 @@
 	\end{methods}
 	\sourcecode{datastructures/fenwickTree2.cpp}
 \end{algorithm}
-\clearpage
 
 \begin{algorithm}{STL-Rope (Implicit Cartesian Tree)}
 	\sourcecode{datastructures/stlRope.cpp}
 \end{algorithm}
+\columnbreak
 
 \begin{algorithm}{(Implicit) Treap (Cartesian Tree)}
 	\begin{methods}
@@ -54,15 +63,6 @@
 	\sourcecode{datastructures/sparseTable.cpp}
 \end{algorithm}
 
-\begin{algorithm}{Wavelet Tree}
-	\begin{methods}
-		\method{Constructor}{baut den Baum auf}{n\*\log(n)}
-		\method{kth}{sort $[l, r)[k]$}{\log(n)}
-		\method{countSmaller}{Anzahl elemente in $[l, r)$ kleiner als $k$}{\log(n)}
-	\end{methods}
-	\sourcecode{datastructures/waveletTree.cpp}
-\end{algorithm}
-
 \begin{algorithm}{STL-Bitset}
 	\sourcecode{datastructures/bitset.cpp}
 \end{algorithm}
@@ -81,6 +81,23 @@
 \end{algorithm}
 \clearpage
 
+\begin{algorithm}{Lichao}
+    \sourcecode{datastructures/lichao.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Policy Based Data Structures}
+    \textbf{Wichtig:} Verwende \code{p.swap(p2)} anstatt \code{swap(p, p2)}!
+	\sourcecode{datastructures/stlPriorityQueue.cpp}
+	\columnbreak
+	\sourcecode{datastructures/pbds.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Lower/Upper Envelope (Convex Hull Optimization)}
+	Um aus einem lower envelope einen upper envelope zu machen (oder umgekehrt), einfach beim Einfügen der Geraden $m$ und $b$ negieren.
+	\sourcecode{datastructures/monotonicConvexHull.cpp}
+	\sourcecode{datastructures/dynamicConvexHull.cpp}
+\end{algorithm}
+
 \begin{algorithm}{Union-Find}
 	\begin{methods}
 		\method{init}{legt $n$ einzelne Unions an}{n}
@@ -90,13 +107,7 @@
 	\end{methods}
 	\sourcecode{datastructures/unionFind.cpp}
 \end{algorithm}
-
-\begin{algorithm}{Lower/Upper Envelope (Convex Hull Optimization)}
-	Um aus einem lower envelope einen upper envelope zu machen (oder umgekehrt), einfach beim Einfügen der Geraden $m$ und $b$ negieren.
-	\sourcecode{datastructures/monotonicConvexHull.cpp}
-	\columnbreak
-	\sourcecode{datastructures/dynamicConvexHull.cpp}
-\end{algorithm}
+\columnbreak
 
 \begin{algorithm}{Persistent}
 	\begin{methods}
@@ -107,22 +118,6 @@
 	\sourcecode{datastructures/persistent.cpp}
 	\sourcecode{datastructures/persistentArray.cpp}
 \end{algorithm}
-
-\begin{algorithm}{STL-Tree}
-	\sourcecode{datastructures/stlTree.cpp}
-\end{algorithm}
-
-\begin{algorithm}{STL Priority Queue}
-	Nicht notwendig, wenn Smaller-Larger-Optimization greift.
-	\sourcecode{datastructures/stlPQ.cpp}
-\end{algorithm}
-
-\begin{algorithm}{STL HashMap}
-	3 bis 4 mal langsamer als \code{std::vector} aber 8 bis 9 mal schneller als \code{std::map}
-	\sourcecode{datastructures/stlHashMap.cpp}
-\end{algorithm}
-
-
 
 \begin{algorithm}[optional]{Range Minimum Query}
 	\begin{methods}
@@ -138,4 +133,3 @@
 	\end{methods}
 	\sourcecode{datastructures/firstUnused.cpp}
 \end{algorithm}
-

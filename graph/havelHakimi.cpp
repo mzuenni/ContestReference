@@ -1,6 +1,8 @@
 vector<vector<int>> havelHakimi(const vector<int>& deg) {
 	priority_queue<pair<int, int>> pq;
-	for (int i = 0; i < sz(deg); i++) pq.push({deg[i], i});
+	for (int i = 0; i < sz(deg); i++) {
+		if (deg[i] > 0) pq.push({deg[i], i});
+	}
 	vector<vector<int>> adj;
 	while (!pq.empty()) {
 		auto [degV, v] = pq.top(); pq.pop();

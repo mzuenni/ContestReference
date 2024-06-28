@@ -8,7 +8,6 @@ struct MinCostFlow {
 	vector<vector<int>> adj;
 	vector<int> pref, con;
 	vector<ll> dist;
-
 	const int s, t;
 	ll maxflow, mincost;
 
@@ -27,12 +26,10 @@ struct MinCostFlow {
 		dist.assign(sz(adj), INF);
 		vector<bool> inqueue(sz(adj));
 		queue<int> queue;
-
 		dist[s] = 0;
 		queue.push(s);
 		pref[s] = s;
 		inqueue[s] = true;
-
 		while (!queue.empty()) {
 			int cur = queue.front(); queue.pop();
 			inqueue[cur] = false;

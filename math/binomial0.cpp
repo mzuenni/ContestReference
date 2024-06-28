@@ -10,5 +10,5 @@ void precalc() {
 
 ll calc_binom(ll n, ll k) {
 	if (n < 0 || n < k || k < 0) return 0;
-	return (fac[n] * fac[n-k] % mod) * fac[k] % mod;
+	return (inv[n] * inv[n-k] % mod) * fac[k] % mod;
 }

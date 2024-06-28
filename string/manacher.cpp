@@ -1,27 +1,20 @@
-string a, b; //a needs to be set
-vector<int> longest;
+vector<int> manacher(const string& t) {
+	//transforms "aa" to ".a.a." to find even length palindromes
+	string s(sz(t) * 2 + 1, '.');
+	for (int i = 0; i < sz(t); i++) s[2 * i + 1] = t[i];
 
-//transformes "aa" to ".a.a." to find even length palindromes
-void init() {
-	b = string(sz(a) * 2 + 1, '.');
-	longest.assign(sz(b), 0);
-	for (int i = 0; i < sz(a); i++) {
-		b[2 * i + 1] = a[i];
-}}
-
-void manacher() {
-	int center = 0, last = 0, n = sz(b);
+	int mid = 0, r = 0, n = sz(s);
+	vector<int> pal(n);
 	for (int i = 1; i < n - 1; i++) {
-		int i2 = 2 * center - i;
-		longest[i] = (last > i) ? min(last - i, longest[i2]) : 0;
-		while (i + longest[i] + 1 < n && i - longest[i] - 1 >= 0 &&
-		       b[i + longest[i] + 1] == b[i - longest[i] - 1]) {
-			longest[i]++;
+		if (r > i) pal[i] = min(r - i, pal[2 * mid - i]);
+		while (pal[i] < min(i, n - i - 1) &&
+		       s[i + pal[i] + 1] == s[i - pal[i] - 1]) {
+			pal[i]++;
 		}
-		if (i + longest[i] > last) {
-			center = i;
-			last = i + longest[i];
-	}}
-	//convert lengths to string b (optional)
-	for (int i = 0; i < n; i++) longest[i] = 2 * longest[i] + 1;
+		if (i + pal[i] > r) mid = i, r = i + pal[i];
+	}
+
+	//convert lengths to constructed string s (optional)
+	//for (int i = 0; i < n; i++) pal[i] = 2 * pal[i] + 1;
+	return pal;
 }

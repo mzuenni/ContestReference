@@ -6,8 +6,7 @@ setxkbmap de
 setxkbmap de,us -option grp:alt_space_toggle
 
 // Schnelle Ein-/Ausgabe mit cin/cout.
-ios::sync_with_stdio(false);
-cin.tie(nullptr);
+cin.tie(nullptr)->ios::sync_with_stdio(false);
 
 // Set mit eigener Sortierfunktion.
 set<point2, decltype(comp)> set1(comp);

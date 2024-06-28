@@ -1,19 +1,18 @@
 \section{Mathe}
 
+\begin{algorithm}{Zykel Erkennung}
+	\begin{methods}
+		\method{cycleDetection}{findet Zyklus von $x_0$ und Länge in $f$}{b+l}
+	\end{methods}
+	\sourcecode{math/cycleDetection.cpp}
+\end{algorithm}
+
 \begin{algorithm}{Longest Increasing Subsequence}
 	\begin{itemize}
 		\item \code{lower\_bound} $\Rightarrow$ streng monoton
 		\item \code{upper\_bound} $\Rightarrow$ monoton
 	\end{itemize}
 	\sourcecode{math/longestIncreasingSubsequence.cpp}
-\end{algorithm}
-\columnbreak
-
-\begin{algorithm}{Zykel Erkennung}
-	\begin{methods}
-		\method{cycleDetection}{findet Zyklus von $x_0$ und Länge in $f$}{b+l}
-	\end{methods}
-	\sourcecode{math/cycleDetection.cpp}
 \end{algorithm}
 
 \begin{algorithm}{Permutationen}
@@ -44,21 +43,20 @@
 
 \begin{algorithm}{ggT, kgV, erweiterter euklidischer Algorithmus}
 	\runtime{\log(a) + \log(b)}
-	\sourcecode{math/gcd-lcm.cpp}
 	\sourcecode{math/extendedEuclid.cpp}
 \end{algorithm}
 
-\subsection{Multiplikatives Inverses von $\boldsymbol{n}$ in $\boldsymbol{\mathbb{Z}/p\mathbb{Z}}$}
-\textbf{Falls $\boldsymbol{p}$ prim:}\quad $x^{-1} \equiv x^{p-2} \bmod p$
+\subsection{Multiplikatives Inverses von $\boldsymbol{x}$ in $\boldsymbol{\mathbb{Z}/m\mathbb{Z}}$}
+\textbf{Falls $\boldsymbol{m}$ prim:}\quad $x^{-1} \equiv x^{m-2} \bmod m$
 
-\textbf{Falls $\boldsymbol{\ggT(n, p) = 1}$:}
+\textbf{Falls $\boldsymbol{\ggT(x, m) = 1}$:}
 \begin{itemize}
 	\item Erweiterter euklidischer Algorithmus liefert $\alpha$ und $\beta$ mit
-	$\alpha n + \beta p = 1$.
-	\item Nach Kongruenz gilt $\alpha n + \beta p \equiv \alpha n \equiv 1 \bmod p$.
-	\item $n^{-1} :\equiv \alpha \bmod p$
+	$\alpha x + \beta m = 1$.
+	\item Nach Kongruenz gilt $\alpha x + \beta m \equiv \alpha x \equiv 1 \bmod m$.
+	\item $x^{-1} :\equiv \alpha \bmod m$
 \end{itemize}
-\textbf{Sonst $\boldsymbol{\ggT(n, p) > 1}$:}\quad Es existiert kein $x^{-1}$.
+\textbf{Sonst $\boldsymbol{\ggT(x, m) > 1}$:}\quad Es existiert kein $x^{-1}$.
 % \sourcecode{math/multInv.cpp}
 \sourcecode{math/shortModInv.cpp}
 
@@ -121,19 +119,12 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
 	\sourcecode{math/divisors.cpp}
 \end{algorithm}
 
-\begin{algorithm}{Primitivwurzeln}
-	\begin{itemize}
-		\item Primitivwurzel modulo $n$ existiert $\Leftrightarrow$ $n \in \{2,\ 4,\ p^\alpha,\ 2\cdot p^\alpha \mid\ 2 < p \in \mathbb{P},\ \alpha \in \mathbb{N}\}$
-		\item es existiert entweder keine oder $\varphi(\varphi(n))$ inkongruente Primitivwurzeln
-		\item Sei $g$ Primitivwurzel modulo $n$.
-		Dann gilt:\newline
-		Das kleinste $k$, sodass $g^k \equiv 1 \bmod n$, ist $k = \varphi(n)$.
-	\end{itemize}
-	\begin{methods}
-		\method{isPrimitive}{prüft ob $g$ eine Primitivwurzel ist}{\log(\varphi(n))\*\log(n)}
-		\method{findPrimitive}{findet Primitivwurzel (oder -1)}{\abs{ans}\*\log(\varphi(n))\*\log(n)}
-	\end{methods}
-	\sourcecode{math/primitiveRoot.cpp}
+\begin{algorithm}{Numerisch Extremstelle bestimmen}
+	\sourcecode{math/goldenSectionSearch.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Numerisch Integrieren, Simpsonregel}
+	\sourcecode{math/simpson.cpp}
 \end{algorithm}
 
 \begin{algorithm}{Diskreter Logarithmus}
@@ -149,6 +140,22 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
 	\end{methods}
 	Alle Lösungen haben die Form $g^{c + \frac{i \cdot \phi(n)}{\gcd(a, \phi(n))}}$
 	\sourcecode{math/discreteNthRoot.cpp}
+\end{algorithm}
+
+
+\begin{algorithm}{Primitivwurzeln}
+	\begin{itemize}
+		\item Primitivwurzel modulo $n$ existiert $\Leftrightarrow$ $n \in \{2,\ 4,\ p^\alpha,\ 2\cdot p^\alpha \mid\ 2 < p \in \mathbb{P},\ \alpha \in \mathbb{N}\}$
+		\item es existiert entweder keine oder $\varphi(\varphi(n))$ inkongruente Primitivwurzeln
+		\item Sei $g$ Primitivwurzel modulo $n$.
+		Dann gilt:\newline
+		Das kleinste $k$, sodass $g^k \equiv 1 \bmod n$, ist $k = \varphi(n)$.
+	\end{itemize}
+	\begin{methods}
+		\method{isPrimitive}{prüft ob $g$ eine Primitivwurzel ist}{\log(\varphi(n))\*\log(n)}
+		\method{findPrimitive}{findet Primitivwurzel (oder -1)}{\abs{ans}\*\log(\varphi(n))\*\log(n)}
+	\end{methods}
+	\sourcecode{math/primitiveRoot.cpp}
 \end{algorithm}
 
 \begin{algorithm}{Linearessieb und Multiplikative Funktionen}
@@ -185,7 +192,6 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
 	\end{itemize}
 \end{algorithm}
 
-
 \begin{algorithm}{Primzahlsieb von \textsc{Eratosthenes}}
 	\begin{itemize}
 		\item Bis $10^8$ in unter 64MB Speicher (lange Berechnung)
@@ -216,33 +222,25 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
 	%\sourcecode{math/mobius.cpp}
 \end{algorithm}
 
-%\columnbreak
-%\subsection{\textsc{Euler}sche $\boldsymbol{\varphi}$-Funktion}
-%\begin{itemize}
-%	\item Zählt die relativ primen Zahlen $\leq n$.
-%	
-%	\item Multiplikativ:
-%	$\gcd(a,b) = 1 \Longrightarrow \varphi(a) \cdot \varphi(b) = \varphi(ab)$
-%	
-%	\item $p$ prim, $k \in \mathbb{N}$:
-%	$~\varphi(p^k) = p^k - p^{k - 1}$
-%	
-%	\item \textbf{\textsc{Euler}'s Theorem:}
-%	Für $b \geq \varphi(c)$ gilt: $a^b \equiv a^{b \bmod \varphi(c) + \varphi(c)} \pmod{c}$. Darüber hinaus gilt: $\gcd(a, c) = 1 \Leftrightarrow a^b \equiv a^{b \bmod \varphi(c)} \pmod{c}$.
-%	Falls $m$ prim ist, liefert das den \textbf{kleinen Satz von \textsc{Fermat}}:
-%	$a^{m} \equiv a \pmod{m}$
-%\end{itemize}
-%\sourcecode{math/phi.cpp}
-
-
-\begin{algorithm}{Numerisch Extremstelle bestimmen}
-	\sourcecode{math/goldenSectionSearch.cpp}
-\end{algorithm}
-
-
-\begin{algorithm}{Numerisch Integrieren, Simpsonregel}
-	\sourcecode{math/simpson.cpp}
-\end{algorithm}
+\optional{
+\columnbreak
+\subsection{\textsc{Euler}sche $\boldsymbol{\varphi}$-Funktion}
+\begin{itemize}
+	\item Zählt die relativ primen Zahlen $\leq n$.
+	
+	\item Multiplikativ:
+	$\gcd(a,b) = 1 \Longrightarrow \varphi(a) \cdot \varphi(b) = \varphi(ab)$
+	
+	\item $p$ prim, $k \in \mathbb{N}$:
+	$~\varphi(p^k) = p^k - p^{k - 1}$
+	
+	\item \textbf{\textsc{Euler}'s Theorem:}
+	Für $b \geq \varphi(c)$ gilt: $a^b \equiv a^{b \bmod \varphi(c) + \varphi(c)} \pmod{c}$. Darüber hinaus gilt: $\gcd(a, c) = 1 \Leftrightarrow a^b \equiv a^{b \bmod \varphi(c)} \pmod{c}$.
+	Falls $m$ prim ist, liefert das den \textbf{kleinen Satz von \textsc{Fermat}}:
+	$a^{m} \equiv a \pmod{m}$
+\end{itemize}
+\sourcecode{math/phi.cpp}
+}
 
 \begin{algorithm}{Polynome, FFT, NTT \& andere Transformationen}
 	Multipliziert Polynome $A$ und $B$.
@@ -259,21 +257,53 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
 	%\textcolor{safeOrange}{$\blacksquare$} NTT code, %\textcolor{safeGreen}{$\blacksquare$} FFT code
 	\sourcecode{math/transforms/fft.cpp}
 	\sourcecode{math/transforms/ntt.cpp}
+    \vfill*
+    \columnbreak
 	\sourcecode{math/transforms/bitwiseTransforms.cpp}
 	Multiplikation mit 2 transforms statt 3: (nur benutzten wenn nötig!)
 	\sourcecode{math/transforms/fftMul.cpp}
 \end{algorithm}
 
-\subsection{LGS über $\boldsymbol{\mathbb{R}}$}
-\method{gauss}{löst LGS}{n^3}
-\sourcecode{math/gauss.cpp}
+\begin{algorithm}{Operations on Formal Power Series}
+    \sourcecode{math/transforms/seriesOperations.cpp}
+\end{algorithm}
 
 \subsection{LGS über $\boldsymbol{\mathbb{F}_p}$}
 \method{gauss}{löst LGS}{n^3}
 \sourcecode{math/lgsFp.cpp}
 
-\clearpage
+\subsection{LGS über $\boldsymbol{\mathbb{R}}$}
+\method{gauss}{löst LGS}{n^3}
+\sourcecode{math/gauss.cpp}
 
+\begin{algorithm}{\textsc{Legendre}-Symbol}
+	Sei $p \geq 3$ eine Primzahl, $a \in \mathbb{Z}$:
+	\begin{align*}
+		\legendre{a}{p} &=
+		\begin{cases*}
+		\hphantom{-}0 & falls $p~\vert~a$ \\[-1ex]
+		\hphantom{-}1 & falls $\exists x \in \mathbb{Z}\backslash p\mathbb{Z} : a \equiv x^2 \bmod p$ \\[-1ex]
+		-1 & sonst
+		\end{cases*} \\
+		\legendre{-1}{p} = (-1)^{\frac{p - 1}{2}} &=
+		\begin{cases*}
+		\hphantom{-}1 & falls $p \equiv 1 \bmod 4$ \\[-1ex]
+		-1 & falls $p \equiv 3 \bmod 4$
+		\end{cases*} \\
+		\legendre{2}{p} = (-1)^{\frac{p^2 - 1}{8}} &=
+		\begin{cases*}
+		\hphantom{-}1 & falls $p \equiv \pm 1 \bmod 8$ \\[-1ex]
+		-1 & falls $p \equiv \pm 3 \bmod 8$
+		\end{cases*}
+	\end{align*}
+	\begin{align*}
+		\legendre{p}{q} \cdot \legendre{q}{p} = (-1)^{\frac{p - 1}{2} \cdot \frac{q - 1}{2}} &&
+		\legendre{a}{p} \equiv a^{\frac{p-1}{2}}\bmod p
+	\end{align*}
+	\sourcecode{math/legendre.cpp}
+\end{algorithm}
+
+\optional{
 \subsection{Primzahlzählfunktion $\boldsymbol{\pi}$}
 \begin{methods}
 	\method{init}{berechnet $\pi$ bis $N$}{N\*\log(\log(N))}
@@ -281,6 +311,7 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
 	\method{pi}{zählt Primzahlen  $\leq n$ ($n < N^2$)}{n^{2/3}}
 \end{methods}
 \sourcecode{math/piLehmer.cpp}
+}
 
 \begin{algorithm}{Lineare-Recurenz}
 	\begin{methods}
@@ -331,33 +362,6 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
 	\sourcecode{math/matrixPower.cpp}
 \end{algorithm}
 
-\begin{algorithm}{\textsc{Legendre}-Symbol}
-	Sei $p \geq 3$ eine Primzahl, $a \in \mathbb{Z}$:
-	\begin{align*}
-		\legendre{a}{p} &=
-		\begin{cases*}
-		\hphantom{-}0 & falls $p~\vert~a$ \\[-1ex]
-		\hphantom{-}1 & falls $\exists x \in \mathbb{Z}\backslash p\mathbb{Z} : a \equiv x^2 \bmod p$ \\[-1ex]
-		-1 & sonst
-		\end{cases*} \\
-		\legendre{-1}{p} = (-1)^{\frac{p - 1}{2}} &=
-		\begin{cases*}
-		\hphantom{-}1 & falls $p \equiv 1 \bmod 4$ \\[-1ex]
-		-1 & falls $p \equiv 3 \bmod 4$
-		\end{cases*} \\
-		\legendre{2}{p} = (-1)^{\frac{p^2 - 1}{8}} &=
-		\begin{cases*}
-		\hphantom{-}1 & falls $p \equiv \pm 1 \bmod 8$ \\[-1ex]
-		-1 & falls $p \equiv \pm 3 \bmod 8$
-		\end{cases*}
-	\end{align*}
-	\begin{align*}
-		\legendre{p}{q} \cdot \legendre{q}{p} = (-1)^{\frac{p - 1}{2} \cdot \frac{q - 1}{2}} &&
-		\legendre{a}{p} \equiv a^{\frac{p-1}{2}}\bmod p
-	\end{align*}
-	\sourcecode{math/legendre.cpp}
-\end{algorithm}
-
 \begin{algorithm}{Inversionszahl}
 	\sourcecode{math/inversions.cpp}
 \end{algorithm}
@@ -405,20 +409,20 @@ so gilt
 %\begin{algorithm}{Binomialkoeffizienten}
 \paragraph{Binomialkoeffizienten}
 	Die Anzahl der \mbox{$k$-elementigen} Teilmengen einer \mbox{$n$-elementigen} Menge.
+	
 	\begin{methods}
 		\method{precalc}{berechnet $n!$ und $n!^{-1}$ vor}{\mathit{lim}}
 		\method{calc\_binom}{berechnet Binomialkoeffizient}{1}
 	\end{methods}
 	\sourcecode{math/binomial0.cpp}
 	Falls $n >= p$ for $\mathit{mod}=p^k$ berechne \textit{fac} und \textit{inv} aber teile $p$ aus $i$ und berechne die häufigkeit von $p$ in $n!$ als $\sum\limits_{i=1}\big\lfloor\frac{n}{p^i}\big\rfloor$
-\columnbreak
-	
-	\begin{methods}
+
+    \begin{methods}
 		\method{calc\_binom}{berechnet Binomialkoeffizient $(n \le 61)$}{k}
 	\end{methods}
 	\sourcecode{math/binomial1.cpp}
-	
-	\begin{methods}
+
+    \begin{methods}
 		\method{calc\_binom}{berechnet Binomialkoeffizient modulo Primzahl $p$}{p-n}
 	\end{methods}
 	\sourcecode{math/binomial3.cpp}

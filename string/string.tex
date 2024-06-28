@@ -47,18 +47,21 @@
 	\sourcecode{string/longestCommonSubsequence.cpp}
 \end{algorithm}
 
+\columnbreak
 \begin{algorithm}{\textsc{Aho-Corasick}-Automat}
 	\begin{methods}[ll]
-		sucht patterns im Text & \runtime{\abs{Text}+\sum\abs{pattern}+\abs{matches}}
+		sucht patterns im Text & \runtime{\abs{Text}+\sum\abs{pattern}}
 	\end{methods}
 	\begin{enumerate}
-		\item mit \code{addString(pattern, idx);} Patterns hinzufügen.
+		\item mit \code{addString(pattern, idx)} Patterns hinzufügen.
+        \item rufe \code{buildGraph()} auf
 		\item mit \code{state = go(state, idx)} in nächsten Zustand wechseln.
-		\item mit \code{state = getExit(state)} den exit Kanten folgen bis \code{state == 0}
-		\item dabei mit \code{aho[state].patterns} die Matches zählen
+        \item erhöhe dabei \code{dp[state]++}
+        \item rufe \code{dfs()} auf. In dp[pattern state] stehen die Anzahl der Matches
 	\end{enumerate}
 	\sourcecode{string/ahoCorasick.cpp}
 \end{algorithm}
+\clearpage
 
 \begin{algorithm}{Lyndon und De-Bruijn}
 	\begin{itemize}
