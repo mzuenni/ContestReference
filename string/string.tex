@@ -35,7 +35,7 @@
 \begin{algorithm}{\textsc{Manacher}'s Algorithm, Longest Palindrome}
 	\begin{methods}
 		\method{init}{transformiert \code{string a}}{n}
-		\method{manacher}{berechnet Länge der Palindrome}{n}
+		\method{manacher}{berechnet Längen der Palindrome in longest}{n}
 	\end{methods}
 	\sourcecode{string/manacher.cpp}
 \end{algorithm}
@@ -90,7 +90,7 @@
 \begin{algorithm}{Suffix-Array}
 \begin{methods}
 	\method{SuffixArray}{berechnet ein Suffix Array}{\abs{s}\*\log^2(\abs{s})}
-	\method{lcp}{berechnet den longest common prefix}{\log(\abs{s})}
+	\method{lcp}{berechnet Länge des longest common prefix}{\log(\abs{s})}
 	\method{}{von \code{s[x]} und \code{s[y]}}{}
 \end{methods}
 \sourcecode{string/suffixArray.cpp}

@@ -9,7 +9,7 @@
 \end{algorithm}
 
 \begin{algorithm}{Timed}
-	Kann benutzt werdem un randomisierte Algorithmen so lange wie möglich laufen zu lassen.
+	Kann benutzt werden um randomisierte Algorithmen so lange wie möglich laufen zu lassen.
 	\sourcecode{other/timed.cpp}
 \end{algorithm}
 
@@ -23,7 +23,7 @@
 		Bit an Position j flippen & \code{x ^= (1 << j)} \\
 		Anzahl an führenden nullen	($x \neq 0$) & \code{__builtin_clzll(x)} \\
 		Anzahl an schließenden nullen ($x \neq 0$) & \code{__builtin_ctzll(x)} \\
-		Anzahl an bits & \code{__builtin_popcountll(x)} \\
+		Anzahl an \code{1} bits & \code{__builtin_popcountll(x)} \\
 		$i$-te Zahl eines Graycodes & \code{i ^ (i >> 1)} \\
 		\hline
 	\end{tabularx}\\
@@ -259,7 +259,7 @@
 \subsection{Tipps \& Tricks}
 
 \begin{itemize}
-	\item Run Time Error:
+	\item \textbf{Run Time Error:}
 	\begin{itemize}
 		\item Stack Overflow? Evtl. rekursive Tiefensuche auf langem Pfad?
 		\item Array-Grenzen überprüfen. Indizierung bei $0$ oder bei $1$ beginnen?
@@ -267,13 +267,19 @@
 		\item Evtl. Memory Limit Exceeded? Mit \code{/usr/bin/time -v} erhält man den maximalen Speicherverbrauch bei der Ausführung (Maximum resident set size).
 	\end{itemize}
 	
-	\item Strings:
+	\item \textbf{Strings:}
 	\begin{itemize}
 		\item Soll \codeSafe{"aa"} kleiner als \codeSafe{"z"} sein oder nicht?
 		\item bit \code{0x20} beeinflusst Groß-/Kleinschreibung.
 	\end{itemize}
+
+	\item \textbf{Zeilenbasierte Eingabe}:
+	\begin{itemize}
+		\item \code{getline(cin, str)} liest Zeile ein.
+		\item Wenn vorher \code{cin >> ...} benutzt, lese letztes \code{\\n} mit \code{getline(cin, x)}.
+	\end{itemize}
 	
-	\item Gleitkommazahlen:
+	\item \textbf{Gleitkommazahlen:}
 	\begin{itemize}
 		\item \code{NaN}? Evtl. ungültige Werte für mathematische Funktionen, z.B. \mbox{\code{acos(1.00000000000001)}}?
 		\item Falsches Runden bei negativen Zahlen? Abschneiden $\neq$ Abrunden!
@@ -281,7 +287,7 @@
 		\item Kann \code{-0.000} ausgegeben werden?
 	\end{itemize}
 
-	\item Wrong Answer:
+	\item \textbf{Wrong Answer:}
 	\begin{itemize}
 		\item Lies Aufgabe erneut. Sorgfältig!
 		\item Mehrere Testfälle in einer Datei? Probiere gleichen Testcase mehrfach hintereinander.

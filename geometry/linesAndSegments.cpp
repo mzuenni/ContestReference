@@ -31,12 +31,12 @@ vector<pt> lineSegmentIntersection(pt p0, pt p1, pt p2, pt p3) {
 	return result;
 }
 
-// Entfernung von Punkt p zur Gearden durch a-b. 2d und 3d
+// Entfernung von Punkt p zur Geraden durch a-b. 2d und 3d
 double distToLine(pt a, pt b, pt p) {
 	return abs(cross(p - a, b - a)) / abs(b - a);
 }
 
-// Projektiert p auf die Gerade a-b
+// Projiziert p auf die Gerade a-b
 pt projectToLine(pt a, pt b, pt p) {
 	return a + (b - a) * dot(p - a, b - a) / norm(b - a);
 }

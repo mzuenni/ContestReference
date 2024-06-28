@@ -34,7 +34,7 @@ bool isCoplanar(pt a, pt b, pt c, pt d) {
 	return abs((b - a) * (c - a) * (d - a)) < EPS;
 }
 
-// identifiziert winkel zwischen Vektoren u und v
+// charakterisiert winkel zwischen Vektoren u und v
 pt uniqueAngle(pt u, pt v) {
 	pt tmp = v * conj(u);
 	ll g = abs(gcd(real(tmp), imag(tmp)));

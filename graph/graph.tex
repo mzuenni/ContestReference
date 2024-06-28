@@ -88,7 +88,7 @@
 Sei $d_{i\smash{j}}$ die Distanzmatrix von $G$, dann gibt $d_{i\smash{j}}^k$ die kürzeste Distanz von $i$ nach $j$ mit maximal $k$ kanten an mit der Verknüpfung: $c_{i\smash{j}} = a_{i\smash{j}} \otimes b_{i\smash{j}} = \min\{a_{ik} \cdot b_{k\smash{j}}\}$
 
 
-Sei $a_{ij}$ die Adjazenzmatrix von $G$ \textcolor{gray}{(mit $a_{ii} = 1$)}, dann gibt $a_{i\smash{j}}^k$ die Anzahl der Wege von $i$ nach $j$ mit Länge genau \textcolor{gray}{(maximal)} $k$ an mit der Verknüpfung: $c_{i\smash{j}} = a_{i\smash{j}} \otimes b_{i\smash{j}} = \sum a_{ik} + b_{k\smash{j}}$
+Sei $a_{ij}$ die Adjazenzmatrix von $G$ \textcolor{gray}{(mit $a_{ii} = 1$)}, dann gibt $a_{i\smash{j}}^k$ die Anzahl der Wege von $i$ nach $j$ mit Länge genau \textcolor{gray}{(maximal)} $k$ an mit der Verknüpfung: $c_{i\smash{j}} = a_{i\smash{j}} \otimes b_{i\smash{j}} = \sum a_{ik} \cdot b_{k\smash{j}}$
 
 \begin{algorithm}{Dynamic Connectivity}
 	\begin{methods}
@@ -175,7 +175,7 @@ Sei $a_{ij}$ die Adjazenzmatrix von $G$ \textcolor{gray}{(mit $a_{ii} = 1$)}, da
 		\method{kuhn}{berechnet Matching}{\abs{V}\*\min(ans^2, \abs{E})}
 	\end{methods}
 	\begin{itemize}
-		\item die ersten [0..n) Knoten in \code{adj} sind die linke Seite des Graphen
+		\item die ersten [0..l) Knoten in \code{adj} sind die linke Seite des Graphen
 	\end{itemize}
 	\sourcecode{graph/maxCarBiMatch.cpp}
 	\begin{methods}
