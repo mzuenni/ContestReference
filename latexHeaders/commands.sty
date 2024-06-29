@@ -30,12 +30,17 @@
 %\ifthenelse{\equal{#3}{}}{}{\runtime{#3}}
 
 \newcommand{\sourcecode}[1]{%
+	\label{code:#1}%
 	\nobreak%
 %	\needspace{3\baselineskip}%
 %	\nopagebreak%
 	\lstinputlisting{#1}%
 	\penalty -1000%
 }
+\newcommand{\sourceref}[1]{{%
+	\color{comment}\bfseries\itshape{}Seite \pageref{code:#1}%
+}}
+
 \newcommand{\method}[4][]{\texttt{#2}~~#3~~\runtime{#4}#1\par}
 
 \newenvironment{methods}[1][lll]{%

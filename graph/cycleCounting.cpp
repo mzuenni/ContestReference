@@ -39,7 +39,7 @@ struct cylces {
 	//cycle must be constrcuted from base
 	bool isCycle(cycle cur) {
 		if (cur.none()) return false;
-		init(sz(adj)); // union find
+		init(sz(adj)); // union find @\sourceref{datastructures/unionFind.cpp}@
 		for (int i = 0; i < sz(edges); i++) {
 			if (cur[i]) {
 				cur[i] = false;

@@ -23,4 +23,4 @@ void gauss(int n, ll mod) {
 		takeAll(n, i, mod);
 		done[i] = true;
 }}
-// für Eindeutigkeit, Existenz etc. siehe LGS
+// für Eindeutigkeit, Existenz etc. siehe LGS über R

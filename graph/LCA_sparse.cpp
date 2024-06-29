@@ -2,7 +2,7 @@ struct LCA {
 	vector<ll> depth;
 	vector<int> visited, first;
 	int idx;
-	SparseTable st; //sparse table von oben
+	SparseTable st; //sparse table @\sourceref{datastructures/sparseTable.cpp}@
 
 	void init(vector<vector<int>>& adj, int root) {
 		depth.assign(2 * sz(adj), 0);
