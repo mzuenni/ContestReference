@@ -1,11 +1,23 @@
 name: Test
 on: [push, pull_request]
 jobs:
-  posix:
+  code:
     strategy:
       matrix:
         os: [ubuntu-latest, ubuntu-22.04]
     runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - run: ./test/test.sh
+
+  pdf:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, ubuntu-22.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get install texlive-latex-base texlive-latex-recommended texlive-latex-extra
+      - run: make
