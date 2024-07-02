@@ -1,1 +1,1 @@
-#include "../../content/template/template.cpp"
+#include "template/template.cpp"
