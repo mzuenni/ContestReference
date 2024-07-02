@@ -220,3 +220,8 @@ TSWLatexianTemp*
 *-tags.tex
 
 *~
+
+# ignore build dir
+build/*
+# dont ignore build tcr
+!tcr.pdf
