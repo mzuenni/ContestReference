@@ -1,0 +1,11 @@
+name: Test
+on: [push, pull_request]
+jobs:
+  posix:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, ubuntu-22.04]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./test/test.sh
