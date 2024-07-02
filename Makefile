@@ -1,5 +1,4 @@
 all:
-	latexmk -pdf tcr
+	cd content; latexmk -pdf tcr -output-directory=.. -aux-directory=../build/
 clean:
-	latexmk -c tcr
-	rm -f *.thm
+	rm -r build/*
