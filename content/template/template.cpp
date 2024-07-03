@@ -2,8 +2,6 @@
 using namespace std;
 
 #define tsolve int t; cin >> t; while(t--) solve
-#define debug(x) cerr << __LINE__ << ": "#x" = " << (x) << endl
-#define nl '\n'
 #define all(x) ::begin(x), ::end(x)
 #define sz(x) (ll)::size(x)
 
