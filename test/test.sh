@@ -4,7 +4,7 @@ cd "$(dirname "$0")"
 ulimit unlimited
 export MALLOC_PERTURB_="$((2#01011001))"
 
-find . -type f -name '*.cpp' -print0 | while read -d $'\0' file
+find . -type f -name '*.cpp' -print0 | sort -z | while read -d $'\0' file
 do
 	echo "${file}:"
     echo "compiling..."
