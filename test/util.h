@@ -5,7 +5,9 @@ using namespace std;
 #define sz(x) (ll)::size(x)
 
 using ll = long long;
+using lll = __int128;
 using ld = long double;
+using pt = complex<ll>;
 
 namespace Random {
 	mt19937_64 rng(3141592653589793238);

@@ -49,7 +49,7 @@ void performance_test() {
 		hash ^= prefix_sum(j);
 		t.stop();
 	}
-	if (t.time > 500) cerr << "too slow" << FAIL;
+	if (t.time > 500) cerr << "too slow: " << t.time << FAIL;
 	cerr << "tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;
 }
 
