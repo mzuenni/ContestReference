@@ -46,9 +46,7 @@ void performance_test1() {
 	ll hash = 0;
 	for (int operations = 0; operations < n; operations++) {
 		int i = Random::integer<int>(0, n);
-		int l = Random::integer<int>(0, n + 1);
-		int r = Random::integer<int>(0, n + 1);
-		if (l > r) swap(l, r);
+		auto [l, r] = Random::pair<int>(0, n + 1);
 		ll x = Random::integer<ll>(-1000, 1000);
 		
 		t.start();
@@ -103,9 +101,7 @@ void performance_test2() {
 	ll hash = 0;
 	for (int operations = 0; operations < n; operations++) {
 		int i = Random::integer<int>(0, n);
-		int l = Random::integer<int>(0, n + 1);
-		int r = Random::integer<int>(0, n + 1);
-		if (l > r) swap(l, r);
+		auto [l, r] = Random::pair<int>(0, n + 1);
 		ll x = Random::integer<ll>(-1000, 1000);
 		
 		t.start();

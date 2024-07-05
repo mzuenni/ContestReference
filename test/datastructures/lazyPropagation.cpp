@@ -43,16 +43,12 @@ void performance_test() {
 	t.stop();
 	ll hash = 0;
 	for (int operations = 0; operations < n; operations++) {
-		int l1 = Random::integer<int>(0, n + 1);
-		int r1 = Random::integer<int>(0, n + 1);
-		int l2 = Random::integer<int>(0, n + 1);
-		int r2 = Random::integer<int>(0, n + 1);
-		if (l1 > r1) swap(l1, r1);
-		if (l2 > r2) swap(l2, r2);
-		ll x = Random::integer<ll>(-1000, 1000);
+		auto [l1, r1] = Random::pair<int>(0, n + 1);
+		auto [l2, r2] = Random::pair<int>(0, n + 1);
+		ll x1 = Random::integer<ll>(-1000, 1000);
 		
 		t.start();
-		tree.update(l1, r1, x);
+		tree.update(l1, r1, x1);
 		hash ^= tree.query(l2, r2);
 		t.stop();
 	}

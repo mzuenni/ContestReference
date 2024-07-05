@@ -24,6 +24,19 @@ namespace Random {
 	T integer(T r) {
 		return integer(0, r);
 	}
+
+	template<typename T = ll>
+	std::pair<T, T> pair(T l, T r) {
+		T a = integer(l, r);
+		T b = integer(l, r);
+		if (a > b) swap(a, b);
+		return {a, b};
+	}
+
+	template<typename T = ll>
+	std::pair<T, T> pair(T r) {
+		return pair(0, r);
+	}
 }
 
 [[noreturn]] ostream& FAIL(ostream& os) {
