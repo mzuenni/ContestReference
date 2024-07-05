@@ -6,7 +6,7 @@ struct SuffixTree {
 	string s;
 	int needsSuffix, pos, remainder, curVert, curEdge, curLen;
 	// Each Vertex gives its children range as [start, end)
-	vector<Vert> tree = {Vert{-1, -1, 0 {}}};
+	vector<Vert> tree = {Vert{-1, -1, 0, {}}};
 
 	SuffixTree(const string& s) : s(s) {
 		needsSuffix = remainder = curVert = curEdge = curLen = 0;
@@ -25,7 +25,7 @@ struct SuffixTree {
 	}
 
 	bool fullImplicitEdge(int vert) {
-		len = min(tree[vert].end, pos + 1) - tree[vert].start;
+		int len = min(tree[vert].end, pos + 1) - tree[vert].start;
 		if (curLen >= len) {
 			curEdge += len;
 			curLen -= len;
