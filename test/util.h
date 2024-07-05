@@ -9,6 +9,10 @@ using lll = __int128;
 using ld = long double;
 using pt = complex<ll>;
 
+namespace INT {constexpr int INF = 0x3FFF'FFFF;}
+namespace LL {constexpr ll INF = 0x3FFF'FFFF'FFFF'FFFF;}
+namespace LD {constexpr ld INF = numeric_limits<ld>::infinity();}
+
 namespace Random {
 	mt19937_64 rng(3141592653589793238);
 	template<typename T = ll>
@@ -29,7 +33,7 @@ namespace Random {
 
 struct timer {
 	bool running = false;
-	double time;
+	double time = 0;
 	chrono::steady_clock::time_point begin;
 
 	void start() {

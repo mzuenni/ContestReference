@@ -2,7 +2,7 @@ struct SegTree {
 	using T = ll; using U = ll;
 	int n, h;
 	static constexpr T E = 0; // Neutral element for combine
-	static constexpr U UF = 0; // Unused value by updates
+	static constexpr U UF = inf; // Unused value by updates
 	vector<T> tree; vector<U> lazy;
 	vector<ll> k; // size of segments (optional)
 

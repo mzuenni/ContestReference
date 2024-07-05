@@ -7,7 +7,6 @@
 
 void stress_test() {
 	ll queries = 0;
-	ll hash = 0;
 	for (int tries = 0; tries < 100; tries++) {
 		int n = Random::integer<int>(10, 100);
 		init(n);
