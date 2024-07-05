@@ -21,7 +21,7 @@ struct WaveletTree {
 
 	// kth element in sort[l, r) all 0-indexed
 	ll kth(int l, int r, int k) {
-		if (l >= r || k >= r - l) return -1;
+		if (k < 0 || l + k >= r) return -1;
 		if (lo + 1 >= hi) return lo;
 		int inLeft = b[r] - b[l];
 		if (k < inLeft) return ln->kth(b[l], b[r], k);
