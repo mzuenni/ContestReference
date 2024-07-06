@@ -119,7 +119,23 @@
 		\node[anchor=base west, fill=orange!30,outer sep=0pt,inner xsep=2.2pt, inner ysep=0pt, rounded corners=3pt, minimum height=\ht\strutbox+1pt,#1]{\raisebox{1pt}{\strut}\strut\usebox{#2}};
 	}%
 }
-\makeatother
 
 \newcommand{\hl}[1]{\btHL[fill=safeOrange,draw=black,thin]{#1}}
+
+\ifthenelse{\isundefined{\gitorigin}}{}{	
+	\usepackage{ocgx2}
+	\usepackage{fontawesome}
+	\lst@AddToHook{Init}{%
+		\ifthenelse{\equal{\lst@name}{}}{}{%
+			\begin{minipage}[t][0pt]{\linewidth}%
+				\vspace{0pt}%
+				\hfill%
+				\begin{ocg}[printocg=never]{Source links}{srclinks}{1}%
+					\hfill\href{\gitorigin\lst@name}{\faExternalLink}%
+				\end{ocg}%
+			\end{minipage}%
+		}%
+	}
+}
+\makeatother
 
