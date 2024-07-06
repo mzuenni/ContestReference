@@ -10,11 +10,11 @@ using ld = long double;
 using pt = complex<ll>;
 
 namespace INT {constexpr int INF = 0x3FFF'FFFF;}
-namespace LL {constexpr ll INF = 0x3FFF'FFFF'FFFF'FFFF;}
+namespace LL {constexpr ll INF = 0x3FFF'FFFF'FFFF'FFFFll;}
 namespace LD {constexpr ld INF = numeric_limits<ld>::infinity();}
 
 namespace Random {
-	mt19937_64 rng(3141592653589793238);
+	mt19937_64 rng(3141592653589793238ll);
 	template<typename T = ll>
 	T integer(T l, T r) {
 		return uniform_int_distribution<T>(l, r-1)(rng);
