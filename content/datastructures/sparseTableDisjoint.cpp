@@ -1,5 +1,5 @@
 struct DisjointST {
-	static constexpr ll neutral = 0
+	static constexpr ll neutral = 0;
 	vector<vector<ll>> dst;
 	ll* a;
 

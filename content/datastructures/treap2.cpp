@@ -3,7 +3,7 @@ struct Treap {
 	struct Node {
 		ll val;
 		int prio, size = 1, l = -1, r = -1;
-		Node (ll x) : val(x), prio(rng()) {}
+		Node(ll x) : val(x), prio(rng()) {}
 	};
 
 	vector<Node> treap;
@@ -15,35 +15,35 @@ struct Treap {
 
 	void upd(int v) {
 		if (v < 0) return;
-		auto *V = &treap[v];
-		V->size = 1 + getSize(V->l) + getSize(V->r);
+		auto& V = treap[v];
+		V.size = 1 + getSize(V.l) + getSize(V.r);
 		// Update Node Code
 	}
 
 	void push(int v) {
 		if (v < 0) return;
-		//auto *V = &treap[v];
-		//if (V->lazy) {
+		//auto& V = treap[v];
+		//if (V.lazy) {
 		//	Lazy Propagation Code
-		//	if (V->l >= 0) treap[V->l].lazy = true;
-		//	if (V->r >= 0) treap[V->r].lazy = true;
-		//	V->lazy = false;
+		//	if (V.l >= 0) treap[V.l].lazy = true;
+		//	if (V.r >= 0) treap[V.r].lazy = true;
+		//	V.lazy = false;
 		//}
 	}
 
 	pair<int, int> split(int v, int k) {
 		if (v < 0) return {-1, -1};
-		auto *V = &treap[v];
+		auto& V = treap[v];
 		push(v);
-		if (getSize(V->l) >= k) { // "V->val >= k" for lower_bound(k)
-			auto [left, right] = split(V->l, k);
-			V->l = right;
+		if (getSize(V.l) >= k) { // "V.val >= k" for lower_bound(k)
+			auto [left, right] = split(V.l, k);
+			V.l = right;
 			upd(v);
 			return {left, v};
 		} else {
 			// and only "k"
-			auto [left, right] = split(V->r, k - getSize(V->l) - 1);
-			V->r = left;
+			auto [left, right] = split(V.r, k - getSize(V.l) - 1);
+			V.r = left;
 			upd(v);
 			return {v, right};
 	}}

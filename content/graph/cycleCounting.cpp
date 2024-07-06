@@ -1,12 +1,12 @@
 constexpr int maxEdges = 128;
 using cycle = bitset<maxEdges>;
-struct cylces {
+struct cycles {
 	vector<vector<pair<int, int>>> adj;
 	vector<bool> seen;
 	vector<cycle> paths, base;
 	vector<pair<int, int>> edges;
 
-	cylces(int n) : adj(n), seen(n), paths(n) {}
+	cycles(int n) : adj(n), seen(n), paths(n) {}
 
 	void addEdge(int u, int v) {
 		adj[u].push_back({v, sz(edges)});

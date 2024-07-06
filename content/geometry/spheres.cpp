@@ -1,4 +1,4 @@
-// Great Cirlce Distance mit Längen- und Breitengrad.
+// Great Circle Distance mit Längen- und Breitengrad.
 double gcDist(double pLat, double pLon,
 							double qLat, double qLon, double radius) {
 	pLat *= PI / 180; pLon *= PI / 180;
@@ -10,7 +10,7 @@ double gcDist(double pLat, double pLon,
 	                     sin(pLat) * sin(qLat));
 }
 
-// Great Cirlce Distance mit kartesischen Koordinaten.
+// Great Circle Distance mit kartesischen Koordinaten.
 double gcDist(point p, point q) {
 	return acos(p.x * q.x + p.y * q.y + p.z * q.z);
 }

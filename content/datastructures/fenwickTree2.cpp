@@ -1,9 +1,9 @@
 vector<ll> add, mul;
 
 void update(int l, int r, ll val) {
-	for (int tl = l + 1; tl < sz(add); tl += tl&(-tl))
+	for (int tl = l + 1; tl < sz(add); tl += tl & -tl)
 		add[tl] += val, mul[tl] -= val * l;
-	for (int tr = r + 1; tr < sz(add); tr += tr&(-tr))
+	for (int tr = r + 1; tr < sz(add); tr += tr & -tr)
 		add[tr] -= val, mul[tr] += val * r;
 }
 
@@ -15,7 +15,7 @@ void init(vector<ll>& v) {
 
 ll prefix_sum (int i) {
 	ll res = 0; i++;
-	for (int ti = i; ti > 0; ti -= ti&(-ti))
+	for (int ti = i; ti > 0; ti -= ti & -ti)
 		res += add[ti] * i + mul[ti];
 	return res;
 }

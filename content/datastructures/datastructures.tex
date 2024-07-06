@@ -3,22 +3,22 @@
 \begin{algorithm}{Segmentbaum}
 	\begin{methods}
 		\method{SegTree}{baut den Baum auf}{n}
-		\method{query}{findet Summe über [l, r)}{\log(n)}
+		\method{query}{findet Summe über $[l, r)$}{\log(n)}
 		\method{update}{ändert einen Wert}{\log(n)}
 	\end{methods}
 	\sourcecode{datastructures/segmentTree.cpp}
 	
 	\subsubsection{Lazy Propagation}
 	Assignment modifications, sum queries \\
-	\method{lower\_bound}{erster Index in [l, r) $\geq$ x (erfordert max-combine)}{\log(n)}
+	\method{lower\_bound}{erster Index in $[l, r)$ $\geq$ x (erfordert max-combine)}{\log(n)}
 	\sourcecode{datastructures/lazyPropagation.cpp}
 \end{algorithm}
 
 \begin{algorithm}{Wavelet Tree}
 	\begin{methods}
-		\method{Constructor}{baut den Baum auf}{n\*\log(n)}
-		\method{kth}{sort $[l, r)[k]$}{\log(n)}
-		\method{countSmaller}{Anzahl elemente in $[l, r)$ kleiner als $k$}{\log(n)}
+		\method{WaveletTree}{baut den Baum auf}{n\*\log(\Sigma)}
+		\method{kth}{sort $[l, r)[k]$}{\log(\Sigma)}
+		\method{countSmaller}{Anzahl elemente in $[l, r)$ kleiner als $k$}{\log(\Sigma)}
 	\end{methods}
 	\sourcecode{datastructures/waveletTree.cpp}
 \end{algorithm}
@@ -27,15 +27,15 @@
 \begin{algorithm}{Fenwick Tree}
 	\begin{methods}
 		\method{init}{baut den Baum auf}{n\*\log(n)}
-		\method{prefix\_sum}{summe von [0, i]}{\log(n)}
+		\method{prefix\_sum}{summe von $[0, i]$}{\log(n)}
 		\method{update}{addiert ein Delta zu einem Element}{\log(n)}
 	\end{methods}
 	\sourcecode{datastructures/fenwickTree.cpp}
 	
 	\begin{methods}
 		\method{init}{baut den Baum auf}{n\*\log(n)}
-		\method{prefix\_sum}{summe von [0, i]}{\log(n)}
-		\method{update}{addiert ein Delta zu allen Elementen [l, r)}{\log(n)}
+		\method{prefix\_sum}{summe von [$0, i]$}{\log(n)}
+		\method{update}{addiert ein Delta zu allen Elementen $[l, r)$}{\log(n)}
 	\end{methods}
 	\sourcecode{datastructures/fenwickTree2.cpp}
 \end{algorithm}
@@ -47,7 +47,7 @@
 
 \begin{algorithm}{(Implicit) Treap (Cartesian Tree)}
 	\begin{methods}
-		\method{insert}{fügt wert $\mathit{val}$ an stelle $i$ ein (verschiebt alle Positionen >= $i$)}{\log(n)}
+		\method{insert}{fügt wert $\mathit{val}$ an stelle $i$ ein (verschiebt alle Positionen $\geq i$)}{\log(n)}
 		\method{remove}{löscht werte $[i,i+\mathit{count})$}{\log(n)}
 	\end{methods}
 	\sourcecode{datastructures/treap2.cpp}
@@ -56,7 +56,7 @@
 \begin{algorithm}{Range Minimum Query}
 	\begin{methods}
 		\method{init}{baut Struktur auf}{n\*\log(n)}
-		\method{queryIdempotent}{Index des Minimums in [l, r)}{1}
+		\method{queryIdempotent}{Index des Minimums in $[l, r)$}{1}
 	\end{methods}
 	\begin{itemize}
 		\item \code{better}-Funktion muss idempotent sein!
@@ -70,7 +70,7 @@
 
 \begin{algorithm}{Link-Cut-Tree}
 	\begin{methods}
-		\method{Constructor}{baut Wald auf}{n}
+		\method{LCT}{baut Wald auf}{n}
 		\method{connected}{prüft ob zwei Knoten im selben Baum liegen}{\log(n)}
 		\method{link}{fügt $\{x,y\}$ Kante ein}{\log(n)}
 		\method{cut}{entfernt $\{x,y\}$ Kante}{\log(n)}

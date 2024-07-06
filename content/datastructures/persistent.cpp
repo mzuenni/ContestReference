@@ -7,7 +7,7 @@ struct persistent {
 		: time(time), data(1, {time, value}) {}
 	
 	T get(int t) {
-		return prev(upper_bound(all(data), {t+1, {}}))->second;
+		return prev(upper_bound(all(data), pair{t+1, T{}}))->second;
 	}
 	
 	int set(T value) {

@@ -158,21 +158,21 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
 	\sourcecode{math/primitiveRoot.cpp}
 \end{algorithm}
 
-\begin{algorithm}{Linearessieb und Multiplikative Funktionen}
+\begin{algorithm}{Lineares Sieb und Multiplikative Funktionen}
 	Eine (zahlentheoretische) Funktion $f$ heißt multiplikativ wenn $f(1)=1$ und $f(a\cdot b)=f(a)\cdot f(b)$, falls $\ggT(a,b)=1$.
 	
 	$\Rightarrow$ Es ist ausreichend $f(p^k)$ für alle primen $p$ und alle $k$ zu kennen.
 	
 	\begin{methods}
 		\method{sieve}{berechnet Primzahlen und co.}{N}
-		\method{sieved}{Wert der endsprechenden Multiplikativen Funktion}{1}
+		\method{sieved}{Wert der entsprechenden multiplikativen Funktion}{1}
 		
-		\method{naive}{Wert der endsprechenden Multiplikativen Funktion}{\sqrt{n}}
+		\method{naive}{Wert der entsprechenden multiplikativen Funktion}{\sqrt{n}}
 	\end{methods}
 	\textbf{Wichtig:} Sieb rechts ist schneller für \code{isPrime} oder \code{primes}!
 	
 	\sourcecode{math/linearSieve.cpp}
-	\textbf{\textsc{Möbius}-Funtkion:}
+	\textbf{\textsc{Möbius}-Funktion:}
 	\begin{itemize}
 		\item $\mu(n)=+1$, falls $n$ quadratfrei ist und gerade viele Primteiler hat
 		\item $\mu(n)=-1$, falls $n$ quadratfrei ist und ungerade viele Primteiler hat
