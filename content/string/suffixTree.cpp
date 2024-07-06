@@ -1,6 +1,6 @@
 struct SuffixTree {
 	struct Vert {
-		int start, end, suf;
+		int start, end, suf; //s[start...end) along parent edge
 		map<char, int> next;
 	};
 	string s;
