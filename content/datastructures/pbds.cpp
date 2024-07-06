@@ -8,7 +8,7 @@ using Tree = tree<T, null_type, less<T>, rb_tree_tag,
 
 template<typename T>
 struct chash {
-	const uint64_t C = ll(2e18 * acos(-1)) | 199; // random odd
+	static const uint64_t C = ll(2e18 * acos(-1)) | 199; // random odd
 	size_t operator()(T o) const {
 		return __builtin_bswap64(hash<T>()(o) * C);
 }};
