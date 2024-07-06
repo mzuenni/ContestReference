@@ -1,4 +1,4 @@
-ll dlog(ll a, ll b, ll m) {
+ll dlog(ll a, ll b, ll m) { //a > 0!
 	ll bound = sqrtl(m) + 1; //memory usage bound
 	map<ll, ll> vals;
 	for (ll i = 0, e = 1; i < bound; i++, e = (e * a) % m) {
