@@ -1,7 +1,7 @@
 #include "../util.h"
 #include <datastructures/segmentTree.cpp>
 
-constexpr int n = 1'000'000;
+constexpr int N = 1'000'000;
 
 //void update(int i, ll val)
 //ll query(int l, int r)
@@ -40,13 +40,13 @@ void stress_test1() {
 void performance_test1() {
 	timer t;
 	t.start();
-	vector<ll> tmp(n);
+	vector<ll> tmp(N);
 	SegTree tree(tmp);
 	t.stop();
 	ll hash = 0;
-	for (int operations = 0; operations < n; operations++) {
-		int i = Random::integer<int>(0, n);
-		auto [l, r] = Random::pair<int>(0, n + 1);
+	for (int operations = 0; operations < N; operations++) {
+		int i = Random::integer<int>(0, N);
+		auto [l, r] = Random::pair<int>(0, N + 1);
 		ll x = Random::integer<ll>(-1000, 1000);
 		
 		t.start();
@@ -95,13 +95,13 @@ void stress_test2() {
 void performance_test2() {
 	timer t;
 	t.start();
-	vector<ll> tmp(n);
+	vector<ll> tmp(N);
 	SegTree tree(tmp);
 	t.stop();
 	ll hash = 0;
-	for (int operations = 0; operations < n; operations++) {
-		int i = Random::integer<int>(0, n);
-		auto [l, r] = Random::pair<int>(0, n + 1);
+	for (int operations = 0; operations < N; operations++) {
+		int i = Random::integer<int>(0, N);
+		auto [l, r] = Random::pair<int>(0, N + 1);
 		ll x = Random::integer<ll>(-1000, 1000);
 		
 		t.start();

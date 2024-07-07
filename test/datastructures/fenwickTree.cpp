@@ -31,16 +31,16 @@ void stress_test() {
 	cerr << "tested random queries: " << queries << endl;
 }
 
-constexpr int n = 1'000'000;
+constexpr int N = 1'000'000;
 void performance_test() {
 	timer t;
 	t.start();
-	init(n);
+	init(N);
 	t.stop();
 	ll hash = 0;
-	for (int operations = 0; operations < n; operations++) {
-		int i = Random::integer<int>(0, n);
-		int j = Random::integer<int>(0, n);
+	for (int operations = 0; operations < N; operations++) {
+		int i = Random::integer<int>(0, N);
+		int j = Random::integer<int>(0, N);
 		ll x = Random::integer<ll>(-1000, 1000);
 		
 		t.start();

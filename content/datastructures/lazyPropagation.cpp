@@ -1,10 +1,12 @@
 struct SegTree {
 	using T = ll; using U = ll;
-	int n, h;
+	int n;
 	static constexpr T E = 0; // Neutral element for combine
 	static constexpr U UF = inf; // Unused value by updates
-	vector<T> tree; vector<U> lazy;
-	vector<ll> k; // size of segments (optional)
+	vector<T> tree;
+	int h;
+	vector<U> lazy;
+	vector<int> k; // size of segments (optional)
 
 	SegTree(const vector<T>& a) : n(sz(a) + 1), tree(2 * n, E),
 	//SegTree(int size, T def = E) : n(size + 1), tree(2 * n, def),
@@ -62,7 +64,7 @@ struct SegTree {
 	}
 
 	// Optional:
-	ll lower_bound(int l, int r, T x) {
+	int lower_bound(int l, int r, T x) {
 		l += n, r += n;
 		push(l), push(r - 1);
 		int a[64] = {}, lp = 0, rp = 64;

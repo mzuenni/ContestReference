@@ -1,7 +1,7 @@
 #include "../util.h"
 #include <datastructures/waveletTree.cpp>
 
-constexpr int n = 1000'000;
+constexpr int N = 1000'000;
 
 void stress_test() {
 	ll queries = 0;
@@ -25,9 +25,6 @@ void stress_test() {
 					expected = tmp[x];
 				}
 				if (got != expected) {
-					cout << l << " " << r << " " << x << endl;
-					for (ll x : naive) cout << x << " ";
-						cout << endl;
 					cerr << "kth, got: " << got << ", expected: " << expected << FAIL;
 				}
 			}
@@ -53,15 +50,15 @@ void stress_test() {
 
 void performance_test() {
 	timer t;
-	vector<ll> tmp(n);
+	vector<ll> tmp(N);
 	for (ll& x : tmp) x = Random::integer<ll>(-1000, 1000);
 	t.start();
 	WaveletTree tree(tmp);
 	t.stop();
 	ll hash = 0;
-	for (int operations = 0; operations < n; operations++) {
-		auto [l1, r1] = Random::pair<int>(0, n + 1);
-		auto [l2, r2] = Random::pair<int>(0, n + 1);
+	for (int operations = 0; operations < N; operations++) {
+		auto [l1, r1] = Random::pair<int>(0, N + 1);
+		auto [l2, r2] = Random::pair<int>(0, N + 1);
 		int x1 = Random::integer<ll>(l1, r1 + 1);
 		ll x2 = Random::integer<ll>(-1000, 1000);
 		

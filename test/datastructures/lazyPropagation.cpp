@@ -2,7 +2,7 @@
 constexpr ll inf = LL::INF;
 #include <datastructures/lazyPropagation.cpp>
 
-constexpr int n = 1000'000;
+constexpr int N = 1000'000;
 
 void stress_test() {
 	ll queries = 0;
@@ -38,13 +38,13 @@ void stress_test() {
 void performance_test() {
 	timer t;
 	t.start();
-	vector<ll> tmp(n);
+	vector<ll> tmp(N);
 	SegTree tree(tmp);
 	t.stop();
 	ll hash = 0;
-	for (int operations = 0; operations < n; operations++) {
-		auto [l1, r1] = Random::pair<int>(0, n + 1);
-		auto [l2, r2] = Random::pair<int>(0, n + 1);
+	for (int operations = 0; operations < N; operations++) {
+		auto [l1, r1] = Random::pair<int>(0, N + 1);
+		auto [l2, r2] = Random::pair<int>(0, N + 1);
 		ll x1 = Random::integer<ll>(-1000, 1000);
 		
 		t.start();

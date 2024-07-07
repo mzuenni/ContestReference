@@ -2,8 +2,8 @@ using lll = __int128;
 ll rho(ll n) { // Findet Faktor < n, nicht unbedingt prim.
 	if (n % 2 == 0) return 2;
 	ll x = 0, y = 0, prd = 2, i = n/2 + 7;
-	auto f = [&](lll x){return (x * x + i) % n;};
-	for (ll t = 30, i = n/2 + 7; t % 40 || gcd(prd, n) == 1; t++) {
+	auto f = [&](lll c){return (c * c + i) % n;};
+	for (ll t = 30; t % 40 || gcd(prd, n) == 1; t++) {
 		if (x == y) x = ++i, y = f(x);
 		if (ll q = (lll)prd * abs(x-y) % n; q) prd = q;
 		x = f(x); y = f(f(y));

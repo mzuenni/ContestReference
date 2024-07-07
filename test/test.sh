@@ -8,7 +8,7 @@ find . -type f -name '*.cpp' -print0 | sort -z | while read -d $'\0' file
 do
 	echo "${file}:"
     echo "compiling..."
-    g++ -std=gnu++17 "${file}" -I ../content/ -O2
+    g++ -std=gnu++17 "${file}" -I ../content/ -O2 -Wall -Wextra -Wshadow -Werror
     echo "running..."
     timeout 10s ./a.out
     echo ""
