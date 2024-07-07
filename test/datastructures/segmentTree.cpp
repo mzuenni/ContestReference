@@ -11,8 +11,7 @@ void stress_test1() {
 	ll queries = 0;
 	for (int tries = 0; tries < 100; tries++) {
 		int n = Random::integer<int>(10, 100);
-		vector<ll> naive(n);
-		for (ll& x : naive) x = Random::integer<ll>(-1000, 1000);
+		vector<ll> naive = Random::integers<ll>(n, -1000, 1000);
 		SegTree tree(naive);
 		for (int operations = 0; operations < 1000; operations++) {
 			{
@@ -68,7 +67,7 @@ void stress_test2() {
 		int n = Random::integer<int>(10, 100);
 		vector<ll> naive(n);
 		SegTree tree(naive);
-		for (ll& x : naive) x = Random::integer<ll>(-1000, 1000);
+		naive = Random::integers<ll>(n, -1000, 1000);
 		copy(all(naive), tree.tree.begin() + n);
 		for (int operations = 0; operations < 1000; operations++) {
 			{

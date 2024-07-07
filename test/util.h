@@ -22,7 +22,19 @@ namespace Random {
 
 	template<typename T = ll>
 	T integer(T r) {
-		return integer(0, r);
+		return integer<T>(0, r);
+	}
+
+	template<typename T = ll>
+	std::vector<T> integers(std::size_t n, T l, T r) {
+		std::vector<T> res(n);
+		for (T& x : res) x = integer<T>(l, r);
+		return res;
+	}
+
+	template<typename T = ll>
+	std::vector<T> integers(std::size_t n, T r) {
+		return integers<T>(n, 0, r);
 	}
 
 	template<typename T = ll>

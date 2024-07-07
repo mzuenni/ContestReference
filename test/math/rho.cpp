@@ -96,11 +96,11 @@ void stress_test() {
 	cerr << "stress tested: " << t.time << "ms" << endl;
 }
 
-constexpr int n = 2'000;
+constexpr int N = 2'000;
 void performance_test() {
 	timer t;
 	ll hash = 0;
-	for (int operations = 0; operations < n; operations++) {
+	for (int operations = 0; operations < N; operations++) {
 		ll x = Random::integer<ll>(1e18 / 2, 1e18);
 		t.start();
 		hash += factor(x).size();
