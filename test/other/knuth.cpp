@@ -42,7 +42,7 @@ vector<vector<ll>> genQuick(int n) {
 	return res;
 }
 
-/*ll naive(int n, int m) {
+/*ll naive(int n, int m, const vector<vector<ll>>& C) {
 	vector<vector<ll>> state(m+1, vector<ll>(n+1, inf));
 	state[0][0] = 0;
 	for (int i = 1; i <= m; i++) {
@@ -55,7 +55,7 @@ vector<vector<ll>> genQuick(int n) {
 	return state[m][n];
 }*/
 
-vector<ll> naive(int n) {
+vector<ll> naive(int n, const vector<vector<ll>>& C) {
 	vector<vector<ll>> state(n+1, vector<ll>(n+1, inf));
 	state[0][0] = 0;
 	vector<ll> res(n+1, inf);
