@@ -49,8 +49,8 @@
 \end{algorithm}
 
 \begin{algorithm}{DP Optimizations}
-	Aufgabe: Partitioniere Array in genau $k$ zusammenhängende Teile mit minimalen Kosten:
-	$dp[i][j] = \min_{k<j}\{dp[i-1][k]+C[k][j]\}$. Es sei $A[i][j]$ das \emph{minimale} optimale
+	Aufgabe: Partitioniere Array in genau $m$ zusammenhängende Teile mit minimalen Kosten:
+	$dp[i][j] = \min_{k<j}\{dp[i-1][k-1]+C[k][j]\}$. Es sei $A[i][j]$ das \emph{minimale} optimale
 	$k$ bei der Berechnung von $dp[i][j]$.
 	
 	\paragraph{\textsc{Knuth}-Optimization} Vorbedingung: $A[i - 1][j] \leq A[i][j] \leq A[i][j + 1]$
@@ -61,7 +61,7 @@
 	\paragraph{Divide and Conquer}
 	Vorbedingung: $A[i][j - 1] \leq A[i][j]$.
 	
-	\method{calc}{berechnet das DP}{k\*n\*\log(n)}
+	\method{calc}{berechnet das DP}{m\*n\*\log(n)}
 	\sourcecode{other/divideAndConquer.cpp}
 	
 	\paragraph{Quadrangle inequality} Die Bedingung  $\forall a\leq b\leq c\leq d:
