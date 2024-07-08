@@ -1,33 +1,35 @@
 // Zahlenwerte müssen bei 0 beginnen und zusammenhängend sein.
 constexpr int ALPHABET_SIZE = 2;
 struct node {
-	int words, wordEnds; vector<int> children;
-	node() : words(0), wordEnds(0), children(ALPHABET_SIZE, -1){}
+	int words, ends;
+	array<int, ALPHABET_SIZE> children;
+	node() : words(0), ends(0) {fill(all(children), -1);}
 };
 vector<node> trie = {node()};
 
-int insert(vector<int>& word) {
+int traverse(const vector<int>& word, int x) {
 	int id = 0;
 	for (int c : word) {
-		trie[id].words++;
-		if (trie[id].children[c] < 0) {
+		if (id < 0 || (trie[id].words == 0 && x <= 0)) return -1;
+		trie[id].words += x;
+		if (trie[id].children[c] < 0 && x > 0) {
 			trie[id].children[c] = sz(trie);
 			trie.emplace_back();
 		}
 		id = trie[id].children[c];
 	}
-	trie[id].words++;
-	trie[id].wordEnds++;
+	trie[id].words += x;
+	trie[id].ends += x;
 	return id;
 }
 
-void erase(vector<int>& word) {
-	int id = 0;
-	for (int c : word) {
-		trie[id].words--;
-		id = trie[id].children[c];
-		if (id < 0) return;
-	}
-	trie[id].words--;
-	trie[id].wordEnds--;
+int insert(const vector<int>& word) {
+	return traverse(word, 1);
+}
+
+bool erase(const vector<int>& word) {
+	int id = traverse(word, 0);
+	if (id < 0 || trie[id].ends <= 0) return false;
+	traverse(word, -1);
+	return true;
 }
