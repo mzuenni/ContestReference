@@ -28,7 +28,7 @@ void performance_test() {
 	ll hash = 0;
 	t.start();
 	for (ll i = 0; i < N; i++) {
-		hash += rotateLeft(1'000'000'000'000'000'000 + i);
+		hash += rotateLeft(1'000'000'000'000'000'000ll + i);
 	}
 	t.stop();
 	if (t.time > 500) cerr << "too slow: " << t.time << FAIL;

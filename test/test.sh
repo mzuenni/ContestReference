@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 cd "$(dirname "$0")"
-ulimit unlimited
+ulimit -s unlimited
 export MALLOC_PERTURB_="$((2#01011001))"
 
 test_file() {
