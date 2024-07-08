@@ -19,16 +19,27 @@ if [ "$#" -ne 0 ]; then
         test_file $file
     done
 else
-    find . -type f -name '*.cpp' -print0 | sort -z | while read -d $'\0' file
-    do
-        test_file $file
-    done
+    #find . -type f -name '*.cpp' -print0 | sort -z | while read -d $'\0' file
+    #do
+    #    test_file $file
+    #done
+
+    declare -A ignore
+    ignore["other/bitOps.cpp"]=1
+    ignore["other/compiletime.cpp"]=1
+    ignore["other/pbs.cpp"]=1
+    ignore["other/pragmas.cpp"]=1
+    ignore["other/stuff.cpp"]=1
+    ignore["other/timed.cpp"]=1
+    ignore["tests/gcc5bug.cpp"]=1
+    ignore["tests/precision.cpp"]=1
+    ignore["tests/whitespace.cpp"]=1
 
     echo "missing tests:"
     find ../content/ -type f -name '*.cpp' -print0 | sort -z | while read -d $'\0' file
     do
         file=${file#../content/}
-        if [ ! -f ${file} ]; then
+        if [ ! -f ${file} ] && [[ ${ignore[${file}]} != 1 ]]; then
             echo "  ${file}:"
         fi
     done

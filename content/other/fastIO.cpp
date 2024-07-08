@@ -1,6 +1,6 @@
 void fastscan(int& number) {
 	bool negative = false;
-	register int c;
+	int c;
 	number = 0;
 	c = getchar();
 	while(c != '-' && (c < '0' || c > '9')) c = getchar();
