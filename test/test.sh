@@ -19,10 +19,10 @@ if [ "$#" -ne 0 ]; then
         test_file $file
     done
 else
-    #find . -type f -name '*.cpp' -print0 | sort -z | while read -d $'\0' file
-    #do
-    #    test_file $file
-    #done
+    find . -type f -name '*.cpp' -print0 | sort -z | while read -d $'\0' file
+    do
+        test_file $file
+    done
 
     declare -A ignore
     ignore["other/bitOps.cpp"]=1
