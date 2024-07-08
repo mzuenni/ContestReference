@@ -49,6 +49,12 @@ namespace Random {
 	std::pair<T, T> pair(T r) {
 		return pair(0, r);
 	}
+
+	std::string string(std::size_t n, string_view chars) {
+		std::string res(n, '*');
+		for (char& c : res) c = chars[integer(sz(chars))];
+		return res;
+	}
 }
 
 [[noreturn]] ostream& FAIL(ostream& os) {
