@@ -19,7 +19,7 @@ void stress_test() {
 			auto it = naive.find(s);
 			bool expected = it != naive.end();
 			if (expected) naive.erase(it);
-			if (got != expected) cerr << "  error" << FAIL;
+			if (got != expected) cerr << "error" << FAIL;
 			queries++;
 			if (got) deleted++;
 		}
@@ -48,7 +48,7 @@ void performance_test() {
 			t.stop();
 		}
 	}
-	if (t.time > 500) cerr << "  too slow: " << t.time << FAIL;
+	if (t.time > 500) cerr << "too slow: " << t.time << FAIL;
 	cerr << "tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;
 }
 

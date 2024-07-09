@@ -8,7 +8,7 @@ struct SuffixTree {
 	// Each Vertex gives its children range as [start, end)
 	vector<Vert> tree = {Vert{-1, -1, 0, {}}};
 
-	SuffixTree(const string& s) : s(s) {
+	SuffixTree(const string& s_) : s(s_) {
 		needsSuffix = remainder = curVert = curEdge = curLen = 0;
 		pos = -1;
 		for (int i = 0; i < sz(s); i++) extend();
