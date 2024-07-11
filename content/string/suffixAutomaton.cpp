@@ -51,7 +51,7 @@ struct SuffixAutomaton {
 		int v = 0, l = 0, best = 0, bestp = -1;
 		for (int i = 0; i < sz(t); i++) {
 			int c = t[i] - OFFSET;
-			while (v >= 0 && st[v].nxt[c] < 0) {
+			while (v > 0 && st[v].nxt[c] < 0) {
 				v = st[v].link;
 				l = st[v].len;
 			}
