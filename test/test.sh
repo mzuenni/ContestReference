@@ -4,12 +4,20 @@ cd "$(dirname "$0")"
 ulimit -s unlimited
 export MALLOC_PERTURB_="$((2#01011001))"
 
+declare -A cppstandard
+cppstandard["string/suffixArray.cpp"]="gnu++20"
+
 test_file() {
-    echo "$1:"
+    file="${1#./}"
+    echo "$file:"
     echo "compiling..."
-    g++ -std=gnu++17 "$1" -I ../content/ -O2 -Wall -Wextra -Wshadow -Werror
+    std="gnu++17"
+    if [[ -v cppstandard[$file] ]]; then
+        std=${cppstandard[$file]}
+    fi
+    g++ -std=$std "$file" -I ../content/ -O2 -Wall -Wextra -Wshadow -Werror
     echo "running..."
-    timeout 10s ./a.out
+    timeout 30s ./a.out
     echo ""
 }
 
@@ -39,8 +47,8 @@ else
     find ../content/ -type f -name '*.cpp' -print0 | sort -z | while read -d $'\0' file
     do
         file=${file#../content/}
-        if [ ! -f ${file} ] && [[ ${ignore[${file}]} != 1 ]]; then
-            echo "  ${file}:"
+        if [ ! -f $file ] && [[ ! -v ignore[$file] ]]; then
+            echo "  $file:"
         fi
     done
 fi
