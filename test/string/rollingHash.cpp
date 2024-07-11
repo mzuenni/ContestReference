@@ -26,7 +26,7 @@ void testThueMorse() {
 			expected.insert(s.substr(l, r - l));
 		}
 	}
-	if (sz(got) != sz(expected)) cerr << "error: thueMorse" << endl;
+	if (sz(got) != sz(expected)) cerr << "error: thueMorse" << FAIL;
 	cerr << "thueMorse: ok" << endl;
 }
 
@@ -64,7 +64,7 @@ void stress_test() {
 			expected.insert(s.substr(l, r - l));
 		}
 	}
-	if (sz(got) != sz(expected)) cerr << "error: stress test" << endl;
+	if (sz(got) != sz(expected)) cerr << "error: stress test" << FAIL;
 	cerr << "stress test: ok" << endl;
 }
 

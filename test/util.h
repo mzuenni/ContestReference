@@ -39,15 +39,15 @@ namespace Random {
 
 	template<typename T = ll>
 	std::pair<T, T> pair(T l, T r) {
-		T a = integer(l, r);
-		T b = integer(l, r);
+		T a = integer<T>(l, r);
+		T b = integer<T>(l, r);
 		if (a > b) swap(a, b);
 		return {a, b};
 	}
 
 	template<typename T = ll>
 	std::pair<T, T> pair(T r) {
-		return pair(0, r);
+		return pair<T>(0, r);
 	}
 
 	std::string string(std::size_t n, string_view chars) {
