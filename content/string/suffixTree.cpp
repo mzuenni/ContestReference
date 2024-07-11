@@ -1,7 +1,7 @@
 struct SuffixTree {
 	struct Vert {
 		int start, end, suf; //s[start...end) along parent edge
-		map<char, int> next;
+		map<char, int> nxt;
 	};
 	string s;
 	int needsSuffix, pos, remainder, curVert, curEdge, curLen;
@@ -41,12 +41,12 @@ struct SuffixTree {
 		remainder++;
 		while (remainder) {
 			if (curLen == 0) curEdge = pos;
-			if (!tree[curVert].next.count(s[curEdge])) {
+			if (!tree[curVert].nxt.count(s[curEdge])) {
 				int leaf = newVert(pos, sz(s));
-				tree[curVert].next[s[curEdge]] = leaf;
+				tree[curVert].nxt[s[curEdge]] = leaf;
 				addSuffixLink(curVert);
 			} else {
-				int nxt = tree[curVert].next[s[curEdge]];
+				int nxt = tree[curVert].nxt[s[curEdge]];
 				if (fullImplicitEdge(nxt)) continue;
 				if (s[tree[nxt].start + curLen] == s[pos]) {
 					curLen++;
@@ -55,11 +55,11 @@ struct SuffixTree {
 				}
 				int split = newVert(tree[nxt].start,
 				                    tree[nxt].start + curLen);
-				tree[curVert].next[s[curEdge]] = split;
+				tree[curVert].nxt[s[curEdge]] = split;
 				int leaf = newVert(pos, sz(s));
-				tree[split].next[s[pos]] = leaf;
+				tree[split].nxt[s[pos]] = leaf;
 				tree[nxt].start += curLen;
-				tree[split].next[s[tree[nxt].start]] = nxt;
+				tree[split].nxt[s[tree[nxt].start]] = nxt;
 				addSuffixLink(split);
 			}
 			remainder--;

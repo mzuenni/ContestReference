@@ -2,8 +2,8 @@
 constexpr int ALPHABET_SIZE = 2;
 struct node {
 	int words, ends;
-	array<int, ALPHABET_SIZE> children;
-	node() : words(0), ends(0) {fill(all(children), -1);}
+	array<int, ALPHABET_SIZE> nxt;
+	node() : words(0), ends(0) {fill(all(nxt), -1);}
 };
 vector<node> trie = {node()};
 
@@ -12,11 +12,11 @@ int traverse(const vector<int>& word, int x) {
 	for (int c : word) {
 		if (id < 0 || (trie[id].words == 0 && x <= 0)) return -1;
 		trie[id].words += x;
-		if (trie[id].children[c] < 0 && x > 0) {
-			trie[id].children[c] = sz(trie);
+		if (trie[id].nxt[c] < 0 && x > 0) {
+			trie[id].nxt[c] = sz(trie);
 			trie.emplace_back();
 		}
-		id = trie[id].children[c];
+		id = trie[id].nxt[c];
 	}
 	trie[id].words += x;
 	trie[id].ends += x;
