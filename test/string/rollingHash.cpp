@@ -1,5 +1,5 @@
 #include "../util.h"
-#include <string/rollingHash2.cpp>
+#include <string/rollingHash.cpp>
 
 string thueMorse(ll n) {
 	string res = "a";
