@@ -50,7 +50,7 @@ struct SuffixAutomaton {
 		int v = 0, l = 0, best = 0, bestp = 0;
 		for (int i = 0; i < sz(t); i++) {
 			int c = t[i] - OFFSET;
-			for (; v && !st[v].next[c]; v = st[v].link) l = st[v].len;
+			while (v && !st[v].next[c]) v = st[v].link, l = st[v].len;
 			if (st[v].next[c]) v = st[v].next[c], l++;
 			if (l > best) best = l, bestp = i;
 		}
