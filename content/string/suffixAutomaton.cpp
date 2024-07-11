@@ -47,7 +47,7 @@ struct SuffixAutomaton {
 
 	// Pair with start index (in t) and length of LCS.
 	pair<int, int> longestCommonSubstring(const string& t) {
-		int v = 0, l = 0, best = 0, bestp = 0;
+		int v = 0, l = 0, best = 0, bestp = -1;
 		for (int i = 0; i < sz(t); i++) {
 			int c = t[i] - OFFSET;
 			while (v && !st[v].next[c]) v = st[v].link, l = st[v].len;
