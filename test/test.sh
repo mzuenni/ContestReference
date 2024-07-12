@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 cd "$(dirname "$0")"
-ulimit -s unlimited
+ulimit -s 4000000
 export MALLOC_PERTURB_="$((2#01011001))"
 
 declare -A cppstandard
