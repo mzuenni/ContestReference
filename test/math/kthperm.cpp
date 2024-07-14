@@ -10,7 +10,7 @@ void stress_test() {
 		iota(all(expected), 0);
 		ll k = 0;
 		do {
-			auto got = kthperm(k, n);
+			auto got = kthperm(n, k);
 			if (got != expected) cerr << "error" << FAIL;
 			k++;
 		} while (k < 100 && next_permutation(all(expected)));
@@ -23,7 +23,7 @@ constexpr int N = 500'000;
 void performance_test() {
 	timer t;
 	t.start();
-	auto got = kthperm(4'168'751'907'498'170ll, N);
+	auto got = kthperm(N, 4'168'751'907'498'170ll);
 	t.stop();
 	ll hash = 0;
 	for (ll i = 0; i < N; i++) hash += i * got[i];
