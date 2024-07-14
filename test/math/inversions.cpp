@@ -30,7 +30,7 @@ void performance_test() {
 	timer t;
 	auto v = Random::integers<ll>(N, -10'000, 10'000);
 	t.start();
-	ll hash = inversions(v);
+	hash_t hash = inversions(v);
 	t.stop();
 	if (t.time > 500) cerr << "too slow: " << t.time << FAIL;
 	cerr << "tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;

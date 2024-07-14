@@ -39,7 +39,7 @@ void performance_test() {
 	t.start();
 	SuffixTree st(s);
 	t.stop();
-	ll hash = sz(st.tree);
+	hash_t hash = sz(st.tree);
 	if (t.time > 500) cerr << "too slow: " << t.time << FAIL;
 	cerr << "tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;
 }

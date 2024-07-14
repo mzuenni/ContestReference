@@ -74,7 +74,7 @@ constexpr int N = 1'000'000;
 void performance_test() {
 	timer t;
 	auto s = Random::string(N, "a") + Random::string(N, "ab") + Random::string(N, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$#");
-	ll hash = 0;
+	hash_t hash = 0;
 	t.start();
 	Hash h(s, RandomQ);
 	for (ll i = 0; i < N; i++) {

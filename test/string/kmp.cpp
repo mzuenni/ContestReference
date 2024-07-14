@@ -31,7 +31,7 @@ void performance_test_preprocessing() {
 	t.start();
 	auto res = kmpPreprocessing(s);
 	t.stop();
-	ll hash = 0;
+	hash_t hash = 0;
 	for (int x : res) hash += x;
 	if (t.time > 500) cerr << "  too slow: " << t.time << FAIL;
 	cerr << "  tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;
@@ -66,7 +66,7 @@ void performance_test_kmp() {
 	auto s = Random::string(N, "a") + Random::string(N, "ab") + Random::string(N, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$#");
 	auto sub1 = Random::string(N/2, "a");
 	auto sub2 = Random::string(N/2, "ab");
-	ll hash = 0;
+	hash_t hash = 0;
 	t.start();
 	hash += kmpSearch(s, sub1).size();
 	hash += kmpSearch(s, sub2).size();

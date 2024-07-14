@@ -24,7 +24,7 @@ constexpr int N = 1'000'000;
 constexpr ll mod = 1'394'633'899;
 void performance_test() {
 	timer t;
-	ll hash = 0;
+	hash_t hash = 0;
 	for (int operations = 0; operations < N; operations++) {
 		ll j = Random::integer<ll>(mod);
 		t.start();

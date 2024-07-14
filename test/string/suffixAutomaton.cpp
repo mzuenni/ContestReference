@@ -42,7 +42,7 @@ void performance_test() {
 	t.start();
 	SuffixAutomaton sa(s);
 	t.stop();
-	ll hash = 0;
+	hash_t hash = 0;
 	for (ll c = 0; c < sz(s);) {
 		int m = Random::integer<int>(1, 1000);
 		s = Random::string(m, "abc");

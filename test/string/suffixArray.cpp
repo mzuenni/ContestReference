@@ -49,7 +49,7 @@ void performance_test() {
 	t.start();
 	SuffixArray sa(s);
 	t.stop();
-	ll hash = 0;
+	hash_t hash = 0;
 	for (int i = 0; i < sz(sa.SA); i++) hash += i*sa.SA[i];
 	if (t.time > 500) cerr << "too slow: " << t.time << FAIL;
 	cerr << "tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;

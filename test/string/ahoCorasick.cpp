@@ -63,7 +63,7 @@ void performance_test() {
     }
 
     t.start();
-    ll hash = normal(s, patterns)[0];
+    hash_t hash = normal(s, patterns)[0];
     t.stop();
 
     if (t.time > 500) cerr << "Too slow: " << t.time << FAIL;

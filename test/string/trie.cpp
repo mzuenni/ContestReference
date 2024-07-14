@@ -31,7 +31,7 @@ constexpr int N = 10'000;
 void performance_test() {
 	timer t;
 	trie = {node()};
-	ll hash = 0;
+	hash_t hash = 0;
 	for (int tries = 0; tries < N; tries++) {
 		{
 			int n = Random::integer<int>(1, 2000);

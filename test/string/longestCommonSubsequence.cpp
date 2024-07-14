@@ -44,7 +44,7 @@ void performance_test() {
 	t.start();
 	auto res = lcss(a, b);
 	t.stop();
-	ll hash = sz(res);
+	hash_t hash = sz(res);
 	if (t.time > 500) cerr << "too slow: " << t.time << FAIL;
 	cerr << "tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;
 }

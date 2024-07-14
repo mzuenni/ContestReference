@@ -76,7 +76,7 @@ void performance_test() {
 	auto c = Random::integers<ll>(N, -10'000, 10'000);
 	sort(all(c));
 	reverse(all(c));
-	ll hash = 0;
+	hash_t hash = 0;
 	t.start();
 	hash += lis(a).size();
 	hash += lis(b).size();

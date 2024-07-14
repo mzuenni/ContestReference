@@ -40,7 +40,7 @@ void performance_test() {
 	vector<ll> tmp(N);
 	SegTree tree(tmp);
 	t.stop();
-	ll hash = 0;
+	hash_t hash = 0;
 	for (int operations = 0; operations < N; operations++) {
 		auto [l1, r1] = Random::pair<int>(0, N + 1);
 		auto [l2, r2] = Random::pair<int>(0, N + 1);

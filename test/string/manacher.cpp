@@ -37,7 +37,7 @@ void performance_test() {
 	t.start();
 	auto got = manacher(s);
 	t.stop();
-	ll hash = 0;
+	hash_t hash = 0;
 	for (int x : got) hash += x;
 	if (t.time > 500) cerr << "too slow: " << t.time << FAIL;
 	cerr << "tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;

@@ -28,7 +28,7 @@ void stress_test() {
 constexpr int N = 10'000'000;
 void performance_test() {
 	timer t;
-	ll hash = 0;
+	hash_t hash = 0;
 	t.start();
 	hash += josephus(N, N/2);
 	t.stop();

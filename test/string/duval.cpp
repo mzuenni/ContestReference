@@ -38,7 +38,7 @@ void performance_test_duval() {
 	t.start();
 	auto got = duval(s);
 	t.stop();
-	ll hash = 0;
+	hash_t hash = 0;
 	for (auto [l, r] : got) hash += l + r;
 	if (t.time > 500) cerr << "too slow: " << t.time << FAIL;
 	cerr << "tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;
@@ -71,7 +71,7 @@ void performance_test_minrotation() {
 	timer t;
 	auto s = Random::string(N, "a") + Random::string(N, "ab") + Random::string(N, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$#");
 	t.start();
-	int hash = minrotation(s);
+	hash_t hash = minrotation(s);
 	t.stop();
 	if (t.time > 500) cerr << "too slow: " << t.time << FAIL;
 	cerr << "tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;

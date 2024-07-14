@@ -25,7 +25,7 @@ void performance_test() {
 	t.start();
 	auto got = kthperm(N, 4'168'751'907'498'170ll);
 	t.stop();
-	ll hash = 0;
+	hash_t hash = 0;
 	for (ll i = 0; i < N; i++) hash += i * got[i];
 	if (t.time > 500) cerr << "too slow: " << t.time << FAIL;
 	cerr << "tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;

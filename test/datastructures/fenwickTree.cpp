@@ -37,7 +37,7 @@ void performance_test() {
 	t.start();
 	init(N);
 	t.stop();
-	ll hash = 0;
+	hash_t hash = 0;
 	for (int operations = 0; operations < N; operations++) {
 		int i = Random::integer<int>(0, N);
 		int j = Random::integer<int>(0, N);

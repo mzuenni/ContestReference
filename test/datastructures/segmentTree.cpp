@@ -42,7 +42,7 @@ void performance_test1() {
 	vector<ll> tmp(N);
 	SegTree tree(tmp);
 	t.stop();
-	ll hash = 0;
+	hash_t hash = 0;
 	for (int operations = 0; operations < N; operations++) {
 		int i = Random::integer<int>(0, N);
 		auto [l, r] = Random::pair<int>(0, N + 1);
@@ -97,7 +97,7 @@ void performance_test2() {
 	vector<ll> tmp(N);
 	SegTree tree(tmp);
 	t.stop();
-	ll hash = 0;
+	hash_t hash = 0;
 	for (int operations = 0; operations < N; operations++) {
 		int i = Random::integer<int>(0, N);
 		auto [l, r] = Random::pair<int>(0, N + 1);

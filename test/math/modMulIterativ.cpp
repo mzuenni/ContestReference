@@ -36,7 +36,7 @@ void stress_test_large() {
 constexpr int N = 500'000;
 void performance_test() {
 	timer t;
-	ll hash = 0;
+	hash_t hash = 0;
 	for (int operations = 0; operations < N; operations++) {
 		ll a = Random::integer<ll>(0, 1'000'000'000'000'000'000);
 		ll b = Random::integer<ll>(0, 1'000'000'000'000'000'000);

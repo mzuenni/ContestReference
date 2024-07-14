@@ -8,6 +8,7 @@ using ll = long long;
 using lll = __int128;
 using ld = long double;
 using pt = complex<ll>;
+using hash_t = unsigned long long;
 
 namespace INT {constexpr int INF = 0x3FFF'FFFF;}
 namespace LL {constexpr ll INF = 0x3FFF'FFFF'FFFF'FFFFll;}

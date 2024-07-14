@@ -46,7 +46,7 @@ void stress_test() {
 constexpr int N = 200;
 void performance_test() {
 	timer t;
-	ll hash = 0;
+	hash_t hash = 0;
 	for (int operations = 0; operations < N; operations++) {
 		ll x = Random::integer<ll>(1e18 / 2, 1e18);
 		t.start();

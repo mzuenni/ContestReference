@@ -25,7 +25,7 @@ void stress_test() {
 constexpr int N = 1'000'000'000;
 void performance_test() {
 	timer t;
-	ll hash = 0;
+	hash_t hash = 0;
 	t.start();
 	for (ll i = 0; i < N; i++) {
 		hash += rotateLeft(1'000'000'000'000'000'000ll + i);
