@@ -4,4 +4,4 @@ bits._Find_next(2); //4
 bits._Find_next(4); //10 bzw. N
 bits[x] = 1;        //not bits.set(x) or bits.reset(x)!
 bits[x].flip();     //not bits.flip(x)!
-bits.count()        //number of set bits
+bits.count();       //number of set bits
