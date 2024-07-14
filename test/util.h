@@ -13,6 +13,16 @@ namespace INT {constexpr int INF = 0x3FFF'FFFF;}
 namespace LL {constexpr ll INF = 0x3FFF'FFFF'FFFF'FFFFll;}
 namespace LD {constexpr ld INF = numeric_limits<ld>::infinity();}
 
+namespace details {
+	template<typename T = ll>
+	bool isPrime(T x) {
+		for (T i = 2; i*i <= x; i++) {
+			if (x % i == 0) return false;
+		}
+		return x > 1;
+	}
+}
+
 namespace Random {
 	mt19937_64 rng(3141592653589793238ll);
 	template<typename T = ll>
@@ -54,6 +64,20 @@ namespace Random {
 		std::string res(n, '*');
 		for (char& c : res) c = chars[integer(sz(chars))];
 		return res;
+	}
+
+	template<typename T = ll>
+	T prime(T l, T r) {
+		T res = 0;
+		do {
+			res = integer<T>(l, r);
+		} while (!details::isPrime<T>(res));
+		return res;
+	}
+
+	template<typename T = ll>
+	T prime(T r) {
+		return prime<T>(2, r);
 	}
 }
 

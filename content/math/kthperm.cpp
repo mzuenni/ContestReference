@@ -1,4 +1,4 @@
-vector<ll> kthperm(ll k, ll n) {
+vector<ll> kthperm(ll n, ll k) {
 	Tree<ll> t;
 	vector<ll> res(n);
 	for (ll i = 1; i <= n; k /= i, i++) {
