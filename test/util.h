@@ -7,7 +7,6 @@ using namespace std;
 using ll = long long;
 using lll = __int128;
 using ld = long double;
-using pt = complex<ll>;
 using hash_t = unsigned long long;
 
 namespace INT {constexpr int INF = 0x3FFF'FFFF;}
@@ -80,6 +79,33 @@ namespace Random {
 	T prime(T r) {
 		return prime<T>(2, r);
 	}
+
+	template<typename T = ll, typename std::enable_if<!std::is_floating_point<T>::value>::type* = nullptr>
+	std::vector<std::complex<T>> points(std::size_t n, T l, T r) {
+		std::vector<std::complex<T>> res(n);
+		for (auto& x : res) x = {integer<T>(l, r), integer<T>(l, r)};
+		return res;
+	}
+
+	template<typename T = ll, typename std::enable_if<!std::is_floating_point<T>::value>::type* = nullptr >
+	std::vector<std::complex<T>> points(std::size_t n, T r) {
+		return points<T>(n, 0, r);
+	}
+
+	template<typename T = ll, typename std::enable_if<std::is_floating_point<T>::value>::type* = nullptr>
+	std::vector<std::complex<T>> points(std::size_t n, T l, T r) {
+		uniform_real_distribution<T> dist(l, r);
+		std::vector<std::complex<T>> res(n);
+		for (auto& x : res) x = {dist(rng), dist(rng)};
+		return res;
+	}
+
+	template<typename T = ll, typename std::enable_if<std::is_floating_point<T>::value>::type* = nullptr >
+	std::vector<std::complex<T>> points(std::size_t n, T r) {
+		return points<T>(n, 0, r);
+	}
+
+
 }
 
 [[noreturn]] ostream& FAIL(ostream& os) {
