@@ -1,38 +1,27 @@
-bool compY(pt a, pt b) {
-	return (imag(a) == imag(b)) ? real(a) < real(b)
-	                            : imag(a) < imag(b);
-}
-
-bool compX(pt a, pt b) {
-	return (real(a) == real(b)) ? imag(a) < imag(b)
-	                            : real(a) < real(b);
-}
-
-double shortestDist(vector<pt>& pts) { // sz(pts) > 1
-	set<pt, bool(*)(pt, pt)> status(compY);
-	sort(all(pts), compX);
-	double opt = 1.0/0.0, sqrtOpt = 1.0/0.0;
-	auto left = pts.begin(), right = pts.begin();
-	status.insert(*right); right++;
-
-	while (right != pts.end()) {
-		if (left != right &&
-		    abs(real(*left - *right)) >= sqrtOpt) {
-			status.erase(*left);
-			left++;
-		} else {
-			auto lower = status.lower_bound({-1.0/0.0, //-INF
-			                                 imag(*right) - sqrtOpt});
-			auto upper = status.upper_bound({-1.0/0.0, //-INF
-			                                 imag(*right) + sqrtOpt});
-			for (;lower != upper; lower++) {
-				double cand = norm(*right - *lower);
-				if (cand < opt) {
-					opt = cand;
-					sqrtOpt = sqrt(opt);
-			}}
-			status.insert(*right);
-			right++;
-	}}
-	return sqrtOpt;
+ll shortestDist(vector<pt> pts) { // sz(pts) > 1
+	set<pt, bool(*)(pt, pt)> state([](pt a, pt b){
+		return real(a) < real(b);
+	});
+	sort(all(pts), [](pt a, pt b){
+		return imag(a) < imag(b);
+	});
+	ll opt = INF;
+	int l = 0, r = 0;
+	while (r < sz(pts)) {
+		while (l < r &&
+		    sq(imag(pts[l] - pts[r])) >= opt) {
+			auto it = state.find(pts[l++]);
+			if(*it == pts[l - 1]) state.erase(it);
+		}
+		//for floating point points use sqrtl
+		auto lower = state.lower_bound(pts[r] - isqrt(opt));
+		auto upper = state.upper_bound(pts[r] + isqrt(opt));
+		for (;lower != upper; lower++) {
+			opt = min(opt, norm(pts[r] - *lower));
+		}
+		auto it = state.find(pts[r]);
+		if (it != state.end()) state.erase(it);
+		state.insert(pts[r++]);
+	}
+	return opt;//sqrtl(opt);
 }
