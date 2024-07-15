@@ -131,6 +131,11 @@ struct timer {
 		time += chrono::duration_cast<chrono::duration<double, milli>>(end - begin).count();
 	}
 
+	void reset() {
+		running = false;
+		time = 0;
+	}
+
 	~timer() {
 		if (running) cerr << "timer not stopped!" << FAIL;
 	}

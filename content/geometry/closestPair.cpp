@@ -1,27 +1,27 @@
-ll shortestDist(vector<pt> pts) { // sz(pts) > 1
-	set<pt, bool(*)(pt, pt)> state([](pt a, pt b){
-		return real(a) < real(b);
+ll rec(vector<pt>::iterator a, int l, int r) {
+	if (r - l < 2) return INF;
+	int m = (l + r) / 2;
+	ll midx = a[m].real();
+	ll ans = min(rec(a, l, m), rec(a, m, r));
+
+	inplace_merge(a+l, a+m, a+r, [](const pt& x, const pt& y) {
+		return x.imag() < y.imag();
 	});
-	sort(all(pts), [](pt a, pt b){
-		return imag(a) < imag(b);
-	});
-	ll opt = INF;
-	int l = 0, r = 0;
-	while (r < sz(pts)) {
-		while (l < r &&
-		    sq(imag(pts[l] - pts[r])) >= opt) {
-			auto it = state.find(pts[l++]);
-			if(*it == pts[l - 1]) state.erase(it);
+
+	pt tmp[8];
+	fill(all(tmp), a[l]);
+	for (int i = l + 1, next = 0; i < r; i++) {
+		if (ll x = a[i].real() - midx; x * x < ans) {
+			for (pt& p : tmp) ans = min(ans, norm(p - a[i]));
+			tmp[next++ & 7] = a[i];
 		}
-		//for floating point points use sqrtl
-		auto lower = state.lower_bound(pts[r] - isqrt(opt));
-		auto upper = state.upper_bound(pts[r] + isqrt(opt));
-		for (;lower != upper; lower++) {
-			opt = min(opt, norm(pts[r] - *lower));
-		}
-		auto it = state.find(pts[r]);
-		if (it != state.end()) state.erase(it);
-		state.insert(pts[r++]);
 	}
-	return opt;//sqrtl(opt);
+	return ans;
+}
+
+ll shortestDist(vector<pt> a) { // sz(pts) > 1
+	sort(all(a), [](const pt& x, const pt& y) {
+		return x.real() < y.real();
+	});
+	return rec(a.begin(), 0, sz(a));
 }

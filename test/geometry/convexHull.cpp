@@ -64,7 +64,7 @@ void stress_test(ll range) {
 		}
 		queries += n;
 	}
-	cerr << "  tested random queries: " << queries << endl;
+	cerr << "tested random queries: " << queries << endl;
 }
 
 constexpr int N = 2'000'000;
@@ -76,7 +76,7 @@ void performance_test() {
 	t.stop();
 	hash_t hash = sz(a);
 	if (t.time > 500) cerr << "  too slow: " << t.time << FAIL;
-	cerr << "  tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;
+	cerr << "tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;
 }
 
 int main() {
