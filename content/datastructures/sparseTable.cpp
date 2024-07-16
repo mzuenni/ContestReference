@@ -6,7 +6,7 @@ struct SparseTable {
 		return a[lidx] <= a[ridx] ? lidx : ridx;
 	}
 
-	void init(vector<ll> *vec) {
+	void init(vector<ll>* vec) {
 		int n = sz(*vec);
 		a = vec->data();
 		st.assign(__lg(n) + 1, vector<int>(n));
@@ -17,6 +17,7 @@ struct SparseTable {
 	}}}
 
 	int queryIdempotent(int l, int r) {
+		if (r <= l) return -1;
 		int j = __lg(r - l); //31 - builtin_clz(r - l);
 		return better(st[j][l] , st[j][r - (1 << j)]);
 	}

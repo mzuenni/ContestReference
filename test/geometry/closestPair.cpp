@@ -58,7 +58,7 @@ void performance_test() {
 	t.stop();
 	maxTime = max(maxTime, t.time);
 
-	if (maxTime > 500) cerr << "  too slow: " << maxTime << FAIL;
+	if (maxTime > 500) cerr << "too slow: " << maxTime << FAIL;
 	cerr << "tested performance: " << maxTime << "ms (hash: " << hash << ")" << endl;
 }
 

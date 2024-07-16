@@ -56,7 +56,7 @@
 \begin{algorithm}{Range Minimum Query}
 	\begin{methods}
 		\method{init}{baut Struktur auf}{n\*\log(n)}
-		\method{queryIdempotent}{Index des Minimums in $[l, r)$}{1}
+		\method{queryIdempotent}{Index des Minimums in $[l, r)$. $l<r$!}{1}
 	\end{methods}
 	\begin{itemize}
 		\item \code{better}-Funktion muss idempotent sein!

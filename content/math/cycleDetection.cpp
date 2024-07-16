@@ -1,4 +1,4 @@
-void cycleDetection(ll x0, function<ll(ll)> f) {
+pair<ll, ll> cycleDetection(ll x0, function<ll(ll)> f) {
 	ll a = x0, b = f(x0), length = 1;
 	for (ll power = 1; a != b; b = f(b), length++) {
 		if (power == length) {
@@ -13,4 +13,6 @@ void cycleDetection(ll x0, function<ll(ll)> f) {
 		a = f(a);
 		b = f(b);
 		start++;
-}}
+	}
+	return {start, length};
+}

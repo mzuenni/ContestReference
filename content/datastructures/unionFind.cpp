@@ -6,9 +6,9 @@ void init(int n) { //Initialisieren
 	unions.assign(n, -1);
 }
 
-int findSet(int n) { // Pfadkompression
-	if (unions[n] < 0) return n;
-	return unions[n] = findSet(unions[n]);
+int findSet(int a) { // Pfadkompression
+	if (unions[a] < 0) return a;
+	return unions[a] = findSet(unions[a]);
 }
 
 void linkSets(int a, int b) { // Union by size.

@@ -7,7 +7,7 @@ struct DisjointST {
 		return x + y;
 	}
 
-	void init(vector<ll> *vec) {
+	void init(vector<ll>* vec) {
 		int n = sz(*vec);
 		a = vec->data();
 		dst.assign(__lg(n) + 1, vector<ll>(n + 1, neutral));
@@ -20,6 +20,7 @@ struct DisjointST {
 	}}}
 
 	ll query(int l, int r) {
+		if (r <= l) return neutral;
 		int h = __lg(l ^ r);
 		return combine(dst[h][l], dst[h][r]);
 	}
