@@ -28,7 +28,7 @@ void stress_test() {
 	cerr << "tested queries: " << queries << endl;
 }
 
-constexpr ll M = 26'018'947;
+constexpr ll M = 18'086'183;
 void performance_test() {
 	timer t;
 	auto f = [&](ll x){return (1337*x + 42) % M;};
