@@ -9,9 +9,9 @@ namespace pushRelabel {
 
 void stress_test() {
 	ll queries = 0;
-	for (int tries = 0; tries < 1'000'000; tries++) {
+	for (int tries = 0; tries < 20'000; tries++) {
 		int n = Random::integer<int>(2, 30);
-		int m = Random::integer<int>(n-1, max<int>(n, min<int>(500, sqrt(n) / 2)));
+		int m = Random::integer<int>(n-1, max<int>(n, min<int>(500, n*(n-1) / 2)));
 
 		dinic::adj.assign(n, {});
 		pushRelabel::adj.assign(n, {});

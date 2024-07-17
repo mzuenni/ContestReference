@@ -1,6 +1,6 @@
 using path = pair<ll, int>; //dist, destination
 
-void dijkstra(const vector<vector<path>>& adj, int start) {
+auto dijkstra(const vector<vector<path>>& adj, int start) {
 	priority_queue<path, vector<path>, greater<path>> pq;
 	vector<ll> dist(sz(adj), INF);
 	vector<int> prev(sz(adj), -1);
@@ -17,5 +17,5 @@ void dijkstra(const vector<vector<path>>& adj, int start) {
 				prev[u] = v;
 				pq.emplace(dist[u], u);
 	}}}
-	//return dist, prev;
+	return dist; //return prev;
 }

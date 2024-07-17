@@ -6,7 +6,7 @@ void stress_test() {
 	ll queries = 0;
 	for (int tries = 0; tries < 100'000; tries++) {
 		int n = Random::integer<int>(1, 30);
-		int m = Random::integer<int>(0, max<int>(1, min<int>(100, sqrt(n) / 2)));
+		int m = Random::integer<int>(0, max<int>(1, min<int>(100, n*(n-1) / 2)));
 		Graph<NoData, true> g(n);
 		g.erdosRenyi(m);
 
