@@ -9,8 +9,8 @@ vector<ll> ec;
 vector<int> cur, H;
 
 void addEdge(int u, int v, ll c) {
-    adj[u].push_back({v, (int)sz(adj[v]), 0, c});
-    adj[v].push_back({u, (int)sz(adj[u])-1, 0, 0});
+	adj[u].push_back({v, (int)sz(adj[v]), 0, c});
+	adj[v].push_back({u, (int)sz(adj[u])-1, 0, 0});
 }
 
 void addFlow(Edge& e, ll f) {

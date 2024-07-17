@@ -7,7 +7,7 @@ void takeAll(int n, int line, ll p) {
 	for (int i = 0; i < n; i++) {
 		if (i == line) continue;
 		ll diff = mat[i][line];
-		for (int j = 0; j <= n; j++) {
+		for (int j = 0; j < sz(mat[i]); j++) {
 			mat[i][j] -= (diff * mat[line][j]) % p;
 			mat[i][j] = (mat[i][j] + p) % p;
 }}}

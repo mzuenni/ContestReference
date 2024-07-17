@@ -216,7 +216,7 @@ class Graph {
 
 	void _addAdj(int e) {
 		adj[edges[e].from].emplace(edges[e].to, e);
-		if constexpr (!DIR && edges[e].from != edges[e].to) adj[edges[e].to].emplace(edges[e].from, e);
+		if (!DIR && edges[e].from != edges[e].to) adj[edges[e].to].emplace(edges[e].from, e);
 	}
 public:
 
@@ -225,6 +225,12 @@ public:
 	int m() const {return sz(edges);}
 	int n() const {return sz(adj);}
 	int deg(int x) const {return sz(adj[x]);}
+
+	Graph& clear() {
+		adj.assign(adj.size(), {});
+		edges.clear();
+		return *this;
+	}
 
 	bool addEdge(int from, int to, W w = {}) {
 		if (!LOOPS && from == to) return false;
@@ -238,10 +244,11 @@ public:
 		for (auto& e : edges) swap(e.from, e.to);
 		adj.assign(adj.size(), {});
 		for (int i = 0; i < sz(edges); i++) _addAdj(i);
+		return *this;
 	}
 
 	Graph& shuffle() {
-		shuffle(all(edges), Random::rng);
+		std::shuffle(all(edges), Random::rng);
 		if constexpr (!DIR) {
 			for (auto& e : edges) {
 				if (Random::integer(0, 2)) swap(e.from, e.to);
@@ -249,17 +256,19 @@ public:
 		}
 		adj.assign(adj.size(), {});
 		for (int i = 0; i < sz(edges); i++) _addAdj(i);
+		return *this;
 	}
 
 	Graph& permutate() {
 		vector<int> perm(n());
 		iota(all(perm), 0);
-		shuffle(all(perm), Random::rng);
+		std::shuffle(all(perm), Random::rng);
 		for (auto& e : edges) {
 			e.from = perm[e.from];
 			e.to = perm[e.to];
 		}
 		shuffle();
+		return *this;
 	}
 
 	template<typename F>

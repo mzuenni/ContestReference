@@ -1,5 +1,5 @@
 vector<vector<int>> adj;
-map<vector<int>, int> known;
+map<vector<int>, int> known; // dont reset!
 
 int treeLabel(int v, int from = -1) {
 	vector<int> children;

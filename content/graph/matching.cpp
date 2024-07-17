@@ -15,7 +15,7 @@ int max_matching() {
 		gauss(sz(adj), MOD); //LGS @\sourceref{math/lgsFp.cpp}@
 		int rank = 0;
 		for (auto& row : mat) {
-			if (*min_element(all(row)) != 0) rank++;
+			if (*max_element(all(row)) != 0) rank++;
 		}
 		ans = max(ans, rank / 2);
 	}
