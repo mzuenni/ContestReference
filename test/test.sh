@@ -35,7 +35,6 @@ else
     declare -A ignore
     ignore["math/bigint.cpp"]=1
     ignore["other/bitOps.cpp"]=1
-    ignore["other/compiletime.cpp"]=1
     ignore["other/pbs.cpp"]=1
     ignore["other/pragmas.cpp"]=1
     ignore["other/stuff.cpp"]=1

@@ -2,13 +2,13 @@ constexpr ll N = 10'000'000;
 ll smallest[N], power[N], sieved[N];
 vector<ll> primes;
 
-//wird aufgerufen mit (p^k, p, k) für prime p
+//wird aufgerufen mit (p^k, p, k) für prime p und k > 0
 ll mu(ll pk, ll p, ll k) {return -(k == 1);}
 ll phi(ll pk, ll p, ll k) {return pk - pk / p;}
 ll div(ll pk, ll p, ll k) {return k+1;}
-ll divSum(ll pk, ll p, ll k) {return (pk*p+1) / (p - 1);}
+ll divSum(ll pk, ll p, ll k) {return (pk*p-1) / (p - 1);}
 ll square(ll pk, ll p, ll k) {return k % 2 ? pk / p : pk;}
-ll squareFree(ll pk, ll p, ll k) {return k % 2 ? pk : 1;}
+ll squareFree(ll pk, ll p, ll k) {return p;}
 
 void sieve() { // O(N)
 	smallest[1] = power[1] = sieved[1] = 1;
@@ -43,7 +43,8 @@ ll naive(ll n) { // O(sqrt(n))
 				pk *= p;
 				k++;
 			} while (n % p == 0);
-		res *= mu(pk, p, k); // Aufruf ändern!
+			res *= mu(pk, p, k); // Aufruf ändern!
 	}}
+	if (n > 1) res *= mu(n, n, 1);
 	return res;
 }

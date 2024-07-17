@@ -10,7 +10,7 @@ double get(int p1, int p2) {
 	return dp[p1][p2] = min(tryLR, tryRL);
 }
 
-void bitonicTour() {
+auto bitonicTSP() {
 	dp = vector<vector<double>>(sz(dist),
 	            vector<double>(sz(dist), -1));
 	get(0, 0);
@@ -23,6 +23,5 @@ void bitonicTour() {
 			rl.push_back(v); p2 = v;
 	}}
 	lr.insert(lr.end(), rl.rbegin(), rl.rend());
-	// Enthält Knoten 0 zweimal. An erster und letzter Position.
-	// return lr;
+	return lr;// Enthält Knoten 0 zweimal. An erster und letzter Position.
 }

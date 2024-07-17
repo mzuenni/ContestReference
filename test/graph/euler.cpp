@@ -52,6 +52,7 @@ void stress_test() {
 
 		g.euler(0);
 		vector<vector<int>> got(n);
+		if (g.cycle.front() != g.cycle.back()) cerr << "error: not cyclic" << FAIL;
 		for (int i = 1; i < sz(g.cycle); i++) {
 			int a = g.cycle[i-1];
 			int b = g.cycle[i];

@@ -13,13 +13,13 @@ struct LCA {
 		st.init(&depth);
 	}
 
-	void dfs(vector<vector<int>>& adj, int v, ll d=0, int p=-1) {
+	void dfs(vector<vector<int>>& adj, int v, ll d=0) {
 		visited[idx] = v, depth[idx] = d;
 		first[v] = min(idx, first[v]), idx++;
 
 		for (int u : adj[v]) {
 			if (first[u] == 2 * sz(adj)) {
-				dfs(adj, u, d + 1, v);
+				dfs(adj, u, d + 1);
 				visited[idx] = v, depth[idx] = d, idx++;
 	}}}
 

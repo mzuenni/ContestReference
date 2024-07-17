@@ -1,6 +1,6 @@
 vector<vector<double>> dist; // Initialisiere mit Entfernungen zwischen Punkten.
 
-void bitonicTSP() {
+auto bitonicTSP() {
 	vector<double> dp(sz(dist), HUGE_VAL);
 	vector<int> pre(sz(dist)); // nur für Tour
 	dp[0] = 0; dp[1] = 2 * dist[0][1]; pre[1] = 0;
@@ -27,5 +27,5 @@ void bitonicTSP() {
 	(lt.back() == 1 ? lt : ut).push_back(0);
 	reverse(all(lt));
 	lt.insert(lt.end(), all(ut));
-	//return lt;// Enthält Knoten 0 zweimal. An erster und letzter Position.
+	return lt;// Enthält Knoten 0 zweimal. An erster und letzter Position.
 }

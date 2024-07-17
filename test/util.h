@@ -47,6 +47,28 @@ namespace Random {
 		return integers<T>(n, 0, r);
 	}
 
+	template<typename T = ld>
+	T real(T l, T r) {
+		return uniform_real_distribution<T>(l, r)(rng);
+	}
+
+	template<typename T = ld>
+	T real(T r) {
+		return real<T>(0, r);
+	}
+
+	template<typename T = ld>
+	std::vector<T> reals(std::size_t n, T l, T r) {
+		std::vector<T> res(n);
+		for (T& x : res) x = real<T>(l, r);
+		return res;
+	}
+
+	template<typename T = ld>
+	std::vector<T> reals(std::size_t n, T r) {
+		return reals<T>(n, 0, r);
+	}
+
 	template<typename T = ll>
 	std::pair<T, T> pair(T l, T r) {
 		T a = integer<T>(l, r);
@@ -85,18 +107,12 @@ namespace Random {
 		return {integer<T>(l, r), integer<T>(l, r)};
 	}
 
-	template<typename T = ll, typename std::enable_if<!std::is_floating_point<T>::value>::type* = nullptr >
-	std::complex<T> point(T r) {
-		return point<T>(0, r);
-	}
-
-	template<typename T = ll, typename std::enable_if<std::is_floating_point<T>::value>::type* = nullptr>
+	template<typename T = ld, typename std::enable_if<std::is_floating_point<T>::value>::type* = nullptr>
 	std::complex<T> point(T l, T r) {
-		uniform_real_distribution<T> dist(l, r);
-		return {dist(rng), dist(rng)};
+		return {real(l, r), real(l, r)};
 	}
 
-	template<typename T = ll, typename std::enable_if<std::is_floating_point<T>::value>::type* = nullptr >
+	template<typename T = ll>
 	std::complex<T> point(T r) {
 		return point<T>(0, r);
 	}
@@ -108,23 +124,17 @@ namespace Random {
 		return res;
 	}
 
-	template<typename T = ll, typename std::enable_if<!std::is_floating_point<T>::value>::type* = nullptr >
-	std::vector<std::complex<T>> points(std::size_t n, T r) {
-		return points<T>(n, 0, r);
-	}
-
-	template<typename T = ll, typename std::enable_if<std::is_floating_point<T>::value>::type* = nullptr>
+	template<typename T = ld, typename std::enable_if<std::is_floating_point<T>::value>::type* = nullptr>
 	std::vector<std::complex<T>> points(std::size_t n, T l, T r) {
 		std::vector<std::complex<T>> res(n);
 		for (auto& x : res) x = point<T>(l, r);
 		return res;
 	}
 
-	template<typename T = ll, typename std::enable_if<std::is_floating_point<T>::value>::type* = nullptr >
+	template<typename T = ll>
 	std::vector<std::complex<T>> points(std::size_t n, T r) {
 		return points<T>(n, 0, r);
 	}
-
 
 }
 
