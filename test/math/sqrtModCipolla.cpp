@@ -4,10 +4,10 @@
 mt19937 rng(123456789);
 #include <math/sqrtModCipolla.cpp>
 
-void stress_test() {
+void stress_test(ll range) {
 	ll work = 0;
 	for (ll i = 0; i < 10'000; i++) {
-		ll p = Random::prime<ll>(1'000'000'000);
+		ll p = Random::prime<ll>(range);
 		for (ll j = 0; j < 100; j++) {
 			ll x = Random::integer<ll>(0, p);
 			if (legendre(x, p) < 0) continue;
@@ -45,7 +45,8 @@ void performance_test() {
 
 
 int main() {
-	stress_test();
+	stress_test(1'000);
+	stress_test(1'000'000'000);
 	performance_test();
 }
 
