@@ -1,6 +1,6 @@
 vector<vector<ll>> dist; // Entfernung zwischen je zwei Punkten.
 
-void TSP() {
+auto TSP() {
 	int n = sz(dist), m = 1 << n;
 	vector<vector<edge>> dp(n, vector<edge>(m, edge{INF, -1}));
 
@@ -19,10 +19,11 @@ void TSP() {
 	}}}}}
 	// return dp[0][1]; // Länge der Tour
 
-	vector<int> tour; tour.push_back(0); int v = 0;
+	vector<int> tour = {0};
+	int v = 0;
 	while (tour.back() != 0 || sz(tour) == 1)
 		tour.push_back(dp[tour.back()]
 		                 [(v |= (1 << tour.back()))].to);
 	// Enthält Knoten 0 zweimal. An erster und letzter Position.
-	// return tour;
+	return tour;
 }

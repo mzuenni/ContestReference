@@ -325,11 +325,44 @@ public:
 		return *this;
 	}
 
-	Graph& erdosRenyi(int m) {
-		while (m > 0) {//this is slow...
+	Graph& erdosRenyi(int todo) {//this could be slow...
+		if constexpr (!MULTI) {
+			ll lim = (ll)n() * (n() - 1) / 2;
+			if constexpr (DIR) lim *= 2;
+			if constexpr (LOOPS) lim += n;
+			lim -= m();
+			if (todo > lim) cerr << "too many edges! n: " << n() << " " << todo << " > " << lim << FAIL;
+			if (todo > lim / 2) {
+				vector<pair<int, int>> tmp;
+				if constexpr(LOOPS) {
+					for (int i = 0; i < n(); i++) tmp.emplace_back(i, i);
+				}
+				for (int i = 0; i < n(); i++) {
+					for (int j = 0; j < i; j++) {
+						tmp.emplace_back(i, j);
+						if constexpr (DIR) tmp.emplace_back(j, i);
+					}
+				}
+				if constexpr (!DIR) {
+					for (auto& [a, b] : tmp) {
+						if (Random::integer<int>(0, 2) == 0) {
+							swap(a, b);
+						}
+					}
+				}
+				std::shuffle(all(tmp), Random::rng);
+				for (auto [a, b] : tmp) {
+					if (todo <= 0) break;
+					if (addEdge(a, b)) todo--;
+				}
+				if (todo > 0) cerr << "too many edges!" << FAIL;
+				return *this;
+			}
+		}
+		while (todo > 0) {
 			int a = Random::integer(0, n());
 			int b = Random::integer(0, n());
-			if (addEdge(a, b)) m--;
+			if (addEdge(a, b)) todo--;
 		}
 		return *this;
 	}

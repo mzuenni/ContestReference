@@ -3,7 +3,7 @@ vector<vector<int>> havelHakimi(const vector<int>& deg) {
 	for (int i = 0; i < sz(deg); i++) {
 		if (deg[i] > 0) pq.push({deg[i], i});
 	}
-	vector<vector<int>> adj;
+	vector<vector<int>> adj(sz(deg));
 	while (!pq.empty()) {
 		auto [degV, v] = pq.top(); pq.pop();
 		if (sz(pq) < degV) return {}; //impossible
