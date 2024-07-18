@@ -16,8 +16,7 @@ ll findPrimitive(ll n) {
 	ll phin = phi(n); //isPrime(n) => phi(n) = n - 1
 	map<ll, int> phiFacs;
 	factor(phin, phiFacs);
-	//auch zufällige Reihenfolge möglich!
-	for (ll res = 1; res < n; res++)
+	for (ll res = 1; res < n; res++) // oder zufällige Reihenfolge
 		if (isPrimitive(res, n, phin, phiFacs)) return res;
 	return -1;
 }
