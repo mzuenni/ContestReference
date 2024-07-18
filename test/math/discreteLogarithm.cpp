@@ -3,7 +3,7 @@
 #include <math/legendre.cpp>
 
 ll overwrite = 0;
-ll getMemory(ll /**/) {return overwrite;} //dlog code adds one...
+ll getMemory(ll /**/) {return overwrite - 1;} //dlog code adds one...
 #define sqrtl getMemory
 #include <math/discreteLogarithm.cpp>
 #undef sqrtl

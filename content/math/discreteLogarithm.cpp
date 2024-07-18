@@ -1,5 +1,5 @@
 ll dlog(ll a, ll b, ll m) { //a > 0!
-	ll bound = sqrtl(m) + 1; //memory usage bound <= p
+	ll bound = sqrtl(m) + 1; //memory usage bound < p
 	vector<pair<ll, ll>> vals(bound);
 	for (ll i = 0, e = 1; i < bound; i++, e = (e * a) % m) {
 		vals[i] = {e, i};
