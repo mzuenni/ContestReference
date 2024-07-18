@@ -11,7 +11,7 @@ ll getMemory(ll /**/) {return overwrite - 1;} //dlog code adds one...
 template<typename F>
 void stress_test(F&& f) {
 	ll work = 0;
-	for (ll tries = 0; tries < 1'000; tries++) {
+	for (ll tries = 0; tries < 3'000; tries++) {
 		ll p = Random::prime<ll>(1'000);
 		overwrite = f(p);
 		ll a = Random::integer<ll>(1, p);
