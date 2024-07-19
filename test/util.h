@@ -373,3 +373,18 @@ public:
 		return os;
 	}
 };
+
+ld float_error(ld given, ld expected) {
+	if (isfinite(given) && isfinite(expected)) {
+		ld absDiff = abs(given-expected);
+		ld relDiff = abs((given-expected)/expected);
+		return min(absDiff, relDiff);
+	}
+	if (isnan(given) && isnan(expected)) {
+		return 0;
+	}
+	if (isinf(given) && isinf(expected)) {
+		return signbit(given) == signbit(expected) ? 0 : numeric_limits<ld>::infinity();
+	}
+	return numeric_limits<ld>::infinity();
+}

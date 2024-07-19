@@ -1,4 +1,4 @@
-double f(double x) {return x;}
+//double f(double x) {return x;}
 
 double simps(double a, double b) {
 	return (f(a) + 4.0 * f((a + b) / 2.0) + f(b)) * (b - a) / 6.0;
