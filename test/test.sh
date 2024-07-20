@@ -48,7 +48,7 @@ else
     do
         file=${file#../content/}
         if [ ! -f $file ] && [[ ! -v ignore[$file] ]]; then
-            echo "  $file:"
+            echo "  $file"
         fi
     done
 fi
