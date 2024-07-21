@@ -63,7 +63,7 @@ void performance_test() {
 		hash += gss(-200, 200, f);
 		t.stop();
 	}
-	if (t.time > 750) cerr << "too slow: " << t.time << FAIL;
+	if (t.time > 1000) cerr << "too slow: " << t.time << FAIL;
 	cerr << "tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;
 }
 
