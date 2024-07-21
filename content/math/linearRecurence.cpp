@@ -31,3 +31,7 @@ ll kthTerm(const vector<ll>& f, const vector<ll>& c, ll k) {
 	for (int i = 0; i < sz(c); i++) res += (tmp[i+1] * f[i]) % mod;
 	return res % mod;
 }
+//S->f
+//tr->c
+//pol->tmp
+//e->a
