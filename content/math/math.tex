@@ -123,8 +123,9 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
 \begin{algorithm}{Matrix-Exponent}
 	\begin{methods}
 		\method{precalc}{berechnet $m^{2^b}$ vor}{\log(b)\*n^3}
-		\method{calc}{berechnet $m^b_{y,x}$}{\log(b)\cdot n^2}
+		\method{calc}{berechnet $m^b\cdot$}{\log(b)\cdot n^2}
 	\end{methods}
+	\textbf{Tipp:} wenn \code{v[x]=1} und \code{0} sonst, dann ist \code{res[y]} = $m^b_{y,x}$.
 	\sourcecode{math/matrixPower.cpp}
 \end{algorithm}
 
