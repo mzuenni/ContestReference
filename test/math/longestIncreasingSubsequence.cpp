@@ -37,15 +37,7 @@ void stress_test() {
 		auto a = Random::integers<ll>(n, -10, 10);
 		auto expected = naive<true>(a);
 		auto got = lis(a);
-		if (got != expected) {
-			for (ll x : a) cout << x << " ";
-			cout << endl;
-			for (ll x : got) cout << x << " ";
-			cout << endl;
-			for (ll x : expected) cout << x << " ";
-			cout << endl;
-			cerr << "error: strict" << FAIL;
-		}
+		if (got != expected) cerr << "error: strict" << FAIL;
 		queries += n;
 	}
 	for (ll i = 0; i < 10'000; i++) {
@@ -53,15 +45,7 @@ void stress_test() {
 		auto a = Random::integers<ll>(n, -10, 10);
 		auto expected = naive<false>(a);
 		auto got = unstrictLis(a);
-		if (got != expected) {
-			for (ll x : a) cout << x << " ";
-			cout << endl;
-			for (ll x : got) cout << x << " ";
-			cout << endl;
-			for (ll x : expected) cout << x << " ";
-			cout << endl;
-			cerr << "error: not strict" << FAIL;
-		}
+		if (got != expected) cerr << "error: not strict" << FAIL;
 		queries += n;
 	}
 	cerr << "tested random queries: " << queries << endl;

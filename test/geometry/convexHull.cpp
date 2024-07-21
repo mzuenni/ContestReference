@@ -54,14 +54,7 @@ void stress_test(ll range) {
 		int n = Random::integer<int>(1, 100);
 		auto ps = Random::points<ll>(n, -range, range);
 		auto got = convexHull(ps);
-		if (isConvexHull(ps, got) > 0) {
-			for (pt p : ps) cout << p << endl;
-			cout << endl;
-			for (pt p : got) cout << p << endl;
-			cout << endl;
-			cout << isConvexHull(ps, got) << endl;
-			cerr << "error" << FAIL;
-		}
+		if (isConvexHull(ps, got) > 0) cerr << "error" << FAIL;
 		queries += n;
 	}
 	cerr << "tested random queries: " << queries << endl;

@@ -48,21 +48,21 @@ void test_tiny() {
 		{0, 5, 6, 7},
 		{0, 0, 8, 9},
 	};
-	if (gauss(sz(mat)) != UNIQUE) cerr << "error: 1" << endl;
+	if (gauss(sz(mat)) != UNIQUE) cerr << "error: 1" << FAIL;
 
 	mat = {
 		{-1,  1, 0, -1},
 		{ 2,  6, 0, 10},
 		{ 1, -2, 0,  0},
 	};
-	if (gauss(sz(mat)) != MULTIPLE) cerr << "error: 2" << endl;
+	if (gauss(sz(mat)) != MULTIPLE) cerr << "error: 2" << FAIL;
 
 	mat = {
 		{-1,  1, 0, -1},
 		{ 2,  6, 0, 10},
 		{ 1, -2, 0,  1},
 	};
-	if (gauss(sz(mat)) != INCONSISTENT) cerr << "error: 3" << endl;
+	if (gauss(sz(mat)) != INCONSISTENT) cerr << "error: 3" << FAIL;
 }
 
 void stress_test_inv() {

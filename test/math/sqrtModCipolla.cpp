@@ -13,11 +13,7 @@ void stress_test(ll range) {
 			if (legendre(x, p) < 0) continue;
 
 			ll got = sqrtMod(x, p);
-			if (got < 0 || got >= p || (got * got) % p != x) {
-				cerr << got << "^2 = " << ((got * got) % p) << " != " << x << " % " << p << endl;
-			}
 			if (got < 0 || got >= p) cerr << "error: out of range" << FAIL;
-
 			if ((got * got) % p != x) cerr << "error: not root" << FAIL;
 			work++;
 		}

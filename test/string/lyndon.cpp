@@ -38,17 +38,6 @@ void stress_test() {
 		auto [l, r] = Random::pair<char>('a', 'f');
 		auto got = fast(n, l, r);
 		auto expected = naive(n, l, r);
-		if (got != expected) {
-			cout << n << " " << l << " " << char(r-1) << endl;
-			for (string s : got) {
-				cout << s << " ";
-			}
-			cout << endl;
-			for (string s : expected) {
-				cout << s << " ";
-			}
-			cout << endl;
-		}
 		if (got != expected) cerr << "error" << FAIL;
 		queries += sz(expected);
 	}

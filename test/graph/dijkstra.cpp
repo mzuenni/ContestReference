@@ -11,7 +11,7 @@ void stress_test() {
 	ll queries = 0;
 	for (int tries = 0; tries < 100'000; tries++) {
 		int n = Random::integer<int>(2, 30);
-		int m = Random::integer<int>(n-1, max<int>(n, min<int>(500, n*(n-1) / 2)));
+		int m = Random::integer<int>(n-1, max<int>(n, min<int>(500, n*(n-1) / 2 + 1)));
 
 		vector<vector<path>> adj(n);
 		vector<edge> edges;
