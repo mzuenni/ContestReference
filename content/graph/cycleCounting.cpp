@@ -22,8 +22,8 @@ struct cycles {
 		if (cur.any()) base.push_back(cur);
 	}
 
-	void findBase(int v = 0, int from = -1, cycle cur = {}) {
-		if (adj.empty()) return;
+	void findBase(int v, int from = -1, cycle cur = {}) {
+		if (from < 0 && seen[v]) return;
 		if (seen[v]) {
 			addBase(cur ^ paths[v]);
 		} else {
@@ -36,8 +36,7 @@ struct cycles {
 				cur[id].flip();
 	}}}
 
-	//cycle must be constrcuted from base
-	bool isCycle(cycle cur) {
+	bool isCycle(cycle cur) {//cycle must be constrcuted from base
 		if (cur.none()) return false;
 		init(sz(adj)); // union find @\sourceref{datastructures/unionFind.cpp}@
 		for (int i = 0; i < sz(edges); i++) {
@@ -48,14 +47,15 @@ struct cycles {
 				unionSets(edges[i].first, edges[i].second);
 		}}
 		return cur.none();
-	};
+	}
 
 	int count() {
-		findBase();
+		for (int i = 0; i < sz(adj); i++) findBase(i);
+		assert(sz(base) < 30);
 		int res = 0;
 		for (int i = 1; i < (1 << sz(base)); i++) {
 			cycle cur;
-			for (int j = 0; j < sz(base); j++) {
+			for (int j = 0; j < sz(base); j++)
 				if (((i >> j) & 1) != 0) cur ^= base[j];
 			if (isCycle(cur)) res++;
 		}

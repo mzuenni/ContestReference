@@ -6,7 +6,7 @@ void addEdge(int a, int b) {
 }
 
 void bronKerboschRec(bits R, bits P, bits X) {
-	if (!P.any() && !X.any()) {
+	if (P.none() && X.none()) {
 		cliques.push_back(R);
 	} else {
 		int q = min(P._Find_first(), X._Find_first());
