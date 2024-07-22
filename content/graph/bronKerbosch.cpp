@@ -11,9 +11,9 @@ void bronKerboschRec(bits R, bits P, bits X) {
 	} else {
 		int q = min(P._Find_first(), X._Find_first());
 		bits cands = P & ~adj[q];
-		for (int i = 0; i < sz(adj); i++) if (cands[i]){
+		for (int i = 0; i < sz(adj); i++) if (cands[i]) {
 			R[i] = 1;
-			bronKerboschRec(P & adj[i], X & adj[i], R);
+			bronKerboschRec(R, P & adj[i], X & adj[i]);
 			R[i] = P[i] = 0;
 			X[i] = 1;
 }}}
