@@ -2,6 +2,7 @@
 constexpr ll base = 1'000'000;
 constexpr ll base_digits = 6;
 struct bigint {
+	using vll = vector<ll>;
 	vll a; ll sign;
 
 	bigint() : sign(1) {}
@@ -9,11 +10,6 @@ struct bigint {
 	bigint(ll v) {*this = v;}
 
 	bigint(const string &s) {read(s);}
-
-	void operator=(const bigint& v) {
-		sign = v.sign;
-		a = v.a;
-	}
 
 	void operator=(ll v) {
 		sign = 1;
@@ -255,17 +251,17 @@ struct bigint {
 	}
 
 	bigint operator*(const bigint& v) const {
-		vll a(this->a.begin(), this->a.end());
-		vll b(v.a.begin(), v.a.end());
-		while (sz(a) < sz(b)) a.push_back(0);
-		while (sz(b) < sz(a)) b.push_back(0);
-		while (sz(a) & (sz(a) - 1))
-			a.push_back(0), b.push_back(0);
-		vll c = karatsubaMultiply(a, b);
+		vll ta(a.begin(), a.end());
+		vll va(v.a.begin(), v.a.end());
+		while (sz(ta) < sz(va)) ta.push_back(0);
+		while (sz(va) < sz(ta)) va.push_back(0);
+		while (sz(ta) & (sz(ta) - 1))
+			ta.push_back(0), va.push_back(0);
+		vll ra = karatsubaMultiply(ta, va);
 		bigint res;
 		res.sign = sign * v.sign;
-		for (ll i = 0, carry = 0; i < sz(c); i++) {
-			ll cur = c[i] + carry;
+		for (ll i = 0, carry = 0; i < sz(ra); i++) {
+			ll cur = ra[i] + carry;
 			res.a.push_back(cur % base);
 			carry = cur / base;
 		}
