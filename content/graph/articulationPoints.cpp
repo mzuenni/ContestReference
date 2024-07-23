@@ -8,8 +8,8 @@ vector<vector<Edge>> bcc;
 int dfs(int v, int from = -1) {
 	int me = num[v] = ++counter, top = me;
 	for (Edge& e : adj[v]) {
-		if (e.id == from){}
-		else if (num[e.to]) {
+		if (e.id == from) continue;
+		if (num[e.to]) {
 			top = min(top, num[e.to]);
 			if (num[e.to] < me) st.push_back(e);
 		} else {
@@ -21,11 +21,9 @@ int dfs(int v, int from = -1) {
 			if (up > me) bridges.push_back(e);
 			if (up <= me) st.push_back(e);
 			if (up == me) {
-				bcc.emplace_back();
-				while (sz(st) > si) {
-					bcc.back().push_back(st.back());
-					st.pop_back();
-	}}}}
+				bcc.emplace_back(si + all(st));
+				st.resize(si);
+	}}}
 	return top;
 }
 

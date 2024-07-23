@@ -1,7 +1,7 @@
 struct connect {
 	int n;
 	vector<pair<int, int>> edges;
-	LCT lct; // min LCT no updates required
+	LCT lct; // min LCT @\sourceref{datastructures/LCT.cpp}@, no updates required
 
 	connect(int n, int m) : n(n), edges(m), lct(n+m) {}
 
