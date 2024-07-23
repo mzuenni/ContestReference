@@ -14,7 +14,7 @@ pair<int, int> dfs_cent(int v, int from, int n) {
 	return {v, -1};
 }
 
-pair<int, int> find_centroid(int root) {
+pair<int, int> find_centroid(int root = 0) {
 	s.resize(sz(adj));
 	dfs_sz(root);
 	return dfs_cent(root, -1, s[root]);
