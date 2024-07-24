@@ -47,6 +47,27 @@ namespace Random {
 		return integers<T>(n, 0, r);
 	}
 
+	template<typename T = ll>
+	std::vector<T> distinct(std::size_t n, T l, T r) {
+		std::map<T, T> used;
+		std::vector<T> res;
+		for (std::size_t i = 0; i < n; i++) {
+			T x = integer<T>(l, r - i);
+			auto it = used.find(x);
+			if (it != used.end()) res.emplace_back(it->second);
+			else res.emplace_back(x);
+			it = used.find(r - i - 1);
+			if (it != used.end()) used[x] = it->second;
+			else used[x] = r - i - 1;
+		}
+		return res;
+	}
+
+	template<typename T = ll>
+	std::vector<T> distinct(std::size_t n, T r) {
+		return distinct<T>(n, 0, r);
+	}
+
 	template<typename T = ld>
 	T real(T l, T r) {
 		return uniform_real_distribution<T>(l, r)(rng);
