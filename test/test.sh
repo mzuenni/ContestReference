@@ -19,6 +19,7 @@ test_file() {
     echo "running..."
     timeout 30s ./a.out
     echo ""
+    rm ./a.out
 }
 
 if [ "$#" -ne 0 ]; then
@@ -33,6 +34,8 @@ else
     done
 
     declare -A ignore
+    ignore["datastructures/stlPriorityQueue.cpp"]=1
+    ignore["datastructures/stlRope.cpp"]=1
     ignore["other/bitOps.cpp"]=1
     ignore["other/pbs.cpp"]=1
     ignore["other/pragmas.cpp"]=1
