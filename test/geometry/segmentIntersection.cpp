@@ -15,13 +15,13 @@ bool pointOnLineSegment(pt a, pt b, pt p) {
 
 // Test auf Streckenschnitt zwischen a-b und c-d.
 bool lineSegmentIntersection(pt a, pt b, pt c, pt d) {
-	if (orientation(a, b, c) == 0 && orientation(a, b, d) == 0)
+	if (ccw(a, b, c) == 0 && ccw(a, b, d) == 0)
 			return pointOnLineSegment(a,b,c) ||
 			       pointOnLineSegment(a,b,d) ||
 			       pointOnLineSegment(c,d,a) ||
 			       pointOnLineSegment(c,d,b);
-	return orientation(a, b, c) * orientation(a, b, d) <= 0 &&
-	       orientation(c, d, a) * orientation(c, d, b) <= 0;
+	return ccw(a, b, c) * ccw(a, b, d) <= 0 &&
+	       ccw(c, d, a) * ccw(c, d, b) <= 0;
 }
 
 #include <geometry/segmentIntersection.cpp>
