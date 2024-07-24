@@ -1,8 +1,8 @@
 // Skalarprodukt
-double operator|(pt3 a, pt3 b) {
+auto operator|(pt3 a, pt3 b) {
 	return a.x * b.x + a.y*b.y + a.z*b.z;
 }
-double dot(pt3 a, pt3 b) {return a|b;}
+auto dot(pt3 a, pt3 b) {return a|b;}
 
 // Kreuzprodukt
 pt3 operator*(pt3 a, pt3 b) {return {a.y*b.z - a.z*b.y,
@@ -15,14 +15,14 @@ double abs(pt3 a) {return sqrt(dot(a, a));}
 double abs(pt3 a, pt3 b) {return abs(b - a);}
 
 // Mixedprodukt
-double mixed(pt3 a, pt3 b, pt3 c) {return a*b|c;};
+auto mixed(pt3 a, pt3 b, pt3 c) {return a*b|c;};
 
 // orientierung von p zu der Ebene durch a, b, c
 // -1 => gegen den Uhrzeigersinn,
 //  0 => kolliniear,
 //  1 => im Uhrzeigersinn.
-int orientation(pt3 a, pt3 b, pt3 c, pt3 p) {
-	double orien = mixed(b - a, c - a, p - a);
+int ccw(pt3 a, pt3 b, pt3 c, pt3 p) {
+	auto orien = mixed(b - a, c - a, p - a);
 	return (orien > EPS) - (orien < -EPS);
 }
 
@@ -34,7 +34,7 @@ double distToPlane(pt3 a, pt3 b, pt3 c, pt3 p) {
 
 // Liegt p in der Ebene a,b,c?
 bool pointOnPlane(pt3 a, pt3 b, pt3 c, pt3 p) {
-	return orientation(a, b, c, p) == 0;
+	return ccw(a, b, c, p) == 0;
 }
 
 // Schnittpunkt von der Grade a-b und der Ebene c,d,e

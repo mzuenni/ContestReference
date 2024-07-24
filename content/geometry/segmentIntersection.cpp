@@ -3,10 +3,10 @@ struct seg {
 	int id;
 	bool operator<(const seg& o) const {
 		if (real(a) < real(o.a)) {
-			int s = orientation(a, b, o.a);
+			int s = ccw(a, b, o.a);
 			return (s > 0 || (s == 0 && imag(a) < imag(o.a)));
 		} else if (real(a) > real(o.a)) {
-			int s = orientation(o.a, o.b, a);
+			int s = ccw(o.a, o.b, a);
 			return (s < 0 || (s == 0 && imag(a) < imag(o.a)));
 		}
 		return imag(a) < imag(o.a);

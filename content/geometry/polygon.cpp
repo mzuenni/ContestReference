@@ -18,7 +18,7 @@ ll windingNumber(pt p, const vector<pt>& poly) {
 		if (real(a) > real(b)) swap(a, b);
 		if (real(a) <= real(p) && real(p) < real(b) &&
 		    cross(p, a, b) < 0) {
-			res += orientation(p, poly[i], poly[i + 1]);
+			res += ccw(p, poly[i], poly[i + 1]);
 	}}
 	return res;
 }
