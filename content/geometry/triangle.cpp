@@ -3,7 +3,7 @@ pt centroid(pt a, pt b, pt c) {return (a + b + c) / 3.0;}
 
 // Flächeninhalt eines Dreicks bei bekannten Eckpunkten.
 double area(pt a, pt b, pt c) {
-	return abs(cross(b - a, c - a)) / 2.0;
+	return abs(cross(a, b, c)) / 2.0;
 }
 
 // Flächeninhalt eines Dreiecks bei bekannten Seitenlängen.
@@ -27,11 +27,11 @@ pt circumCenter(pt a, pt b, pt c) {
 	return a + d / cross(b, c) / 2.0;
 }
 
-//  1 => p außerhalb Kreis durch a,b,c
+// -1 => p außerhalb Kreis durch a,b,c
 //  0 => p auf Kreis durch a,b,c
-// -1 => p im Kreis durch a,b,c
+//  1 => p im Kreis durch a,b,c
 int insideOutCenter(pt a, pt b, pt c, pt p) {// braucht lll
-	return sgn(imag((c-b)*conj(p-c)*(a-p)*conj(b-a)));
+	return ccw(a,b,c) * sgn(imag((c-b)*conj(p-c)*(a-p)*conj(b-a)));
 }
 
 // Sind die Dreiecke a1, b1, c1, and a2, b2, c2 ähnlich?

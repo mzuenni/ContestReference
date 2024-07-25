@@ -3,7 +3,7 @@ using pt = complex<ll>;
 
 constexpr pt INF_PT = pt(1e18, 1e18);
 
-bool circ(pt p, pt a, pt b, pt c) {// p in circle(A,B,C)
+bool circ(pt p, pt a, pt b, pt c) {// p in circle(A,B,C), ABC must be ccw
 	return imag((c-b)*conj(p-c)*(a-p)*conj(b-a)) < 0;
 }
 
