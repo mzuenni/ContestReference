@@ -1,7 +1,7 @@
 // berechnet die Schnittpunkte von zwei Kreisen
 // (Kreise dürfen nicht gleich sein!)
 vector<pt> circleIntersection(pt c1, double r1,
-                              pt c2, double r2) {
+	                          pt c2, double r2) {
 	double d = abs(c1 - c2);
 	if (d < abs(r1 - r2) || d > abs(r1 + r2)) return {};
 	double a = (r1 * r1 - r2 * r2 + d * d) / (2 * d);
@@ -13,11 +13,11 @@ vector<pt> circleIntersection(pt c1, double r1,
 }
 
 // berechnet die Schnittpunkte zwischen
-// einem Kreis(Kugel) und einer Grade (2D und 3D)
+// einem Kreis(Kugel) und einem Strahl (2D und 3D)
 vector<pt> circleRayIntersection(pt center, double r,
-                                 pt orig, pt dir) {
+	                             pt orig, pt dir) {
 	vector<pt> result;
-	double a = dot(dir, dir);
+	double a = norm(dir);
 	double b = 2 * dot(dir, orig - center);
 	double c = dot(orig - center, orig - center) - r * r;
 	double discr = b * b - 4 * a * c;
