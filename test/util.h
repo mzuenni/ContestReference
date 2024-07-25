@@ -399,7 +399,7 @@ ld float_error(ld given, ld expected) {
 	if (isfinite(given) && isfinite(expected)) {
 		ld absDiff = abs(given-expected);
 		ld relDiff = abs((given-expected)/expected);
-		return max(absDiff, relDiff);
+		return min(absDiff, relDiff);
 	}
 	if (isnan(given) && isnan(expected)) {
 		return 0;
