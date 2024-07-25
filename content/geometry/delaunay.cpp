@@ -1,7 +1,7 @@
 using lll = __int128;
-using pt = complex<ll>;
+using pt = complex<lll>;
 
-constexpr pt INF_PT = pt(1e18, 1e18);
+constexpr pt INF_PT = pt(2e18, 2e18);
 
 bool circ(pt p, pt a, pt b, pt c) {// p in circle(A,B,C), ABC must be ccw
 	return imag((c-b)*conj(p-c)*(a-p)*conj(b-a)) < 0;
@@ -65,7 +65,7 @@ pair<QuadEdge*, QuadEdge*> rec(IT l, IT r) {
 		if (n == 2) return {a, a->rev()};
 		QuadEdge* b = makeEdge(l[1], l[2]);
 		splice(a->rev(), b);
-		int side = cross(l[0], l[1], l[2]);
+		auto side = cross(l[0], l[1], l[2]);
 		QuadEdge* c = nullptr;
 		if (side != 0) c = connect(b, a);
 		if (side >= 0) return {a, b->rev()};

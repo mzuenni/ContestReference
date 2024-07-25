@@ -1,10 +1,10 @@
 // Test auf Streckenschnitt zwischen a-b und c-d.
 bool lineSegmentIntersection(pt a, pt b, pt c, pt d) {
 	if (ccw(a, b, c) == 0 && ccw(a, b, d) == 0)
-			return pointOnLineSegment(a,b,c) ||
-			       pointOnLineSegment(a,b,d) ||
-			       pointOnLineSegment(c,d,a) ||
-			       pointOnLineSegment(c,d,b);
+		return pointOnLineSegment(a,b,c) ||
+		       pointOnLineSegment(a,b,d) ||
+		       pointOnLineSegment(c,d,a) ||
+		       pointOnLineSegment(c,d,b);
 	return ccw(a, b, c) * ccw(a, b, d) <= 0 &&
 	       ccw(c, d, a) * ccw(c, d, b) <= 0;
 }
