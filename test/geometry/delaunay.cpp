@@ -90,8 +90,12 @@ void stress_test(ll range) {
 				int jj = j + 1;
 				if (j / 3 != jj / 3) jj -= 3;
 
+				if (got[i] == got[j] && got[ii] == got[jj]) cerr << "error: dublicate" << FAIL;
 				if (lineSegmentIntersection(got[i], got[ii], got[j], got[jj])) cerr << "error: intersection" << FAIL;
 			}
+			bool seen = false;
+			for (pt p : ps) seen |= p == got[i];
+			if (!seen) cerr << "error: invalid point" << FAIL;
 		}
 		queries += n;
 	}

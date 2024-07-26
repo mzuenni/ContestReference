@@ -17,7 +17,7 @@ test_file() {
     fi
     g++ -std=$std "$file" -I ../content/ -O2 -Wall -Wextra -Wshadow -Werror
     echo "running..."
-    timeout 30s ./a.out
+    timeout 60s ./a.out
     echo ""
     rm ./a.out
 }
