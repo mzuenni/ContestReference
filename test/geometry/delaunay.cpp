@@ -54,6 +54,22 @@ bool lineSegmentIntersection(pt a, pt b, pt c, pt d) {
 	       cross(c, d, a) * cross(c, d, b) < 0;
 }
 
+//  1 => c links von a->b
+//  0 => a, b und c kolliniear
+// -1 => c rechts von a->b
+int ccw(pt a, pt b, pt c) {
+	auto orien = cross(b - a, c - a);
+	return (orien > 0) - (orien < 0);
+}
+
+bool inOutCirc(pt a, pt b, pt c, pt p) {
+	lll p2 = norm(p);
+	lll A = norm(a)-p2;
+	lll B = norm(b)-p2;
+	lll C = norm(c)-p2;
+	return ccw(a, b, c) * (cross(p, a, b)*C + cross(p, b, c)*A + cross(p, c, a)*B) > 0;
+}
+
 
 void stress_test(ll range) {
 	ll queries = 0;
@@ -96,6 +112,14 @@ void stress_test(ll range) {
 			bool seen = false;
 			for (pt p : ps) seen |= p == got[i];
 			if (!seen) cerr << "error: invalid point" << FAIL;
+		}
+		for (int i = 0; i < sz(got); i += 3) {
+			for (pt p : ps) {
+				if (p == got[i]) continue;
+				if (p == got[i+1]) continue;
+				if (p == got[i+2]) continue;
+				if (inOutCirc(got[i], got[i+1], got[i+2], p)) cerr << "error: not delaunay" << FAIL;
+			}
 		}
 		queries += n;
 	}
