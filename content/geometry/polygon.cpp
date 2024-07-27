@@ -1,13 +1,13 @@
 // Flächeninhalt eines Polygons (nicht selbstschneidend).
 // Punkte gegen den Uhrzeigersinn: positiv, sonst negativ.
 double area(const vector<pt>& poly) { //poly[0] == poly.back()
-	double res = 0;
+	ll res = 0;
 	for (int i = 0; i + 1 < sz(poly); i++)
 		res += cross(poly[i], poly[i + 1]);
 	return 0.5 * res;
 }
 
-// Anzahl drehungen einer Polyline um einen Punkt
+// Anzahl ccw drehungen einer Polyline um einen Punkt
 // p nicht auf rand und poly[0] == poly.back()
 // res != 0 or (res & 1) != 0 um inside zu prüfen bei
 // selbstschneidenden Polygonen (definitions Sache)
@@ -40,7 +40,7 @@ bool inside(pt p, const vector<pt>& poly) {
 
 // convex hull without duplicates, h[0] != h.back()
 // apply comments if border counts as inside
-bool inside(pt p, const vector<pt>& hull) {
+bool insideConvex(pt p, const vector<pt>& hull) {
 	int l = 0, r = sz(hull) - 1;
 	if (cross(hull[0], hull[r], p) >= 0) return false; // > 0
 	while (l + 1 < r) {
@@ -78,17 +78,17 @@ vector<pt> minkowski(vector<pt> ps, vector<pt> qs) {
 }
 
 // convex hulls without duplicates, h[0] != h.back()
-double dist(const vector<pt>& ps, const vector<pt>& qs) {
+double dist(const vector<pt>& ps, vector<pt> qs) {
 	for (pt& q : qs) q *= -1;
 	auto p = minkowski(ps, qs);
 	p.push_back(p[0]);
-	double res = 0.0;
-	//bool intersect = true;
+	double res = INF;
+	bool intersect = true;
 	for (ll i = 0; i + 1 < sz(p); i++) {
-		//intersect &= cross(p[i], p[i+1] - p[i]) <= 0;
-		res = max(res, cross(p[i], p[i+1]-p[i]) / abs(p[i+1]-p[i]));
+		intersect &= cross(p[i], p[i+1]) >= 0;
+		res = min(res, distToSegment(p[i], p[i+1], 0));
 	}
-	return res;
+	return intersect ? 0 : res;
 }
 
 bool left(pt of, pt p) {return cross(p, of) < 0 ||
@@ -111,16 +111,16 @@ int extremal(const vector<pt>& hull, pt dir) {
 			if (cross(dir, dm) < 0) l = m;
 			else r = m;
 	}}
-	return r;
+	return r % (sz(hull) - 1);
 }
 
 // convex hulls without duplicates, hull[0] == hull.back() and
 // hull[0] must be a convex point (with angle < pi)
 // {} if no intersection
 // {x} if corner is only intersection
-// {a, b} segments (a,a+1) and (b,b+1) intersected (if only the
-// border is intersected corners a and b are the start and end)
-vector<int> intersect(const vector<pt>& hull, pt a, pt b) {
+// {i, j} segments (i,i+1) and (j,j+1) intersected (if only the
+// border is intersected corners i and j are the start and end)
+vector<int> intersectLine(const vector<pt>& hull, pt a, pt b) {
 	int endA = extremal(hull, (a-b) * pt(0, 1));
 	int endB = extremal(hull, (b-a) * pt(0, 1));
 	// cross == 0 => line only intersects border
@@ -135,7 +135,7 @@ vector<int> intersect(const vector<pt>& hull, pt a, pt b) {
 		while (l + 1 < r) {
 			int m = (l + r) / 2;
 			if (cross(hull[m % n], a, b) <= 0 &&
-			    cross(hull[m % n], a, b) != hull(poly[endB], a, b))
+			    cross(hull[m % n], a, b) != cross(hull[endB], a, b))
 				l = m;
 			else r = m;
 		}

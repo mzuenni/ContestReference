@@ -21,7 +21,7 @@ struct QuadEdge {
 deque<QuadEdge> edgeData;
 
 QuadEdge* makeEdge(pt from, pt to) {
-	for (int j : {0,1,2,3}) edgeData.push_back({});
+	for (int _ : {0,1,2,3}) edgeData.push_back({});
 	auto e = edgeData.end() - 4;
 	for (int j : {0,1,2,3}) e[j].onext = e[j^3].rot = &e[j^(j>>1)];
 	e[0].orig = from;

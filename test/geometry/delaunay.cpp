@@ -33,22 +33,20 @@ lll area(const vector<pt>& poly) { //poly[0] == poly.back()
 }
 
 // Liegt p auf der Strecke a-b?
-bool pointOnLineSegment(pt a, pt b, pt p) {
+bool pointInLineSegment(pt a, pt b, pt p) {
 	if (cross(a, b, p) != 0) return false;
 	auto dist = norm(a - b);
-	return norm(a - p) <= dist && norm(b - p) <= dist;
+	return norm(a - p) < dist && norm(b - p) < dist;
 }
 
 // Test auf Streckenschnitt zwischen a-b und c-d.
 // (nur intern)
 bool lineSegmentIntersection(pt a, pt b, pt c, pt d) {
-	if (a == c && b == d) return false;
-	if (a == d && b == c) return false;
 	if (cross(a, b, c) == 0 && cross(a, b, d) == 0) {
-		return (pointOnLineSegment(a,b,c) &&
-		        pointOnLineSegment(a,b,d)) ||
-		       (pointOnLineSegment(c,d,a) &&
-		        pointOnLineSegment(c,d,b));
+		return pointInLineSegment(a,b,c) ||
+		       pointInLineSegment(a,b,d) ||
+		       pointInLineSegment(c,d,a) ||
+		       pointInLineSegment(c,d,b);
 	}
 	return cross(a, b, c) * cross(a, b, d) < 0 &&
 	       cross(c, d, a) * cross(c, d, b) < 0;
