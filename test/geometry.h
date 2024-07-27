@@ -96,7 +96,6 @@ namespace Random {
 			if (coolinear) continue;
 
 			bool changed;
-			int a = 0;
 			do {
 				changed = false;
 				for (int i = 0; i < n && !changed; i++) {
