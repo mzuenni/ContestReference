@@ -8,9 +8,7 @@ declare -A cppstandard
 cppstandard["string/suffixArray.cpp"]="gnu++20"
 
 test_file() {
-    if [[ "$file" == ./* ]]; then
-      path="${file:2}"
-    fi
+    file=$(realpath --relative-to="${PWD}" "${1}")
     echo "$file:"
     echo "compiling..."
     std="gnu++17"
@@ -19,20 +17,29 @@ test_file() {
     fi
     g++ -std=$std "$file" -I ../content/ -O2 -Wall -Wextra -Wshadow -Werror
     echo "running..."
-    timeout 60s ./a.out
+    timeout --foreground 60s ./a.out
     echo ""
     rm ./a.out
 }
 
 if [ "$#" -ne 0 ]; then
-    for file in "$@"
+    for arg in "$@"
     do
-        test_file $file
+        if [ -d "$arg" ]; then
+            dir=$(realpath --relative-to="${PWD}" "$arg")
+            find . -type f -path "./${dir}/*.cpp" -print0 | sort -z | while read -d $'\0' file
+            do
+                test_file "$file"
+            done
+        fi
+        if [ -f "$arg" ]; then
+            test_file "$arg"
+        fi
     done
 else
-    find . -type f -name '*.cpp' -print0 | sort -z | while read -d $'\0' file
+    find . -type f -path '*.cpp' -print0 | sort -z | while read -d $'\0' file
     do
-        test_file $file
+        test_file "$file"
     done
 
     declare -A ignore
@@ -51,7 +58,7 @@ else
     find ../content/ -type f -name '*.cpp' -print0 | sort -z | while read -d $'\0' file
     do
         file=${file#../content/}
-        if [ ! -f $file ] && [[ ! -v ignore[$file] ]]; then
+        if [ ! -f "$file" ] && [[ ! -v ignore["$file"] ]]; then
             echo "  $file"
         fi
     done

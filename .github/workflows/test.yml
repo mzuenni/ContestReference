@@ -10,7 +10,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      - run: ./test/test.sh ${{ matrix.tests }}/*
+      - run: ./test/test.sh ${{ matrix.tests }}
 
   pdf:
     strategy:
