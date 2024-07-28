@@ -1,0 +1,22 @@
+on:
+  push:
+    paths:
+      - 'content/datastructures/**'
+      - 'test/datastructures/**'
+  pull_request:
+    paths:
+      - 'content/datastructures/**'
+      - 'test/datastructures/**'
+  workflow_dispatch:
+
+jobs:
+  pdf:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, ubuntu-22.04]
+    name: Test datastructures (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./test/test.sh datastructures

@@ -1,0 +1,25 @@
+on:
+  push:
+    paths:
+      - 'content/**'
+      - 'Makefile'
+  pull_request:
+    paths:
+      - 'content/**'
+      - 'Makefile'
+  workflow_dispatch:
+
+jobs:
+  pdf:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, ubuntu-22.04]
+    name: Test pdf (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          sudo apt-get update
+          sudo apt-get install latexmk texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-lang-german texlive-fonts-extra
+      - run: make

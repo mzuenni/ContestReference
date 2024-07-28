@@ -1,0 +1,525 @@
+\section{Mathe}
+
+\begin{algorithm}{Longest Increasing Subsequence}
+	\begin{itemize}
+		\item \code{lower\_bound} $\Rightarrow$ streng monoton
+		\item \code{upper\_bound} $\Rightarrow$ monoton
+	\end{itemize}
+	\sourcecode{math/longestIncreasingSubsequence.cpp}
+\end{algorithm}
+\vfill\null\columnbreak
+
+\begin{algorithm}{Zykel Erkennung}
+	\begin{methods}
+		\method{cycleDetection}{findet Zyklus von $x_0$ und Länge in $f$}{b+l}
+	\end{methods}
+	\sourcecode{math/cycleDetection.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Permutationen}
+	\begin{methods}
+		\method{kthperm}{findet $k$-te Permutation \big($k \in [0, n!$)\big)}{n\*\log(n)}
+	\end{methods}
+	\sourcecode{math/kthperm.cpp}
+	\begin{methods}
+		\method{permIndex}{bestimmt Index der Permutation \big($\mathit{res} \in [0, n!$)\big)}{n\*\log(n)}
+	\end{methods}
+	\sourcecode{math/permIndex.cpp}
+\end{algorithm}
+\clearpage
+
+\subsection{Mod-Exponent und Multiplikation über $\boldsymbol{\mathbb{F}_p}$}
+%\vspace{-1.25em}
+%\begin{multicols}{2}
+\method{mulMod}{berechnet $a \cdot b \bmod n$}{\log(b)}
+\sourcecode{math/modMulIterativ.cpp}
+%	\vfill\null\columnbreak
+\method{powMod}{berechnet $a^b \bmod n$}{\log(b)}
+\sourcecode{math/modPowIterativ.cpp}
+%\end{multicols}
+%\vspace{-2.75em}
+\begin{itemize}
+	\item für $a > 10^9$ \code{__int128} oder \code{modMul} benutzten!
+\end{itemize}
+
+\begin{algorithm}{ggT, kgV, erweiterter euklidischer Algorithmus}
+	\runtime{\log(a) + \log(b)}
+	\sourcecode{math/extendedEuclid.cpp}
+\end{algorithm}
+
+\subsection{Multiplikatives Inverses von $\boldsymbol{x}$ in $\boldsymbol{\mathbb{Z}/m\mathbb{Z}}$}
+\textbf{Falls $\boldsymbol{m}$ prim:}\quad $x^{-1} \equiv x^{m-2} \bmod m$
+
+\textbf{Falls $\boldsymbol{\ggT(x, m) = 1}$:}
+\begin{itemize}
+	\item Erweiterter euklidischer Algorithmus liefert $\alpha$ und $\beta$ mit
+	$\alpha x + \beta m = 1$.
+	\item Nach Kongruenz gilt $\alpha x + \beta m \equiv \alpha x \equiv 1 \bmod m$.
+	\item $x^{-1} :\equiv \alpha \bmod m$
+\end{itemize}
+\textbf{Sonst $\boldsymbol{\ggT(x, m) > 1}$:}\quad Es existiert kein $x^{-1}$.
+% \sourcecode{math/multInv.cpp}
+\sourcecode{math/shortModInv.cpp}
+
+\paragraph{Lemma von \textsc{Bézout}}
+Sei $(x, y)$ eine Lösung der diophantischen Gleichung $ax + by = d$.
+Dann lassen sich wie folgt alle Lösungen berechnen:
+\[
+\left(x + k\frac{b}{\ggT(a, b)},~y - k\frac{a}{\ggT(a, b)}\right)
+\]
+
+\paragraph{\textsc{Pell}-Gleichungen}
+Sei $(\overline{x}, \overline{y})$ die Lösung von $x^2 - ny^2 = 1$, die $x>1$ minimiert.
+Sei $(\tilde{x}, \tilde{y})$ die Lösung von $x^2-ny^2 = c$, die $x>1$ minimiert. Dann lassen
+sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
+\begin{align*}
+	x_1&\coloneqq \tilde{x}, & y_1&\coloneqq\tilde{y}\\
+	x_{k+1}&\coloneqq \overline{x}x_k+n\overline{y}y_k, & y_{k+1}&\coloneqq\overline{x}y_k+\overline{y}x_k
+\end{align*}
+
+\begin{algorithm}{Lineare Kongruenz}
+	\begin{itemize}
+		\item Kleinste Lösung $x$ für $ax\equiv b\pmod{m}$.
+		\item Weitere Lösungen unterscheiden sich um \raisebox{2pt}{$\frac{m}{g}$}, es gibt
+		also $g$ Lösungen modulo $m$.
+	\end{itemize}
+	\sourcecode{math/linearCongruence.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Chinesischer Restsatz}
+	\begin{itemize}
+		\item Extrem anfällig gegen Overflows. Evtl. häufig 128-Bit Integer verwenden.
+		\item Direkte Formel für zwei Kongruenzen $x \equiv a \bmod n$, $x \equiv b \bmod m$:
+		\[
+		x \equiv a - y \cdot n \cdot \frac{a - b}{d} \bmod \frac{mn}{d}
+		\qquad \text{mit} \qquad
+		d := \ggT(n, m) = yn + zm
+		\]
+		Formel kann auch für nicht teilerfremde Moduli verwendet werden.
+		Sind die Moduli nicht teilerfremd, existiert genau dann eine Lösung,
+		wenn $a\equiv~b \bmod \ggT(m, n)$.
+		In diesem Fall sind keine Faktoren
+		auf der linken Seite erlaubt.
+	\end{itemize}
+	\sourcecode{math/chineseRemainder.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Primzahltest \& Faktorisierung}
+	\method{isPrime}{prüft ob Zahl prim ist}{\log(n)^2}
+	\sourcecode{math/millerRabin.cpp}
+	\method{rho}{findet zufälligen Teiler}{\sqrt[\leftroot{3}\uproot{2}4]{n}}
+	\sourcecode{math/rho.cpp}
+	%\method{squfof}{findet zufälligen Teiler}{\sqrt[\leftroot{4}\uproot{2}4]{n}}
+	%\sourcecode{math/squfof.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Teiler}
+	\begin{methods}
+		\method{countDivisors}{Zählt Teiler von $n$}{\sqrt[\leftroot{3}\uproot{2}3]{n}}
+	\end{methods}
+	\sourcecode{math/divisors.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Matrix-Exponent}
+	\begin{methods}
+		\method{precalc}{berechnet $m^{2^b}$ vor}{\log(b)\*n^3}
+		\method{calc}{berechnet $m^b\cdot$}{\log(b)\cdot n^2}
+	\end{methods}
+	\textbf{Tipp:} wenn \code{v[x]=1} und \code{0} sonst, dann ist \code{res[y]} = $m^b_{y,x}$.
+	\sourcecode{math/matrixPower.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Lineare Rekurrenz}
+	\begin{methods}
+		\method{BerlekampMassey}{Berechnet eine lineare Rekurrenz $n$-ter Ordnung}{n^2}
+		\method{}{aus den ersten $2n$ Werte}{}
+	\end{methods}
+	\sourcecode{math/berlekampMassey.cpp}
+	Sei $f(n)=c_{0}f(n-1)+c_{1}f(n-2)+\dots + c_{n-1}f(0)$ eine lineare Rekurrenz.
+	
+	\begin{methods}
+		\method{kthTerm}{Berechnet $k$-ten Term einer Rekurrenz $n$-ter Ordnung}{\log(k)\cdot n^2}
+	\end{methods}
+	\sourcecode{math/linearRecurence.cpp}
+	Alternativ kann der \mbox{$k$-te} Term in \runtime{n^3\log(k)} berechnet werden:
+	$$\renewcommand\arraystretch{1.5}
+	\setlength\arraycolsep{3pt}
+	\begin{pmatrix}
+		c_{0} & c_{1} & \smash{\cdots} & \smash{\cdots} & c_{n-1} \\
+		1 & 0 & \smash{\cdots} & \smash{\cdots} & 0 \\
+		0 & \smash{\ddots} & \smash{\ddots} & & \smash{\vdots} \\
+		\smash{\vdots} & \smash{\ddots} & \smash{\ddots} & \smash{\ddots} & \smash{\vdots} \\
+		0 & \smash{\cdots} & 0 & 1 & 0 \\
+	\end{pmatrix}^k
+	\times~~
+	\begin{pmatrix}
+		f(n-1) \\
+		f(n-2) \\
+		\smash{\vdots} \\
+		\smash{\vdots} \\
+		f(0) \\
+	\end{pmatrix}
+	~~=~~
+	\begin{pmatrix}
+		f(n-1+k) \\
+		f(n-2+k) \\
+		\smash{\vdots} \\
+		\smash{\vdots} \\
+		f(k) \makebox[0pt][l]{\hspace{15pt}$\vcenter{\hbox{\huge$\leftarrow$}}$}\\
+	\end{pmatrix}
+	$$
+\end{algorithm}
+
+\begin{algorithm}{Diskreter Logarithmus}
+	\begin{methods}
+		\method{solve}{bestimmt Lösung $x$ für $a^x=b \bmod m$}{\sqrt{m}\*\log(m)}
+	\end{methods}
+	\sourcecode{math/discreteLogarithm.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Diskrete Quadratwurzel}
+	\begin{methods}
+		\method{sqrtMod}{bestimmt Lösung $x$ für $x^2=a \bmod p$ }{\log(p)}
+	\end{methods}
+	\textbf{Wichtig:} $p$ muss prim sein!
+	\sourcecode{math/sqrtModCipolla.cpp}
+\end{algorithm}
+%\columnbreak
+
+\begin{algorithm}{Primitivwurzeln}
+	\begin{itemize}
+		\item Primitivwurzel modulo $n$ existiert $\Leftrightarrow$ $n \in \{2,\ 4,\ p^\alpha,\ 2\cdot p^\alpha \mid\ 2 < p \in \mathbb{P},\ \alpha \in \mathbb{N}\}$
+		\item es existiert entweder keine oder $\varphi(\varphi(n))$ inkongruente Primitivwurzeln
+		\item Sei $g$ Primitivwurzel modulo $n$.
+		Dann gilt:\newline
+		Das kleinste $k$, sodass $g^k \equiv 1 \bmod n$, ist $k = \varphi(n)$.
+	\end{itemize}
+	\begin{methods}
+		\method{isPrimitive}{prüft ob $g$ eine Primitivwurzel ist}{\log(\varphi(n))\*\log(n)}
+		\method{findPrimitive}{findet Primitivwurzel (oder -1)}{\abs{ans}\*\log(\varphi(n))\*\log(n)}
+	\end{methods}
+	\sourcecode{math/primitiveRoot.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Diskrete \textrm{\textit{n}}-te Wurzel}
+	\begin{methods}
+		\method{root}{bestimmt Lösung $x$ für $x^a=b \bmod m$ }{\sqrt{m}\*\log(m)}
+	\end{methods}
+	Alle Lösungen haben die Form $g^{c + \frac{i \cdot \phi(n)}{\gcd(a, \phi(n))}}$
+	\sourcecode{math/discreteNthRoot.cpp}
+\end{algorithm}
+
+\begin{algorithm}{\textsc{Legendre}-Symbol}
+	Sei $p \geq 3$ eine Primzahl, $a \in \mathbb{Z}$:
+	\vspace{-0.15cm}\begin{align*}
+		\hspace*{3cm}\legendre{a}{p} &=
+		\begin{cases*}
+			\hphantom{-}0 & falls $p~\vert~a$ \\[-1ex]
+			\hphantom{-}1 & falls $\exists x \in \mathbb{Z}\backslash p\mathbb{Z} : a \equiv x^2 \bmod p$ \\[-1ex]
+			-1 & sonst
+		\end{cases*} \\
+		\legendre{-1}{p} = (-1)^{\frac{p - 1}{2}} &=
+		\begin{cases*}
+			\hphantom{-}1 & falls $p \equiv 1 \bmod 4$ \\[-1ex]
+			-1 & falls $p \equiv 3 \bmod 4$
+		\end{cases*} \\
+		\legendre{2}{p} = (-1)^{\frac{p^2 - 1}{8}} &=
+		\begin{cases*}
+			\hphantom{-}1 & falls $p \equiv \pm 1 \bmod 8$ \\[-1ex]
+			-1 & falls $p \equiv \pm 3 \bmod 8$
+		\end{cases*}
+	\end{align*}
+	\begin{align*}
+		\legendre{p}{q} \cdot \legendre{q}{p} = (-1)^{\frac{p - 1}{2} \cdot \frac{q - 1}{2}} &&
+		\legendre{a}{p} \equiv a^{\frac{p-1}{2}}\bmod p
+	\end{align*}
+	\vspace{-0.05cm}
+	\sourcecode{math/legendre.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Lineares Sieb und Multiplikative Funktionen}
+	Eine (zahlentheoretische) Funktion $f$ heißt multiplikativ wenn $f(1)=1$ und $f(a\cdot b)=f(a)\cdot f(b)$, falls $\ggT(a,b)=1$.
+	
+	$\Rightarrow$ Es ist ausreichend $f(p^k)$ für alle primen $p$ und alle $k$ zu kennen.
+	
+	\begin{methods}
+		\method{sieve}{berechnet Primzahlen und co.}{N}
+		\method{sieved}{Wert der entsprechenden multiplikativen Funktion}{1}
+		
+		\method{naive}{Wert der entsprechenden multiplikativen Funktion}{\sqrt{n}}
+	\end{methods}
+	\textbf{Wichtig:} Sieb rechts ist schneller für \code{isPrime} oder \code{primes}!
+	
+	\sourcecode{math/linearSieve.cpp}
+	\textbf{\textsc{Möbius}-Funktion:}
+	\begin{itemize}
+		\item $\mu(n)=+1$, falls $n$ quadratfrei ist und gerade viele Primteiler hat
+		\item $\mu(n)=-1$, falls $n$ quadratfrei ist und ungerade viele Primteiler hat
+		\item $\mu(n)=0$, falls $n$ nicht quadratfrei ist
+	\end{itemize}
+
+	\textbf{\textsc{Euler}sche $\boldsymbol{\varphi}$-Funktion:}
+	\begin{itemize}
+		\item Zählt die relativ primen Zahlen $\leq n$.			
+		\item $p$ prim, $k \in \mathbb{N}$:
+		$~\varphi(p^k) = p^k - p^{k - 1}$
+		
+		\item \textbf{Euler's Theorem:}
+		Für $b \geq \varphi(c)$ gilt: $a^b \equiv a^{b \bmod \varphi(c) + \varphi(c)} \pmod{c}$. Darüber hinaus gilt: $\gcd(a, c) = 1 \Leftrightarrow a^b \equiv a^{b \bmod \varphi(c)} \pmod{c}$.
+		Falls $m$ prim ist, liefert das den \textbf{kleinen Satz von \textsc{Fermat}}:
+		$a^{m} \equiv a \pmod{m}$
+	\end{itemize}
+\end{algorithm}
+
+\begin{algorithm}{Primzahlsieb von \textsc{Eratosthenes}}
+	\begin{itemize}
+		\item Bis $10^8$ in unter 64MB Speicher (lange Berechnung)
+	\end{itemize}
+	\begin{methods}
+		\method{primeSieve}{berechnet Primzahlen und Anzahl}{N\*\log(\log(N))}
+		\method{isPrime}{prüft ob Zahl prim ist}{1}
+	\end{methods}
+	\sourcecode{math/primeSieve.cpp}
+\end{algorithm}
+
+\begin{algorithm}{\textsc{Möbius}-Inversion}
+	\begin{itemize}
+		\item Seien $f,g : \mathbb{N} \to \mathbb{N}$ und  $g(n) := \sum_{d \vert n}f(d)$.
+		Dann ist $f(n) = \sum_{d \vert n}g(d)\mu(\frac{n}{d})$.
+		\item $\sum\limits_{d \vert n}\mu(d) =
+		\begin{cases*}
+			1 & falls $n = 1$\\
+			0 & sonst
+		\end{cases*}$
+	\end{itemize}
+	\textbf{Beispiel Inklusion/Exklusion:}
+	Gegeben sein eine Sequenz $A={a_1,\ldots,a_n}$ von Zahlen, $1 \leq a_i \leq N$. Zähle die Anzahl der \emph{coprime subsequences}.\newline
+	\textbf{Lösung}:
+	Für jedes $x$, sei $cnt[x]$ die Anzahl der Vielfachen von $x$ in $A$.
+	Es gibt $2^{[x]}-1$ nicht leere Subsequences in $A$, die nur Vielfache von $x$ enthalten.
+	Die Anzahl der Subsequences mit $\ggT=1$ ist gegeben durch $\sum_{i = 1}^N \mu(i) \cdot (2^{cnt[i]} - 1)$.
+\end{algorithm}
+
+\subsection{LGS über $\boldsymbol{\mathbb{F}_p}$}
+\method{gauss}{löst LGS}{n^3}
+\sourcecode{math/lgsFp.cpp}
+
+\subsection{LGS über $\boldsymbol{\mathbb{R}}$}
+\method{gauss}{löst LGS}{n^3}
+\sourcecode{math/gauss.cpp}
+
+\vfill\null\columnbreak
+
+\begin{algorithm}{Numerisch Extremstelle bestimmen}
+	\sourcecode{math/goldenSectionSearch.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Numerisch Integrieren, Simpsonregel}
+	\sourcecode{math/simpson.cpp}
+\end{algorithm}
+
+
+\begin{algorithm}{Polynome, FFT, NTT \& andere Transformationen}
+	Multipliziert Polynome $A$ und $B$.
+	\begin{itemize}
+		\item $\deg(A \cdot B) = \deg(A) + \deg(B)$
+		\item Vektoren \code{a} und \code{b} müssen mindestens Größe
+		$\deg(A \cdot B) + 1$ haben.
+		Größe muss eine Zweierpotenz sein.
+		\item Für ganzzahlige Koeffizienten: \code{(ll)round(real(a[i]))}
+		\item \emph{xor}, \emph{or} und \emph{and} Transform funktioniert auch mit \code{double} oder modulo einer Primzahl $p$ falls $p \geq 2^{\texttt{bits}}$
+	\end{itemize}
+	%\sourcecode{math/fft.cpp}
+	%\sourcecode{math/ntt.cpp}
+	\sourcecode{math/transforms/fft.cpp}
+	\sourcecode{math/transforms/ntt.cpp}
+	\sourcecode{math/transforms/bitwiseTransforms.cpp}
+	Multiplikation mit 2 transforms statt 3: (nur benutzten wenn nötig!)
+	\sourcecode{math/transforms/fftMul.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Operations on Formal Power Series}
+    \sourcecode{math/transforms/seriesOperations.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Inversionszahl}
+	\sourcecode{math/inversions.cpp}
+\end{algorithm}
+
+\subsection{Satz von \textsc{Sprague-Grundy}}
+Weise jedem Zustand $X$ wie folgt eine \textsc{Grundy}-Zahl $g\left(X\right)$ zu:
+\[
+g\left(X\right) := \min\left\{
+\mathbb{Z}_0^+ \setminus
+\left\{g\left(Y\right) \mid Y \text{ von } X \text{ aus direkt erreichbar}\right\}
+\right\}
+\]
+$X$ ist genau dann gewonnen, wenn $g\left(X\right) > 0$ ist.\\
+Wenn man $k$ Spiele in den Zuständen $X_1, \ldots, X_k$ hat, dann ist die \textsc{Grundy}-Zahl des Gesamtzustandes $g\left(X_1\right) \oplus \ldots \oplus g\left(X_k\right)$.
+
+\subsection{Kombinatorik}
+
+\paragraph{Wilsons Theorem}
+A number $n$ is prime if and only if
+$(n-1)!\equiv -1\bmod{n}$.\\
+($n$ is prime if and only if $(m-1)!\cdot(n-m)!\equiv(-1)^m\bmod{n}$ for all $m$ in $\{1,\dots,n\}$)
+\begin{align*}
+	(n-1)!\equiv\begin{cases}
+		-1\bmod{n},&\mathrm{falls}~n \in \mathbb{P}\\
+		\hphantom{-}2\bmod{n},&\mathrm{falls}~n = 4\\
+		\hphantom{-}0\bmod{n},&\mathrm{sonst}
+	\end{cases}
+\end{align*}
+
+\paragraph{\textsc{Zeckendorfs} Theorem}
+Jede positive natürliche Zahl kann eindeutig als Summe einer oder mehrerer
+verschiedener \textsc{Fibonacci}-Zahlen geschrieben werden, sodass keine zwei
+aufeinanderfolgenden \textsc{Fibonacci}-Zahlen in der Summe vorkommen.\\
+\emph{Lösung:} Greedy, nimm immer die größte \textsc{Fibonacci}-Zahl, die noch
+hineinpasst.
+
+\paragraph{\textsc{Lucas}-Theorem}
+Ist $p$ prim, $m=\sum_{i=0}^km_ip^i$, $n=\sum_{i=0}^kn_ip^i$ ($p$-adische Darstellung),
+so gilt
+\vspace{-0.75\baselineskip}
+\[
+	\binom{m}{n} \equiv \prod_{i=0}^k\binom{m_i}{n_i} \bmod{p}.
+\]
+
+%\begin{algorithm}{Binomialkoeffizienten}
+\paragraph{Binomialkoeffizienten}
+	Die Anzahl der \mbox{$k$-elementigen} Teilmengen einer \mbox{$n$-elementigen} Menge.
+	
+	\begin{methods}
+		\method{precalc}{berechnet $n!$ und $n!^{-1}$ vor}{\mathit{lim}}
+		\method{calc\_binom}{berechnet Binomialkoeffizient}{1}
+	\end{methods}
+	\sourcecode{math/binomial0.cpp}
+	Falls $n >= p$ for $\mathit{mod}=p^k$ berechne \textit{fac} und \textit{inv} aber teile $p$ aus $i$ und berechne die häufigkeit von $p$ in $n!$ als $\sum\limits_{i=1}\big\lfloor\frac{n}{p^i}\big\rfloor$
+
+    \begin{methods}
+		\method{calc\_binom}{berechnet Binomialkoeffizient $(n \le 61)$}{k}
+	\end{methods}
+	\sourcecode{math/binomial1.cpp}
+
+    \begin{methods}
+		\method{calc\_binom}{berechnet Binomialkoeffizient modulo Primzahl $p$}{p-n}
+	\end{methods}
+	\sourcecode{math/binomial3.cpp}
+
+%	\begin{methods}
+%		\method{calc\_binom}{berechnet Primfaktoren vom Binomialkoeffizient}{n}
+%	\end{methods}
+%	\textbf{WICHTIG:} braucht alle Primzahlen $\leq n$
+%	\sourcecode{math/binomial2.cpp}
+%\end{algorithm}
+
+\paragraph{\textsc{Catalan}-Zahlen}
+\begin{itemize}
+	\item Die \textsc{Catalan}-Zahl $C_n$ gibt an:
+	\begin{itemize}
+		\item Anzahl der Binärbäume mit $n$ nicht unterscheidbaren Knoten.
+		\item Anzahl der validen Klammerausdrücke mit $n$ Klammerpaaren.
+		\item Anzahl der korrekten Klammerungen von $n+1$ Faktoren.
+		\item Anzahl Möglichkeiten ein konvexes Polygon mit $n + 2$ Ecken zu triangulieren.
+		\item Anzahl der monotonen Pfade (zwischen gegenüberliegenden Ecken) in
+		einem $n \times n$-Gitter, die nicht die Diagonale kreuzen.
+	\end{itemize}
+\end{itemize}
+\[C_0 = 1\qquad C_n = \sum\limits_{k = 0}^{n - 1} C_kC_{n - 1 - k} =
+\frac{1}{n + 1}\binom{2n}{n} = \frac{4n - 2}{n+1} \cdot C_{n-1}\]
+\begin{itemize}
+	\item Formel $1$ erlaubt Berechnung ohne Division in \runtime{n^2}
+	\item Formel $2$ und $3$ erlauben Berechnung in \runtime{n}
+\end{itemize}
+
+\paragraph{\textsc{Catalan}-Convolution}
+\begin{itemize}
+	\item Anzahl an Klammerausdrücken mit $n+k$ Klammerpaaren, die mit $(^k$ beginnen.
+\end{itemize}
+\[C^k_0 = 1\qquad C^k_n = \sum\limits_{\mathclap{a_0+a_1+\dots+a_k=n}} C_{a_0}C_{a_1}\cdots C_{a_k} =
+\frac{k+1}{n+k+1}\binom{2n+k}{n} = \frac{(2n+k-1)\cdot(2n+k)}{n(n+k+1)} \cdot C_{n-1}\]
+
+\paragraph{\textsc{Euler}-Zahlen 1. Ordnung}
+Die Anzahl der Permutationen von $\{1, \ldots, n\}$ mit genau $k$ Anstiegen.
+Für die $n$-te Zahl gibt es $n$ mögliche Positionen zum Einfügen.
+Dabei wird entweder ein Anstieg in zwei gesplitted oder ein Anstieg um $n$ ergänzt.
+\[\eulerI{n}{0} = \eulerI{n}{n-1} = 1 \quad
+\eulerI{n}{k} = (k+1) \eulerI{n-1}{k} + (n-k) \eulerI{n-1}{k-1}=
+\sum_{i=0}^{k} (-1)^i\binom{n+1}{i}(k+1-i)^n\]
+\begin{itemize}
+	\item Formel $1$ erlaubt Berechnung ohne Division in \runtime{n^2}
+	\item Formel $2$ erlaubt Berechnung in \runtime{n\log(n)}
+\end{itemize}
+
+\paragraph{\textsc{Euler}-Zahlen 2. Ordnung}
+Die Anzahl der Permutationen von $\{1,1, \ldots, n,n\}$ mit genau $k$ Anstiegen.
+\[\eulerII{n}{0} = 1 \qquad\eulerII{n}{n} = 0 \qquad\eulerII{n}{k} = (k+1) \eulerII{n-1}{k} + (2n-k-1) \eulerII{n-1}{k-1}\]
+\begin{itemize}
+	\item Formel erlaubt Berechnung ohne Division in \runtime{n^2}
+\end{itemize}
+
+\paragraph{\textsc{Stirling}-Zahlen 1. Ordnung}
+Die Anzahl der Permutationen von $\{1, \ldots, n\}$ mit genau $k$ Zyklen.
+Es gibt zwei Möglichkeiten für die $n$-te Zahl. Entweder sie bildet einen eigene Zyklus, oder sie kann an jeder Position in jedem Zyklus einsortiert werden.
+\[\stirlingI{0}{0} = 1 \qquad
+\stirlingI{n}{0} = \stirlingI{0}{n} = 0 \qquad
+\stirlingI{n}{k} = \stirlingI{n-1}{k-1} + (n-1) \stirlingI{n-1}{k}\]
+\begin{itemize}
+	\item Formel erlaubt berechnung ohne Division in \runtime{n^2}
+\end{itemize}
+\[\sum_{k=0}^{n}\pm\stirlingI{n}{k}x^k=x(x-1)(x-2)\cdots(x-n+1)\]
+\begin{itemize}
+	\item Berechne Polynom mit FFT und benutzte betrag der Koeffizienten \runtime{n\log(n)^2} (nur ungefähr gleich große Polynome zusammen multiplizieren beginnend mit $x-k$)
+\end{itemize}
+
+\paragraph{\textsc{Stirling}-Zahlen 2. Ordnung}
+Die Anzahl der Möglichkeiten $n$ Elemente in $k$ nichtleere Teilmengen zu zerlegen.
+Es gibt $k$ Möglichkeiten die $n$ in eine $n-1$-Partition einzuordnen.
+Dazu kommt der Fall, dass die $n$ in ihrer eigenen Teilmenge (alleine) steht.
+\[\stirlingII{n}{1} = \stirlingII{n}{n} = 1 \qquad
+\stirlingII{n}{k} = k \stirlingII{n-1}{k} + \stirlingII{n-1}{k-1} =
+\frac{1}{k!} \sum\limits_{i=0}^{k} (-1)^{k-i}\binom{k}{i}i^n\]
+\begin{itemize}
+	\item Formel $1$ erlaubt Berechnung ohne Division in \runtime{n^2}
+	\item Formel $2$ erlaubt Berechnung in \runtime{n\log(n)}
+\end{itemize}
+
+\paragraph{\textsc{Bell}-Zahlen}
+Anzahl der Partitionen von $\{1, \ldots, n\}$.
+Wie \textsc{Stirling}-Zahlen 2. Ordnung ohne Limit durch $k$.
+\[B_1 = 1 \qquad
+B_n = \sum\limits_{k = 0}^{n - 1} B_k\binom{n-1}{k}
+= \sum\limits_{k = 0}^{n}\stirlingII{n}{k}\qquad\qquad B_{p^m+n}\equiv m\cdot B_n + B_{n+1} \bmod{p}\]
+
+\paragraph{Partitions}
+Die Anzahl der Partitionen von $n$ in genau $k$ positive Summanden.
+Die Anzahl der Partitionen von $n$ mit Elementen aus ${1,\dots,k}$.
+\begin{align*}
+	p_0(0)=1 \qquad p_k(n)&=0 \text{ für } k > n \text{ oder } n \leq 0 \text{ oder } k \leq 0\\
+	p_k(n)&= p_k(n-k) + p_{k-1}(n-1)\\[2pt]
+	p(n)&=\sum_{k=1}^{n} p_k(n)=p_n(2n)=\sum\limits_{k\neq0}^\infty(-1)^{k+1}p\bigg(n - \frac{k(3k-1)}{2}\bigg)
+\end{align*}
+\begin{itemize}
+	\item in Formel $3$ kann abgebrochen werden wenn $\frac{k(3k-1)}{2} > n$.
+	\item Die Anzahl der Partitionen von $n$ in bis zu $k$ positive Summanden ist $\sum\limits_{i=0}^{k}p_i(n)=p_k(n+k)$.
+\end{itemize}
+
+\subsection{The Twelvefold Way \textnormal{(verteile $n$ Bälle auf $k$ Boxen)}}
+\input{math/tables/twelvefold}
+
+\optional{
+\subsection{Primzahlzählfunktion $\boldsymbol{\pi}$}
+\begin{methods}
+	\method{init}{berechnet $\pi$ bis $N$}{N\*\log(\log(N))}
+	\method{phi}{zählt zu $p_i$ teilerfremde Zahlen $\leq n$ für alle $i \leq k$}{???}
+	\method{pi}{zählt Primzahlen  $\leq n$ ($n < N^2$)}{n^{2/3}}
+\end{methods}
+\sourcecode{math/piLehmer.cpp}
+}
+
+%\input{math/tables/numbers}
+
+\begin{algorithm}[optional]{Big Integers}
+	\sourcecode{math/bigint.cpp}
+\end{algorithm}

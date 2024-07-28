@@ -1,0 +1,132 @@
+\section{Strings}
+
+\begin{algorithm}{\textsc{Knuth-Morris-Pratt}-Algorithmus}
+	\begin{methods}
+		\method{kmpSearch}{sucht \code{sub} in \code{s}}{\abs{s}+\abs{sub}}
+	\end{methods}
+	\sourcecode{string/kmp.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Z-Algorithmus}
+	\begin{methods}[ll]
+		$z_i\coloneqq$ Längstes gemeinsames Präfix von $s_0\cdots s_{n-1}$ und $s_i\cdots s_{n-1}$ & \runtime{n}
+	\end{methods}
+	Suchen: Z-Algorithmus auf \code{P\$S} ausführen, Positionen mit $z_i=\abs{P}$ zurückgeben
+	\sourcecode{string/z.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Rolling Hash}
+	\sourcecode{string/rollingHash.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Pattern Matching mit Wildcards}
+	Gegeben zwei strings $A$ und $B$,$B$ enthält $k$ \emph{wildcards} enthält. Sei:
+	\begin{align*}
+		a_i&=\cos(\alpha_i) + i\sin(\alpha_i) &\text{ mit } \alpha_i&=\frac{2\pi A[i]}{\Sigma}\\
+		b_i&=\cos(\beta_i) + i\sin(\beta_i) &\text{ mit } \beta_i&=\begin{cases*}
+			\frac{2\pi B[\abs{B}-i-1]}{\Sigma} & falls $B[\abs{B}-i-1]\in\Sigma$ \\
+			0 & sonst
+		\end{cases*}
+	\end{align*}
+	$B$ matcht $A$ an stelle $i$ wenn $(b\cdot a)[|B|-1+i]=|B|-k$.
+	Benutze FFT um $(b\cdot a)$ zu berechnen.
+\end{algorithm}
+
+\begin{algorithm}{\textsc{Manacher}'s Algorithm, Longest Palindrome}
+	\begin{methods}
+		\method{init}{transformiert \code{string a}}{n}
+		\method{manacher}{berechnet Längen der Palindrome in longest}{n}
+	\end{methods}
+	\sourcecode{string/manacher.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Longest Common Subsequence}
+	\begin{methods}
+		\method{lcss}{findet längste gemeinsame Sequenz}{\abs{a}\*\abs{b}}
+	\end{methods}
+	\sourcecode{string/longestCommonSubsequence.cpp}
+\end{algorithm}
+
+\columnbreak
+\begin{algorithm}{\textsc{Aho-Corasick}-Automat}
+	\begin{methods}[ll]
+		sucht patterns im Text & \runtime{\abs{Text}+\sum\abs{pattern}}
+	\end{methods}
+	\begin{enumerate}
+		\item mit \code{addString(pattern, idx)} Patterns hinzufügen.
+        \item rufe \code{buildGraph()} auf
+		\item mit \code{state = go(state, idx)} in nächsten Zustand wechseln.
+        \item erhöhe dabei \code{dp[state]++}
+        \item rufe \code{dfs()} auf. In dp[pattern state] stehen die Anzahl der Matches
+	\end{enumerate}
+	\sourcecode{string/ahoCorasick.cpp}
+\end{algorithm}
+\clearpage
+
+\begin{algorithm}{Lyndon und De-Bruijn}
+	\begin{itemize}
+		\item \textbf{Lyndon-Wort:} Ein Wort das lexikographisch kleiner ist als jede seiner Rotationen.
+		\item Jedes Wort kann \emph{eindeutig} in eine nicht ansteigende Folge von Lyndon-Worten zerlegt werden.
+		\item Für Lyndon-Worte $u, v$ mit $u<v$ gilt, dass $uv$ auch ein Lyndon-Wort ist.
+	\end{itemize}
+	\begin{methods}
+		\method[, Durchschnitt $\Theta(1)$]{next}{lexikographisch nächstes Lyndon-Wort}{n}
+		\method{duval}{zerlegt $s$ in Lyndon-Worte}{n}
+		\method{minrotation}{berechnet kleinste Rotation von $s$}{n}
+	\end{methods}
+	\sourcecode{string/lyndon.cpp}
+	\sourcecode{string/duval.cpp}
+	\begin{itemize}
+		\item \textbf{De-Bruijn-Sequenze $\boldsymbol{B(\Sigma, n)}$:}~~~ein Wort das jedes Wort der Länge $n$ genau einmal als substring enthält (und minimal ist). Wobei $B(\Sigma, n)$ zyklisch betrachtet wird.
+		\item es gibt $\frac{(k!)^{k^{n-1}}}{k^{n}}$ verschiedene $B(\Sigma, n)$
+		\item $B(\Sigma, n)$ hat Länge $\abs{\Sigma}^n$
+	\end{itemize}
+	\begin{methods}
+		\method{deBruijn}{berechnet ein festes $B(\Sigma, n)$}{\abs{\Sigma}^n}
+	\end{methods}
+	\sourcecode{string/deBruijn.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Suffix-Array}
+\begin{methods}
+	\method{SuffixArray}{berechnet ein Suffix Array}{\abs{s}\*\log^2(\abs{s})}
+	\method{lcp}{berechnet Länge des longest common prefix}{\log(\abs{s})}
+	\method{}{von \code{s[x]} und \code{s[y]}}{}
+\end{methods}
+\sourcecode{string/suffixArray.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Suffix-Baum}
+	\begin{methods}
+		\method{SuffixTree}{berechnet einen Suffixbaum}{\abs{s}}
+		\method{extend}{fügt den nächsten Buchstaben aus \code{s} ein}{1}
+	\end{methods}
+	\sourcecode{string/suffixTree.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Suffix-Automaton}
+	\begin{itemize}
+		\item \textbf{Ist \textit{w} Substring von \textit{s}?}
+		Baue Automaten für \textit{s} und wende ihn auf \textit{w} an.
+		Wenn alle Übergänge vorhanden sind, ist \textit{w} Substring von \textit{s}.
+	
+		\item \textbf{Ist \textit{w} Suffix von \textit{s}?}
+		Wie oben und prüfe, ob Endzustand ein Terminal ist.
+	
+		\item \textbf{Anzahl verschiedener Substrings.}
+		Jeder Pfad im Automaten entspricht einem Substring.
+		Für einen Knoten ist die Anzahl der ausgehenden Pfade gleich der Summe über die Anzahlen der Kindknoten plus 1.
+		Der letzte Summand ist der Pfad, der in diesem Knoten endet.
+	
+		\item \textbf{Wie oft taucht \textit{w} in \textit{s} auf?}
+		Sei \textit{p} der Zustand nach Abarbeitung von \textit{w}.
+		Lösung ist Anzahl der Pfade, die in \textit{p} starten und in einem Terminal enden.
+		Diese Zahl lässt sich wie oben rekursiv berechnen.
+		Bei jedem Knoten darf nur dann plus 1 gerechnet werden, wenn es ein Terminal ist.
+	\end{itemize}
+	\sourcecode{string/suffixAutomaton.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Trie}
+	\sourcecode{string/trie.cpp}
+\end{algorithm}

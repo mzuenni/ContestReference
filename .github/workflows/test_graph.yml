@@ -1,0 +1,22 @@
+on:
+  push:
+    paths:
+      - 'content/graph/**'
+      - 'test/graph/**'
+  pull_request:
+    paths:
+      - 'content/graph/**'
+      - 'test/graph/**'
+  workflow_dispatch:
+
+jobs:
+  pdf:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, ubuntu-22.04]
+    name: Test graph (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./test/test.sh graph

@@ -1,0 +1,22 @@
+on:
+  push:
+    paths:
+      - 'content/geometry/**'
+      - 'test/geometry/**'
+  pull_request:
+    paths:
+      - 'content/geometry/**'
+      - 'test/geometry/**'
+  workflow_dispatch:
+
+jobs:
+  pdf:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, ubuntu-22.04]
+    name: Test geometry (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./test/test.sh geometry

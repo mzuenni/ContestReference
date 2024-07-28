@@ -1,0 +1,121 @@
+\section{Datenstrukturen}
+
+\begin{algorithm}{Segmentbaum}
+	\begin{methods}
+		\method{SegTree}{baut den Baum auf}{n}
+		\method{query}{findet Summe über $[l, r)$}{\log(n)}
+		\method{update}{ändert einen Wert}{\log(n)}
+	\end{methods}
+	\sourcecode{datastructures/segmentTree.cpp}
+	
+	\subsubsection{Lazy Propagation}
+	Assignment modifications, sum queries \\
+	\method{lower\_bound}{erster Index in $[l, r)$ $\geq$ x (erfordert max-combine)}{\log(n)}
+	\sourcecode{datastructures/lazyPropagation.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Wavelet Tree}
+	\begin{methods}
+		\method{WaveletTree}{baut den Baum auf}{n\*\log(\Sigma)}
+		\method{kth}{sort $[l, r)[k]$}{\log(\Sigma)}
+		\method{countSmaller}{Anzahl elemente in $[l, r)$ kleiner als $k$}{\log(\Sigma)}
+	\end{methods}
+	\sourcecode{datastructures/waveletTree.cpp}
+\end{algorithm}
+\columnbreak
+
+\begin{algorithm}{Fenwick Tree}
+	\begin{methods}
+		\method{init}{baut den Baum auf}{n\*\log(n)}
+		\method{prefix\_sum}{summe von $[0, i]$}{\log(n)}
+		\method{update}{addiert ein Delta zu einem Element}{\log(n)}
+	\end{methods}
+	\sourcecode{datastructures/fenwickTree.cpp}
+	
+	\begin{methods}
+		\method{init}{baut den Baum auf}{n\*\log(n)}
+		\method{prefix\_sum}{summe von [$0, i]$}{\log(n)}
+		\method{update}{addiert ein Delta zu allen Elementen $[l, r)$. $l\leq r$!}{\log(n)}
+	\end{methods}
+	\sourcecode{datastructures/fenwickTree2.cpp}
+\end{algorithm}
+
+\begin{algorithm}{STL-Rope (Implicit Cartesian Tree)}
+	\sourcecode{datastructures/stlRope.cpp}
+\end{algorithm}
+\columnbreak
+
+\begin{algorithm}{(Implicit) Treap (Cartesian Tree)}
+	\begin{methods}
+		\method{insert}{fügt wert $\mathit{val}$ an stelle $i$ ein (verschiebt alle Positionen $\geq i$)}{\log(n)}
+		\method{remove}{löscht werte $[i,i+\mathit{count})$}{\log(n)}
+	\end{methods}
+	\sourcecode{datastructures/treap2.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Range Minimum Query}
+	\begin{methods}
+		\method{init}{baut Struktur auf}{n\*\log(n)}
+		\method{queryIdempotent}{Index des Minimums in $[l, r)$. $l<r$!}{1}
+	\end{methods}
+	\begin{itemize}
+		\item \code{better}-Funktion muss idempotent sein!
+	\end{itemize}
+	\sourcecode{datastructures/sparseTable.cpp}
+\end{algorithm}
+
+\begin{algorithm}{STL-Bitset}
+	\sourcecode{datastructures/bitset.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Link-Cut-Tree}
+	\begin{methods}
+		\method{LCT}{baut Wald auf}{n}
+		\method{connected}{prüft ob zwei Knoten im selben Baum liegen}{\log(n)}
+		\method{link}{fügt $\{x,y\}$ Kante ein}{\log(n)}
+		\method{cut}{entfernt $\{x,y\}$ Kante}{\log(n)}
+		\method{lca}{berechnet LCA von $x$ und $y$}{\log(n)}
+		\method{query}{berechnet \code{query} auf den Knoten des $xy$-Pfades}{\log(n)}
+		\method{modify}{erhöht jeden wert auf dem $xy$-Pfad}{\log(n)}
+	\end{methods}
+	\sourcecode{datastructures/LCT.cpp}
+\end{algorithm}
+\clearpage
+
+\begin{algorithm}{Lichao}
+    \sourcecode{datastructures/lichao.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Policy Based Data Structures}
+    \textbf{Wichtig:} Verwende \code{p.swap(p2)} anstatt \code{swap(p, p2)}!
+	\sourcecode{datastructures/stlPriorityQueue.cpp}
+	\columnbreak
+	\sourcecode{datastructures/pbds.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Lower/Upper Envelope (Convex Hull Optimization)}
+	Um aus einem lower envelope einen upper envelope zu machen (oder umgekehrt), einfach beim Einfügen der Geraden $m$ und $b$ negieren.
+	\sourcecode{datastructures/monotonicConvexHull.cpp}
+	\sourcecode{datastructures/dynamicConvexHull.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Union-Find}
+	\begin{methods}
+		\method{init}{legt $n$ einzelne Unions an}{n}
+		\method{findSet}{findet den Repräsentanten}{\log(n)}
+		\method{unionSets}{vereint 2 Mengen}{\log(n)}
+		\method{m\*findSet + n\*unionSets}{Folge von Befehlen}{n+m\*\alpha(n)}
+	\end{methods}
+	\sourcecode{datastructures/unionFind.cpp}
+\end{algorithm}
+\columnbreak
+
+\begin{algorithm}{Persistent}
+	\begin{methods}
+		\method{get}{berechnet Wert zu Zeitpunkt $t$}{\log(t)}
+		\method{set}{ändert Wert zu Zeitpunkt $t$}{\log(t)}
+		\method{reset}{setzt die Datenstruktur auf Zeitpunkt $t$}{1}
+	\end{methods}
+	\sourcecode{datastructures/persistent.cpp}
+	\sourcecode{datastructures/persistentArray.cpp}
+\end{algorithm}

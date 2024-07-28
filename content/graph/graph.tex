@@ -1,0 +1,269 @@
+\section{Graphen}
+
+\begin{algorithm}{Kruskal}
+	\begin{methods}[ll]
+		berechnet den Minimalen Spannbaum & \runtime{\abs{E}\cdot\log(\abs{E})} \\
+	\end{methods}
+	\sourcecode{graph/kruskal.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Minimale Spannbäume}
+	\paragraph{Schnitteigenschaft}
+	Für jeden Schnitt $C$ im Graphen gilt:
+	Gibt es eine Kante $e$, die echt leichter ist als alle anderen Schnittkanten, so gehört diese zu allen minimalen Spannbäumen.
+	($\Rightarrow$ Die leichteste Kante in einem Schnitt kann in einem minimalen Spannbaum verwendet werden.)
+	
+	\paragraph{Kreiseigenschaft}
+	Für jeden Kreis $K$ im Graphen gilt:
+	Die schwerste Kante auf dem Kreis ist nicht Teil des minimalen Spannbaums.
+\end{algorithm}
+
+\begin{algorithm}{Heavy-Light Decomposition}
+	\begin{methods}
+		\method{get\_intervals}{gibt Zerlegung des Pfades von $u$ nach $v$}{\log(\abs{V})}
+	\end{methods}
+	\textbf{Wichtig:} Intervalle sind halboffen
+	
+	Subbaum unter dem Knoten $v$ ist das Intervall  $[\text{\code{in[v]}},~\text{\code{out[v]}})$.
+	\sourcecode{graph/hld.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Lowest Common Ancestor}
+	\begin{methods}
+		\method{init}{baut DFS-Baum über $g$ auf}{\abs{V}\*\log(\abs{V})}
+		\method{getLCA}{findet LCA}{1}
+		\method{getDepth}{berechnet Distanz zur Wurzel im DFS-Baum}{1}
+	\end{methods}
+	\sourcecode{graph/LCA_sparse.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Centroids}
+	\begin{methods}
+		\method{find\_centroid}{findet alle Centroids des Baums (maximal 2)}{\abs{V}}
+	\end{methods}
+	\sourcecode{graph/centroid.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Eulertouren}
+	\begin{methods}
+		\method{euler}{berechnet den Kreis}{\abs{V}+\abs{E}}
+	\end{methods}
+	\sourcecode{graph/euler.cpp}
+	\begin{itemize}
+		\item Zyklus existiert, wenn jeder Knoten geraden Grad hat (ungerichtet),\\ bei jedem Knoten Ein- und Ausgangsgrad übereinstimmen (gerichtet).
+		\item Pfad existiert, wenn genau $\{0, 2\}$ Knoten ungeraden Grad haben (ungerichtet),\\ bei allen Knoten Ein- und Ausgangsgrad übereinstimmen oder einer eine Ausgangskante mehr hat (Startknoten) und einer eine Eingangskante mehr hat (Endknoten).
+		\item \textbf{Je nach Aufgabenstellung überprüfen, wie ein unzusammenhängender Graph interpretiert werden sollen.}
+		\item Wenn eine bestimmte Sortierung verlangt wird oder Laufzeit vernachlässigbar ist, ist eine Implementierung mit einem \code{vector<set<int>> adj} leichter
+		\item \textbf{Wichtig:} Algorithmus schlägt nicht fehl, falls kein Eulerzyklus existiert.
+		Die Existenz muss separat geprüft werden.
+	\end{itemize}
+\end{algorithm}
+
+\begin{algorithm}{Baum-Isomorphie}
+	\begin{methods}
+		\method{treeLabel}{berechnet kanonischen Namen für einen Baum}{\abs{V}\*\log(\abs{V})}
+	\end{methods}
+	\sourcecode{graph/treeIsomorphism.cpp}
+\end{algorithm}
+
+\subsection{Kürzeste Wege}
+
+\subsubsection{\textsc{Bellmann-Ford}-Algorithmus}
+\method{bellmanFord}{kürzeste Pfade oder negative Kreise finden}{\abs{V}\*\abs{E}}
+\sourcecode{graph/bellmannFord.cpp}
+
+\subsubsection{Algorithmus von \textsc{Dijkstra}}
+\method{dijkstra}{kürzeste Pfade in Graphen ohne negative Kanten}{\abs{E}\*\log(\abs{V})}
+\sourcecode{graph/dijkstra.cpp}
+
+\subsubsection{\textsc{Floyd-Warshall}-Algorithmus}
+\method{floydWarshall}{kürzeste Pfade oder negative Kreise finden}{\abs{V}^3}
+\begin{itemize}
+	\item \code{dist[i][i] = 0, dist[i][j] = edge\{j, j\}.weight} oder \code{INF}
+	\item \code{i} liegt auf einem negativen Kreis $\Leftrightarrow$ \code{dist[i][i] < 0}.
+\end{itemize}
+\sourcecode{graph/floydWarshall.cpp}
+
+\subsubsection{Matrix-Algorithmus}
+Sei $d_{i\smash{j}}$ die Distanzmatrix von $G$, dann gibt $d_{i\smash{j}}^k$ die kürzeste Distanz von $i$ nach $j$ mit maximal $k$ kanten an mit der Verknüpfung: $c_{i\smash{j}} = a_{i\smash{j}} \otimes b_{i\smash{j}} = \min\{a_{ik} \cdot b_{k\smash{j}}\}$
+
+
+Sei $a_{ij}$ die Adjazenzmatrix von $G$ \textcolor{gray}{(mit $a_{ii} = 1$)}, dann gibt $a_{i\smash{j}}^k$ die Anzahl der Wege von $i$ nach $j$ mit Länge genau \textcolor{gray}{(maximal)} $k$ an mit der Verknüpfung: $c_{i\smash{j}} = a_{i\smash{j}} \otimes b_{i\smash{j}} = \sum a_{ik} \cdot b_{k\smash{j}}$
+
+\begin{algorithm}{Dynamic Connectivity}
+	\begin{methods}
+		\method{Constructor}{erzeugt Baum ($n$ Knoten, $m$ updates)}{n+m}
+		\method{addEdge}{fügt Kannte ein,\code{id}=delete Zeitpunkt}{\log(n)}
+		\method{eraseEdge}{entfernt Kante \code{id}}{\log(n)}
+	\end{methods}
+	\sourcecode{graph/connect.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Erd\H{o}s-Gallai}
+	Sei $d_1 \geq \cdots \geq d_{n}$. Es existiert genau dann ein Graph $G$ mit Degreesequence $d$ falls $\sum\limits_{i=1}^{n} d_i$ gerade ist und für $1\leq k \leq n$: $\sum\limits_{i=1}^{k} d_i \leq k\cdot(k-1)+\sum\limits_{i=k+1}^{n} \min(d_i, k)$
+	\begin{methods}
+		\method{havelHakimi}{findet Graph}{(\abs{V}+\abs{E})\cdot\log(\abs{V})}
+	\end{methods}
+	\sourcecode{graph/havelHakimi.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Strongly Connected Components (\textsc{Tarjan})}
+	\begin{methods}
+		\method{scc}{berechnet starke Zusammenhangskomponenten}{\abs{V}+\abs{E}}
+	\end{methods}
+	\sourcecode{graph/scc.cpp}
+\end{algorithm}
+
+\begin{algorithm}{DFS}
+	\input{graph/dfs}
+\end{algorithm}
+
+\begin{algorithm}{Artikulationspunkte, Brücken und BCC}
+	\begin{methods}
+		\method{find}{berechnet Artikulationspunkte, Brücken und BCC}{\abs{V}+\abs{E}}
+	\end{methods}
+	\textbf{Wichtig:} isolierte Knoten und Brücken sind keine BCC.
+	\sourcecode{graph/articulationPoints.cpp}
+\end{algorithm}
+\vfill\null\columnbreak
+
+\begin{algorithm}{2-SAT}
+	\sourcecode{graph/2sat.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Maximal Cliques}
+	\begin{methods}
+		\method{bronKerbosch}{berechnet alle maximalen Cliquen}{3^\frac{n}{3}}
+		\method{addEdge}{fügt \textbf{ungerichtete} Kante ein}{1}
+	\end{methods}
+	\sourcecode{graph/bronKerbosch.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Cycle Counting}
+	\begin{methods}
+		\method{findBase}{berechnet Basis}{\abs{V}\cdot\abs{E}}
+		\method{count}{zählt Zykel}{2^{\abs{\mathit{base}}}}
+	\end{methods}
+	\begin{itemize}
+		\item jeder Zyklus ist das xor von einträgen in \code{base}.
+	\end{itemize}
+	\sourcecode{graph/cycleCounting.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Wert des maximalen Matchings}
+	Fehlerwahrscheinlichkeit: $\left(\frac{m}{MOD}\right)^I$
+	\sourcecode{graph/matching.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Allgemeines maximales Matching}
+	\begin{methods}
+		\method{match}{berechnet algemeines Matching}{\abs{E}\*\abs{V}\*\log(\abs{V})}
+	\end{methods}
+	\sourcecode{graph/blossom.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Rerooting Template}
+    \sourcecode{graph/reroot.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Virtual Trees}
+    \sourcecode{graph/virtualTree.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Maximum Cardinatlity Bipartite Matching}
+	\label{kuhn}
+	\begin{methods}
+		\method{kuhn}{berechnet Matching}{\abs{V}\*\min(ans^2, \abs{E})}
+	\end{methods}
+	\begin{itemize}
+		\item die ersten [0..l) Knoten in \code{adj} sind die linke Seite des Graphen
+	\end{itemize}
+	\sourcecode{graph/maxCarBiMatch.cpp}
+	\begin{methods}
+		\method{hopcroft\_karp}{berechnet Matching}{\sqrt{\abs{V}}\*\abs{E}}
+	\end{methods}
+	\sourcecode{graph/hopcroftKarp.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Global Mincut}
+	\begin{methods}
+		\method{stoer\_wagner}{berechnet globalen Mincut}{\abs{V}\abs{E}+\abs{V}^2\*\log(\abs{E})}
+		\method{merge(a,b)}{merged Knoten $b$ in Knoten $a$}{\abs{E}}
+	\end{methods}
+	\textbf{Tipp:} Cut Rekonstruktion mit \code{unionFind} für Partitionierung oder \code{vector<bool>} für edge id's im cut.
+	\sourcecode{graph/stoerWagner.cpp}
+\end{algorithm}
+
+\subsection{Max-Flow}
+
+\optional{
+\subsubsection{Push Relabel}
+\begin{methods}
+	\method{maxFlow}{gut bei sehr dicht besetzten Graphen.}{\abs{V}^2\*\sqrt{\abs{E}}}
+	\method{addEdge}{fügt eine \textbf{gerichtete} Kante ein}{1}
+\end{methods}
+\sourcecode{graph/pushRelabel.cpp}
+}
+
+\begin{algorithm}{Min-Cost-Max-Flow}
+	\begin{methods}
+		\method{mincostflow}{berechnet Fluss}{\abs{V}^2\cdot\abs{E}^2}
+	\end{methods}
+	\sourcecode{graph/minCostMaxFlow.cpp}
+\end{algorithm}
+
+\subsubsection{Dinic's Algorithm mit Capacity Scaling}
+\begin{methods}
+	\method{maxFlow}{doppelt so schnell wie Ford Fulkerson}{\abs{V}^2\cdot\abs{E}}
+	\method{addEdge}{fügt eine \textbf{gerichtete} Kante ein}{1}
+\end{methods}
+\sourcecode{graph/dinicScaling.cpp}
+\vfill\null
+\columnbreak
+
+\optional{
+\subsubsection{Anwendungen}
+\begin{itemize}
+	\item \textbf{Maximum Edge Disjoint Paths}\newline
+	Finde die maximale Anzahl Pfade von $s$ nach $t$, die keine Kante teilen.
+	\begin{enumerate}
+		\item Setze $s$ als Quelle, $t$ als Senke und die Kapazität jeder Kante auf 1.
+		\item Der maximale Fluss entspricht den unterschiedlichen Pfaden ohne gemeinsame Kanten.
+	\end{enumerate}
+	\item \textbf{Maximum Independent Paths}\newline
+	Finde die maximale Anzahl an Pfaden von $s$ nach $t$, die keinen Knoten teilen.
+	\begin{enumerate}
+		\item Setze $s$ als Quelle, $t$ als Senke und die Kapazität jeder Kante \emph{und jedes Knotens} auf 1.
+		\item Der maximale Fluss entspricht den unterschiedlichen Pfaden ohne gemeinsame Knoten.
+	\end{enumerate}
+	\item \textbf{Min-Cut}\newline
+	Der maximale Fluss ist gleich dem minimalen Schnitt.
+	Bei Quelle $s$ und Senke $t$, partitioniere in $S$ und $T$.
+	Zu $S$ gehören alle Knoten, die im Residualgraphen von $s$ aus erreichbar sind (Rückwärtskanten beachten).
+\end{itemize}
+}
+
+\begin{algorithm}{Maximum Weight Bipartite Matching}
+	\begin{methods}
+		\method{match}{berechnet Matching}{\abs{V}^3}
+	\end{methods}
+	\sourcecode{graph/maxWeightBipartiteMatching.cpp}
+\end{algorithm}
+\vfill\null
+\columnbreak
+
+
+\begin{algorithm}[optional]{TSP}
+	\begin{methods}
+		\method{TSP}{berechnet eine Tour}{n^2\*2^n}
+	\end{methods}
+	\sourcecode{graph/TSP.cpp}
+\end{algorithm}
+
+\begin{algorithm}[optional]{Bitonic TSP}
+	\begin{methods}
+		\method{bitonicTSP}{berechnet eine Bitonische Tour}{n^2}
+	\end{methods}
+	\sourcecode{graph/bitonicTSPsimple.cpp}
+\end{algorithm}
+

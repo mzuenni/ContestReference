@@ -1,5 +1,4 @@
 all:
-	latexmk -pdf tcr
+	cd content; latexmk -pdf tcr -output-directory=.. -aux-directory=../build/ -usepretex="\newcommand{\gitorigin}{https://github.com/mzuenni/ContestReference/tree/$(shell git branch --show-current)/content/}"
 clean:
-	latexmk -c tcr
-	rm -f *.thm
+	rm -r build/*

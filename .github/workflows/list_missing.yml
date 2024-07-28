@@ -1,0 +1,9 @@
+on: [push, pull_request]
+
+jobs:
+  pdf:
+    name: List missing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./test/test.sh --missing

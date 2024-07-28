@@ -1,0 +1,22 @@
+on:
+  push:
+    paths:
+      - 'content/template/**'
+      - 'test/template/**'
+  pull_request:
+    paths:
+      - 'content/template/**'
+      - 'test/template/**'
+  workflow_dispatch:
+
+jobs:
+  pdf:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, ubuntu-22.04]
+    name: Test template (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - run: ./test/test.sh template
