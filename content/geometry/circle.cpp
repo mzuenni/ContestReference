@@ -19,7 +19,7 @@ vector<pt> circleRayIntersection(pt center, double r,
 	vector<pt> result;
 	double a = norm(dir);
 	double b = 2 * dot(dir, orig - center);
-	double c = dot(orig - center, orig - center) - r * r;
+	double c = norm(orig - center) - r * r;
 	double discr = b * b - 4 * a * c;
 	if (discr >= 0) {
 		//t in [0, 1] => schnitt mit Segment [orig, orig + dir]

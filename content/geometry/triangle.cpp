@@ -8,7 +8,7 @@ double area(pt a, pt b, pt c) {
 
 // Flächeninhalt eines Dreiecks bei bekannten Seitenlängen.
 double area(double a, double b, double c) {
-	double s = (a + b + c) / 2.0;
+	double s = (a + b + c) / 2.0; //unpräzise
 	return sqrt(s * (s-a) * (s-b) * (s-c));
 }
 

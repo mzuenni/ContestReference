@@ -57,7 +57,7 @@ namespace Random {
 
 			vector<pt> dirs(n);
 			for (size_t i = 0; i < dirs.size(); i++) {
-				dirs[i] = {x[i], y[i]};
+				dirs[i] = pt(x[i], y[i]);
 			}
 			sortAround(0, dirs);
 
@@ -67,8 +67,8 @@ namespace Random {
 			for (auto dir : dirs) {
 				pt tmp(real(res.back()) + real(dir),
 				       imag(res.back()) + imag(dir));
-				maxX = std::max(maxX, real(tmp));
-				maxY = std::max(maxY, imag(tmp));
+				maxX = std::max<ll>(maxX, real(tmp));
+				maxY = std::max<ll>(maxY, imag(tmp));
 				res.emplace_back(tmp);
 			}
 			res.pop_back();
@@ -84,7 +84,7 @@ namespace Random {
 
 	vector<pt> polygon(int n, ll dim) {
 		while (true) {
-			vector<pt> ps = points<ll>(n, -dim, dim);
+			vector<pt> ps = points<pt::value_type>(n, -dim, dim);
 			bool coolinear = false;
 			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < i; j++) {
@@ -109,6 +109,32 @@ namespace Random {
 			} while (changed);
 			return ps;
 		}
+	}
 
+	pt integerPoint(ll range) {
+		return pt(integer<ll>(-range, range),
+		          integer<ll>(-range, range));
+	}
+
+	vector<pt> integerPoints(std::size_t n, ll range) {
+		vector<pt> res(n);
+		for (auto& p : res) p = integerPoint(range);
+		return res;
+	}
+
+	array<pt, 2> line(ll range) {
+		pt a = integerPoint(range);
+		pt b = a;
+		while (b == a) b = integerPoint(range);
+		return {a, b};
+	}
+
+	array<pt, 3> triangle(ll range) {
+		pt a = integerPoint(range);
+		pt b = a;
+		while (b == a) b = integerPoint(range);
+		pt c = a;
+		while (ccw(a, b, c) == 0) c = integerPoint(range);
+		return {a, b, c};
 	}
 }
