@@ -22,26 +22,7 @@ test_file() {
     rm ./a.out
 }
 
-if [ "$#" -ne 0 ]; then
-    for arg in "$@"
-    do
-        if [ -d "$arg" ]; then
-            dir=$(realpath --relative-to="${PWD}" "$arg")
-            find . -type f -path "./${dir}/*.cpp" -print0 | sort -z | while read -d $'\0' file
-            do
-                test_file "$file"
-            done
-        fi
-        if [ -f "$arg" ]; then
-            test_file "$arg"
-        fi
-    done
-else
-    find . -type f -path '*.cpp' -print0 | sort -z | while read -d $'\0' file
-    do
-        test_file "$file"
-    done
-
+list_missing() {
     declare -A ignore
     ignore["datastructures/stlPriorityQueue.cpp"]=1
     ignore["datastructures/stlRope.cpp"]=1
@@ -62,5 +43,28 @@ else
             echo "  $file"
         fi
     done
+}
+
+if [ "$#" -ne 0 ]; then
+    for arg in "$@"
+    do
+        if [[ "$arg" == "--missing" ]]; then
+            list_missing
+        elif [ -d "$arg" ]; then
+            dir=$(realpath --relative-to="${PWD}" "$arg")
+            find . -type f -path "./${dir}/*.cpp" -print0 | sort -z | while read -d $'\0' file
+            do
+                test_file "$file"
+            done
+        elif [ -f "$arg" ]; then
+            test_file "$arg"
+        fi
+    done
+else
+    find . -type f -path '*.cpp' -print0 | sort -z | while read -d $'\0' file
+    do
+        test_file "$file"
+    done
+    list_missing
 fi
 

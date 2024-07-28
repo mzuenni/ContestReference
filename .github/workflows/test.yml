@@ -3,11 +3,11 @@ jobs:
   code:
     strategy:
       matrix:
+        tests: [datastructures, geometry, graph, math, other, string, template, --missing]
         os: [ubuntu-latest, ubuntu-22.04]
-        tests: [datastructures, geometry, graph, math, other, string, template]
-    name: Test  ${{ matrix.tests }}
+    name: Test  ${{ matrix.tests }} (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 20
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - run: ./test/test.sh ${{ matrix.tests }}
@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, ubuntu-22.04]
-    name: Test pdf
+    name: Test pdf (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     timeout-minutes: 5
     steps:
