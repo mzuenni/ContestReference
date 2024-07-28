@@ -1,20 +1,22 @@
-name: Test
 on: [push, pull_request]
 jobs:
   code:
     strategy:
       matrix:
         os: [ubuntu-latest, ubuntu-22.04]
+        tests: [datastructures, geometry, graph, math, other, string, template]
+    name: Test  ${{ matrix.tests }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
-      - run: ./test/test.sh
+      - run: ./test/test.sh ${{ matrix.tests }}/*
 
   pdf:
     strategy:
       matrix:
         os: [ubuntu-latest, ubuntu-22.04]
+    name: Test pdf
     runs-on: ${{ matrix.os }}
     timeout-minutes: 5
     steps:

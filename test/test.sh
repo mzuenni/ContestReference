@@ -8,7 +8,9 @@ declare -A cppstandard
 cppstandard["string/suffixArray.cpp"]="gnu++20"
 
 test_file() {
-    file="${1#./}"
+    if [[ "$file" == ./* ]]; then
+      path="${file:2}"
+    fi
     echo "$file:"
     echo "compiling..."
     std="gnu++17"
