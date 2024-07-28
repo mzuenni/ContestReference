@@ -7,6 +7,7 @@ on:
     paths:
       - 'content/geometry/**'
       - 'test/geometry/**'
+  workflow_dispatch:
 
 jobs:
   pdf:

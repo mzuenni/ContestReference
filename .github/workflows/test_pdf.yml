@@ -7,6 +7,7 @@ on:
     paths:
       - 'content/**'
       - 'Makefile'
+  workflow_dispatch:
 
 jobs:
   pdf:
