@@ -96,17 +96,25 @@ void stress_test() {
 	cerr << "stress tested: " << t.time << "ms" << endl;
 }
 
-constexpr int N = 2'000;
+ll randomHard(ll lim) {
+	ll root2 = sqrt(lim);
+	ll root3 = cbrt(lim);
+	ll a = Random::prime<ll>(root2 / 2 - root3, root2 / 2 + root3);
+	ll b = Random::prime<ll>(lim / a - root3, lim / a);
+	return a * b;
+}
+
+constexpr int N = 200;
 void performance_test() {
 	timer t;
 	hash_t hash = 0;
 	for (int operations = 0; operations < N; operations++) {
-		ll x = Random::integer<ll>(1e18 / 2, 1e18);
+		ll x = randomHard(1e18);
 		t.start();
 		hash += factor(x).size();
 		t.stop();
 	}
-	if (t.time > 500) cerr << "too slow: " << t.time << FAIL;
+	if (t.time > 750) cerr << "too slow: " << t.time << FAIL;
 	cerr << "tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;
 }
 
