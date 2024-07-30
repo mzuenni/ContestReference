@@ -10,8 +10,8 @@ struct persistentArray {
 	T get(int p, int t) {return data[p].get(t);}
 
 	int set(int p, T value) {
-		mods.push_back({p, time});
-		return data[p].set(value);
+		mods.push_back({p, data[p].set(value)});
+		return mods.back().second;
 	}
 
 	void reset(int t) {
