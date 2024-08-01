@@ -95,27 +95,43 @@ void stress_test() {
 	cerr << "tested random queries: " << queries << endl;
 }
 
-constexpr int N = 2'000'000;
+constexpr int N = 100'000;
+constexpr int M = 500'000;
 void performance_test() {
-	/*timer t;
+	timer t;
 	t.start();
-	UF uf(N);
+	connect con(N, M);
 	t.stop();
-	hash_t hash = 0;
-	for (int operations = 0; operations < N; operations++) {
-		int i = Random::integer<int>(0, N);
-		int j = Random::integer<int>(0, N);
-		int k = Random::integer<int>(0, N);
-		int l = Random::integer<int>(0, N);
+
+	vector<int> insertOrder(M);
+	iota(all(insertOrder), 0);
+	shuffle(all(insertOrder), Random::rng);
+	vector<bool> inserted(M);
+
+	for (int i = 0, j = 0; i < N; i++) {
+		int a = Random::integer<int>(0, N);
+		int b = a;
+		while (b == a) b = Random::integer<int>(0, N);
 		
 		t.start();
-		uf.unionSets(i, j);
-		hash += uf.size(k);
-		hash += uf.size(l);
+		con.addEdge(a, b, insertOrder[i]);
+		t.stop();
+		inserted[i] = true;
+
+		while (j < M && inserted[j] && Random::integer<int>(2) == 0) {
+			t.start();
+			con.eraseEdge(j);
+			t.stop();
+		}
+	}
+	hash_t hash = 0;
+	for (int i = 1; i < N; i++) {
+		t.start();
+		hash += con.connected(i - 1, i);
 		t.stop();
 	}
-	if (t.time > 500) cerr << "too slow: " << t.time << FAIL;
-	cerr << "tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;*/
+	if (t.time > 1000) cerr << "too slow: " << t.time << FAIL;
+	cerr << "tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;
 }
 
 int main() {
