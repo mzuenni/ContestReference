@@ -10,7 +10,7 @@ struct connect {
 	}
 
 	void addEdge(int u, int v, int id) {
-		lct.nodes[id + n] = LCT::Node(id + n, id + n);
+		lct.nodes[id + n] = LCT::Node(id + n, id);
 		edges[id] = {u, v};
 		if (connected(u, v)) {
 			int old = lct.query(&lct.nodes[u], &lct.nodes[v]);
