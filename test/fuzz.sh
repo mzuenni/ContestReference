@@ -10,5 +10,5 @@ do
     done
     echo "Fuzz using seed: $seed"
     echo
-    ./test.sh --seed=123 "$@"
+    ./test.sh --seed=$seed "$@"
 done

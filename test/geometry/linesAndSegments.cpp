@@ -220,7 +220,7 @@ int main() {
 	stress_lineIntersection(100);
 	stress_lineIntersection(1'000'000'000);
 	stress_lineIntersection2(100);
-	stress_lineIntersection2(1'000'000);
+	stress_lineIntersection2(10'000);//intersection can bet at N^3
 	stress_distToLine(100);
 	stress_distToLine(1'000'000'000);
 	stress_projectToLine(100);
