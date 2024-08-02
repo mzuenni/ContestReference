@@ -172,7 +172,7 @@ void stress_segmentIntersection2(ll range) {
 		if (!got.empty() != tmp) cerr << "error: 1" << FAIL;
 		for (pt p : got) {
 			if (distToSegment(a, b, p) > 1e-6) cerr << "error: 2" << FAIL;
-			if (distToSegment(a, b, p) > 1e-6) cerr << "error: 3" << FAIL;
+			if (distToSegment(c, d, p) > 1e-6) cerr << "error: 3" << FAIL;
 		}
 		if (tmp) {
 			double gotDist = abs(got.front() - got.back());
@@ -220,7 +220,7 @@ int main() {
 	stress_lineIntersection(100);
 	stress_lineIntersection(1'000'000'000);
 	stress_lineIntersection2(100);
-	stress_lineIntersection2(10'000);//intersection can bet at N^3
+	stress_lineIntersection2(1'000);//intersection can bet at N^3...
 	stress_distToLine(100);
 	stress_distToLine(1'000'000'000);
 	stress_projectToLine(100);
