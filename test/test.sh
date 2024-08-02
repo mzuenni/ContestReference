@@ -6,6 +6,7 @@ export MALLOC_PERTURB_="$((2#01011001))"
 
 declare -A cppstandard
 cppstandard["string/suffixArray.cpp"]="gnu++20"
+seedmacro=""
 
 test_file() {
     file=$(realpath --relative-to="${PWD}" "${1}")
@@ -15,7 +16,7 @@ test_file() {
     if [[ -v cppstandard[$file] ]]; then
         std=${cppstandard[$file]}
     fi
-    g++ -std=$std "$file" -I ../content/ -O2 -Wall -Wextra -Wshadow -Werror
+    g++ -std=$std "$file" -I ../content/ -O2 -Wall -Wextra -Wshadow -Werror $seedmacro
     echo "running..."
     timeout --foreground 60s ./a.out
     echo ""
@@ -48,8 +49,10 @@ list_missing() {
 if [ "$#" -ne 0 ]; then
     for arg in "$@"
     do
-        if [[ "$arg" == "--missing" ]]; then
+        if [[ $arg == "--missing" ]]; then
             list_missing
+        elif [[ $arg == --seed=* ]]; then
+            seedmacro="-DSEED=${arg:7}ll"
         elif [ -d "$arg" ]; then
             dir=$(realpath --relative-to="${PWD}" "$arg")
             find . -type f -path "./${dir}/*.cpp" -print0 | sort -z | while read -d $'\0' file
@@ -58,6 +61,8 @@ if [ "$#" -ne 0 ]; then
             done
         elif [ -f "$arg" ]; then
             test_file "$arg"
+        else
+            echo "did not recognize: $arg"
         fi
     done
 else

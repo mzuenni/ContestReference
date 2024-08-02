@@ -24,7 +24,11 @@ namespace details {
 }
 
 namespace Random {
-	mt19937_64 rng(3141592653589793238ll);
+	#ifdef SEED
+		mt19937_64 rng(SEED);
+	#else
+		mt19937_64 rng(3141592653589793238ll);
+	#endif
 	template<typename T = ll>
 	T integer(T l, T r) {
 		return uniform_int_distribution<T>(l, r-1)(rng);
