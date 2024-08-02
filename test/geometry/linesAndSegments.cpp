@@ -49,7 +49,7 @@ void stress_lineIntersection2(ll range) {
 		auto got = lineIntersection2(a, b, c, d);
 
 		if (distToLine(a, b, got) > 1e-6) cerr << "error: 1" << FAIL;
-		if (distToLine(a, b, got) > 1e-6) cerr << "error: 2" << FAIL;
+		if (distToLine(c, d, got) > 1e-6) cerr << "error: 2" << FAIL;
 		queries++;
 	}
 	cerr << "tested lineIntersection2: " << queries << endl;
