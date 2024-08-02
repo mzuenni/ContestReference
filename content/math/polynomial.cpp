@@ -1,7 +1,7 @@
 struct poly {
 	vector<ll> data;
 
-	poly(int deg = 0) : data(max(1, deg)) {}
+	poly(int deg = 0) : data(1 + deg) {}
 	poly(initializer_list<ll> _data) : data(_data) {}
 
 	int size() const {return sz(data);}
@@ -40,17 +40,18 @@ struct poly {
 
 	//return p(x+a)
 	poly operator<<(ll a) const {
-		poly res(size());
+		poly res(size() - 1);
 		for (int i = size() - 1; i >= 0; i--) {
 			for (int j = size() - i - 1; j >= 1; j--)
 				res[j] = (res[j] * a + res[j - 1]) % mod;
-			res[0] = (res[0] * a + res[i]) % mod;
+			res[0] = (res[0] * a + data[i]) % mod;
 		}
 		return res;
 	}
 
 	pair<poly, poly> divmod(const poly& d) const {
 		int i = size() - d.size();
+		if (i <= 0) return {{}, *this};
 		poly s(i + 1), r = *this;
 		ll inv = multInv(d.data.back(), mod);
 		for (; i >= 0; i--) {
