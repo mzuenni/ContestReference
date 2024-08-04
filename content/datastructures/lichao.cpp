@@ -11,10 +11,10 @@ struct Lichao {
 	static constexpr Fun id = {0, inf}; // {0, -inf}
 	int n, cap;
 	vector<Fun> seg;
-	Lichao() : n(sz(xs)), cap(2<<__lg(n)), seg(2*cap, id) {}
+	Lichao() : n(sz(xs)), cap(2 << __lg(n)), seg(2 * cap, id) {}
 	
 	void _insert(Fun f, int l, int r, int i) {
-		while (i < 2*cap){
+		while (i < 2 * cap) {
 			int m = (l+r)/2;
 			if (m >= n) {r = m; i = 2*i; continue;}
 			Fun &g = seg[i];
@@ -26,7 +26,7 @@ struct Lichao {
 
 	void _segmentInsert(Fun f, int l, int r, int a, int b, int i) {
 		if (l <= a && b <= r) _insert(f, a, b, i);
-		else if (a < r && l < b){
+		else if (a < r && l < b) {
 			int m = (a+b)/2;
 			_segmentInsert(f, l, r, a, m, 2*i);
 			_segmentInsert(f, l, r, m, b, 2*i+1);
