@@ -2,11 +2,11 @@
 constexpr ll inf = LL::INF;
 #include <datastructures/lichao.cpp>
 
-void stress_test() {
+void stress_test(ll range) {
 	ll queries = 0;
 	for (int tries = 0; tries < 1000; tries++) {
 		int n = Random::integer<int>(1, 100);
-		xs = Random::distinct<ll>(n, -1000, 1000);
+		xs = Random::distinct<ll>(n, -range, range);
 		sort(all(xs));
 
 		vector<ll> naive(n, inf);
@@ -15,9 +15,9 @@ void stress_test() {
 		for (int operations = 0; operations < 1000; operations++) {
 			{
 				ll m = Random::integer<ll>(-100, 100);
-				ll c = Random::integer<ll>(-1000, 1000);
-				ll l = Random::integer<ll>(-1000, 1000);
-				ll r = Random::integer<ll>(-1000, 1000);
+				ll c = Random::integer<ll>(-range, range);
+				ll l = Random::integer<ll>(-range, range);
+				ll r = Random::integer<ll>(-range, range);
 				Fun f{m, c};
 
 				tree.segmentInsert(f, l, r);
@@ -31,11 +31,11 @@ void stress_test() {
 				ll got = tree.query(xs[i]);
 				ll expected = naive[i];
 				if (got != expected) cerr << xs[i] << endl;
-				if (got != expected) cerr << "  got: " << got << ", expected: " << expected << FAIL;
+				if (got != expected) cerr << "got: " << got << ", expected: " << expected << FAIL;
 			}
 		}
 	}
-	cerr << "  tested random queries: " << queries << endl;
+	cerr << "tested random queries: " << queries << endl;
 }
 
 constexpr int N = 200'000;
@@ -63,11 +63,13 @@ void performance_test() {
 		hash ^= tree.query(x);
 		t.stop();
 	}
-	if (t.time > 1000) cerr << "  too slow: " << t.time << FAIL;
-	cerr << "  tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;
+	if (t.time > 1000) cerr << "too slow: " << t.time << FAIL;
+	cerr << "tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;
 }
 
 int main() {
-	stress_test();
+	stress_test(100);
+	stress_test(1'000);
+	stress_test(1'000'000);
 	performance_test();
 }
