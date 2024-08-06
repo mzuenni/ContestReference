@@ -1,6 +1,6 @@
 # KIT Team Contest Reference
 > [!TIP]
-> You can use this [google viwer link](https://docs.google.com/gview?url=https://raw.githubusercontent.com/mzuenni/ContestReference/new-master/tcr.pdf&embedded=true) to watch the pdf with working links.
+> You can use this [google viwer link](https://docs.google.com/gview?url=https://raw.githubusercontent.com/mzuenni/ContestReference/new-master/tcr.pdf) to watch the pdf with working links.
 
 This document is used by the KIT teams for ICPC style contests since roughly 2019.
 It consists of 25 pages of copy-pasteable C++ code and one extra page with a checklist for the practice session.
