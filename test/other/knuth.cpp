@@ -1,5 +1,5 @@
 #include "../util.h"
-constexpr ll iINFnf = LL::INF;
+constexpr ll INF = LL::INF;
 #include <other/knuth.cpp>
 
 vector<vector<ll>> gen(int n) {
