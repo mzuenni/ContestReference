@@ -31,11 +31,6 @@ void stress_test(ll range) {
 				ll expected = naive[0](x);
 				for (auto l : naive) expected = max(expected, l(x));
 
-				if (got != expected) {
-					for (auto l : naive) cerr << l.m << "*x+" << l.c << endl;
-					cerr << x << ": " << got << " " << expected << endl;
-				}
-
 				if (got != expected) cerr << "got: " << got << ", expected: " << expected << FAIL;
 				queries++;
 			}
