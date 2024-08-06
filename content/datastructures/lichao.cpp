@@ -8,7 +8,7 @@ struct Fun { // Default: Linear function. Change as needed.
 
 // Default: Computes min. Change lines with comment for max.
 struct Lichao {
-	static constexpr Fun id = {0, inf}; // {0, -inf}
+	static constexpr Fun id = {0, INF}; // {0, -INF}
 	int n, cap;
 	vector<Fun> seg;
 	Lichao() : n(sz(xs)), cap(2 << __lg(n)), seg(2 * cap, id) {}
@@ -36,7 +36,7 @@ struct Lichao {
 	}
 
 	ll _query(int x) {
-		ll ans = inf; // -inf
+		ll ans = INF; // -INF
 		for (int i = x + cap; i > 0; i /= 2) {
 			ans = min(ans, seg[i](x)); // max
 		}

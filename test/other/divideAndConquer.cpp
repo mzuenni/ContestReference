@@ -1,5 +1,5 @@
 #include "../util.h"
-constexpr ll inf = LL::INF;
+constexpr ll INF = LL::INF;
 #include <other/divideAndConquer.cpp>
 
 vector<vector<ll>> gen(int n) {
@@ -43,7 +43,7 @@ vector<vector<ll>> genQuick(int n) {
 }
 
 /*ll naive(int n, int m) {
-	vector<vector<ll>> state(m+1, vector<ll>(n+1, inf));
+	vector<vector<ll>> state(m+1, vector<ll>(n+1, INF));
 	state[0][0] = 0;
 	for (int i = 1; i <= m; i++) {
 		for (int j = 1; j <= n; j++) {
@@ -56,9 +56,9 @@ vector<vector<ll>> genQuick(int n) {
 }*/
 
 vector<ll> naive(int n) {
-	vector<vector<ll>> state(n+1, vector<ll>(n+1, inf));
+	vector<vector<ll>> state(n+1, vector<ll>(n+1, INF));
 	state[0][0] = 0;
-	vector<ll> res(n+1, inf);
+	vector<ll> res(n+1, INF);
 	for (int i = 1; i <= n; i++) {
 		for (int j = 1; j <= n; j++) {
 			for (int k = 1; k <= j; k++) {

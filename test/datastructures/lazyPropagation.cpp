@@ -1,5 +1,5 @@
 #include "../util.h"
-constexpr ll inf = LL::INF;
+constexpr ll INF = LL::INF;
 #include <datastructures/lazyPropagation.cpp>
 
 constexpr int N = 1000'000;

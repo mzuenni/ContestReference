@@ -1,5 +1,5 @@
 #include "../util.h"
-constexpr ll inf = LL::INF;
+constexpr ll INF = LL::INF;
 #include <datastructures/lichao.cpp>
 
 void stress_test(ll range) {
@@ -9,7 +9,7 @@ void stress_test(ll range) {
 		xs = Random::distinct<ll>(n, -range, range);
 		sort(all(xs));
 
-		vector<ll> naive(n, inf);
+		vector<ll> naive(n, INF);
 		Lichao tree;
 
 		for (int operations = 0; operations < 1000; operations++) {

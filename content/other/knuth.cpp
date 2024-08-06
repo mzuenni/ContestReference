@@ -1,5 +1,5 @@
 ll calc(int n, int m, const vector<vector<ll>>& C) {
-	vector<vector<ll>> dp(m, vector<ll>(n, inf));
+	vector<vector<ll>> dp(m, vector<ll>(n, INF));
 	vector<vector<int>> opt(m, vector<int>(n + 1, n - 1));
 
 	for (int i = 0; i < n; i++) dp[0][i] = C[0][i];

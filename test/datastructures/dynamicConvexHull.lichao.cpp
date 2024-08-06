@@ -1,6 +1,5 @@
 #include "../util.h"
 constexpr ll INF = LL::INF;
-constexpr ll inf = LL::INF;
 #include <datastructures/dynamicConvexHull.cpp>
 #include <datastructures/lichao.cpp>
 
