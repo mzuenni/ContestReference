@@ -4,7 +4,7 @@ vector<ll> poly_inv(const vector<ll>& a, int n) {
 		vector<ll> a2 = a, q2 = q;
 		a2.resize(2*len), q2.resize(2*len);
 		ntt(q2);
-		for (int j : {0, 1}) {
+		for (int _ : {0, 1}) {
 			ntt(a2);
 			for (int i = 0; i < 2*len; i++) a2[i] = a2[i]*q2[i] % mod;
 			ntt(a2, true);
