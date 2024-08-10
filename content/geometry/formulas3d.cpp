@@ -26,23 +26,23 @@ int ccw(pt3 a, pt3 b, pt3 c, pt3 p) {
 	return (orien > EPS) - (orien < -EPS);
 }
 
-// Entfernung von Punkt p zur Ebene a,b,c.
+// Entfernung von Punkt p zur Ebene a, b, c.
 double distToPlane(pt3 a, pt3 b, pt3 c, pt3 p) {
-	pt3 n = cross(b-a, c-a);
-	return (abs(dot(n, p)) - dot(n, a)) / abs(n);
+	pt3 n = cross(b - a, c - a);
+	return abs(dot(n, a - p)) / abs(n);
 }
 
-// Liegt p in der Ebene a,b,c?
+// Liegt p in der Ebene a, b, c?
 bool pointOnPlane(pt3 a, pt3 b, pt3 c, pt3 p) {
 	return ccw(a, b, c, p) == 0;
 }
 
-// Schnittpunkt von der Grade a-b und der Ebene c,d,e
+// Schnittpunkt von der Grade a-b und der Ebene c, d, e
 // die Grade darf nicht parallel zu der Ebene sein!
 pt3 linePlaneIntersection(pt3 a, pt3 b, pt3 c, pt3 d, pt3 e) {
-	pt3 n = cross(d-c, e-c);
-	pt3 d = b - a;
-	return a - d * (dot(n, a) - dot(n, c)) / dot(n, d);
+	pt3 n = cross(d - c, e - c);
+	pt3 dir = b - a;
+	return a + dir * dot(n, c - a) / dot(n, dir);
 }
 
 // Abstand zwischen der Grade a-b und c-d
