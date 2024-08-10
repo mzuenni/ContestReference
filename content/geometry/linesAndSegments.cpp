@@ -5,7 +5,7 @@ bool pointOnLine(pt a, pt b, pt p) {
 
 // Test auf Linienschnitt zwischen a-b und c-d. (nicht identisch)
 bool lineIntersection(pt a, pt b, pt c, pt d) {
-	return abs(cross(a - b, c - d)) < EPS;
+	return abs(cross(a - b, c - d)) > EPS;
 }
 
 // Berechnet den Schnittpunkt der Graden a-b und c-d.

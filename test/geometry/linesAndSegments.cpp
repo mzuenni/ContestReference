@@ -30,7 +30,7 @@ void stress_lineIntersection(ll range) {
 		auto [c, d] = Random::line(range);
 		if (ccw(a, b, c) == 0 && ccw(a, b, d) == 0) continue;
 
-		bool expected = ccw(0, a-b, c-d) == 0;
+		bool expected = ccw(0, a-b, c-d) != 0;
 		bool got = lineIntersection(a, b, c, d);
 
 		if (got != expected) cerr << "error" << FAIL;
