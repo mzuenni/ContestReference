@@ -39,7 +39,7 @@ void stress_test(int T, int n) {
                 rem -= cnt;
             }
         }
-        if (to_vec(t) != a) cerr << "Failed stress test" << endl;
+        if (to_vec(t) != a) cerr << "Failed stress test" << FAIL;
 	}
 	cerr << "Tested " << T << " random tests with n<=" << n << endl;
 }
