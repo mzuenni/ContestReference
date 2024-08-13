@@ -15,4 +15,5 @@ jobs:
       - uses: softprops/action-gh-release@v2
         with:
           name: Release
+          tag_name: Release
           files: tcr.pdf
