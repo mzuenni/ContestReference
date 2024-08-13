@@ -6,11 +6,11 @@ using Tree = tree<T, null_type, less<T>, rb_tree_tag,
 // T.order_of_key(x): number of elements strictly less than x
 // *T.find_by_order(k): k-th element
 
+constexpr uint64_t RNG = ll(2e18 * acos(-1)) | 199; // random odd
 template<typename T>
 struct chash {
-	static const uint64_t C = ll(2e18 * acos(-1)) | 199; // random odd
 	size_t operator()(T o) const {
-		return __builtin_bswap64(hash<T>()(o) * C);
+		return __builtin_bswap64(hash<T>()(o) * RNG);
 }};
 template<typename K, typename V>
 using hashMap = gp_hash_table<K, V, chash<K>>;

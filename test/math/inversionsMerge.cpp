@@ -16,7 +16,7 @@ void stress_test() {
 	for (ll i = 0; i < 100'000; i++) {
 		int n = Random::integer<int>(1, 100);
 		vector<ll> v(n);
-		for (ll j = 0; j < n; j++) v[j] = (j-10) * 100000 + Random::integer<ll>(0, 10000);//values must be unique ):
+		for (ll j = 0; j < n; j++) v[j] = (j-10) * 100000 + Random::integer<ll>(0, 10000); //values must be unique ):
 		shuffle(all(v), Random::rng);
 		ll expected = naive(v);
 		ll got = mergeSort(v);

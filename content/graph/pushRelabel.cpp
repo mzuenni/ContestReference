@@ -29,7 +29,7 @@ ll maxFlow(int s, int t) {
 	cur.assign(n, 0);
 	H.assign(n, 0);
 	H[s] = n;
-	ec[t] = 1;//never set t to active...
+	ec[t] = 1; //never set t to active...
 	vector<int> co(2*n);
 	co[0] = n - 1;
 	for (Edge& e : adj[s]) addFlow(e, e.c);

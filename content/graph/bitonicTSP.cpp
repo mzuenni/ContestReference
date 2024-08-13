@@ -27,5 +27,5 @@ auto bitonicTSP() {
 	(lt.back() == 1 ? lt : ut).push_back(0);
 	reverse(all(lt));
 	lt.insert(lt.end(), all(ut));
-	return lt;// Enthält Knoten 0 zweimal. An erster und letzter Position.
+	return lt; // Enthält Knoten 0 zweimal. An erster und letzter Position.
 }

@@ -14,7 +14,7 @@ vector<vector<double>> inverseMat(const vector<vector<double>>& m) {
 		mat[i].resize(2*n);
 		mat[i][n+i] = 1;
 	}
-	gauss(n);//the unique cetc. checks are not usefull since we dont solve an lgs...
+	gauss(n); //the unique cetc. checks are not usefull since we dont solve an lgs...
 	vector<vector<double>> res(m);
 	for (int i = 0; i < n; i++) {
 		res[i] = vector<double>(mat[i].begin() + n, mat[i].end());

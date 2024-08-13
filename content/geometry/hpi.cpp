@@ -1,4 +1,4 @@
-constexpr ll INF = 0x1FFF'FFFF'FFFF'FFFF;//THIS CODE IS WIP
+constexpr ll INF = 0x1FFF'FFFF'FFFF'FFFF; //THIS CODE IS WIP
 
 bool left(pt p) {return real(p) < 0 || 
 					   (real(p) == 0 && imag(p) < 0);}

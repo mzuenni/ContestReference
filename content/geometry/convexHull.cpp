@@ -11,8 +11,8 @@ vector<pt> convexHull(vector<pt> pts){
 			while (k > t && cross(h[k-2], h[k-1], *it) <= 0) k--;
 			h[k++] = *it;
 	}};
-	half(all(pts), 1);// Untere Hülle.
-	half(next(pts.rbegin()), pts.rend(), k);// Obere Hülle.
+	half(all(pts), 1); // Untere Hülle.
+	half(next(pts.rbegin()), pts.rend(), k); // Obere Hülle.
 	h.resize(k);
 	return h;
 }

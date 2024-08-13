@@ -16,11 +16,11 @@ vector<pt> convexHull(vector<pt> pts){
 	vector<pt> h(2 * sz(pts));
 	auto half = [&](auto begin, auto end, int t) {
 		for (auto it = begin; it != end; it++) {
-			while (k > t && cross(h[k-2], h[k-1], *it) < 0) k--;//allow collinear points!
+			while (k > t && cross(h[k-2], h[k-1], *it) < 0) k--; //allow collinear points!
 			h[k++] = *it;
 	}};
-	half(all(pts), 1);// Untere Hülle.
-	half(next(pts.rbegin()), pts.rend(), k);// Obere Hülle.
+	half(all(pts), 1); // Untere Hülle.
+	half(next(pts.rbegin()), pts.rend(), k); // Obere Hülle.
 	h.resize(k);
 	return h;
 }
