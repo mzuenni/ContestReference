@@ -1,0 +1,18 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  pdf:
+    name: Release pdf
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          sudo apt-get update
+          sudo apt-get install latexmk texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-lang-german texlive-fonts-extra
+      - run: make
+      - uses: softprops/action-gh-release@v2
+        with:
+          name: Release
+          files: tcr.pdf
