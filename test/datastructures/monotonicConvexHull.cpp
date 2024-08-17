@@ -42,6 +42,38 @@ void stress_test(ll range) {
 	cerr << "tested random queries: " << queries << endl;
 }
 
+void stress_test_independent(ll range) {
+	ll queries = 0;
+	for (int tries = 0; tries < 1000; tries++) {
+		int n = Random::integer<int>(1, 100);
+		auto ms = Random::distinct<ll>(n, -range, range);
+		sort(all(ms), greater<>{});
+
+		vector<Line> naive;
+
+		MCH mch;
+		for (ll m : ms) {
+			ll c = Random::integer<ll>(-range, range);
+			mch.add(m, c);
+			naive.emplace_back(m, c);
+
+			auto xs = Random::distinct<ll>(100, -range, range);
+			sort(all(xs));
+			auto tmp = mch;
+
+			for (auto x : xs) {
+				ll got = tmp.query(x);
+				ll expected = naive[0](x);
+				for (auto l : naive) expected = min(expected, l(x));
+
+				if (got != expected) cerr << "got: " << got << ", expected: " << expected << FAIL;
+				queries++;
+			}
+		}
+	}
+	cerr << "tested random independent queries: " << queries << endl;
+}
+
 constexpr int N = 1'000'000;
 void performance_test() {
 	timer t;
@@ -70,5 +102,8 @@ int main() {
 	stress_test(100);
 	stress_test(1'000);
 	stress_test(1'000'000);
+	stress_test_independent(100);
+	stress_test_independent(1'000);
+	stress_test_independent(1'000'000);
 	performance_test();
 }
