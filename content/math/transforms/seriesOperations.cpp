@@ -24,10 +24,13 @@ vector<ll> poly_deriv(vector<ll> a) {
 }
 
 vector<ll> poly_integr(vector<ll> a) {
-	if (a.empty()) return {0};
-	a.push_back(a.back() * powMod(sz(a), mod-2, mod) % mod);
-	for (int i = sz(a)-2; i > 0; i--)
-		a[i] = a[i-1] * powMod(i, mod-2, mod) % mod;
+	static vector<ll> inv = {0, 1};
+	for (static int i = 2; i <= sz(a); i++)
+		inv.push_back(mod - mod / i * inv[mod % i] % mod);
+
+	a.push_back(0);
+	for (int i = sz(a) - 1; i > 0; i--)
+		a[i] = a[i-1] * inv[i] % mod;
 	a[0] = 0;
 	return a;
 }
@@ -35,8 +38,7 @@ vector<ll> poly_integr(vector<ll> a) {
 vector<ll> poly_log(vector<ll> a, int n) {
 	a = mul(poly_deriv(a), poly_inv(a, n));
 	a.resize(n-1);
-	a = poly_integr(a);
-	return a;
+	return poly_integr(a);
 }
 
 vector<ll> poly_exp(vector<ll> a, int n) {
