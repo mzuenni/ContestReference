@@ -13,17 +13,30 @@ void stress_test(ll range) {
 	ll queries = 0;
 	for (int tries = 0; tries < 1000; tries++) {
 		int n = Random::integer<int>(1, 100);
-		auto ms = Random::distinct<ll>(n, -range, range);
+		auto ms = Random::integers<ll>(n, -range, range);
 		sort(all(ms), greater<>{});
-		auto xs = Random::distinct<ll>(n*100, -range*n, range*n);
+		auto cs = ms;
+		for (int l = 0, r = 0; l < n;) {
+			while (r < n && ms[l] == ms[r]) r++;
+			auto tmp = Random::distinct<ll>(r - l, -range, range);
+			sort(all(tmp), greater<>{});
+			for (int c : tmp) {
+				cs[l] = c;
+				l++;
+			}
+		}
+
+		auto xs = Random::integers<ll>(n*100, -range*n, range*n);
 		sort(all(xs));
 		int i = 0;
 
 		vector<Line> naive;
 
 		MCH mch;
-		for (ll m : ms) {
-			ll c = Random::integer<ll>(-range, range);
+		for (int k = 0; k < n; k++) {
+			ll m = ms[k];
+			ll c = cs[k];
+
 			mch.add(m, c);
 			naive.emplace_back(m, c);
 
@@ -46,18 +59,30 @@ void stress_test_independent(ll range) {
 	ll queries = 0;
 	for (int tries = 0; tries < 1000; tries++) {
 		int n = Random::integer<int>(1, 100);
-		auto ms = Random::distinct<ll>(n, -range, range);
+		auto ms = Random::integers<ll>(n, -range, range);
 		sort(all(ms), greater<>{});
+		auto cs = ms;
+		for (int l = 0, r = 0; l < n;) {
+			while (r < n && ms[l] == ms[r]) r++;
+			auto tmp = Random::distinct<ll>(r - l, -range, range);
+			sort(all(tmp), greater<>{});
+			for (int c : tmp) {
+				cs[l] = c;
+				l++;
+			}
+		}
 
 		vector<Line> naive;
 
 		MCH mch;
-		for (ll m : ms) {
-			ll c = Random::integer<ll>(-range, range);
+		for (int i = 0; i < n; i++) {
+			ll m = ms[i];
+			ll c = cs[i];
+
 			mch.add(m, c);
 			naive.emplace_back(m, c);
 
-			auto xs = Random::distinct<ll>(100, -range, range);
+			auto xs = Random::integers<ll>(100, -range, range);
 			sort(all(xs));
 			auto tmp = mch;
 

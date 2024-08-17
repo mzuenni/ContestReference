@@ -1,5 +1,5 @@
 // Min über Geraden mit MONOTONEN Inserts UND Queries. Jede neue
-// Gerade hat kleinere Steigung als alle vorherigen.
+// Gerade hat kleineres pair(m, c) als alle vorherigen.
 struct Line {
 	ll m, c;
 	ll operator()(ll x) {return m*x+c;}
@@ -20,7 +20,7 @@ void add(ll m, ll c) { // m fallend, Laufzeit O(1) amortisiert
 	ptr = min(ptr, sz(ls) - 1);
 }
 
-ll query(ll x) { // x steigend, Laufzeit: O(1) amortisiert
+ll query(ll x) { // x >= letztes x, Laufzeit: O(1) amortisiert
 	ptr = min(ptr, sz(ls) - 1);
 	while (ptr + 1 < sz(ls) && ls[ptr + 1](x) < ls[ptr](x)) ptr++;
 	return ls[ptr](x);
