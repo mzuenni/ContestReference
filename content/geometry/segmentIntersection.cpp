@@ -18,8 +18,8 @@ struct event {
 	int id, type;
 	bool operator<(const event& o) const {
 		if (real(p) != real(o.p)) return real(p) < real(o.p);
-		if (type != o.type) return type > o.type;
-		return imag(p) < imag(o.p);
+		if (imag(p) != imag(o.p)) return imag(p) < imag(o.p);
+		return type > o.type;
 	}
 };
 
