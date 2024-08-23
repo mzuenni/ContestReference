@@ -14,7 +14,7 @@ bool pointOnLineSegment(pt a, pt b, pt p) {
 }
 
 // Test auf Streckenschnitt zwischen a-b und c-d.
-bool lineSegmentIntersection(pt a, pt b, pt c, pt d) {
+bool segmentIntersection(pt a, pt b, pt c, pt d) {
 	if (ccw(a, b, c) == 0 && ccw(a, b, d) == 0)
 			return pointOnLineSegment(a,b,c) ||
 			       pointOnLineSegment(a,b,d) ||
@@ -42,7 +42,7 @@ vector<seg> randomSegs(int n, ll range) {
 bool naive(vector<seg>& segs) {
 	for (ll i = 0; i < sz(segs); i++) {
 		for (ll j = 0; j < i; j++) {
-			if (lineSegmentIntersection(segs[i].a, segs[i].b, segs[j].a, segs[j].b)) return true;
+			if (segmentIntersection(segs[i].a, segs[i].b, segs[j].a, segs[j].b)) return true;
 		}
 	}
 	return false;
@@ -60,7 +60,7 @@ void stress_test(ll range) {
 		if (got != (b >= 0)) cerr << "error: invalid ans" << FAIL;
 		auto expected = naive(segs);
 		if (got != expected) cerr << "error: intersection not found" << FAIL;
-		if (got && !lineSegmentIntersection(segs[a].a, segs[a].b, segs[b].a, segs[b].b)) cerr << "error: no intersection" << FAIL;
+		if (got && !segmentIntersection(segs[a].a, segs[a].b, segs[b].a, segs[b].b)) cerr << "error: no intersection" << FAIL;
 		queries += n;
 		intersection += got;
 		notIntersection += !got;
