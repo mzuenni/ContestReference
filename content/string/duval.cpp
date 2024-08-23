@@ -6,9 +6,8 @@ vector<pair<int, int>> duval(const string& s) {
 			if (s[k] < s[j]) k = i;
 			else k++;
 		}
-		while (i <= k) {
+		for (; i <= k; i += j - k) {
 			res.push_back({i, i + j - k});
-			i += j - k;
 	}}
 	return res;
 }
@@ -16,6 +15,5 @@ vector<pair<int, int>> duval(const string& s) {
 int minrotation(const string& s) {
 	auto parts = duval(s+s);
 	for (auto [l, r] : parts) {
-		if (l < sz(s) && r >= sz(s)) {
-			return l;
-}}}
+		if (r >= sz(s)) return l;
+}}
