@@ -7,9 +7,9 @@ using namespace std;
 
 using ll = long long;
 using ld = long double;
- 
+
 void solve() {}
- 
+
 int main() {
 	cin.tie(0)->sync_with_stdio(false);
 	cout << setprecision(16);
