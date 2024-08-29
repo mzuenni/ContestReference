@@ -29,8 +29,8 @@ struct Reroot {
       ps.push_back(fromChild(v, c, w, dp[c]));
     }
     auto ss = ps;
-    exclusive_scan(ps.begin(), ps.end(), ps.begin(), e, agg);
-    exclusive_scan(ss.rbegin(),ss.rend(),ss.rbegin(),e, agg);
+    exclusive_scan(be(ps), ps.begin(), e, agg);
+    exclusive_scan(ss.rbegin(), ss.rend(), ss.rbegin(), e, agg);
     int i = 0;
     for (auto [c, w] : g[v]) {
       ++i;
