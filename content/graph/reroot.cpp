@@ -3,14 +3,14 @@
 
 // To remove weights, remove every "w" and "W" and fix errors
 struct Reroot {
-  using D = /todo/; // dp value
-  using A = /todo/ (often D); // value from a vertex's child(ren)
-                            // (A,agg,e) commutative monoid
+  using D = /*todo*/; // dp value
+  using A = /*todo(often D)*/; //value from a vertex's child(ren)
+                               //(A,agg,e) commutative monoid
 
-  A e = /todo/;
-  A fromChild(int v, int c, auto w, D dp_c) { /todo/ }
-  static A agg(A a, A b) { /todo/ }
-  D fin(int v, A chilsAgg) { /todo/ }
+  A e = /*todo*/;
+  A fromChild(int v, int c, auto w, D dp_c) { /*todo*/ }
+  static A agg(A a, A b) { /*todo*/ }
+  D fin(int v, A chilsAgg) { /*todo*/ }
 
   vector<D> dp;
 
