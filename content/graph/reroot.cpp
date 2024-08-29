@@ -35,7 +35,7 @@ struct Reroot {
       dp[v] = fin(v, agg(ss[i], ps[i]));
       dfs1(c, v, g);
     }
-    dp[v] = fin(v, s[0]);
+    dp[v] = fin(v, ss[0]);
   }
 
   auto solve(auto g) {
