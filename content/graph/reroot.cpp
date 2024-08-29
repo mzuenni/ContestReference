@@ -1,62 +1,47 @@
-// Usual Tree DP can be broken down in 4 steps:
-// - Initialize dp[v] = identity
-// - Iterate over all children w and take a value for w 
-//	 by looking at dp[w] and possibly the edge label of v -> w
-// - combine the values of those children
-//	 usually this operation should be commutative and associative
-// - finalize the dp[v] after iterating over all children
+// input: undirected (un)weighted tree as
+//        adjacency list containing pair<neighbour,weight>s
+//        (To remove weights, remove every "w" and fix errors)
+// output[r] = dp[r], where dp[v] :=
+//  fin(Sum_{child c of v, regarding root r} from_child( dp[c] ))
 struct Reroot {
-	using T = ll;
+    using D = todo; // dp value
+    using A = todo (often D); // value from a vertex's child(ren)
+                              // (A,agg,e) commutative monoid
 
-	// identity element
-	T E() {}
-	// x: dp value of child
-	// e: index of edge going to child
-	T takeChild(T x, int e) {}
-	T comb(T x, T y) {}
-	// called after combining all dp values of children
-	T fin(T x, int v) {}
+    A e = todo;
+    A from_child(z v, z c, auto w, D dp_c) { todo }
+    static A agg(A a, A b) { todo }
+    D fin(z v, A chils_agg) { todo }
 
-	vector<vector<pair<int, int>>> g;
-	vector<int> ord, pae;
-	vector<T> dp;
+    vector<D> dp;
 
-	T dfs(int v) {
-		ord.push_back(v);
-		for (auto [w, e] : g[v]) {
-			g[w].erase(find(all(g[w]), pair(v, e^1)));
-			pae[w] = e^1;
-			dp[v] = comb(dp[v], takeChild(dfs(w), e));
-		}
-		return dp[v] = fin(dp[v], v);
-	}
+    D dfs0(z v, z p, auto& g) {
+        A ca = e;
+        for(auto [c, w] : g[v]) if(c-p) {
+            ca = agg(ca, from_child(v, c, w, dfs0(c, v, g)));
+        }
+        return dp[v] = fin(v, ca);
+    }
+    void dfs1(z v, z p, auto& g) {
+        vector ps = {e};
+        for(auto [c, w] : g[v]) {
+            ps.push_back(from_child(v, c, w, dp[c]));
+        }
+        auto ss = ps;
+        exclusive_scan(ps.begin(), ps.end(), ps.begin(), e, agg);
+        exclusive_scan(ss.rbegin(),ss.rend(),ss.rbegin(),e, agg);
+        z i = 0;
+        for(auto [c, w] : g[v]) if(++i, c-p) {
+            dp[v] = fin(v, agg(ss[i], ps[i]));
+            dfs1(c, v, g);
+        }
+        dp[v] = fin(v, s[0]);
+    }
 
-	vector<T> solve(int n, vector<pair<int, int>> edges) {
-		g.resize(n);
-		for (int i = 0; i < n-1; i++) {
-			g[edges[i].first].emplace_back(edges[i].second, 2*i);
-			g[edges[i].second].emplace_back(edges[i].first, 2*i+1);
-		}
-		pae.assign(n, -1);
-		dp.assign(n, E());
-		dfs(0);
-		vector<T> updp(n, E()), res(n, E());
-		for (int v : ord) {
-			vector<T> pref(sz(g[v])+1), suff(sz(g[v])+1);
-			if (v != 0) pref[0] = takeChild(updp[v], pae[v]);
-			for (int i = 0; i < sz(g[v]); i++){
-				auto [u, w] = g[v][i];
-				pref[i+1] = suff[i] = takeChild(dp[u], w);
-				pref[i+1] = comb(pref[i], pref[i+1]);
-			}
-			for (int i = sz(g[v])-1; i >= 0; i--) {
-				suff[i] = comb(suff[i], suff[i+1]);
-			}
-			for (int i = 0; i < sz(g[v]); i++) {
-				updp[g[v][i].first] = fin(comb(pref[i], suff[i+1]), v);
-			}
-			res[v] = fin(pref.back(), v);
-		}
-		return res;
-	}
+    auto solve(auto g) {
+        dp.resize(sz(g));
+        dfs0(0, 0, g);
+        dfs1(0, 0, g);
+        return dp;
+    }
 };
