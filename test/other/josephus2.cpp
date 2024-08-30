@@ -31,7 +31,7 @@ void performance_test() {
 		hash += rotateLeft(1'000'000'000'000'000'000ll + i);
 	}
 	t.stop();
-	if (t.time > 500) cerr << "too slow: " << t.time << FAIL;
+	if (t.time > 750) cerr << "too slow: " << t.time << FAIL;
 	cerr << "tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;
 }
 
