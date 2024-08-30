@@ -10,9 +10,8 @@ while (true) {
 
 	// reset simulation
 	for (int step = 0; auto [mid, i] : focus) {
-		while (step <= mid) {
+		for (; step <= mid; step++) {
 			// simulation step
-			step++;
 		}
 		if (/* requirement already fulfilled */) high[i] = mid;
 		else low[i] = mid + 1;

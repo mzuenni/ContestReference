@@ -13,6 +13,19 @@
 	\sourcecode{other/timed.cpp}
 \end{algorithm}
 
+\begin{algorithm}{Overflow-sichere arithmetische Operationen}
+	Gibt zurück, ob es einen Overflow gab. Wenn nicht, enthält \code{c} das Ergebnis.
+	\begin{expandtable}
+		\begin{tabularx}{\linewidth}{|lR|}
+			\hline
+			Addition & \code{__builtin_saddll_overflow(a, b, &c)} \\
+			Subtraktion & \code{__builtin_ssubll_overflow(a, b, &c)} \\
+			Multiplikation & \code{__builtin_smulll_overflow(a, b, &c)} \\
+			\hline
+		\end{tabularx}
+	\end{expandtable}
+\end{algorithm}
+
 \begin{algorithm}{Bit Operations}
 	\begin{expandtable}
 	\begin{tabularx}{\linewidth}{|Ll|}
@@ -29,19 +42,6 @@
 	\end{tabularx}\\
 	\end{expandtable}
 	\sourcecode{other/bitOps.cpp}
-\end{algorithm}
-
-\begin{algorithm}{Overflow-sichere arithmetische Operationen}
-	Gibt zurück, ob es einen Overflow gab. Wenn nicht, enthält \code{c} das Ergebnis.
-	\begin{expandtable}
-		\begin{tabularx}{\linewidth}{|lR|}
-			\hline
-			Addition & \code{__builtin_saddll_overflow(a, b, &c)} \\
-			Subtraktion & \code{__builtin_ssubll_overflow(a, b, &c)} \\
-			Multiplikation & \code{__builtin_smulll_overflow(a, b, &c)} \\
-			\hline
-		\end{tabularx}
-	\end{expandtable}
 \end{algorithm}
 
 \begin{algorithm}{Pragmas}
@@ -94,6 +94,14 @@
 	\sourcecode{other/josephusK.cpp}
 	\textbf{Beachte bei der Ausgabe, dass die Personen im ersten Fall von $\boldsymbol{1, \ldots, n}$ nummeriert sind, im zweiten Fall von $\boldsymbol{0, \ldots, n-1}$!}
 \end{algorithm}
+
+\vfill\null\columnbreak
+
+\subsection{Recover $\boldsymbol{x}$ and $\boldsymbol{y}$ from $\boldsymbol{y}$ from $\boldsymbol{x\*y^{-1}}$ }
+\method{recover}{findet $x$ und $y$ für $x=x\*y^{-1}\bmod m$}{\log(m)}
+\textbf{WICHTIG:} $x$ und $y$ müssen kleiner als $\sqrt{\nicefrac{m}{2}}$ sein!
+\sourcecode{other/recover.cpp}
+
 
 \begin{algorithm}[optional]{Zeileneingabe}
 	\sourcecode{other/split.cpp}

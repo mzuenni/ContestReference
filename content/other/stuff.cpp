@@ -1,12 +1,6 @@
-// Alles-Header.
-#include <bits/stdc++.h>
-
 // Setzt deutsche Tastaturlayout / toggle mit alt + space
 setxkbmap de
 setxkbmap de,us -option grp:alt_space_toggle
-
-// Schnelle Ein-/Ausgabe mit cin/cout.
-cin.tie(nullptr)->ios::sync_with_stdio(false);
 
 // Set mit eigener Sortierfunktion.
 set<point2, decltype(comp)> set1(comp);
