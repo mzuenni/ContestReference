@@ -1,10 +1,11 @@
 // Q = # of queries, bucket sort is sometimes faster
-vector<int> low(Q, 0), high(Q, MAX_OPERATIONS);
+vector<int> low(Q, 0), high(Q, MAX_OPERATIONS + 1);
 while (true) {
 	vector<pair<int, int>> focus;
-	for (int i = 0; i < Q; i++) if (low[i] < high[i]) {
-		focus.emplace_back((low[i] + high[i]) / 2, i);
-	}
+	for (int i = 0; i < Q; i++) {
+		if (low[i] + 1 < high[i]) {
+			focus.emplace_back((low[i] + high[i]) / 2, i);
+	}}
 	if (focus.empty()) break;
 	sort(all(focus));
 
@@ -14,5 +15,5 @@ while (true) {
 			// simulation step
 		}
 		if (/* requirement already fulfilled */) high[i] = mid;
-		else low[i] = mid + 1;
+		else low[i] = mid;
 }} // answer in low (and high)
