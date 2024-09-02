@@ -13,7 +13,7 @@ struct Reroot {
 
 	T dfs0(int v, int from = -1) {
 		T val = E;
-		for (auto& [u, w] : adj[v]) {
+		for (auto [u, w] : adj[v]) {
 			if (u == from) continue;
 			val = comb(val, takeChild(v, u, w, dfs0(u, v)));
 		}
