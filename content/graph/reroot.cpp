@@ -4,7 +4,7 @@ vector<vector<pair<int, W>>> adj;
 struct Reroot {
 	using T = ll; // dp type
 
-	T E = 0; // neutral element
+	static constexpr T E = 0; // neutral element
 	T takeChild(int v, int c, W w, T x) {} // move child along edge
 	static T comb(T x, T y) {}
 	T fin(int v, T x) {} // add v to own dp value x
