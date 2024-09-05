@@ -34,7 +34,6 @@ test_file() {
 
 list_missing() {
     declare -A ignore
-    ignore["datastructures/stlRope.cpp"]=1
     ignore["other/bitOps.cpp"]=1
     ignore["other/pragmas.cpp"]=1
     ignore["other/stuff.cpp"]=1
