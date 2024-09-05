@@ -69,7 +69,7 @@ if [ "$#" -ne 0 ]; then
             seedmacro="-DSEED=${arg:7}ll"
         elif [ -d "$arg" ]; then
             dir=$(realpath --relative-to="${PWD}" "$arg")
-            find . -type f -path "./${dir}/*.cpp" -print0 | sort -z | while read -d $'\0' file
+            find . -type f -path "./${dir}/*.cpp" -not -path './awk/*' -print0 | sort -z | while read -d $'\0' file
             do
                 test_file "$file"
             done
@@ -80,7 +80,7 @@ if [ "$#" -ne 0 ]; then
         fi
     done
 else
-    find . -type f -path '*.cpp' -print0 | sort -z | while read -d $'\0' file
+    find . -type f -path '*.cpp' -not -path './awk/*' -print0 | sort -z | while read -d $'\0' file
     do
         test_file "$file"
     done
