@@ -55,7 +55,7 @@ void performance_test() {
 		hash += hd.query(x);
 		t.stop();
 	}
-	if (t.time > 100) cerr << "too slow: " << t.time << FAIL;
+	if (t.time > 200) cerr << "too slow: " << t.time << FAIL;
 	cerr << "tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;
 }
 

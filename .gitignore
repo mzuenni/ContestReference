@@ -225,3 +225,5 @@ TSWLatexianTemp*
 build/*
 # dont ignore build tcr
 !tcr.pdf
+# ignore build test awk files
+test/awk/*

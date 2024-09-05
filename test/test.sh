@@ -8,6 +8,15 @@ declare -A cppstandard
 cppstandard["string/suffixArray.cpp"]="gnu++20"
 seedmacro=""
 
+process_awk() {
+    awk_file=$(realpath --relative-to="${PWD}" "${1}")
+    cpp_file=${awk_file%.awk}
+    folder=$(dirname $awk_file)
+    #echo "$awk_file"
+    mkdir -p "./awk/$folder"
+    awk -f "$awk_file" < "../content/$cpp_file" > "./awk/$cpp_file"
+}
+
 test_file() {
     file=$(realpath --relative-to="${PWD}" "${1}")
     echo "$file:"
@@ -16,7 +25,7 @@ test_file() {
     if [[ -v cppstandard[$file] ]]; then
         std=${cppstandard[$file]}
     fi
-    g++ -std=$std "$file" -I ../content/ -O2 -Wall -Wextra -Wshadow -Werror $seedmacro
+    g++ -std=$std "$file" -I ./awk/ -I ../content/ -O2 -Wall -Wextra -Wshadow -Werror $seedmacro
     echo "running..."
     timeout --foreground 60s ./a.out
     echo ""
@@ -25,10 +34,8 @@ test_file() {
 
 list_missing() {
     declare -A ignore
-    ignore["datastructures/stlPriorityQueue.cpp"]=1
     ignore["datastructures/stlRope.cpp"]=1
     ignore["other/bitOps.cpp"]=1
-    ignore["other/pbs.cpp"]=1
     ignore["other/pragmas.cpp"]=1
     ignore["other/stuff.cpp"]=1
     ignore["other/timed.cpp"]=1
@@ -46,10 +53,18 @@ list_missing() {
     done
 }
 
+rm -rf ./awk/
+find . -type f -path '*.awk' -print0 | sort -z | while read -d $'\0' file
+do
+    process_awk "$file"
+done
+
 if [ "$#" -ne 0 ]; then
     for arg in "$@"
     do
-        if [[ $arg == "--missing" ]]; then
+        if [[ $arg == "--awk" ]]; then
+            echo "processed all awk files"
+        elif [[ $arg == "--missing" ]]; then
             list_missing
         elif [[ $arg == --seed=* ]]; then
             seedmacro="-DSEED=${arg:7}ll"
