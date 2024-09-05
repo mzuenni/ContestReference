@@ -11,8 +11,8 @@ Nonetheless, not all code is tested and tests might not catch every bug.
 If you find a bug please [open an issue](https://github.com/mzuenni/ContestReference/issues/new).
 If you think code can be changed, improved or replaced also feel free to open an issue or make open a pull request.
 
-![test c++](https://github.com/mzuenni/ContestReference/actions/workflows/test_all.yml/badge.svg)
-![test pdf](https://github.com/mzuenni/ContestReference/actions/workflows/test_pdf.yml/badge.svg)
+[![test c++](https://github.com/mzuenni/ContestReference/actions/workflows/test_all.yml/badge.svg)](https://github.com/mzuenni/ContestReference/actions/workflows/test_all.yml/)
+[![test pdf](https://github.com/mzuenni/ContestReference/actions/workflows/test_pdf.yml/badge.svg)](https://github.com/mzuenni/ContestReference/actions/workflows/test_pdf.yml/)
 
 ## Other Resources
 The code in this repo has been accumulated over many years and the origin of the code is unfortunately unknown for most of the snippets.
@@ -28,10 +28,10 @@ Here is an (incomplete) list of resources that we use (besides those from previo
 - https://github.com/niklasb/contest-algos (2012-2016)
 
 ## Testing Status
- - ![test datastructures](https://github.com/mzuenni/ContestReference/actions/workflows/test_datastructures.yml/badge.svg)
- - ![test geometry](https://github.com/mzuenni/ContestReference/actions/workflows/test_geometry.yml/badge.svg)
- - ![test graph](https://github.com/mzuenni/ContestReference/actions/workflows/test_graph.yml/badge.svg)
- - ![test math](https://github.com/mzuenni/ContestReference/actions/workflows/test_math.yml/badge.svg)
- - ![test other](https://github.com/mzuenni/ContestReference/actions/workflows/test_other.yml/badge.svg)
- - ![test string](https://github.com/mzuenni/ContestReference/actions/workflows/test_string.yml/badge.svg)
- - ![test template](https://github.com/mzuenni/ContestReference/actions/workflows/test_template.yml/badge.svg)
+ - [![test datastructures](https://github.com/mzuenni/ContestReference/actions/workflows/test_datastructures.yml/badge.svg)](https://github.com/mzuenni/ContestReference/actions/workflows/test_datastructures.yml/)
+ - [![test geometry](https://github.com/mzuenni/ContestReference/actions/workflows/test_geometry.yml/badge.svg)](https://github.com/mzuenni/ContestReference/actions/workflows/test_geometry.yml/)
+ - [![test graph](https://github.com/mzuenni/ContestReference/actions/workflows/test_graph.yml/badge.svg)](https://github.com/mzuenni/ContestReference/actions/workflows/test_graph.yml/)
+ - [![test math](https://github.com/mzuenni/ContestReference/actions/workflows/test_math.yml/badge.svg)](https://github.com/mzuenni/ContestReference/actions/workflows/test_math.yml/)
+ - [![test other](https://github.com/mzuenni/ContestReference/actions/workflows/test_other.yml/badge.svg)](https://github.com/mzuenni/ContestReference/actions/workflows/test_other.yml/)
+ - [![test string](https://github.com/mzuenni/ContestReference/actions/workflows/test_string.yml/badge.svg)](https://github.com/mzuenni/ContestReference/actions/workflows/test_string.yml/)
+ - [![test template](https://github.com/mzuenni/ContestReference/actions/workflows/test_template.yml/badge.svg)](https://github.com/mzuenni/ContestReference/actions/workflows/test_template.yml/)
