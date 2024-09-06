@@ -16,4 +16,4 @@ while (true) {
 		}
 		if (/* requirement already fulfilled */) high[i] = mid;
 		else low[i] = mid;
-}} // answer in low (and high)
+}} // answer in low (MAX_OPERATIONS if never ok)
