@@ -10,9 +10,8 @@
 % Headline and bottomline.
 \usepackage{scrlayer-scrpage}
 \pagestyle{scrheadings}
-\clearscrheadfoot
-\ihead{\university}
-\chead{\teamname}
+\clearpairofpagestyles
+\ihead{\university{} -- \teamname{}}
 \ohead{\pagemark}
 
 % Shift the title up to waste less space.
@@ -43,7 +42,7 @@
 
 % use less space...
 %\usepackage[subtle, sections, indent, leading, charwidths]{savetrees}
-\usepackage[moderate,sections]{savetrees}
+\usepackage[moderate]{savetrees}
 \RedeclareSectionCommands[
 	beforeskip=1pt plus 5pt,
 	afterskip=0.1pt plus 1.5pt

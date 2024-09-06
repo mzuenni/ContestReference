@@ -1,6 +1,9 @@
-
-%maybe size 9pt if too many pages
-\documentclass[a4paper,fontsize=7.8pt]{scrartcl}
+\documentclass[
+	paper=a4,
+	DIV=calc,
+	fontsize=7.8pt,
+	usegeometry
+]{scrartcl}
 
 % General information.
 \newcommand{\teamname}{Kindergarten Timelimit}
@@ -14,6 +17,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage[nopatch=footnote]{microtype}
 \usepackage[hidelinks,pdfencoding=auto]{hyperref}
 
 % Include headers.
