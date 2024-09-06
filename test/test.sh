@@ -6,6 +6,7 @@ export MALLOC_PERTURB_="$((2#01011001))"
 
 declare -A cppstandard
 cppstandard["string/suffixArray.cpp"]="gnu++20"
+cppstandard["other/pbs.cpp"]="gnu++20"
 seedmacro=""
 
 process_awk() {

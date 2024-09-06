@@ -1,5 +1,5 @@
 // Q = # of queries, bucket sort is sometimes faster
-vector<int> low(Q, 0), high(Q, MAX_OPERATIONS + 1);
+vector<int> low(Q, -1), high(Q, MAX_OPERATIONS);
 while (true) {
 	vector<pair<int, int>> focus;
 	for (int i = 0; i < Q; i++) {
