@@ -12,6 +12,9 @@ jobs:
           auth: ${{ secrets.GIST_COVERAGE_SECRET }}
           gistID: 73fb3c58350c58b623f221fc237def62
           filename: tcr_coverage.json
-          label: Hello
-          message: World
-          color: orange
+          label: coverage
+          message: ${{ env.ANSWER }}%
+          namedLogo: GitHub
+          valColorRange: ${{ env.COVERAGE }}
+          minColorRange: 75
+          maxColorRange: 100
