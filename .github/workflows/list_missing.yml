@@ -7,3 +7,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: ./test/test.sh --missing
+      - uses: schneegans/dynamic-badges-action@v1.7.0
+        with:
+          auth: ${{ secrets.GIST_COVERAGE_SECRET }}
+          gistID: 73fb3c58350c58b623f221fc237def62
+          filename: tcr_coverage.json
+          label: Hello
+          message: World
+          color: orange
