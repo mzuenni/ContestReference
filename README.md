@@ -13,7 +13,7 @@ If you think code can be changed, improved or replaced also feel free to open an
 
 [![test c++](https://github.com/mzuenni/ContestReference/actions/workflows/test_all.yml/badge.svg)](https://github.com/mzuenni/ContestReference/actions/workflows/test_all.yml/)
 [![test pdf](https://github.com/mzuenni/ContestReference/actions/workflows/test_pdf.yml/badge.svg)](https://github.com/mzuenni/ContestReference/actions/workflows/test_pdf.yml/)
-
+[![coverage](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/mzuenni/73fb3c58350c58b623f221fc237def62/raw/tcr_coverage.json)](https://github.com/mzuenni/ContestReference/actions/workflows/list_missing.yml)
 ## Other Resources
 The code in this repo has been accumulated over many years and the origin of the code is unfortunately unknown for most of the snippets.
 Even though much code is written from scratch, plenty of code has been copied from others and just adjusted to our coding style.
