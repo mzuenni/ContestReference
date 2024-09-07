@@ -14,19 +14,17 @@ void takeAll(int n, int line) {
 int gauss(int n) {
 	vector<bool> done(n, false);
 	for (int i = 0; i < n; i++) {
-		int swappee = i; // Sucht Pivotzeile für bessere Stabilität.
-		for (int j = 0; j < n; j++) {
-			if (done[j]) continue;
-			if (abs(mat[j][i]) > abs(mat[i][i])) swappee = j;
+		int j = i; // Sucht Pivotzeile für bessere Stabilität.
+		for (int k = 0; k < n; k++) {
+			if (!done[k] && abs(mat[k][i]) > abs(mat[i][i])) j = k;
 		}
-		swap(mat[i], mat[swappee]);
+		swap(mat[i], mat[j]);
 		if (abs(mat[i][i]) > EPS) {
 			normalLine(i);
 			takeAll(n, i);
 			done[i] = true;	
 	}}
-	// Ab jetzt nur checks bzgl. Eindeutigkeit/Existenz der Lösung.
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++) { // gauss fertig, prüfe Lösung
 		bool allZero = true;
 		for (int j = i; j < n; j++) allZero &= abs(mat[i][j]) <= EPS;
 		if (allZero && abs(mat[i][n]) > EPS) return INCONSISTENT;

@@ -306,7 +306,10 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
 \method{gauss}{löst LGS}{n^3}
 \sourcecode{math/gauss.cpp}
 
-\vfill\null\columnbreak
+\begin{algorithm}{Inversionszahl}
+	\vspace{-2pt}
+	\sourcecode{math/inversions.cpp}
+\end{algorithm}
 
 \begin{algorithm}{Numerisch Extremstelle bestimmen}
 	\sourcecode{math/goldenSectionSearch.cpp}
@@ -315,7 +318,6 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
 \begin{algorithm}{Numerisch Integrieren, Simpsonregel}
 	\sourcecode{math/simpson.cpp}
 \end{algorithm}
-
 
 \begin{algorithm}{Polynome, FFT, NTT \& andere Transformationen}
 	Multipliziert Polynome $A$ und $B$.
@@ -340,8 +342,11 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
     \sourcecode{math/transforms/seriesOperations.cpp}
 \end{algorithm}
 
-\begin{algorithm}{Inversionszahl}
-	\sourcecode{math/inversions.cpp}
+
+\begin{algorithm}{Div Sum}
+	\method{divSum}{berechnet $\sum_{i=0}^{n-1} \frac{a\cdot i + b}{m}$}{\log(n)}
+	\textbf{Wichtig:} $b$ darf nicht negativ sein!
+	\sourcecode{math/divSum.cpp}
 \end{algorithm}
 
 \subsection{Satz von \textsc{Sprague-Grundy}}
@@ -394,6 +399,7 @@ so gilt
 	\end{methods}
 	\sourcecode{math/binomial0.cpp}
 	Falls $n >= p$ for $\mathit{mod}=p^k$ berechne \textit{fac} und \textit{inv} aber teile $p$ aus $i$ und berechne die häufigkeit von $p$ in $n!$ als $\sum\limits_{i=1}\big\lfloor\frac{n}{p^i}\big\rfloor$
+	\columnbreak
 
     \begin{methods}
 		\method{calc\_binom}{berechnet Binomialkoeffizient $(n \le 61)$}{k}

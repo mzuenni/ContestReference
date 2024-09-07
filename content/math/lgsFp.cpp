@@ -22,5 +22,4 @@ void gauss(int n, ll mod) {
 		normalLine(i, mod);
 		takeAll(n, i, mod);
 		done[i] = true;
-}}
-// für Eindeutigkeit, Existenz etc. siehe LGS über R @\sourceref{math/gauss.cpp}@
+}} // für Eindeutigkeit, Existenz etc. siehe LGS über R @\sourceref{math/gauss.cpp}@

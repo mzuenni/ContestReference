@@ -26,17 +26,18 @@ bool bfs(ll lim) {
 	return dist[t] >= 0;
 }
 
-bool dfs(int v, ll flow) {
-	if (v == t) return true;
+ll dfs(int v, ll flow) {
+	if (v == t || flow == 0) return flow;
 	for (; pt[v] < sz(adj[v]); pt[v]++) {
 		Edge& e = adj[v][pt[v]];
 		if (dist[e.to] != dist[v] + 1) continue;
-		if (e.c - e.f >= flow && dfs(e.to, flow)) {
-			e.f += flow;
-			adj[e.to][e.rev].f -= flow;
-			return true;
+		ll cur = dfs(e.to, min(e.c - e.f, flow));
+		if (cur > 0) {
+			e.f += cur;
+			adj[e.to][e.rev].f -= cur;
+			return cur;
 	}}
-	return false;
+	return 0;
 }
 
 ll maxFlow(int source, int target) {
@@ -45,7 +46,11 @@ ll maxFlow(int source, int target) {
 	for (ll lim = (1LL << 62); lim >= 1; lim /= 2) {
 		while (bfs(lim)) {
 			pt.assign(sz(adj), 0);
-			while (dfs(s, lim)) flow += lim;
+			ll cur;
+			do {
+				cur = dfs(s, lim);
+				flow += cur;
+			} while (cur > 0);
 	}}
 	return flow;
 }
