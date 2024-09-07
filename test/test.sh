@@ -3,6 +3,7 @@ set -e
 cd "$(dirname "$0")"
 ulimit -s 4000000
 export MALLOC_PERTURB_="$((2#01011001))"
+shopt -s lastpipe
 
 declare -A cppstandard
 cppstandard["string/suffixArray.cpp"]="gnu++20"
@@ -43,14 +44,31 @@ list_missing() {
     ignore["tests/precision.cpp"]=1
     ignore["tests/whitespace.cpp"]=1
 
-    echo "missing tests:"
+    total=0
+    missing=0
+
+    if [[ ! -v $1 ]]; then
+        echo "missing tests:"
+    fi
     find ../content/ -type f -name '*.cpp' -print0 | sort -z | while read -d $'\0' file
     do
+        total=$((total+1))
         file=${file#../content/}
         if [ ! -f "$file" ] && [[ ! -v ignore["$file"] ]]; then
-            echo "  $file"
+            missing=$((missing+1))
+            if [[ ! -v $1 ]]; then
+                echo "  $file"
+            fi
         fi
     done
+    if [[ -v $1 ]]; then
+        coverage=$((100*(total-missing)/total))
+        echo "COVERAGE=$coverage"
+    fi
+}
+
+coverage() {
+    list_missing 1
 }
 
 rm -rf ./awk/
@@ -66,6 +84,8 @@ if [ "$#" -ne 0 ]; then
             echo "processed all awk files"
         elif [[ $arg == "--missing" ]]; then
             list_missing
+        elif [[ $arg == "--coverage" ]]; then
+            coverage
         elif [[ $arg == --seed=* ]]; then
             seedmacro="-DSEED=${arg:7}ll"
         elif [ -d "$arg" ]; then
