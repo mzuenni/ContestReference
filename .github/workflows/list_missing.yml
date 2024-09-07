@@ -14,7 +14,7 @@ jobs:
           gistID: 73fb3c58350c58b623f221fc237def62
           filename: tcr_coverage.json
           label: coverage
-          message: ${{ env.ANSWER }}%
+          message: ${{ env.COVERED }}/${{ env.TOTAL }}
           namedLogo: GitHub
           valColorRange: ${{ env.COVERAGE }}
           minColorRange: 75
