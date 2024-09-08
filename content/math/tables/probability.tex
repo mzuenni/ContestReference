@@ -1,19 +1,15 @@
-\begin{tabularx}{\linewidth}{|LICIR|}
+\begin{expandtable}
+\begin{tabularx}{\linewidth}{|LIR|}
 	\hline
-	\multicolumn{3}{|c|}{
+	\multicolumn{2}{|c|}{
 		Wahrscheinlichkeitstheorie ($A,B$ Ereignisse und $X,Y$ Variablen)
 	} \\
 	\hline
-	$\E(X + Y) = \E(X) + \E(Y)$ &
-	$\E(\alpha X) = \alpha \E(X)$ &
-	$X, Y$ unabh. $\Leftrightarrow \E(XY) = \E(X) \cdot \E(Y)$\\
-	
-	$\Pr[A \vert B] = \frac{\Pr[A \land B]}{\Pr[B]}$ &
-	$A, B$ disj. $\Leftrightarrow \Pr[A \land B] = \Pr[A] \cdot \Pr[B]$ &
-	$\Pr[A \lor B] = \Pr[A] + \Pr[B] - \Pr[A \land B]$ \\
+	$\E(X + Y) = \E(X) + \E(Y)$                                & $\Pr[A \vert B] = \frac{\Pr[A \land B]}{\Pr[B]}$ \\
+	$\E(\alpha X) = \alpha \E(X)$                              & $\Pr[A \lor B] = \Pr[A] + \Pr[B] - \Pr[A \land B]$ \\
+	$X, Y$ unabh. $\Leftrightarrow \E(XY) = \E(X) \cdot \E(Y)$ & $A, B$ disj. $\Leftrightarrow \Pr[A \land B] = \Pr[A] \cdot \Pr[B]$\\
 	\hline
 \end{tabularx}
-\vfill
 \begin{tabularx}{\linewidth}{|Xlr|lrX|}
 	\hline
 	\multicolumn{6}{|c|}{\textsc{Bertrand}'s Ballot Theorem (Kandidaten $A$ und $B$, $k \in \mathbb{N}$)} \\
@@ -25,3 +21,4 @@
 	$\#A \geq \#B + k$ & $Num = \frac{a - k + 1 - b}{a - k + 1} \binom{a + b - k}{b}$ & \\
 	\hline
 \end{tabularx}
+\end{expandtable}

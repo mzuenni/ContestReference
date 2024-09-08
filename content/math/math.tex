@@ -342,31 +342,6 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
     \sourcecode{math/transforms/seriesOperations.cpp}
 \end{algorithm}
 
-
-\begin{algorithm}{Div Sum}
-	\method{divSum}{berechnet $\sum_{i=0}^{n-1} \left\lfloor \frac{a\cdot i + b}{m}  \right\rfloor$}{\log(n)}
-	\textbf{Wichtig:} $b$ darf nicht negativ sein!
-	\sourcecode{math/divSum.cpp}
-\end{algorithm}
-
-\begin{algorithm}{Min Mod}
-	\method{firstVal}{berechnet den ersten Wert von $0,\ a, \ldots,\ a \cdot i \bmod{m}$, der in $[l, r]$ liegt. Gibt $-1$ zurück, falls er nicht existiert.}{\log(m)}
-	\method{minMod}{berechnet das Minimum von $(a \cdot i + b) \bmod{m}$ für $i \in [0, n)$}{\log(m)}
-	\textbf{Wichtig:} $0 \leq a, b, l, r < m$
-	\sourcecode{math/minMod.cpp}
-\end{algorithm}
-
-\subsection{Satz von \textsc{Sprague-Grundy}}
-Weise jedem Zustand $X$ wie folgt eine \textsc{Grundy}-Zahl $g\left(X\right)$ zu:
-\[
-g\left(X\right) := \min\left\{
-\mathbb{Z}_0^+ \setminus
-\left\{g\left(Y\right) \mid Y \text{ von } X \text{ aus direkt erreichbar}\right\}
-\right\}
-\]
-$X$ ist genau dann gewonnen, wenn $g\left(X\right) > 0$ ist.\\
-Wenn man $k$ Spiele in den Zuständen $X_1, \ldots, X_k$ hat, dann ist die \textsc{Grundy}-Zahl des Gesamtzustandes $g\left(X_1\right) \oplus \ldots \oplus g\left(X_k\right)$.
-
 \subsection{Kombinatorik}
 
 \paragraph{Wilsons Theorem}
@@ -400,13 +375,14 @@ so gilt
 \paragraph{Binomialkoeffizienten}
 	Die Anzahl der \mbox{$k$-elementigen} Teilmengen einer \mbox{$n$-elementigen} Menge.
 	
+	\input{math/tables/binom}
+	
 	\begin{methods}
 		\method{precalc}{berechnet $n!$ und $n!^{-1}$ vor}{\mathit{lim}}
 		\method{calc\_binom}{berechnet Binomialkoeffizient}{1}
 	\end{methods}
 	\sourcecode{math/binomial0.cpp}
 	Falls $n >= p$ for $\mathit{mod}=p^k$ berechne \textit{fac} und \textit{inv} aber teile $p$ aus $i$ und berechne die häufigkeit von $p$ in $n!$ als $\sum\limits_{i=1}\big\lfloor\frac{n}{p^i}\big\rfloor$
-	\columnbreak
 
     \begin{methods}
 		\method{calc\_binom}{berechnet Binomialkoeffizient $(n \le 61)$}{k}
@@ -519,6 +495,54 @@ Die Anzahl der Partitionen von $n$ mit Elementen aus ${1,\dots,k}$.
 \subsection{The Twelvefold Way \textnormal{(verteile $n$ Bälle auf $k$ Boxen)}}
 \input{math/tables/twelvefold}
 
+\subsection{Platonische Körper}
+\input{math/tables/platonic}
+
+\input{math/tables/probability}
+
+\subsection{Satz von \textsc{Sprague-Grundy}}
+Weise jedem Zustand $X$ wie folgt eine \textsc{Grundy}-Zahl $g\left(X\right)$ zu:
+\[
+g\left(X\right) := \min\left\{
+\mathbb{Z}_0^+ \setminus
+\left\{g\left(Y\right) \mid Y \text{ von } X \text{ aus direkt erreichbar}\right\}
+\right\}
+\]
+$X$ ist genau dann gewonnen, wenn $g\left(X\right) > 0$ ist.\\
+Wenn man $k$ Spiele in den Zuständen $X_1, \ldots, X_k$ hat, dann ist die \textsc{Grundy}-Zahl des Gesamtzustandes $g\left(X_1\right) \oplus \ldots \oplus g\left(X_k\right)$.
+
+\subsection{Nim-Spiele}
+\begin{itemize}
+	\item[\ding{182}] letzter gewinnt (normal)
+	\item[\ding{183}] letzter verliert
+\end{itemize}
+\input{math/tables/nim}
+
+\subsection{Verschiedenes}
+\input{math/tables/stuff}
+
+\begin{algorithm}{Div Sum}
+	\method{divSum}{berechnet $\sum_{i=0}^{n-1} \left\lfloor \frac{a\cdot i + b}{m}  \right\rfloor$}{\log(n)}
+	\textbf{Wichtig:} $b$ darf nicht negativ sein!
+	\sourcecode{math/divSum.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Min Mod}
+	\begin{methods}
+		\method{firstVal}{berechnet den ersten Wert von $0,\ a, \ldots,\ a \cdot i \bmod{m}$,}{\log(m)}
+		\method{}{der in $[l, r]$ liegt. Gibt $-1$ zurück, falls er nicht existiert.}{}
+		\method{minMod}{berechnet das Minimum von $(a \cdot i + b) \bmod{m}$ für $i \in [0, n)$}{\log(m)}
+	\end{methods}
+	\textbf{Wichtig:} $0 \leq a, b, l, r < m$
+	\sourcecode{math/minMod.cpp}
+\end{algorithm}
+
+\subsection{Reihen}
+\input{math/tables/series}
+
+\subsection{Wichtige Zahlen}
+\input{math/tables/composite}
+
 \optional{
 \subsection{Primzahlzählfunktion $\boldsymbol{\pi}$}
 \begin{methods}
@@ -529,7 +553,8 @@ Die Anzahl der Partitionen von $n$ mit Elementen aus ${1,\dots,k}$.
 \sourcecode{math/piLehmer.cpp}
 }
 
-%\input{math/tables/numbers}
+\subsection{Primzahlzählfunktion $\boldsymbol{\pi}$}
+\sourcecode{math/piLegendre.cpp}
 
 \begin{algorithm}[optional]{Big Integers}
 	\sourcecode{math/bigint.cpp}

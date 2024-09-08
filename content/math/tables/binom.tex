@@ -1,28 +1,27 @@
-\begin{tabularx}{\linewidth}{|XXXX|}
+\begin{expandtable}
+\begin{tabularx}{\linewidth}{|C|}
 	\hline
-	\multicolumn{4}{|c|}{Binomialkoeffizienten} \\
-	\hline
-	\multicolumn{4}{|c|}{
 	$\frac{n!}{k!(n - k)!} \hfill=\hfill
 	\binom{n}{k} \hfill=\hfill
 	\binom{n}{n - k} \hfill=\hfill
 	\frac{n}{k}\binom{n - 1}{k - 1} \hfill=\hfill
 	\frac{n-k+1}{k}\binom{n}{k - 1} \hfill=\hfill
-	\binom{n - 1}{k} + \binom{n - 1}{k - 1} \hfill=\hfill
+	\frac{k+1}{n-k}\binom{n}{k + 1} \hfill=\hfill$\\
+	
+	$\binom{n - 1}{k - 1} + \binom{n - 1}{k} \hfill=\hfill
+	\binom{n + 1}{k + 1} - \binom{n}{k + 1} \hfill=\hfill
 	(-1)^k \binom{k - n - 1}{k} \hfill\approx\hfill
-	2^{n} \cdot \frac{2}{\sqrt{2\pi n}}\cdot\exp\left(-\frac{2(x - \frac{n}{2})^2}{n}\right)$
-	} \\
+	2^{n} \cdot \frac{2}{\sqrt{2\pi n}}\cdot\exp\left(-\frac{2(x - \frac{n}{2})^2}{n}\right)$\\
 	\grayhline
 	
-	$\sum\limits_{k = 0}^n \binom{n}{k} = 2^n$ &
-	$\sum\limits_{k = 0}^n \binom{k}{m} = \binom{n + 1}{m + 1}$ &
-	$\sum\limits_{i = 0}^n \binom{n}{i}^2 = \binom{2n}{n}$ &
-	$\sum\limits_{k = 0}^n\binom{r + k}{k} = \binom{r + n + 1}{n}$\\
+	$\sum\limits_{k = 0}^n \binom{n}{k} = 2^n\hfill
+	\sum\limits_{k = 0}^n \binom{k}{m} = \binom{n + 1}{m + 1}\hfill
+	\sum\limits_{i = 0}^n \binom{n}{i}^2 = \binom{2n}{n}\hfill
+	\sum\limits_{k = 0}^n\binom{r + k}{k} = \binom{r + n + 1}{n}$\\
 	
-	$\binom{n}{m}\binom{m}{k} = \binom{n}{k}\binom{n - k}{m - k}$ &
-	$\sum\limits_{k = 0}^n \binom{r}{k}\binom{s}{n - k} = \binom{r + s}{n}$ &
-	\multicolumn{2}{l|}{
-	$\sum\limits_{i = 1}^n \binom{n}{i} F_i = F_{2n} \quad F_n = n\text{-th Fib.}$
-	}\\
+	$\binom{n}{m}\binom{m}{k} = \binom{n}{k}\binom{n - k}{m - k}\hfill
+	\sum\limits_{k = 0}^n \binom{r}{k}\binom{s}{n - k} = \binom{r + s}{n}\hfill
+	\sum\limits_{i = 1}^n \binom{n}{i} \mathit{Fib}_i = \mathit{Fib}_{2n}$\\
 	\hline
 \end{tabularx}
+\end{expandtable}
