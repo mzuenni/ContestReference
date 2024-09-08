@@ -344,9 +344,16 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
 
 
 \begin{algorithm}{Div Sum}
-	\method{divSum}{berechnet $\sum_{i=0}^{n-1} \frac{a\cdot i + b}{m}$}{\log(n)}
+	\method{divSum}{berechnet $\sum_{i=0}^{n-1} \left\lfloor \frac{a\cdot i + b}{m}  \right\rfloor$}{\log(n)}
 	\textbf{Wichtig:} $b$ darf nicht negativ sein!
 	\sourcecode{math/divSum.cpp}
+\end{algorithm}
+
+\begin{algorithm}{Min Mod}
+	\method{firstVal}{berechnet den ersten Wert von $0,\ a, \ldots,\ a \cdot i \bmod{m}$, der in $[l, r]$ liegt. Gibt $-1$ zurück, falls er nicht existiert.}{\log(m)}
+	\method{minMod}{berechnet das Minimum von $(a \cdot i + b) \bmod{m}$ für $i \in [0, n)$}{\log(m)}
+	\textbf{Wichtig:} $0 \leq a, b, l, r < m$
+	\sourcecode{math/minMod.cpp}
 \end{algorithm}
 
 \subsection{Satz von \textsc{Sprague-Grundy}}
