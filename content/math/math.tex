@@ -485,7 +485,7 @@ Die Anzahl der Partitionen von $n$ mit Elementen aus ${1,\dots,k}$.
 \begin{align*}
 	p_0(0)=1 \qquad p_k(n)&=0 \text{ für } k > n \text{ oder } n \leq 0 \text{ oder } k \leq 0\\
 	p_k(n)&= p_k(n-k) + p_{k-1}(n-1)\\[2pt]
-	p(n)&=\sum_{k=1}^{n} p_k(n)=p_n(2n)=\sum\limits_{k\neq0}^\infty(-1)^{k+1}p\bigg(n - \frac{k(3k-1)}{2}\bigg)
+	p(n)=\sum_{k=1}^{n} p_k(n)&=p_n(2n)=\sum\limits_{k\neq0}^\infty(-1)^{k+1}\bigg[p\bigg(n - \frac{k(3k-1)}{2}\bigg) + p\bigg(n - \frac{k(3k+1)}{2}\bigg)\bigg]
 \end{align*}
 \begin{itemize}
 	\item in Formel $3$ kann abgebrochen werden wenn $\frac{k(3k-1)}{2} > n$.
