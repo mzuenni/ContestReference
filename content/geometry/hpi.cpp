@@ -27,22 +27,22 @@ struct hp {
 			if (ort == 0) return cross(from, to, a.from) < 0;
 			return cross(b.dir(), a.dir()) * ort > 0;
 		}
-		ll y = cross(a.dir(), b.dir());
-		ll z = cross(b.from - a.from, b.dir());
-		ptl i = mul(y, a.from) + mul(z, a.dir()); //intersect a and b
-		// check if i is outside/right of x
-		return imag(conj(mul(sgn(y),dir()))*(i-mul(y,from))) < 0;
+		ll x = cross(a.dir(), b.dir());
+		ll y = cross(b.from - a.from, b.dir());
+		ptl i = mul(x, a.from) + mul(y, a.dir()); //intersect a and b
+		// check if i is outside/right of this
+		return imag(conj(mul(sgn(x),dir()))*(i-mul(x,from))) < 0;
 	}
 };
 
 constexpr ll lim = 2e9+7;
 
 deque<hp> intersect(vector<hp> hps) {
-	hps.push_back(hp(pt{lim+1,-1}));
-	hps.push_back(hp(pt{lim+1,1}));
+	hps.push_back(hp(pt{lim + 1, -1}));
+	hps.push_back(hp(pt{lim + 1, 1}));
 	sort(all(hps));
 
-	deque<hp> dq = {hp(pt{-lim, 1})};
+	deque<hp> dq = {hp(pt{-lim - 1, 1})};
 	for (auto x : hps) {
 		while (sz(dq) > 1 && x.check(dq.end()[-1], dq.end()[-2]))
 			dq.pop_back();

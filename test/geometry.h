@@ -1,6 +1,6 @@
-#include <geometry/sortAround.cpp>
-
 namespace details {
+	#include <geometry/sortAround.cpp>
+
 	// Liegt p auf der Strecke a-b?
 	bool pointInLineSegment(pt a, pt b, pt p) {
 		if (cross(a, b, p) != 0) return false;
@@ -59,7 +59,7 @@ namespace Random {
 			for (size_t i = 0; i < dirs.size(); i++) {
 				dirs[i] = pt(x[i], y[i]);
 			}
-			sortAround(0, dirs);
+			details::sortAround(0, dirs);
 
 			vector<pt> res = {{0, 0}};
 			ll maxX = 0;

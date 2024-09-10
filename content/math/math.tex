@@ -544,6 +544,11 @@ Wenn man $k$ Spiele in den Zuständen $X_1, \ldots, X_k$ hat, dann ist die \text
 \subsection{Wichtige Zahlen}
 \input{math/tables/composite}
 
+\subsection{Recover $\boldsymbol{x}$ and $\boldsymbol{y}$ from $\boldsymbol{y}$ from $\boldsymbol{x\*y^{-1}}$ }
+\method{recover}{findet $x$ und $y$ für $x=x\*y^{-1}\bmod m$}{\log(m)}
+\textbf{WICHTIG:} $x$ und $y$ müssen kleiner als $\sqrt{\nicefrac{m}{2}}$ sein!
+\sourcecode{math/recover.cpp}
+
 \optional{
 \subsection{Primzahlzählfunktion $\boldsymbol{\pi}$}
 \begin{methods}
@@ -552,10 +557,10 @@ Wenn man $k$ Spiele in den Zuständen $X_1, \ldots, X_k$ hat, dann ist die \text
 	\method{pi}{zählt Primzahlen  $\leq n$ ($n < N^2$)}{n^{2/3}}
 \end{methods}
 \sourcecode{math/piLehmer.cpp}
-}
 
 \subsection{Primzahlzählfunktion $\boldsymbol{\pi}$}
 \sourcecode{math/piLegendre.cpp}
+}
 
 \begin{algorithm}[optional]{Big Integers}
 	\sourcecode{math/bigint.cpp}
