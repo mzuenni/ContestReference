@@ -1,5 +1,5 @@
 #include "../util.h"
-#include <other/recover.cpp>
+#include <math/recover.cpp>
 #include <math/shortModInv.cpp>
 
 void stress_test() {
