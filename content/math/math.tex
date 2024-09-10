@@ -136,9 +136,10 @@ sich alle Lösungen von $x^2-ny^2=c$ berechnen durch:
 	Sei $f(n)=c_{0}f(n-1)+c_{1}f(n-2)+\dots + c_{n-1}f(0)$ eine lineare Rekurrenz.
 	
 	\begin{methods}
-		\method{kthTerm}{Berechnet $k$-ten Term einer Rekurrenz $n$-ter Ordnung}{\log(k)\cdot n^2}
+		\method{kthTerm}{Berechnet $k$-ten Term einer Rekurrenz $n$-ter Ordnung}{\log(k)\cdot \text{mul}(n)}
 	\end{methods}
-	\sourcecode{math/linearRecurence.cpp}
+	Die Polynom-Multiplikation kann auch mit NTT gemacht werden!
+	\sourcecode{math/linearRecurrence.cpp}
 	Alternativ kann der \mbox{$k$-te} Term in \runtime{n^3\log(k)} berechnet werden:
 	$$\renewcommand\arraystretch{1.5}
 	\setlength\arraycolsep{3pt}

@@ -1,5 +1,18 @@
 #include "../util.h"
-#include <math/linearRecurence.cpp>
+
+constexpr ll mod = 998244353;
+vector<ll> mul(const vector<ll> &a, const vector<ll> &b){
+	vector<ll> c(sz(a) + sz(b) - 1);
+	for(int i = 0; i < sz(a); i++){
+		for(int j = 0; j < sz(b); j++){
+			c[i+j] += a[i]*b[j] % mod;
+		}
+	}
+	for(ll &x : c) x %= mod;
+	return c;
+}
+
+#include <math/linearRecurrence.cpp>
 
 struct RandomRecurence {
 	vector<ll> f, c, cache;
