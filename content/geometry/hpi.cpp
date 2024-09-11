@@ -60,7 +60,7 @@ deque<hp> intersect(vector<hp> hps) {
 
 	while (sz(dq) > 2 && dq[0].check(dq.end()[-1], dq.end()[-2]))
 		dq.pop_back();
-	while (sz(dq) > 2 && dq.end()[-1].check(dq[0], dq[1]))
+	while (sz(dq) > 2 && dq.back().check(dq[0], dq[1]))
 		dq.pop_front();
 
 	if (sz(dq) < 3) return {};
