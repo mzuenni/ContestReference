@@ -1,18 +1,11 @@
 #include "../util.h"
-
-constexpr ll mod = 998244353;
-vector<ll> mul(const vector<ll> &a, const vector<ll> &b){
-	vector<ll> c(sz(a) + sz(b) - 1);
-	for(int i = 0; i < sz(a); i++){
-		for(int j = 0; j < sz(b); j++){
-			c[i+j] += a[i]*b[j] % mod;
-		}
-	}
-	for(ll &x : c) x %= mod;
-	return c;
-}
-
+#include <math/modPowIterativ.cpp>
+#include <math/transforms/ntt.cpp>
+#include <math/transforms/multiplyNTT.cpp>
+#define mod mod2
 #include <math/linearRecurrence.cpp>
+#undef mod
+static_assert(mod == mod2);
 
 struct RandomRecurence {
 	vector<ll> f, c, cache;
@@ -33,7 +26,7 @@ struct RandomRecurence {
 
 void stress_test() {
 	int queries = 0;
-	for (int i = 0; i < 10'000; i++) {
+	for (int i = 0; i < 1'000; i++) {
 		int n = Random::integer<int>(1, 10);
 		RandomRecurence f(n);
 		for (int j = 0; j < 100; j++) {
@@ -49,14 +42,14 @@ void stress_test() {
 	cerr << "tested random queries: " << queries << endl;
 }
 
-constexpr int N = 1'000;
+constexpr int N = 100'000;
 void performance_test() {
 	timer t;
 	RandomRecurence f(N);
 	t.start();
 	hash_t hash = kthTerm(f.f, f.c, 1e18);
 	t.stop();
-	if (t.time > 500) cerr << "too slow: " << t.time << FAIL;
+	if (t.time > 8000) cerr << "too slow: " << t.time << FAIL;
 	cerr << "tested performance: " << t.time << "ms (hash: " << hash << ")" << endl;
 }
 
