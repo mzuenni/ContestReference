@@ -4,7 +4,7 @@ struct AhoCorasick {
 		int suffix = 0, ch, cnt = 0;
 		array<int, ALPHABET_SIZE> nxt = {};
 
-		vert(int p, int c) : suffix(-p), ch(c) {}
+		vert(int p, int c) : suffix(-p), ch(c) {fill(all(nxt), -1);}
 	};
 	vector<vert> aho = {{0, -1}};
 
@@ -12,7 +12,7 @@ struct AhoCorasick {
 		int v = 0;
 		for (auto c : s) {
 			int idx = c - OFFSET;
-			if (!aho[v].nxt[idx]) {
+			if (aho[v].nxt[idx] == -1) {
 				aho[v].nxt[idx] = sz(aho);
 				aho.emplace_back(v, idx);
 			}
@@ -30,8 +30,8 @@ struct AhoCorasick {
 	}
 
 	int go(int v, int idx) { // Root is v=0, idx is char - OFFSET
-		if (aho[v].nxt[idx]) return aho[v].nxt[idx];
-		else return v == 0 ? 0 : go(getSuffix(v), idx);
+		if (aho[v].nxt[idx] != -1) return aho[v].nxt[idx];
+		return v == 0 ? 0 : aho[v].nxt[idx] = go(getSuffix(v), idx);
 	}
 
 	vector<vector<int>> adj;
