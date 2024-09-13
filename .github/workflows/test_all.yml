@@ -2,7 +2,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  pdf:
+  all:
     strategy:
       matrix:
         os: [ubuntu-latest, ubuntu-22.04]

@@ -1,7 +1,7 @@
 on: [push, pull_request]
 
 jobs:
-  pdf:
+  missing:
     name: List missing
     runs-on: ubuntu-latest
     steps:
