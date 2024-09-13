@@ -16,6 +16,6 @@ jobs:
           label: coverage
           message: ${{ env.COVERED }}/${{ env.TOTAL }}
           namedLogo: GitHub
-          valColorRange: ${{ env.COVERAGE }}
-          minColorRange: ${{ env.TOTAL }}-4
+          valColorRange: ${{ env.TOTAL }}
+          minColorRange: ${{ env.REQUIRED }}
           maxColorRange: ${{ env.TOTAL }}
