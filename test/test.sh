@@ -64,7 +64,7 @@ list_missing() {
     if [[ -v $1 ]]; then
         covered=$((total-missing))
         coverage=$((100*covered/total))
-        echo "COVERAGE=$coverage"
+        echo "REQUIRED=$(( total < 4 ? 0 : total - 4 ))"
         echo "TOTAL=$total"
         echo "COVERED=$covered"
         echo "MISSING=$missing"
