@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  pdf_22.04:
+  pdf_22-04:
     name: Test pdf (ubuntu-22.04)
     runs-on: ubuntu-22.04
     timeout-minutes: 5
