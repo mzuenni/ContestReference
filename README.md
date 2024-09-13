@@ -1,6 +1,7 @@
 # KIT Team Contest Reference
 > [!TIP]
-> You can use this [pdf.js link](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/mzuenni/ContestReference/new-master/tcr.pdf) to watch the pdf with working links.
+> You can use this [pdf.js link](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/mzuenni/ContestReference/new-master/tcr.pdf) to watch the commited pdf with working links,
+> or [this one]([https://mozilla.github.io/pdf.js/web/viewer.html?file=https://raw.githubusercontent.com/mzuenni/ContestReference/new-master/tcr.pdf](https://mozilla.github.io/pdf.js/web/viewer.html?file=https://gist.githubusercontent.com/mzuenni/73fb3c58350c58b623f221fc237def62/raw/327153da4b39e3513b7f8af0c5c6958556e64b05/tcr.pdf)) to look at the current build.
 
 The KIT teams have used this document for ICPC-style contests since roughly 2019.
 It consists of 25 pages of copy-pasteable C++ code and one extra page with a checklist for the practice session.
