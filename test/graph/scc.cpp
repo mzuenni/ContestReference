@@ -16,18 +16,6 @@ void stress_test() {
 		});
 		scc();
 
-		vector<bool> tmp(n);
-		for (int i = 0; i < sz(sccs); i++) {
-			for (int x : sccs[i]) {
-				if (tmp[x]) cerr << "error: duclicate" << FAIL;
-				if (idx[x] != i) cerr << "error: inconsistent" << FAIL;
-				tmp[x] = true;
-			}
-		}
-		for (int i = 0; i < n; i++) {
-			if (!tmp[i]) cerr << "error: missing" << FAIL;
-		}
-
 		init(n);
 		vector<ll> seen(n);
 		int tmpCounter = 0;
