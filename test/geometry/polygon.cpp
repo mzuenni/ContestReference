@@ -10,7 +10,7 @@ double abs(pt p) {
 	return hypot(real(p), imag(p));
 }
 // Liegt p auf der Strecke a-b?
-bool pointOnLineSegment(pt a, pt b, pt p) {
+bool pointOnSegment(pt a, pt b, pt p) {
 	if (cross(a, b, p) != 0) return false;
 	auto dist = norm(a - b);
 	return norm(a - p) <= dist && norm(b - p) <= dist;
@@ -65,7 +65,7 @@ void test_windingNumber(ll range) {
 				int cur = details::lineSegmentIntersection(p, p + pt(1, 2'000'000'007), ps[j], ps[j+1]);
 				if (ptLess(ps[j], ps[j+1])) expected -= cur;
 				else expected += cur;
-				onBorder |= pointOnLineSegment(ps[j], ps[j+1], p);
+				onBorder |= pointOnSegment(ps[j], ps[j+1], p);
 			}
 			if (onBorder) continue;
 			if (area(ps) < 0) expected = -expected;
@@ -93,7 +93,7 @@ void test_inside(ll range) {
 			bool onBorder = false;
 			for (int j = 0; j < n; j++) {
 				count += details::lineSegmentIntersection(p, p + pt(1, 2'000'000'007), ps[j], ps[j+1]);
-				onBorder |= pointOnLineSegment(ps[j], ps[j+1], p);
+				onBorder |= pointOnSegment(ps[j], ps[j+1], p);
 			}
 			bool expected = (count % 2) && !onBorder;
 			bool got = inside(p, ps);

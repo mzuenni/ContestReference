@@ -29,7 +29,7 @@ bool inside(pt p, const vector<pt>& poly) {
 	bool in = false;
 	for (int i = 0; i + 1 < sz(poly); i++) {
 		pt a = poly[i], b = poly[i + 1];
-		if (pointOnLineSegment(a, b, p)) return false;
+		if (pointOnSegment(a, b, p)) return false;
 		if (real(a) > real(b)) swap(a,b);
 		if (real(a) <= real(p) && real(p) < real(b) &&
 		    cross(p, a, b) < 0) {
