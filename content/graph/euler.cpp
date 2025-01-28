@@ -3,7 +3,7 @@ vector<int> cycle;
 
 void addEdge(int u, int v) {
 	adj[u].emplace_back(v, sz(adj[v]));
-	adj[v].emplace_back(u, sz(adj[u]) - 1); // remove for undirected
+	adj[v].emplace_back(u, sz(adj[u])-1); // remove for undirected
 }
 
 void euler(int v) {
