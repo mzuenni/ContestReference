@@ -1,6 +1,6 @@
 #include "../util.h"
 struct Euler {
-	Euler(int n) : idx(n), validIdx(n) {}
+	Euler(int n) : adj(n) {}
 #include <graph/euler.cpp>
 };
 
@@ -20,7 +20,7 @@ Euler eulerGraph(int n, int m) {
 	}
 	int last = -1;
 	for (int i = 0; i < n; i++) {
-		if (sz(res.idx[i]) % 2 != 0) {
+		if (sz(res.adj[i]) % 2 != 0) {
 			if (last >= 0) {
 				res.addEdge(last, i);
 				last = -1;
@@ -44,8 +44,8 @@ void stress_test() {
 		
 		vector<vector<int>> expected(n);
 		for (int i = 0; i < n; i++) {
-			for (int j : g.idx[i]) {
-				expected[i].push_back(g.to[j]);
+			for (auto [j, rev] : g.adj[i]) {
+				expected[i].push_back(j);
 			}
 			sort(all(expected[i]));
 		}
