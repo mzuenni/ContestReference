@@ -23,14 +23,13 @@ ll windingNumber(pt p, const vector<pt>& poly) {
 	return res;
 }
 
-// Testet, ob ein Punkt im Polygon liegt (beliebige Polygone).
-// Ändere Zeile 32 falls rand zählt, poly[0] == poly.back()
+// check if point is inside polygon (any polygon)
 bool inside(pt p, const vector<pt>& poly) {
 	bool in = false;
 	for (int i = 0; i + 1 < sz(poly); i++) {
 		pt a = poly[i], b = poly[i + 1];
-		if (pointOnSegment(a, b, p)) return false;
-		if (real(a) > real(b)) swap(a,b);
+		if (pointOnSegment(a, b, p)) return false; // border counts?
+		if (real(a) > real(b)) swap(a, b);
 		if (real(a) <= real(p) && real(p) < real(b) &&
 		    cross(p, a, b) < 0) {
 			in ^= 1;
