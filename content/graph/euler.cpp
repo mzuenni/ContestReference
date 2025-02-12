@@ -1,4 +1,4 @@
-vector<vector<pair<int, int>>> adj;
+vector<vector<pair<int, int>>> adj; // gets destroyed!
 vector<int> cycle;
 
 void addEdge(int u, int v) {
@@ -10,7 +10,7 @@ void euler(int v) {
 	while (!adj[v].empty()) {
 		auto [u, rev] = adj[v].back();
 		adj[v].pop_back();
-		if (u == -1) continue; // remove for directed
+		if (u < 0) continue; // remove for directed
 		adj[u][rev].first = -1; // remove for directed
 		euler(u);
 	}
