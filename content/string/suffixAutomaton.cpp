@@ -2,9 +2,10 @@ constexpr int ALPHABET_SIZE = 26;
 constexpr char OFFSET = 'a';
 struct SuffixAutomaton {
 	struct State {
-		int len, link = -1;
+		int len, firstPos, link = -1;
+		bool clone = false;
 		array<int, ALPHABET_SIZE> nxt; // map if large Alphabet
-		State(int l) : len(l) {fill(all(nxt), -1);}
+		State(int l) : len(l), firstPos(l) {fill(all(nxt), -1);}
 	};
 
 	vector<State> st = {State(0)};
@@ -29,9 +30,9 @@ struct SuffixAutomaton {
 			if (st[p].len + 1 == st[q].len) {
 				st[cur].link = q;
 			} else {
-				st.emplace_back(st[p].len + 1);
-				st.back().link = st[q].link;
-				st.back().nxt = st[q].nxt;
+				st.emplace_back(st[q]);
+				st.back().len = st[p].len + 1;
+				st.back().clone = true;
 				for (; p != -1 && st[p].nxt[c] == q; p = st[p].link) {
 					st[p].nxt[c] = sz(st) - 1;
 				}
