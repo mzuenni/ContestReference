@@ -248,14 +248,6 @@
 	Suche gleichzeitig von links und rechts nach Pivot, um Worst Case von
 	$\runtime{n^2}$ zu $\runtime{n\log n}$ zu verbessern.
 	
-	\item \textbf{\textsc{Mo}'s Algorithm:}
-	SQRT-Decomposition auf $n$ Intervall Queries $[l,r]$.
-	Gruppiere Queries in $\sqrt{n}$ Blöcke nach linker Grenze $l$.
-	Sortiere nach Block und bei gleichem Block nach rechter Grenze $r$.
-	Beantworte Queries offline durch schrittweise Vergrößern/Verkleinern des aktuellen Intervalls.
-	Laufzeit:~\runtime{n\cdot\sqrt{n}}.
-	(Anzahl der Blöcke als Konstante in Code schreiben.)
-	
 	\item \textbf{SQRT Techniques:}
 	\begin{itemize}
 		\item Aufteilen in \emph{leichte} (wert $\leq\sqrt{x}$) und \emph{schwere} (höchsten $\sqrt{x}$ viele) Objekte.
