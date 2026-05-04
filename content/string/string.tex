@@ -23,11 +23,11 @@
 	Gegeben zwei strings $A$ und $B$,$B$ enthält $k$ \emph{wildcards} enthält. Sei:
 	\begin{align*}
 		a_i&=\cos(\alpha_i) + i\sin(\alpha_i) &\text{ mit } \alpha_i&=\frac{2\pi A[i]}{\Sigma}\\
-		b_i&=\cos(\beta_i) + i\sin(\beta_i) &\text{ mit } \beta_i&=\begin{cases*}
-			\frac{2\pi B[\abs{B}-i-1]}{\Sigma} & falls $B[\abs{B}-i-1]\in\Sigma$ \\
+		b_i&=\begin{cases*}
+			\cos(\beta_i) - i\sin(\beta_i) & falls $B[\abs{B}-i-1]\in\Sigma$ \\
 			0 & sonst
-		\end{cases*}
-	\end{align*}
+		\end{cases*}&\text{ mit } \beta_i&=\frac{2\pi B[\abs{B}-i-1]}{\Sigma}
+	\end{align*} 
 	$B$ matcht $A$ an stelle $i$ wenn $(b\cdot a)[|B|-1+i]=|B|-k$.
 	Benutze FFT um $(b\cdot a)$ zu berechnen.
 \end{algorithm}
