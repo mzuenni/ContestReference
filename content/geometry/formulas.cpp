@@ -24,7 +24,7 @@ auto cross(pt p, pt a, pt b) {return cross(a - p, b - p);}
 //  1 => c links von a->b
 //  0 => a, b und c kolliniear
 // -1 => c rechts von a->b
-int ccw(pt a, pt b, pt c) {
+ll ccw(pt a, pt b, pt c) {
 	auto orien = cross(b - a, c - a);
 	return (orien > EPS) - (orien < -EPS);
 }
