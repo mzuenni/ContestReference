@@ -44,10 +44,10 @@ ll stoer_wagner() {
 			state.push_back({cur, c});
 		}
 		int t = state.back().second;
-		state.pop_back();
+		state.pop_back(); //cut between comp(t) and everything else
 		if (state.empty()) return 0; //graph is not connected?!
-		merge(state.back().second, t);
 		res = min(res, state.back().first);
+		merge(state.back().second, t);
 	}
 	return res;
 }
