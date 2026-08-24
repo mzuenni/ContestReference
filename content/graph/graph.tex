@@ -232,7 +232,7 @@ Sei $a_{ij}$ die Adjazenzmatrix von $G$ \textcolor{gray}{(mit $a_{ii} = 1$)}, da
 
 \begin{algorithm}{Min-Cost-Max-Flow}
 	\begin{methods}
-		\method{mincostflow}{berechnet Fluss}{\abs{V}^2\cdot\abs{E}^2}
+		\method{mincostflow}{berechnet Fluss}{F\cdot\abs{V}\cdot\abs{E}}
 	\end{methods}
 	\sourcecode{graph/minCostMaxFlow.cpp}
 \end{algorithm}
@@ -241,7 +241,7 @@ Sei $a_{ij}$ die Adjazenzmatrix von $G$ \textcolor{gray}{(mit $a_{ii} = 1$)}, da
 
 \subsubsection{Dinic's Algorithm mit Capacity Scaling}
 \begin{methods}
-	\method{maxFlow}{doppelt so schnell wie Ford Fulkerson}{\abs{V}^2\cdot\abs{E}}
+	\method{maxFlow}{doppelt so schnell wie Ford Fulkerson}{min(\abs{V}^2\cdot\abs{E}, F\cdot\abs{E})}
 	\method{addEdge}{fügt eine \textbf{gerichtete} Kante ein}{1}
 \end{methods}
 \sourcecode{graph/dinicScaling.cpp}
