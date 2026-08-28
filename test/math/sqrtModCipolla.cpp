@@ -10,7 +10,7 @@ void stress_test(ll range) {
 		ll p = Random::prime<ll>(range);
 		for (ll j = 0; j < 100; j++) {
 			ll x = Random::integer<ll>(0, p);
-			if (legendre(x, p) < 0) continue;
+			if (legendreS(x, p) < 0) continue;
 
 			ll got = sqrtMod(x, p);
 			if (got < 0 || got >= p) cerr << "error: out of range" << FAIL;
@@ -30,7 +30,7 @@ void performance_test() {
 		ll x;
 		do {
 			x = Random::integer<ll>(0, mod);
-		} while (legendre(x, mod) >= 0);
+		} while (legendreS(x, mod) >= 0);
 		t.start();
 		hash += sqrtMod(x, mod);
 		t.stop();

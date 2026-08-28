@@ -11,7 +11,7 @@ void stress_test() {
 		vector<bool> isSquare(p);
 		for (ll j = 1; j < p; j++) isSquare[(j*j) % p] = true;
 		for (ll j = 0; j < p; j++) {			
-			auto got = legendre(j, p);
+			auto got = legendreS(j, p);
 			auto expected = j == 0 ? 0 : (isSquare[j] ? 1 : -1);
 			if (got != expected) cerr << "error: " << j << " " << p << FAIL;
 		}
@@ -28,7 +28,7 @@ void performance_test() {
 	for (int operations = 0; operations < N; operations++) {
 		ll j = Random::integer<ll>(mod);
 		t.start();
-		hash += legendre(j, mod);
+		hash += legendreS(j, mod);
 		t.stop();
 	}
 	if (t.time > 750) cerr << "too slow: " << t.time << FAIL;
