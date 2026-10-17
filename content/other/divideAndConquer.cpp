@@ -7,7 +7,7 @@ void rec(int i, int j0, int j1, int m0, int m1) {
 
 	dp[i][jmid] = INF;
 	int bestk = m0;
-	for (int k = m0; k < min(jmid, m1 + 1); ++k) {
+	for (int k = m0; k < min(jmid, m1 + 1); k++) {
 		if (dp[i - 1][k] + C[k + 1][jmid] < dp[i][jmid]) {
 			dp[i][jmid] = dp[i - 1][k] + C[k + 1][jmid];
 			bestk = k;

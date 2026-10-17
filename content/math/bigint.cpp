@@ -22,7 +22,7 @@ struct bigint {
 	bigint operator+(const bigint& v) const {
 		if (sign == v.sign) {
 			bigint res = v;
-			for (ll i = 0, carry = 0; i < max(sz(a), sz(v.a)) || carry; ++i) {
+			for (ll i = 0, carry = 0; i < max(sz(a), sz(v.a)) || carry; i++) {
 				if (i == sz(res.a))
 					res.a.push_back(0);
 				res.a[i] += carry + (i < sz(a) ? a[i] : 0);
@@ -39,7 +39,7 @@ struct bigint {
 		if (sign == v.sign) {
 			if (abs() >= v.abs()) {
 				bigint res = *this;
-				for (ll i = 0, carry = 0; i < sz(v.a) || carry; ++i) {
+				for (ll i = 0, carry = 0; i < sz(v.a) || carry; i++) {
 					res.a[i] -= carry + (i < sz(v.a) ? v.a[i] : 0);
 					carry = res.a[i] < 0;
 					if (carry) res.a[i] += base;
@@ -54,7 +54,7 @@ struct bigint {
 
 	void operator*=(ll v) {
 		if (v < 0) sign = -sign, v = -v;
-		for (ll i = 0, carry = 0; i < sz(a) || carry; ++i) {
+		for (ll i = 0, carry = 0; i < sz(a) || carry; i++) {
 			if (i == sz(a)) a.push_back(0);
 			ll cur = a[i] * v + carry;
 			carry = cur / base;
@@ -82,7 +82,7 @@ struct bigint {
 			ll s2 = sz(r.a) <= sz(b.a) - 1 ? 0 : r.a[sz(b.a) - 1];
 			ll d = (base * s1 + s2) / b.a.back();
 			r -= b * d;
-			while (r < 0) r += b, --d;
+			while (r < 0) r += b, d--;
 			q.a[i] = d;
 		}
 		q.sign = a1.sign * b1.sign;
@@ -102,7 +102,7 @@ struct bigint {
 
 	void operator/=(ll v) {
 		if (v < 0) sign = -sign, v = -v;
-		for (ll i = sz(a) - 1, rem = 0; i >= 0; --i) {
+		for (ll i = sz(a) - 1, rem = 0; i >= 0; i--) {
 			ll cur = a[i] + rem * base;
 			a[i] = cur / v;
 			rem = cur % v;
@@ -119,7 +119,7 @@ struct bigint {
 	ll operator%(ll v) const {
 		if (v < 0) v = -v;
 		ll m = 0;
-		for (ll i = sz(a) - 1; i >= 0; --i)
+		for (ll i = sz(a) - 1; i >= 0; i--)
 			m = (a[i] + m * base) % v;
 		return m * sign;
 	}
@@ -197,7 +197,7 @@ struct bigint {
 		ll pos = 0;
 		while (pos < sz(s) && (s[pos] == '-' || s[pos] == '+')) {
 			if (s[pos] == '-') sign = -sign;
-			++pos;
+			pos++;
 		}
 		for (ll i = sz(s) - 1; i >= pos; i -= base_digits) {
 			ll x = 0;
@@ -218,7 +218,7 @@ struct bigint {
 	friend ostream& operator<<(ostream& stream, const bigint& v) {
 		if (v.sign == -1) stream << '-';
 		stream << (v.a.empty() ? 0 : v.a.back());
-		for (ll i = sz(v.a) - 2; i >= 0; --i)
+		for (ll i = sz(v.a) - 2; i >= 0; i--)
 			stream << setw(base_digits) << setfill('0') << v.a[i];
 		return stream;
 	}
